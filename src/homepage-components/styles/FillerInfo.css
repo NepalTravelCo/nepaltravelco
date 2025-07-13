@@ -1,11 +1,11 @@
 #filler-info-body{
+    padding: var(--padding);
     background-color: var(--background-color);
 }
 
 .filler-info-container{
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
-    padding: 5rem 0;
 
 }
 #filler-kathmandu {
@@ -59,7 +59,7 @@
   font-size: 0.95rem;
   font-family: var(--text-font);
   margin-bottom: 1rem;
-  color: #f8f9fa;
+  color: var(--overlay-color);
 }
 
 .filler-text .btn {
@@ -67,6 +67,7 @@
   background-color: var(--overlay-color) !important;
   color: var(--primary-color);
   font-weight: 600;
+  margin-top: 0.5rem;
   padding: 0.5rem 1rem;
   border: none;
   transition: 0.3s ease;
