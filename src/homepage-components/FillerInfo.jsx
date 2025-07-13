@@ -10,7 +10,7 @@ const FillerInfo = () => {
       <div className="d-flex flex-wrap align-items-center filler-wrapper">
         <div
           className="filler-img"
-          style={{ backgroundImage: "url('https://i.pinimg.com/1200x/2f/2e/68/2f2e68e7b71929dcd1d838a8f5fb27a5.jpg')" }}
+          style={{ backgroundImage: "url('https://images.pexels.com/photos/2104882/pexels-photo-2104882.jpeg')" }}
         ></div>
         <div className="filler-text text-white">
           <h2 className="filler-title">Explore The Valley</h2>
