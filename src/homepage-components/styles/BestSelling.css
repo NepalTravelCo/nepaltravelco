@@ -69,16 +69,20 @@ font-style: italic;
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
   cursor: pointer;
-  background: white;
+  will-change: transform;
 }
 
 .travel-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-12px) scale(1.04);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.05) contrast(1.02);
 }
+
+
 
 .card-image-container {
   position: relative;
@@ -224,9 +228,11 @@ font-family: var(--heading-font);
   transition: transform 0.3s ease;
 }
 
-.travel-card:hover .card-title {
-  transform: translateY(-2px);
+
+.travel-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+
 
 
 /* Responsive Design */
