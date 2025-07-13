@@ -263,22 +263,7 @@ const Navigation = () => {
               </div>
             </li>
 
-            {/* Culture, Arts & Heritage */}
-            <li className="nav-item mx-3">
-              <a
-                id="culture-link"
-                className="nav-link fw-semibold"
-                href="#"
-                style={{
-                  color: isScrolled ? "var(--text-color)" : "white",
-                  textShadow: isScrolled ? "none" : "1px 1px 2px rgba(0,0,0,0.7)",
-                  fontSize: "1.1rem",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                Culture & Heritage
-              </a>
-            </li>
+            
 
             {/* Plan Your Trip Dropdown */}
             <li className="nav-item dropdown position-static mx-3">
@@ -361,6 +346,23 @@ const Navigation = () => {
                   </div>
                 </div>
               </div>
+            </li>
+
+            {/* Culture, Arts & Heritage */}
+            <li className="nav-item mx-3">
+              <a
+                id="culture-link"
+                className="nav-link fw-semibold"
+                href="#"
+                style={{
+                  color: isScrolled ? "var(--text-color)" : "white",
+                  textShadow: isScrolled ? "none" : "1px 1px 2px rgba(0,0,0,0.7)",
+                  fontSize: "1.1rem",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                Culture & Heritage
+              </a>
             </li>
 
             {/* Contact Us */}
