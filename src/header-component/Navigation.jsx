@@ -387,24 +387,34 @@ const Navigation = () => {
       <style jsx>{`
         /* Navbar hover background effects */
         #main-navbar:hover{
-          background-color: rgb(255, 255, 255) !important;
+          
+          background-color: #fff !important;
           
         }
       
         #main-navbar:hover .nav-link{
-          color: #666 !important;
-          font-weight: 600 !important;
+          text-shadow: none !important;
+          color: var(--text-color) !important;
+          
         }
+
+
+        #main-navbar:hover #navbar-brand{
+          text-shadow: none !important;
+          color: var(--primary-color) !important;
+          
+        }
+
         .nav-item {
-          border-radius: 8px;
+          
           transition: all 0.3s ease;
         }
 
         
 
         .nav-link {
+          font-family: var(--heading-font) !important;
           padding: 0.75rem 1rem !important;
-          border-radius: 8px !important;
           transition: all 0.3s ease !important;
         }
 
