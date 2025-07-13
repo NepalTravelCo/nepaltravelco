@@ -1,0 +1,17 @@
+.hero-title {
+  font-family: var(--heading-font);
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: 6rem;
+  font-weight: 400;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  font-family: var(--text-font);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 300;
+  margin-top: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
