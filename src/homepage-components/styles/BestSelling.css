@@ -128,61 +128,43 @@ font-style: italic;
   transition: transform 0.3s ease;
 }
 
+.popular-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #258D70;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  z-index: 3;
+  transition: transform 0.3s ease;
+}
+
+.trending-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--accent-color);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  z-index: 3;
+  transition: transform 0.3s ease;
+}
+
+
 .travel-card:hover .popular-badge {
   transform: scale(1.05);
 }
 
-/* Rating Container */
-.rating-container {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 3;
-}
 
-.rating-text {
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
 
-.stars {
-  display: flex;
-  gap: 2px;
-}
-
-.star {
-  font-size: 16px;
-  transition: transform 0.2s ease;
-}
-
-.star.filled {
-  color: #fbbf24;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-.star.empty {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.travel-card:hover .star.filled {
-  transform: scale(1.1);
-  animation: starGlow 0.6s ease-in-out;
-}
-
-@keyframes starGlow {
-  0%,
-  100% {
-    transform: scale(1.1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-}
 
 /* Card Content */
 .card-content {

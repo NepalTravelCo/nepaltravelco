@@ -18,7 +18,8 @@ function BestSelling() {
       location: "Lomanthang, Mustang",
       title: "Bike Ride To Upper Mustang",
       rating: "4/5",
-      popular: true,
+      popular: false,
+      trending: true,
     },
     {
       id: 3,
@@ -27,7 +28,8 @@ function BestSelling() {
       location: "Sauraha, Chitwan",
       title: "Safari Escape To Chitwan",
       rating: "4/5",
-      popular: true,
+      popular: false,
+      trending: true,
     },
     {
       id: 4,
@@ -39,20 +41,6 @@ function BestSelling() {
       popular: true,
     },
   ]
-
-  const renderStars = (rating) => {
-    const stars = []
-    const numStars = Number.parseInt(rating.split("/")[0])
-
-    for (let i = 0; i < 5; i++) {
-      stars.push(
-        <span key={i} className={`star ${i < numStars ? "filled" : "empty"}`}>
-          ★
-        </span>,
-      )
-    }
-    return stars
-  }
 
   return (
     <div className="main-best-selling">
@@ -81,12 +69,9 @@ Discover Nepal’s best with handpicked journeys—scenic, cultural, and thought
 
                 {/* Popular Badge */}
                 {card.popular && <div className="popular-badge">POPULAR</div>}
+              {card.trending && <div className="trending-badge">TRENDING</div>}
 
-                {/* Rating */}
-                <div className="rating-container">
-                  <span className="rating-text">{card.rating}</span>
-                  <div className="stars">{renderStars(card.rating)}</div>
-                </div>
+               
 
                 {/* Content */}
                 <div className="card-content">
