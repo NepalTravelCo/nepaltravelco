@@ -33,7 +33,7 @@ font-style: italic;
   color: var(--text-color);
   margin: 0 0 8px 0;
   font-weight: 400;
-  letter-spacing: 0.5px;
+  letter-spacing: 2%;
 }
 
 .section-title {
@@ -41,18 +41,17 @@ font-style: italic;
   font-size: 50px;
   font-weight: 700;
   color: var(--primary-color);
-  margin: 0 0 10px 0;
   letter-spacing:2%;
-  line-height: 1.1;
+  line-height: 1.5;
 }
 
 .section-description {
      font-family: var(--text-font);
   font-size: 18px;
   color: var(--text-muted);
-
   margin: 0 auto;
   font-weight: 400;
+    line-height: 1.5;
 }
 
 /* Travel Cards Container */
