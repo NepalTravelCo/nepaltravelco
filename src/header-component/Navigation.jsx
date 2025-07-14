@@ -361,7 +361,8 @@ const Navigation = () => {
                   transition: "all 0.3s ease",
                 }}
               >
-                Contact Us
+                 {/* <img src="/Images/chat.png" alt="Contact Us" style={{ width: "2rem", marginRight: "0.5rem" }} /> */}
+                <i className="fa-solid fa-phone" id="nav-contact"/>
               </a>
             </li>
           </ul>
@@ -403,6 +404,10 @@ const Navigation = () => {
           transition: all 0.3s ease !important;
         }
 
+        #nav-contact{
+          font-size: 1.5rem !important;
+          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12) !important;
+        }
         
 
         /* Finland-style Mega Menu */
