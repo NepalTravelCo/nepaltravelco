@@ -50,6 +50,7 @@
 
 .filler-title {
   font-family: var(--heading-font);
+  color: var(--overlay-color);
   font-size: 1.5rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -76,7 +77,7 @@
 
 .filler-text .btn:hover {
   background-color: var(--accent-color) !important;
-  color: white;
+  color: var(--overlay-color);
 
 }
 
