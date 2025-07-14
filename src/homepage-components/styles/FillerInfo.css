@@ -37,9 +37,10 @@
   top: 50%;
   transform: translateY(-50%); /* Vertically center */
   background-color: var(--primary-color);
+
   padding: 1.5rem;
   width: 500px;
-  height: 250px; /* Reduced height */
+  height: 220px; /* Reduced height */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,15 +51,17 @@
 
 .filler-title {
   font-family: var(--heading-font);
+
   color: var(--overlay-color);
   font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
 .filler-desc {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-family: var(--text-font);
   margin-bottom: 1rem;
   color: var(--overlay-color);
