@@ -28,6 +28,7 @@
 .faq-section {
   padding: var(--padding);
   background: linear-gradient(135deg, #fafafa 0%, #f8fffe 100%);
+  background: var(--background-light);
   position: relative;
 }
 
