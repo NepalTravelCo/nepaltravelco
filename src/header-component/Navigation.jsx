@@ -361,7 +361,7 @@ const Navigation = () => {
                   transition: "all 0.3s ease",
                 }}
               >
-                 {/* <img src="/Images/chat.png" alt="Contact Us" style={{ width: "2rem", marginRight: "0.5rem" }} /> */}
+                
                 <i className="fa-solid fa-phone" id="nav-contact"/>
               </a>
             </li>
@@ -394,7 +394,9 @@ const Navigation = () => {
         .nav-item {
           
           transition: all 0.3s ease;
+          text-decoration: none !important;
         }
+
 
         
 
