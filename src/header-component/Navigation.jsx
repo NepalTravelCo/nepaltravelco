@@ -361,8 +361,8 @@ const Navigation = () => {
                   transition: "all 0.3s ease",
                 }}
               >
-                
-                <i className="fa-solid fa-phone" id="nav-contact"/>
+                Contact Us
+                {/* <i className="fa-solid fa-phone" id="nav-contact"/> */}
               </a>
             </li>
           </ul>
@@ -374,7 +374,7 @@ const Navigation = () => {
         /* Navbar hover background effects */
         #main-navbar:hover{
           
-          background-color: #fff !important;
+          background-color: #fafafa !important;
           
         }
       
@@ -384,6 +384,7 @@ const Navigation = () => {
           
         }
 
+        
 
         #main-navbar:hover #navbar-brand{
           text-shadow: none !important;
@@ -411,7 +412,6 @@ const Navigation = () => {
           box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12) !important;
         }
         
-
         /* Finland-style Mega Menu */
         .finland-style-menu {
           position: absolute !important;
