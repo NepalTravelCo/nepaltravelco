@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -173,7 +171,7 @@ const Navigation = () => {
                     <div className="col-lg-7 col-md-6 menu-featured-section">
                       <div className="featured-content">
                         <div className="featured-image">
-                          <img src="/placeholder.svg?height=300&width=500" alt="Himalayan Trek" />
+                          <img src="https://i.pinimg.com/1200x/ed/88/9e/ed889e427302a442d8978df9611941d4.jpg?" alt="Himalayan Trek" />
                         </div>
                         <div className="featured-text">
                           <h6>Featured: Nepal – Land of the Himalayas</h6>
@@ -348,22 +346,7 @@ const Navigation = () => {
               </div>
             </li>
 
-            {/* Culture, Arts & Heritage */}
-            <li className="nav-item mx-3">
-              <a
-                id="culture-link"
-                className="nav-link fw-semibold"
-                href="#"
-                style={{
-                  color: isScrolled ? "var(--text-color)" : "white",
-                  textShadow: isScrolled ? "none" : "1px 1px 2px rgba(0,0,0,0.7)",
-                  fontSize: "1.1rem",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                Culture & Heritage
-              </a>
-            </li>
+
 
             {/* Contact Us */}
             <li className="nav-item mx-3">
