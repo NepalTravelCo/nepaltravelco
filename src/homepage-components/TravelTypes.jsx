@@ -11,7 +11,7 @@ function TravelTypes() {
     {
       id: 0,
       name: "ADVENTURE ACTIVITIES",
-      icon: "🧗‍♂️", // You can replace with any icon from the list below
+      icon: "🧗‍♂️",  // You can replace with any icon from the list below
       images: [
         {
           src: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -53,17 +53,17 @@ function TravelTypes() {
       icon: "🏔️", // Alternative: 🥾, 🌲, ⛰️, 🏕️
       images: [
         {
-          src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://www.intrepidtravel.com/adventures/wp-content/uploads/2018/05/Hiker-800.jpg",
           title: "Annapurna Circuit",
           description: "Classic trek through diverse landscapes and traditional mountain cultures",
         },
         {
-          src: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxgdwaHYrH6NCPJWJ1bIk1FqGirSCYCeDoSg&s",
           title: "Langtang Valley Trek",
           description: "Explore pristine valleys and encounter authentic Himalayan communities",
         },
         {
-          src: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://www.frolicadventure.com/uploads/img/gokyo-lakes-trek.jpg",
           title: "Gokyo Lakes Trek",
           description: "Discover turquoise alpine lakes beneath towering snow-capped peaks",
         },
@@ -75,17 +75,17 @@ function TravelTypes() {
       icon: "🏛️", // Alternative: 🕉️, ☸️, 🏯, 🛕
       images: [
         {
-          src: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://www.atishahotel.com/wp-content/uploads/2024/05/Bouddhanath-Stupa-amazing-vieww.jpg",
           title: "Boudhanath Stupa",
           description: "Ancient Buddhist monument and spiritual center of Tibetan culture",
         },
         {
-          src: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://media.app.himalayantrekkingpath.com/uploads/fullbanner/darbar-square.webp",
           title: "Kathmandu Durbar Square",
           description: "Historic palace complex showcasing intricate Newari architecture",
         },
         {
-          src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/11/dc/b0/a4.jpg",
           title: "Pashupatinath Temple",
           description: "Sacred Hindu temple complex on the holy banks of Bagmati River",
         },
@@ -94,7 +94,7 @@ function TravelTypes() {
     {
       id: 4,
       name: "FESTIVALS & TRADITIONS",
-      icon: "🎭", // Alternative: 🎪, 🥁, 🎨, 🪔, 🎊
+      icon: "🪔", // Alternative: 🎪, 🥁, 🎨, 🪔, 🎊
       images: [
         {
           src: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
