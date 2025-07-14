@@ -43,6 +43,47 @@ function FAQ() {
     setActiveIndex(activeIndex === index ? null : index)
   }
 
+  // Split questions into left and right columns
+  const leftQuestions = faqData.filter((_, index) => index % 2 === 0)
+  const rightQuestions = faqData.filter((_, index) => index % 2 === 1)
+
+  const renderFAQColumn = (questions, startIndex) => (
+    <div className="faq-column">
+      {questions.map((faq, index) => {
+        const actualIndex = startIndex === 0 ? index * 2 : index * 2 + 1
+        return (
+          <div key={actualIndex} className={`faq-item ${activeIndex === actualIndex ? "active" : ""}`}>
+            <div className="faq-question" onClick={() => toggleFAQ(actualIndex)}>
+              <h3>{faq.question}</h3>
+              <div className="faq-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className={`chevron ${activeIndex === actualIndex ? "rotated" : ""}`}
+                >
+                  <path
+                    d="M6 9L12 15L18 9"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div className={`faq-answer ${activeIndex === actualIndex ? "expanded" : ""}`}>
+              <div className="faq-answer-content">
+                <p>{faq.answer}</p>
+              </div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+
   return (
     <section className="faq-section">
       <div className="faq-container">
@@ -52,46 +93,10 @@ function FAQ() {
           <h2 className="faq-title">FREQUENTLY ASKED QUESTIONS</h2>
         </div>
 
-        {/* FAQ List */}
-        <div className="faq-list">
-          {faqData.map((faq, index) => (
-            <div key={index} className={`faq-item ${activeIndex === index ? "active" : ""}`}>
-              <div className="faq-question" onClick={() => toggleFAQ(index)}>
-                <h3>{faq.question}</h3>
-                <div className="faq-icon">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className={`chevron ${activeIndex === index ? "rotated" : ""}`}
-                  >
-                    <path
-                      d="M6 9L12 15L18 9"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div className={`faq-answer ${activeIndex === index ? "expanded" : ""}`}>
-                <div className="faq-answer-content">
-                  <p>{faq.answer}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Reach Us Section */}
-        <div className="reach-us-section">
-          <div className="reach-us-content">
-            <h3 className="reach-us-title">Still have questions?</h3>
-            <p className="reach-us-description">Get in touch with our travel experts</p>
-            <button className="contact-btn">CONTACT US</button>
-          </div>
+        {/* FAQ Grid */}
+        <div className="faq-grid">
+          {renderFAQColumn(leftQuestions, 0)}
+          {renderFAQColumn(rightQuestions, 1)}
         </div>
       </div>
     </section>

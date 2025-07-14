@@ -1,0 +1,148 @@
+:root {
+  --primary-color: #004047;
+  --primary-light: #006b75;
+  --primary-dark: #002a2e;
+  --text-color: #333;
+  --text-muted: #666;
+  --text-font: "Nunito", sans-serif;
+  --heading-font: "Quicksand", sans-serif;
+}
+
+/* Reach Us Section */
+.reach-us-section {
+  text-align: center;
+  padding: 4rem 0;
+  position: relative;
+  background: linear-gradient(135deg, #fafafa 0%, #f8fffe 100%);
+}
+
+.reach-us-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  opacity: 0.3;
+}
+
+.reach-us-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.reach-us-content {
+  max-width: 500px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.reach-us-title {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.01em;
+}
+
+.reach-us-description {
+  font-family: var(--text-font);
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0 0 2rem 0;
+  line-height: 1.5;
+}
+
+.contact-btn {
+  font-family: var(--heading-font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 1rem 3rem;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 20px rgba(0, 64, 71, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.contact-btn:hover::before {
+  left: 100%;
+}
+
+.contact-btn:hover {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 64, 71, 0.3);
+}
+
+.contact-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .reach-us-section {
+    padding: 3rem 0;
+  }
+
+  .reach-us-container {
+    padding: 0 15px;
+  }
+
+  .reach-us-title {
+    font-size: 1.25rem;
+  }
+
+  .contact-btn {
+    padding: 0.875rem 2.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .reach-us-section {
+    padding: 2.5rem 0;
+  }
+
+  .contact-btn {
+    padding: 0.75rem 2rem;
+    font-size: 0.8rem;
+  }
+
+  .reach-us-description {
+    font-size: 0.95rem;
+  }
+}
+
+/* Focus styles for accessibility */
+.contact-btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Performance optimizations */
+.contact-btn {
+  will-change: transform;
+  backface-visibility: hidden;
+}
