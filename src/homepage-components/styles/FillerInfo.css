@@ -56,6 +56,7 @@
   font-size: 1.5rem;
   font-size: 1.25rem;
   font-weight: 700;
+  letter-spacing: var(--letter-spacing);
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }

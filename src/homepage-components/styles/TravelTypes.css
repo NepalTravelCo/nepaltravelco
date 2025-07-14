@@ -22,7 +22,7 @@
 
 
 .travel-types-container {
-  /* max-width: 1200px; */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
@@ -259,7 +259,7 @@
   height: 44px;
   border-radius: 30px;
   border: 2px solid var(--primary-color);
-  background: white;
+  background: var(--overlay-color);;
   color: var(--primary-color);
   display: flex;
   align-items: center;
@@ -270,8 +270,9 @@
 }
 
 .nav-btn:hover {
-  background: var(--primary-color);
-  color: white;
+  border: var(--accent-color) 2px solid;
+  background: var(--accent-color);
+  color: var(--overlay-color);
   transform: scale(1.05);
   box-shadow: 0 6px 16px rgba(0, 64, 71, 0.2);
 }

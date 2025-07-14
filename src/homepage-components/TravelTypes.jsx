@@ -10,7 +10,7 @@ function TravelTypes() {
   const categories = [
     {
       id: 0,
-      name: "ADVENTURE ACTIVITIES",
+      name: "ADVENTURE THRILLS",
       icon: "🧗‍♂️",  // You can replace with any icon from the list below
       images: [
         {
