@@ -1,6 +1,6 @@
 :root {
   /* Background Image Path */
-  --footer-bg-image: url("Images/Footer/footer.jpg") ;
+  --footer-bg-image: url("Images/Footer/footer.jpg");
 }
 
 .footer-section {
@@ -8,7 +8,7 @@
   min-height: 650px;
   display: flex;
   flex-direction: column;
-  background-image: var(--footer-bg-image);
+  background-image: var(--footer-bg-image) !important;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
