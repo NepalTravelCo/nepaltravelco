@@ -67,7 +67,7 @@
 
 .main-title {
   font-size: var(--heading-size);
-  color: var(--overlay-color);
+  color: var(--overlay-color) !important;
   font-weight: var(--heading-weight);
   line-height: var(--line-height);
   font-family: var(--heading-font);

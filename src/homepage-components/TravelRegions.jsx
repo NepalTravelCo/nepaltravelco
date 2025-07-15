@@ -77,7 +77,7 @@ const TravelRegions = () => {
         {/* Left Panel - Content */}
         <div className="content-panel">
           <div className="content-wrapper">
-            <div className="region-label">Regions in Nepal</div>
+            {/* <div className="region-label">Regions in Nepal</div> */}
 
             <h1 className="main-title">{slide.type === "overview" ? slide.subtitle : slide.title}</h1>
 
