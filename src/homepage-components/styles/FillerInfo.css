@@ -52,7 +52,7 @@
 .filler-title {
   font-family: var(--heading-font);
   font-size: 1.5rem;
-  color: var(--accent-color);
+  color: var(--overlay-color);
   font-weight: 700;
   letter-spacing: var(--letter-spacing);
   text-transform: uppercase;
