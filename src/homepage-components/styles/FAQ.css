@@ -1,34 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --primary-color: #004047;
-  --primary-light: #006b75;
-  --primary-dark: #002a2e;
-  --accent-color: #d94f30;
-  --accent-light: #e67a5f;
-  --button-hover: #00636b;
-  --background-color: #fafafa;
-  --background-light: #f8fffe;
-  --text-color: #333;
-  --secondary-color: #2ecc71;
-  --text-muted: #666;
-  --text-light: #888;
-  --border-color: #e5e7eb;
-  --border-light: #f0f2f5;
-  --overlay-color: #f4f4f4;
-  --text-font: "Nunito", sans-serif;
-  --heading-font: "Quicksand", sans-serif;
-  --padding: 4rem 0;
-}
-
 .faq-section {
   padding: var(--padding);
-  background: linear-gradient(135deg, #fafafa 0%, #f8fffe 100%);
-  background: var(--background-light);
+  /* background: linear-gradient(135deg, #fafafa 0%, #f8fffe 100%); */
+  background: var(--background-colors);
   position: relative;
 }
 

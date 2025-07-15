@@ -28,8 +28,7 @@ function BestSelling() {
       location: "Sauraha, Chitwan",
       title: "Safari Escape To Chitwan",
       rating: "4/5",
-      popular: false,
-      trending: true,
+     
     },
     {
       id: 4,
@@ -67,9 +66,9 @@ Discover Nepal’s best with handpicked journeys—scenic, cultural, and thought
                 <img src={card.image || "/placeholder.svg"} alt={card.title} className="card-image" />
                 <div className="card-overlay"></div>
 
-                {/* Popular Badge */}
+                {/* Popular Badge
                 {card.popular && <div className="popular-badge">POPULAR</div>}
-              {card.trending && <div className="trending-badge">TRENDING</div>}
+              {card.trending && <div className="trending-badge">TRENDING</div>} */}
 
                
 
