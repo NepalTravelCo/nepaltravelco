@@ -16,7 +16,7 @@
 .main-title {
   font-size: var(--heading-size);
   font-family: var(--heading-font);
-  color: var(--heading-color);
+  color: var(--primary-color);
   font-weight: var(--heading-weight);
   letter-spacing: var(--letter-spacing);
   /* margin-bottom: 1rem; */
