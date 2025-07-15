@@ -1,6 +1,6 @@
 :root {
   /* Background Image Path */
-  --footer-bg-image: url("Images/Footer/footer.jpg");
+  --footer-bg-image: url("/Images/Footer/footer.jpg");
 }
 
 .footer-section {
