@@ -19,13 +19,13 @@
 
 
 .reach-us-container {
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .reach-us-content {
-  max-width: 500px;
+  /* max-width: 500px; */
   margin: 0 auto;
   padding-top: 1rem;
 }
@@ -36,6 +36,7 @@
   font-weight: 600;
   color: var(--primary-color);
   margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
   letter-spacing: -0.01em;
 }
 
