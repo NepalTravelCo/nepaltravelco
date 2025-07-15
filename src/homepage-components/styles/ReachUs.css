@@ -81,7 +81,7 @@
 }
 
 .contact-btn::after {
-  content: "→";
+ 
   position: absolute;
   right: -2rem;
   top: 50%;
