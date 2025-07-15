@@ -8,6 +8,7 @@ import TravelSeasons from './TravelSeasons'
 import BrandInfo from './BrandInfo'
 import FAQ from './FAQ'
 import ReachUs from './ReachUs'
+import BrandParallax from './BrandParallax'
 
 function Homepage() {
   return (
@@ -18,8 +19,9 @@ function Homepage() {
         <TravelTypes />
         <TravelRegions />
         <TravelSeasons />
+        <BrandParallax />
+         <FAQ />
         <BrandInfo />
-        <FAQ />
         <ReachUs/>
     </div>
   )
