@@ -12,13 +12,13 @@ const FillerInfo = () => {
           className="filler-img"
           style={{ backgroundImage: "url('https://images.pexels.com/photos/2104882/pexels-photo-2104882.jpeg')" }}
         ></div>
-        <div className="filler-text text-white">
+        <div className="filler-text">
           <h2 className="filler-title">Explore The Valley</h2>
           <p className="filler-desc">
             Discover the cultural heart of Nepal, bustling with ancient temples,
             royal palaces, vibrant local markets, and the spirit of Himalayan heritage.
           </p>
-          <a href="/explore-kathmandu" className="btn btn-light">
+          <a href="/explore-kathmandu" className="btn btn-light" id="explore-btn">
             Explore More
           </a>
         </div>
