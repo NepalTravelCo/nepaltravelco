@@ -89,8 +89,9 @@ function FAQ() {
       <div className="faq-container">
         {/* Header */}
         <div className="faq-header">
-          <p className="faq-subtitle">Got Questions? We Have Answers</p>
+          
           <h2 className="faq-title">FREQUENTLY ASKED QUESTIONS</h2>
+          <p className="faq-subtitle">Got Questions? We Have Answers</p>
         </div>
 
         {/* FAQ Grid */}
