@@ -19,14 +19,14 @@ function TravelTypes() {
           description: "Challenge yourself with the ultimate mountain adventure through breathtaking landscapes",
         },
         {
-          src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://i.pinimg.com/736x/c4/8c/a5/c48ca537f340ef1cbf6f744f6f29f524.jpg",
           title: "White Water Rafting",
           description: "Experience thrilling rapids in pristine mountain rivers with expert guides",
         },
         {
-          src: "https://images.unsplash.com/photo-1551524164-6cf2ac531fb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-          title: "Rock Climbing",
-          description: "Scale dramatic cliff faces and conquer vertical challenges safely",
+          src: "https://i.pinimg.com/1200x/b7/98/0a/b7980a3ec7ad2618b12eb1280131b5f1.jpg",
+          title: "Bungee",
+          description: "Scale dramatic drops and conquer vertical challenges safely",
         },
       ],
     },
@@ -36,14 +36,19 @@ function TravelTypes() {
       icon: "🚁", // Alternative: ✈️, 🛩️, 🪂
       images: [
         {
-          src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
           title: "Everest Mountain Flight",
           description: "Witness the world's highest peaks from above in luxury comfort",
         },
         {
-          src: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          src: "https://i.pinimg.com/736x/f8/40/69/f840694596a6a4b2842a489960f42226.jpg",
           title: "Annapurna Helicopter Tour",
           description: "Soar over the majestic Annapurna range with stunning aerial views",
+        },
+        {
+          src: "https://i.pinimg.com/1200x/56/03/8e/56038ed01cd337e0001d82392259ff22.jpg",
+          title: "Tilicho Lake Helicopter Tour",
+          description: "Fly to the Tilicho Lake with stunning views",
         },
       ],
     },
@@ -58,13 +63,13 @@ function TravelTypes() {
           description: "Classic trek through diverse landscapes and traditional mountain cultures",
         },
         {
-          src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxgdwaHYrH6NCPJWJ1bIk1FqGirSCYCeDoSg&s",
+          src: "https://i.pinimg.com/1200x/af/be/09/afbe09490d1b0fe08080205eaabf907a.jpg",
           title: "Langtang Valley Trek",
           description: "Explore pristine valleys and encounter authentic Himalayan communities",
         },
         {
-          src: "https://www.frolicadventure.com/uploads/img/gokyo-lakes-trek.jpg",
-          title: "Gokyo Lakes Trek",
+          src: "https://i.pinimg.com/1200x/9b/e9/fe/9be9fe0a7a869f7fa75c5928b0b8cb6d.jpg",
+          title: "Gokyo Lake Trek",
           description: "Discover turquoise alpine lakes beneath towering snow-capped peaks",
         },
       ],
@@ -97,14 +102,19 @@ function TravelTypes() {
       icon: "🪔", // Alternative: 🎪, 🥁, 🎨, 🪔, 🎊
       images: [
         {
-          src: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-          title: "Dashain Festival",
+          src: "https://i.pinimg.com/1200x/af/07/00/af07000df2711a6032369d41c92ea6f5.jpg",
+          title: "Dashain",
           description: "Nepal's biggest celebration of victory of good over evil with family gatherings",
         },
         {
-          src: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-          title: "Tihar Festival",
+          src: "https://i.pinimg.com/736x/aa/bb/dd/aabbdd2996ede2d29ad41153c25e2309.jpg",
+          title: "Tihar",
           description: "Festival of lights honoring animals, relationships and divine connections",
+        },
+        {
+          src: "https://i.pinimg.com/1200x/fc/6c/ff/fc6cffeb39d1669b73efcb9168c47ddc.jpg",
+          title: "Holi",
+          description: "Festival of colors celebrating victory over evil and the arrival of spring",
         },
       ],
     },
