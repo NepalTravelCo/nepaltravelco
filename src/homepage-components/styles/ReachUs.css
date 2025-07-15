@@ -13,8 +13,7 @@
   text-align: center;
   padding: 4rem 0;
   position: relative;
-  /* background: linear-gradient(135deg, #fafafa 0%, #f8fffe 100%); */
-   background: var(--background-color);
+  background-color: var(  --background-color);
 }
 
 
