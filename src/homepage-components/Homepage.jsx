@@ -21,8 +21,8 @@ function Homepage() {
         <TravelSeasons />
         <BrandParallax />
          <FAQ />
-        <BrandInfo />
         <ReachUs/>
+        <BrandInfo />
     </div>
   )
 }
