@@ -372,6 +372,11 @@ const Navigation = () => {
       {/* Custom CSS */}
       <style jsx>{`
         /* Navbar hover background effects */
+
+        #main-navbar {
+        box-shadow: isScrolled? 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        transition: all 0.3s ease !important;
+        }
         #main-navbar:hover{
           
           background-color: #fafafa !important;
