@@ -70,18 +70,20 @@
 
 .filler-text .btn {
   align-self: flex-start;
-  background-color: var(--overlay-color) !important;
-  color: var(--primary-color);
+  background: none !important;
+  color: var(--overlay-color);
   font-weight: 600;
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
-  border: none;
+  border: var(--overlay-color) 1px solid;
+  border-radius: 50px;
   transition: 0.3s ease;
 }
 
 .filler-text .btn:hover {
   background-color: var(--accent-color) !important;
   color: var(--overlay-color);
+  border: var(--accent-color) 1px solid !important;
 
 }
 

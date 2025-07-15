@@ -89,7 +89,7 @@ const TravelSeasons = () => {
     <section className="travel-seasons">
       <div className="header-section">
        
-        <h2 className="main-title">SEASONAL SPLENDOR</h2>
+        <h2 className="seasonal-main-title">SEASONAL SPLENDOR</h2>
         <p className="description">
           Nepal comes alive with traditions, rituals, and celebrations that welcome travelers with open arms.
         </p>
