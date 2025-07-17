@@ -20,11 +20,13 @@ function Homepage() {
         <TravelRegions />
         <TravelSeasons />
         <BrandParallax />
+           
          <FAQ />
-                <BrandInfo />
-        <ReachUs/>
- 
-       
+          <BrandInfo />
+
+        <ReachUs />
+
+
     </div>
   )
 }
