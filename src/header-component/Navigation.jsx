@@ -175,7 +175,7 @@ const Navigation = () => {
                         </div>
                         <div className="featured-text">
                           <h6>Featured: Nepal – Land of the Himalayas</h6>
-                          <button className="explore-btn">Explore</button>
+                          <button className="explore-btn">Explore Treks</button>
                         </div>
                       </div>
                     </div>
@@ -248,7 +248,7 @@ const Navigation = () => {
                     <div className="col-lg-7 col-md-6 menu-featured-section">
                       <div className="featured-content">
                         <div className="featured-image">
-                          <img src="/placeholder.svg?height=300&width=500" alt="Adventure Experience" />
+                          <img src="https://i.pinimg.com/736x/ba/aa/31/baaa31338e0f9e1df9e3079368ffbe46.jpg" alt="Adventure Experience" />
                         </div>
                         <div className="featured-text">
                           <h6>Featured: Ultimate Adventure Package</h6>
@@ -333,7 +333,7 @@ const Navigation = () => {
                     <div className="col-lg-7 col-md-6 menu-featured-section">
                       <div className="featured-content">
                         <div className="featured-image">
-                          <img src="/placeholder.svg?height=300&width=500" alt="Travel Planning" />
+                          <img src="https://i.pinimg.com/736x/62/be/16/62be1628d358998fa4d41a4d3b63adb1.jpg" alt="Travel Planning" />
                         </div>
                         <div className="featured-text">
                           <h6>Featured: Complete Travel Guide</h6>
