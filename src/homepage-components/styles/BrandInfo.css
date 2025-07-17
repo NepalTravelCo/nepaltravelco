@@ -8,7 +8,6 @@
 }
 
 .np-background-image {
-
   position: absolute;
   inset: 0;
   background-image: url(/Images/SVG/tortoise-shell.svg);
@@ -33,13 +32,10 @@
 }
 
 /* Content wrapper */
-
 .np-content-wrapper {
   position: relative;
   z-index: 10;
-
   width: 90%;
-
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -85,7 +81,6 @@
     font-size: 3.5rem;
   }
 }
-
 
 .np-button {
   font-family: var(--heading-font);
@@ -163,7 +158,7 @@
 .np-card.left {
   width: 225px;
   height: 400px;
-  transform: translateX(-10px) scale(0.9) rotate(-2deg); ;
+  transform: translateX(-10px) scale(0.9) rotate(-2deg);
   opacity: 0.8;
   z-index: 1;
 }
@@ -231,8 +226,6 @@
 .np-card:hover .np-card-image {
   transform: scale(1.03);
 }
-
-
 
 /* Overlay effects */
 .np-card-overlay {
@@ -354,43 +347,40 @@
   width: 1rem;
 }
 
-/* Arrow buttons */
-.np-arrow-button {
+.np-nav-left,
+.np-nav-right {
   position: absolute;
-  bottom: -1rem;
-  transform: translateY(50%);
-  background-color: transparent;
-  border: 2px solid var(--overlay-color) !important;
+  top: 100%;
+  transform: translateY(-50%);
+  z-index: 20;
+  gap: 0.5rem;
+}
+
+.np-nav-left {
+  left: 17rem;
+}
+
+.np-nav-right {
+  right: 17rem;
+}
+
+.np-nav-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
-  width: 2.5rem;
-  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: none;
-  transition: transform 0.2s ease, background 0.2s ease;
-  z-index: 4;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
 }
 
-.np-arrow-button:hover {
-  border: 2px solid var(--overlay-color) !important;
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(50%) scale(1.1);
-}
-
-.np-arrow-button.left {
-  left: 40%;
-}
-
-.np-arrow-button.right {
-  right: 40%;
-}
-
-.np-arrow-button svg {
-  width: 1.2rem;
-  height: 1.2rem;
-  color: #fff;
+.np-nav-button:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Responsive adjustments */

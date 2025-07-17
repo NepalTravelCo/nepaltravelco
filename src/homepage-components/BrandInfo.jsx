@@ -1,59 +1,5 @@
-
-
 import { useState, useEffect } from "react"
 import "./styles/BrandInfo.css"
-
-const ArrowRightIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M5 12h14" />
-    <path d="m12 5 7 7-7 7" />
-  </svg>
-)
-
-const ArrowLeftIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M19 12H5" />
-    <path d="m12 19-7-7 7-7" />
-  </svg>
-)
-
-const ExternalLinkIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M15 3h6v6" />
-    <path d="M10 14 21 3" />
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-  </svg>
-)
 
 const BrandInfo = () => {
   const [startIndex, setStartIndex] = useState(0)
@@ -104,8 +50,8 @@ const BrandInfo = () => {
     setIsTransitioning(true)
     setTimeout(() => {
       setStartIndex((prev) => (prev + 1) % nationalParks.length)
-      setTimeout(() => setIsTransitioning(false), 300) // Delay for card movement
-    }, 100) // Initial delay for button feedback
+      setTimeout(() => setIsTransitioning(false), 300)
+    }, 100)
   }
 
   const handlePrev = () => {
@@ -113,9 +59,18 @@ const BrandInfo = () => {
     setIsTransitioning(true)
     setTimeout(() => {
       setStartIndex((prev) => (prev - 1 + nationalParks.length) % nationalParks.length)
-      setTimeout(() => setIsTransitioning(false), 300) // Delay for card movement
-    }, 100) // Initial delay for button feedback
+      setTimeout(() => setIsTransitioning(false), 300)
+    }, 100)
   }
+
+  // Autoplay functionality
+  useEffect(() => {
+    const autoplayInterval = setInterval(() => {
+      handleNext()
+    }, 3000) // Change slide every 3 seconds
+
+    return () => clearInterval(autoplayInterval) // Cleanup on unmount
+  }, [isTransitioning])
 
   // Keyboard navigation
   useEffect(() => {
@@ -157,21 +112,29 @@ const BrandInfo = () => {
       <div className="np-content-wrapper">
         <div className="np-left-section">
           <h2 className="np-heading">National Parks of Nepal</h2>
-<a
-  className="np-button"
-  href="#"
-  role="button"
-  aria-label="View all national parks"
->
-  View All Parks
-  <span className="np-button-icon" aria-hidden="true">
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="9 18 15 12 9 6" />
-    </svg>
-  </span>
-</a>
-
+          <a
+            className="np-button"
+            href="#"
+            role="button"
+            aria-label="View all national parks"
+          >
+            View All Parks
+            <span className="np-button-icon" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </span>
+          </a>
         </div>
 
         <div className="np-right-section">
@@ -189,7 +152,6 @@ const BrandInfo = () => {
                     className="np-card-image"
                     loading="lazy"
                   />
-
                   <div className="np-card-overlay"></div>
                   <div className="np-card-title-overlay">
                     <h3 className="np-card-title">{park.name}</h3>
@@ -202,7 +164,22 @@ const BrandInfo = () => {
                       </div>
                       <p className="np-card-description">{park.description}</p>
                       <a href="#" className="np-view-offer-link" aria-label={`View details about ${park.name}`}>
-                        Explore Park <ExternalLinkIcon />
+                        Explore Park
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M15 3h6v6" />
+                          <path d="M10 14 21 3" />
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        </svg>
                       </a>
                     </div>
                   </div>
@@ -210,20 +187,36 @@ const BrandInfo = () => {
               </div>
             ))}
             <button
-              className="np-arrow-button left"
+              className="np-nav-button np-nav-left"
               onClick={handlePrev}
               aria-label="Previous park"
               disabled={isTransitioning}
             >
-              <ArrowLeftIcon />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M15 18L9 12L15 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
             <button
-              className="np-arrow-button right"
+              className="np-nav-button np-nav-right"
               onClick={handleNext}
               aria-label="Next park"
               disabled={isTransitioning}
             >
-              <ArrowRightIcon />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 18L15 12L9 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
         </div>
