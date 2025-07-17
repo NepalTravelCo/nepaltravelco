@@ -8,6 +8,7 @@
 }
 
 .np-background-image {
+
   position: absolute;
   inset: 0;
   background-image: url(/Images/SVG/tortoise-shell.svg);
@@ -32,11 +33,13 @@
 }
 
 /* Content wrapper */
+
 .np-content-wrapper {
   position: relative;
   z-index: 10;
-  width: 100%;
-  max-width: 1200px;
+
+  width: 90%;
+
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 3fr;
