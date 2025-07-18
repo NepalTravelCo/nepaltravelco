@@ -142,7 +142,6 @@ function TravelTypes() {
       <div className="travel-types-container">
         {/* Header */}
         <div className="travel-types-header">
-          <p className="travel-types-subtitle">Not All Journeys Are The Same.</p>
           <h2 className="travel-types-title">THINGS TO DO</h2>
         </div>
 

@@ -295,8 +295,9 @@
   text-transform: uppercase;
   padding: 1rem 3rem;
   /* background: transparent; */
-  background-color: var(--primary-color);
-  color: var(--overlay-color);
+  background-color: transparent;
+
+  color: var(--text-color);
   border: 2px solid var(--primary-color);
   border-radius: 30px;
   cursor: pointer;
