@@ -222,9 +222,9 @@ function TravelTypes() {
         </div>
 
         {/* Discover More Button */}
-        <div className="discover-more">
+        {/* <div className="discover-more">
           <button className="discover-btn">DISCOVER MORE</button>
-        </div>
+        </div> */}
       </div>
     </section>
   )
