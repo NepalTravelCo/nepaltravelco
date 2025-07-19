@@ -43,8 +43,13 @@
   margin: 0 auto;
 }
 
+.cards-wrapper {
+  min-width: max-content;
+}
+
 .scroll-container::-webkit-scrollbar {
   height: 5px;
+
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
