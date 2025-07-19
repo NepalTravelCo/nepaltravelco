@@ -383,88 +383,39 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .np-carousel-container {
-    max-width: 600px;
-    height: 260px;
-    margin: 0 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-
-  .np-card.left,
-  .np-card.right {
-    width: 200px;
-    height: 260px;
-  }
-
-  .np-card.center {
-    width: 260px;
-    height: 260px;
-  }
-
-  .np-arrow-button {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .np-arrow-button.left {
-    left: 35%;
-  }
-
-  .np-arrow-button.right {
-    right: 35%;
-  }
-}
-
 @media (max-width: 768px) {
+  .np-content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    justify-items: center;
+  }
+
+  .np-left-section {
+    text-align: center;
+    padding: 0;
+  }
+
+  .np-right-section {
+    padding: 0;
+    width: 100%;
+  }
+
   .np-carousel-container {
-    height: 220px;
-    margin: 0 2rem;
-    padding-bottom: 2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    overflow-x: hidden;
   }
 
-  .np-card.left,
-  .np-card.right {
-    width: 140px;
-    height: 220px;
-    transform: scale(0.8);
-    opacity: 0.7;
-  }
-
-  .np-card.center {
-    width: 200px;
-    height: 220px;
-  }
-
-  .np-arrow-button {
-    width: 1.8rem;
-    height: 1.8rem;
-  }
-
-  .np-arrow-button.left {
-    left: 30%;
-  }
-
-  .np-arrow-button.right {
-    right: 30%;
-  }
-
-  .np-card-title-overlay {
-    bottom: 0.8rem;
-    padding: 0.5rem;
-  }
-
-  .np-card-title {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .np-carousel-container {
-    height: 260px;
-    margin: 0;
-    padding-bottom: 1.5rem;
+  .np-card {
+    width: 320px;
+    height: 360px;
+    transform: none !important;
+    opacity: 1 !important;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: block;
   }
 
   .np-card.left,
@@ -473,18 +424,118 @@
   }
 
   .np-card.center {
-    width: 280px;
-    height: 260px;
+    width: 90%;
+    max-width: 360px;
+    /* height: 320px;  */
+    transform: none;
   }
 
-  .np-arrow-button {
-    display: none;
+  .np-card-image-container {
+    height: 100%; /* Ensure the image container fills the card */
+  }
+
+  .np-card-image {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .np-card-hover-content {
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
   }
 
   .np-card-title-overlay {
     bottom: 1rem;
+    padding: 0.5rem;
+  }
+
+  .np-card-title {
+    font-size: 1rem;
+  }
+
+  .np-card-description {
+    font-size: 0.95rem;
+    line-height: 1.3;
+    margin: 0.5rem 0;
+  }
+
+  .np-view-offer-link {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+
+  .np-nav-left,
+  .np-nav-right {
+    display: flex; /* Re-enable */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+  }
+
+  .np-nav-left {
+    left: 0.5rem; /* Adjust as needed */
+  }
+
+  .np-nav-right {
+    right: 0.5rem; /* Adjust as needed */
+  }
+
+  .np-nav-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    backdrop-filter: blur(6px);
+  }
+
+  .np-nav-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .np-carousel-container {
+    position: relative; /* Required for arrow positioning */
+    padding: 2.5rem 3rem;
   }
 }
+
+@media (max-width: 480px) {
+  .np-card.center {
+    height: 340px; /* Slightly more for extra small screens */
+  }
+
+  .np-card-description {
+    font-size: 0.9rem;
+  }
+
+  .np-view-offer-link {
+    font-size: 0.9rem;
+  }
+
+  .np-nav-left {
+    left: 0.5rem;
+  }
+
+  .np-nav-right {
+    right: 0.5rem;
+  }
+
+  .np-nav-button {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
 
 /* Screen reader only text */
 .sr-only {
