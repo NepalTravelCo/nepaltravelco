@@ -22,7 +22,7 @@ function Homepage() {
         <BrandParallax />
            
          <FAQ />
-          <BrandInfo />
+        <BrandInfo />
 
         <ReachUs />
 

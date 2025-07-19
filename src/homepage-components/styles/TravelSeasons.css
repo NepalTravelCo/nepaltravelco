@@ -159,22 +159,64 @@ background: transparent;
  border: none;
 }
 
-/* Responsive */
+
+
 @media (max-width: 768px) {
   .main-title {
     font-size: 2rem;
   }
+
+  .scroll-container {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .cards-wrapper {
+    padding: 0;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
   .season-card-wrapper {
-    width: 200px;
+    width: 100vw;
+    padding: 0 1rem;
+    scroll-snap-align: center;
   }
+
   .season-card-wrapper.active {
-    width: 320px;
+    width: 100vw;
   }
+
   .season-card {
-    height: 360px;
+    height: 460px; /* Keep height same */
+    width: 100%;
+    border-radius: 12px;
   }
+
   .nav-arrow {
     width: 2.5rem;
     height: 2.5rem;
   }
+
+  .navigation-arrows {
+    display: none;
+  }
+
+  .season-description {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .season-name {
+    font-size: 28px;
+  }
+
+  .scroll-container {
+  overflow-x: hidden; /* hides horizontal scroll */
+  }
+
+  .scroll-container::-webkit-scrollbar {
+    display: none; /* hides scrollbar in WebKit browsers */
+  }
+
 }
