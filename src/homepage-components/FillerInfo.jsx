@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/FillerInfo.css";
+import { Link } from "react-router-dom";
 
 const FillerInfo = () => {
   return (
@@ -18,9 +19,9 @@ const FillerInfo = () => {
             Discover the cultural heart of Nepal, bustling with ancient temples,
             royal palaces, vibrant local markets, and the spirit of Himalayan heritage.
           </p>
-          <a href="/explore-kathmandu" className="btn btn-light" id="explore-btn">
+          <Link to="/explore-valley" className="btn btn-light" id="explore-btn">
             Explore More
-          </a>
+          </Link>
         </div>
       </div>
     </section>
