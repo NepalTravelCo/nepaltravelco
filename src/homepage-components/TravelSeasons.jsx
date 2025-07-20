@@ -82,6 +82,19 @@ const TravelSeasons = () => {
     setIsHovered(false)
   }
 
+  useEffect(() => {
+  const isMobile = window.innerWidth <= 768;
+  if (!isMobile && !isHovered) {
+    startAutoScroll();
+  } else {
+    stopAutoScroll();
+  }
+
+  return () => stopAutoScroll();
+}, [isHovered, startAutoScroll, stopAutoScroll]);
+
+
+
   return (
     <>
     
