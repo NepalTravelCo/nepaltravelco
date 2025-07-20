@@ -4,7 +4,7 @@ function CopyrightSection() {
   return (
     <div className="copyright-section">
       <div className="container">
-        <p className="copyright-text">Copyright © 2025 Nepal Travel Co. All Rights Reserved!</p>
+        <p className="copyright-text">Copyright © 2025 Nepal Travel Co. |  All Rights Reserved.</p>
       </div>
     </div>
   )
