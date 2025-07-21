@@ -1,0 +1,27 @@
+.back-to-top-button {
+    display: none;
+    position: fixed;
+    bottom: 1rem;
+    right: 0.625rem;
+    z-index: 999;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    color: white;
+    border: none;
+    font-family: var(--style-font);
+    /* border-radius: 0.625rem; */
+    padding: 0.625rem 1rem;
+    cursor: pointer;
+    font-size: x-large;
+    
+  }
+  
+  .back-to-top-button.visible {
+    display: block;
+  }
+  
+  .back-to-top-button.hidden {
+    display: none;
+  }
+  
+

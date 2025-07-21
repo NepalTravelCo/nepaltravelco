@@ -1,8 +1,12 @@
+
 import "./styles/Footer.css"
-
-
+import CopyrightSection from "./CopyrightSection"
 function FooterSection() {
+
+  
   return (
+    <>
+    
     <footer className="footer-section">
       <div className="footer-overlay"></div>
 
@@ -34,7 +38,7 @@ function FooterSection() {
   <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
     <path d="M4.22 3h5.12l4.16 5.79L17.85 3h2.7l-6.55 8.9L21.8 21h-5.1l-4.26-5.97L7.27 21H4.5l6.75-9.18L4.22 3zm2.07 1.58l5.04 6.86L6.52 20h1.6l5.12-7.13L18 20h1.68l-5.19-7.24L19.78 4.6h-1.6l-4.8 6.68L7.8 4.6H6.29z"/>
   </svg>
-</a>
+  </a>
 
 
                 </div>
@@ -112,7 +116,9 @@ function FooterSection() {
         </div>
       </div>
     </footer>
-  )
+      <CopyrightSection/>
+    </>
+  );
 }
 
 export default FooterSection

@@ -2,9 +2,9 @@ import React from 'react'
 import Connections from './routes-and-links/Connections'
 import FooterSection from './footer-components/FooterSection'
 import Navigation from './header-component/Navigation'
-import CopyrightSection from './footer-components/CopyrightSection'
 import LoadingScreen from './LoadingScreen'
 import { useState, useEffect } from 'react';
+import BackToTopButton from './routes-and-links/BackToTopButton'
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -22,12 +22,14 @@ function App() {
     return <LoadingScreen />;
   }
 
+  
   return (
     <>
       <Navigation />
       <Connections />
       <FooterSection />
-      <CopyrightSection />
+      <BackToTopButton />
+      
     </>
   );
 }
