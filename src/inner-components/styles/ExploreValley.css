@@ -103,12 +103,4 @@
     text-align: center;
   }
 
-  .valley-text h2 {
-    font-size: var(--heading-mq-size);
-    font-weight: var(--heading-mq-weight);
-  }
-
-  .valley-text p {
-    font-size: 1rem;
-  }
 }
