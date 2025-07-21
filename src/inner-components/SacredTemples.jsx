@@ -8,7 +8,7 @@ const sections = [
   },
   {
     title: "Boudhanath Stupa",
-    image: "https://i.pinimg.com/1200x/af/46/21/af4621510f40aca151f1ed78e7d7718c.jpg",
+    image: "https://i.pinimg.com/1200x/67/36/15/673615da882896e76b7949f693d2b154.jpg",
     content: `Boudhanath is one of the largest stupas in the world and a major center of Tibetan Buddhism. Its giant white dome and golden spire draw pilgrims and tourists alike. Walking clockwise around the stupa (a practice called "kora"), spinning the prayer wheels, and lighting butter lamps offer a peaceful retreat from the city buzz. The surrounding area is filled with monasteries, Tibetan shops, and cozy cafes offering momo and butter tea.`,
   },
   {

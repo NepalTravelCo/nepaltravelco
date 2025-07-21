@@ -10,7 +10,7 @@ const sections = [
   },
   {
     title: "Patan Durbar Square",
-    image: "https://i.pinimg.com/736x/44/a2/80/44a28061008c72849c8dae6b42815a1b.jpg",
+    image: "https://i.pinimg.com/736x/f8/8f/dd/f88fdda5ff8241bb3967c942169fa6d1.jpg",
     content: `Just across the Bagmati River lies Patan (Lalitpur), home to a square that feels like a work of art. Patan Durbar Square is known for its red-brick temples, stone baths, and the Patan Museum, which displays centuries-old sculptures and sacred objects. This area is especially appealing to lovers of fine art, architecture, and peaceful courtyards.`,
   },
   {
