@@ -80,7 +80,7 @@ const Navigation = () => {
           ? isScrolled
             ? "rgba(255, 255, 255, 0.95)"
             : "transparent"
-          : "rgba(255, 255, 255, 0.95)", // normal background on other pages
+          : "rgba(255, 255, 255, 1)", // normal background on other pages
 
         backdropFilter: isHomePage && isScrolled ? "blur(10px)" : "none",
 
