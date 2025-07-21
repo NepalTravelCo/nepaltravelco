@@ -14,12 +14,12 @@ const ExploreValley = () => {
     
     
     <div className="explore-valley-container">
-    <SacredTemples />
-    <DurbarSquares/>
-    <Festivals/>
-    <Hikes/>
-
+        <SacredTemples />
+        <DurbarSquares/>
+        <Festivals/>
+        <Hikes/>
     </div>
+
     <BrandInfo />
     <ReachUs />
     </>
