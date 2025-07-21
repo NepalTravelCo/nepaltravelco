@@ -1,16 +1,4 @@
-:root {
-  --primary-color: #004047;
-  --accent-color: #d94f30;
-  --button-hover: #00636b;
-  --background-color: #fafafa;
-  --text-color: #333;
-  --secondary-color: #2ecc71;
-  --text-muted: #666;
-  --overlay-color: #f4f4f4;
-  --text-font: "Nunito", sans-serif;
-  --heading-font: "Quicksand", sans-serif;
-  --padding: 4rem 0;
-}
+
 
 .travel-types-section {
   padding: var(--padding);
@@ -35,15 +23,7 @@
   margin-bottom: 3rem;
 }
 
-.travel-types-subtitle {
- font-size: var(--text-size);
-  font-weight: 500;
-  color: var(--text-color);
-  font-family: var(--text-font);
-  line-height: var(--line-height);
-  font-weight: var(--text-weight);
-  font-style: italic;
-}
+
 
 .travel-types-title {
   font-size: var(--heading-size);

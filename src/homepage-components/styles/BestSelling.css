@@ -36,22 +36,22 @@ font-style: italic;
   letter-spacing: 2%;
 }
 
+
 .section-title {
-     font-family: var(--heading-font);
-  font-size: 50px;
-  font-weight: 700;
+  font-family: var(--heading-font);
+  font-size: var(--heading-size);
+  font-weight: var(--heading-weight);
   color: var(--primary-color);
-  letter-spacing:2%;
-  line-height: 1.5;
+  letter-spacing: var(--letter-spacing);
+  line-height: var(--line-height);
 }
 
 .section-description {
-     font-family: var(--text-font);
-  font-size: 18px;
+  font-family: var(--text-font);
+  font-size: var(--text-size);
   color: var(--text-muted);
   margin: 0 auto;
-  font-weight: 400;
-  
+  font-weight: var(--text-weight);
 }
 
 /* Travel Cards Container */
@@ -134,7 +134,7 @@ font-style: italic;
   color: white;
   padding: 6px 12px;
   border-radius: 10px;
-  font-size: 12px;
+ font-size: clamp(10px, 1.8vw, 12px); /* Kept this slightly smaller intentionally */
   font-weight: 600;
   letter-spacing: 0.5px;
   z-index: 3;
@@ -149,7 +149,7 @@ font-style: italic;
   color: white;
   padding: 6px 12px;
   border-radius: 10px;
-  font-size: 12px;
+ font-size: clamp(10px, 1.8vw, 12px); /* Kept this slightly smaller intentionally */
   font-weight: 600;
   letter-spacing: 0.5px;
   z-index: 3;
@@ -229,9 +229,11 @@ font-family: var(--heading-font);
     margin-bottom: 40px;
   }
 
-  .section-description {
-    font-size: 16px;
+.section-description {
+    font-size: var(--text-size); /* Already responsive */
   }
+
+
 
   .travel-cards-container {
     grid-template-columns: 1fr;
@@ -242,8 +244,8 @@ font-family: var(--heading-font);
     height: 300px;
   }
 
-  .card-title {
-    font-size: 20px;
+    .card-title {
+    font-size: clamp(16px, 4vw, 20px); /* Slight scale-down for small screens */
   }
 
   .travel-card:hover {
@@ -253,7 +255,7 @@ font-family: var(--heading-font);
 
 @media (max-width: 480px) {
   .section-title {
-    font-size: 2rem;
+    font-size: clamp(22px, 6vw, 32px); /* Slight tweak for extra small screens */
   }
 
   .card-content {

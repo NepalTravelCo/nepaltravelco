@@ -23,17 +23,18 @@
 
   --padding: 4rem 0; 
 
-  --heading-size: 45px;
-  --heading-weight: 600;
+--heading-size: clamp(28px, 5vw, 45px);
+--heading-weight: 600;
 
-  --text-size: 18px;
-  --text-weight: 400;
+--text-size: clamp(14px, 2.5vw, 18px);
+--text-weight: 400;
 
-  --line-height: 1.5;
-  --letter-spacing: 2%;
+--line-height: 1.5;
+--letter-spacing: clamp(0.5px, 0.2vw, 2px);
 
-  --heading-mq-size:  1.25rem;
-  --heading-mq-weight: 500;
+
+  /* --heading-mq-size:  1.5rem;
+  --heading-mq-weight: 500; */
 
   --emerald-300: #6ee7b7;
   --emerald-400: #34d399;

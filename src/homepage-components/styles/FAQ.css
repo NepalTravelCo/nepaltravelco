@@ -164,12 +164,6 @@ width: 90%;
     margin-bottom: 2rem;
   }
 
-  .faq-title {
-    font-size: var(--heading-mq-size);
-
-    line-height: var(--line-height);
-  }
-
   .faq-question {
     padding: 1.25rem;
   }
