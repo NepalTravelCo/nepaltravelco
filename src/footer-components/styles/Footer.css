@@ -148,7 +148,7 @@
   height: 2px;
   bottom: -2px;
   left: 0;
-  background-color: var(--accent-color);
+  background-color: var(--overlay-color);
   transition: width 0.3s ease;
 }
 
