@@ -34,9 +34,10 @@ width: 90%;
   font-size: var(--heading-size);
   font-weight: var(--heading-weight);
   color: var(--primary-color);
-  margin: 0;
+  margin: 0 0 0.75rem 0;
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
+  
 }
 
 /* FAQ Grid */
@@ -165,7 +166,8 @@ width: 90%;
 
   .faq-title {
     font-size: var(--heading-mq-size);
-    font-weight: var(--heading-mq-weight );
+
+    line-height: var(--line-height);
   }
 
   .faq-question {
