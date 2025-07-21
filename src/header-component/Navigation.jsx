@@ -7,11 +7,11 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showNavbar, setShowNavbar] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
-  const location = useLocation(); // 👈 GET CURRENT ROUTE
-  const isHomePage = location.pathname === "/"; // 👈 CHECK IF HOMEPAGE
+  const location = useLocation(); //  GET CURRENT ROUTE
+  const isHomePage = location.pathname === "/"; //  CHECK IF HOMEPAGE
 
   useEffect(() => {
-    if (!isHomePage) return; // 👈 EXIT if not on homepage
+    if (!isHomePage) return; //  EXIT if not on homepage
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -80,7 +80,7 @@ const Navigation = () => {
           ? isScrolled
             ? "rgba(255, 255, 255, 0.95)"
             : "transparent"
-          : "rgba(255, 255, 255, 1)", // normal background on other pages
+          : "rgba(255, 255, 255, 0.95)", // normal background on other pages
 
         backdropFilter: isHomePage && isScrolled ? "blur(10px)" : "none",
 
@@ -101,8 +101,12 @@ const Navigation = () => {
           style={{
             fontFamily: "var(--heading-font)",
             fontSize: "1.8rem",
-            color: isScrolled ? "var(--primary-color)" : "white",
-            textShadow: isScrolled ? "none" : "2px 2px 4px rgba(0,0,0,0.7)",
+            color: isHomePage
+              ? isScrolled
+                ? "var(--primary-color)"
+                : "white"
+              : "var(--primary-color) !important",
+            textShadow: isHomePage && !isScrolled ? "2px 2px 4px rgba(0,0,0,0.7)" : "none",
             transition: "all 0.3s ease",
           }}
         >
@@ -140,11 +144,16 @@ const Navigation = () => {
                 data-bs-auto-close="outside"
                 aria-expanded="false"
                 style={{
-                  color: isScrolled ? "var(--text-color)" : "white",
-                  textShadow: isScrolled ? "none" : "1px 1px 2px rgba(0,0,0,0.7)",
+                  color: isHomePage
+                    ? isScrolled
+                      ? "var(--text-color)"
+                      : "white"
+                    : "var(--text-color)", //  Always readable on other pages
+                  textShadow: isHomePage && !isScrolled ? "1px 1px 2px rgba(0,0,0,0.7)" : "none",
                   fontSize: "1.1rem",
                   transition: "all 0.3s ease",
                 }}
+
               >
                 Treks
               </a>
@@ -229,11 +238,16 @@ const Navigation = () => {
                 data-bs-auto-close="outside"
                 aria-expanded="false"
                 style={{
-                  color: isScrolled ? "var(--text-color)" : "white",
-                  textShadow: isScrolled ? "none" : "1px 1px 2px rgba(0,0,0,0.7)",
+                  color: isHomePage
+                    ? isScrolled
+                      ? "var(--text-color)"
+                      : "white"
+                    : "var(--text-color)", //  Always readable on other pages
+                  textShadow: isHomePage && !isScrolled ? "1px 1px 2px rgba(0,0,0,0.7)" : "none",
                   fontSize: "1.1rem",
                   transition: "all 0.3s ease",
                 }}
+
               >
                 Experiences
               </a>
@@ -308,11 +322,16 @@ const Navigation = () => {
                 data-bs-auto-close="outside"
                 aria-expanded="false"
                 style={{
-                  color: isScrolled ? "var(--text-color)" : "white",
-                  textShadow: isScrolled ? "none" : "1px 1px 2px rgba(0,0,0,0.7)",
+                  color: isHomePage
+                    ? isScrolled
+                      ? "var(--text-color)"
+                      : "white"
+                    : "var(--text-color)", // Always readable on other pages
+                  textShadow: isHomePage && !isScrolled ? "1px 1px 2px rgba(0,0,0,0.7)" : "none",
                   fontSize: "1.1rem",
                   transition: "all 0.3s ease",
                 }}
+
               >
                 Plan Your Trip
               </a>
@@ -389,11 +408,16 @@ const Navigation = () => {
                 className="nav-link fw-semibold"
                 href="#"
                 style={{
-                  color: isScrolled ? "var(--text-color)" : "white",
-                  textShadow: isScrolled ? "none" : "1px 1px 2px rgba(0,0,0,0.7)",
+                  color: isHomePage
+                    ? isScrolled
+                      ? "var(--text-color)"
+                      : "white"
+                    : "var(--text-color)", //  Always readable on other pages
+                  textShadow: isHomePage && !isScrolled ? "1px 1px 2px rgba(0,0,0,0.7)" : "none",
                   fontSize: "1.1rem",
                   transition: "all 0.3s ease",
                 }}
+
               >
                 Contact Us
                 {/* <i className="fa-solid fa-phone" id="nav-contact"/> */}
@@ -408,7 +432,7 @@ const Navigation = () => {
         /* Navbar hover background effects */
 
         #main-navbar {
-        box-shadow: isScrolled? 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        box-shadow:  isScrolled? 0 4px 15px rgba(0, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
         }
         #main-navbar:hover{

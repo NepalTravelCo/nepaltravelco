@@ -6,9 +6,7 @@
           color: var(--text-color) !important;
           
         }
-
         
-
         #main-navbar:hover #navbar-brand{
           text-shadow: none !important;
           color: var(--primary-color) !important;
