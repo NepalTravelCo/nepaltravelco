@@ -1,13 +1,9 @@
-
-
 .travel-types-section {
   padding: var(--padding);
   background-color: var(--background-color);
   position: relative;
   overflow: hidden;
 }
-
-
 
 .travel-types-container {
   max-width: 1200px;
@@ -23,13 +19,10 @@
   margin-bottom: 3rem;
 }
 
-
-
 .travel-types-title {
   font-size: var(--heading-size);
   color: var(--primary-color);
   font-weight: var(--heading-weight);
-
   font-family: var(--heading-font);
   text-transform: uppercase;
 }
@@ -39,7 +32,6 @@
   display: flex;
   justify-content: center;
   gap: 2rem;
-  /* margin-bottom: 3rem; */
   flex-wrap: wrap;
 }
 
@@ -49,7 +41,6 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
   border-radius: 12px;
   min-width: 120px;
 }
@@ -78,13 +69,13 @@
 }
 
 .icon-emoji {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
   filter: grayscale(1) brightness(0) invert(1);
 }
 
 .category-name {
   font-family: var(--text-font);
-  font-size: 0.75rem;
+  font-size: clamp(0.65rem, 1vw, 0.9rem);
   font-weight: 600;
   color: var(--text-color);
   text-align: center;
@@ -117,7 +108,6 @@
   width: 100%;
   max-width: 1300px;
   height: 500px;
-
 }
 
 .carousel-slide {
@@ -146,12 +136,10 @@
   opacity: 0.4;
 }
 
-/* Only center image gets elevated shadow */
 .carousel-slide.active .image-card {
   box-shadow: 0 25px 70px rgba(0, 64, 71, 0.25);
 }
 
-/* Remove hover effects from side images */
 .carousel-slide:not(.active) {
   pointer-events: auto;
 }
@@ -172,7 +160,6 @@
   backface-visibility: hidden;
 }
 
-/* Only active/center image card gets hover effects */
 .carousel-slide.active .image-card:hover .image-overlay {
   opacity: 1;
   transform: translateY(0);
@@ -205,9 +192,10 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
   will-change: transform, opacity;
 }
+
 .image-title {
   font-family: var(--heading-font);
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 600;
   margin: 0 0 0.75rem 0;
   color: var(--overlay-color);
@@ -217,7 +205,7 @@
 
 .image-description {
   font-family: var(--text-font);
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   font-weight: 400;
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
@@ -231,7 +219,6 @@
   display: flex;
   justify-content: center;
   gap: 0.75rem;
-
 }
 
 .nav-btn {
@@ -239,7 +226,7 @@
   height: 44px;
   border-radius: 30px;
   border: 1px solid var(--primary-color);
-  background: var(--overlay-color);;
+  background: var(--overlay-color);
   color: var(--primary-color);
   display: flex;
   align-items: center;
@@ -261,9 +248,7 @@
   transform: scale(0.95);
 }
 
-
-
-/* Responsive Design for Carousel */
+/* Responsive Design for Carousel & Layout */
 @media (max-width: 768px) {
   .carousel-track {
     height: 380px;
@@ -283,12 +268,31 @@
     height: 300px;
   }
 
-  .image-title {
-    font-size: 1.8rem;
-  }
-
   .image-overlay {
     padding: 2.5rem;
+  }
+
+  .travel-types-container {
+    padding: 0 15px;
+  }
+
+  .category-icons {
+    gap: 1rem;
+  }
+
+  .category-item {
+    min-width: 100px;
+    padding: 0.75rem;
+  }
+
+  .category-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav-btn {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -312,50 +316,10 @@
     height: 260px;
   }
 
-  .image-title {
-    font-size: 1.6rem;
-  }
-
   .image-overlay {
     padding: 2rem;
   }
-}
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .travel-types-container {
-    padding: 0 15px;
-  }
-
-  .category-icons {
-    gap: 1rem;
-  }
-
-  .category-item {
-    min-width: 100px;
-    padding: 0.75rem;
-  }
-
-  .category-icon {
-    width: 50px;
-    height: 50px;
-  }
-
-  .icon-emoji {
-    font-size: 1.25rem;
-  }
-
-  .category-name {
-    font-size: 0.7rem;
-  }
-
-  .nav-btn {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-@media (max-width: 480px) {
   .category-icons {
     gap: 0.5rem;
   }
@@ -368,10 +332,6 @@
   .category-icon {
     width: 45px;
     height: 45px;
-  }
-
-  .category-name {
-    font-size: 0.65rem;
   }
 
   .discover-btn {
