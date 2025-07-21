@@ -1,5 +1,3 @@
-
-
 /* Main Container */
 .travel-regions-container {
   position: relative;
@@ -12,7 +10,6 @@
 .background-pattern {
   position: absolute;
   inset: 0;
-  /* background-image: url("/Images/SVG/tortoise-shell.svg"); */
   background-size: cover;
   background-position: center;
   opacity: 0.7;
@@ -29,12 +26,12 @@
 
 /* Main Content Layout */
 .main-content {
-    width: 80%;
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-    display: flex;
-    min-height: 100vh;
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  min-height: 100vh;
 }
 
 /* Left Panel - Content */
@@ -43,7 +40,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* padding: 0 2rem 0 4rem; */
   max-width: 32rem;
   position: relative;
 }
@@ -56,17 +52,16 @@
 }
 
 .region-label {
-  font-size: var(--text-size);
+  font-size: clamp(0.8rem, 1vw, 1rem);
   font-weight: 500;
   color: var(--overlay-color);
   font-family: var(--text-font);
   line-height: var(--line-height);
-  font-weight: var(--text-weight);
   font-style: italic;
 }
 
 .main-title {
-  font-size: var(--heading-size);
+  font-size: clamp(2rem, 4vw, 4rem);
   color: var(--overlay-color) !important;
   font-weight: var(--heading-weight);
   line-height: var(--line-height);
@@ -75,12 +70,11 @@
 }
 
 .description-content {
-  font-size: var(--text-size);
+  font-size: clamp(0.9rem, 1.2vw, 1.25rem);
   font-family: var(--text-font);
   color: var(--overlay-color);
   line-height: var(--line-height);
   font-weight: var(--text-weight);
-
 }
 
 .region-description {
@@ -94,6 +88,7 @@
 }
 
 .highlights-title {
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
   font-weight: 600;
   color: var(--emerald-300);
 }
@@ -118,20 +113,16 @@
   margin-right: 0.75rem;
 }
 
-
-
 /* Right Panel - Images */
 .image-panel {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 2rem; */
 }
 
 .image-container {
   position: relative;
-  /* max-width: 32rem; */
   width: 90%;
 }
 
@@ -186,7 +177,7 @@
 }
 
 .nav-arrow {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
   font-weight: bold;
 }
 
@@ -196,7 +187,7 @@
   bottom: 2rem;
   right: 2rem;
   color: white;
-  font-size: 0.875rem;
+  font-size: clamp(0.75rem, 0.9vw, 0.875rem);
   z-index: 20;
 }
 
@@ -224,12 +215,8 @@
   background: var(--emerald-400);
 }
 
-/* Responsive Design */
+/* Responsive Layout Adjustments */
 @media (max-width: 1024px) {
-  .main-title {
-    font-size: 3rem;
-  }
-
   .content-panel {
     padding: 0 1.5rem 0 2rem;
   }
@@ -251,14 +238,6 @@
     max-width: 100%;
     padding: 0 1rem;
     margin-bottom: 2rem;
-  }
-
-  .main-title {
-    font-size: 2.5rem;
-  }
-
-  .description-content {
-    font-size: 1.125rem;
   }
 
   .highlights-list {
@@ -298,20 +277,8 @@
 }
 
 @media (max-width: 480px) {
-  .main-title {
-    font-size: 2rem;
-  }
-
-  .description-content {
-    font-size: 1rem;
-  }
-
   .nav-button {
     width: 2.5rem;
     height: 2.5rem;
-  }
-
-  .nav-arrow {
-    font-size: 1.25rem;
   }
 }

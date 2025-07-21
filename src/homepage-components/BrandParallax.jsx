@@ -13,14 +13,10 @@ const BrandParallax = () => {
       { threshold: 0.3 }
     )
 
-    if (contentRef.current) {
-      observer.observe(contentRef.current)
-    }
+    if (contentRef.current) observer.observe(contentRef.current)
 
     return () => {
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current)
-      }
+      if (contentRef.current) observer.unobserve(contentRef.current)
     }
   }, [])
 
@@ -28,9 +24,7 @@ const BrandParallax = () => {
     <section className="brand-parallax-section">
       <div
         ref={contentRef}
-        className={`brand-parallax-content no-bg ${
-          isVisible ? "fade-up active" : "fade-up"
-        }`}
+        className={`brand-parallax-content ${isVisible ? "active" : ""}`}
       >
         <h2 className="parallax-title">Discover Your Next Adventure</h2>
         <p className="parallax-text">

@@ -1,3 +1,4 @@
+
 .np-brand-info-section {
   position: relative;
   display: flex;
@@ -18,16 +19,21 @@
   pointer-events: none;
 }
 
-/* Responsive padding for larger screens */
-@media (min-width: 768px) {
-  .np-brand-info-section {
-    padding: 2rem;
+
+@media (min-width: 1024px) {
+  .np-content-wrapper {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
+.np-left-section {
+  text-align: center;
+  padding: 1rem;
+}
+
 @media (min-width: 1024px) {
-  .np-brand-info-section {
-    padding: 3rem;
+  .np-left-section {
+    text-align: left;
   }
 }
 
@@ -82,7 +88,6 @@
     font-size: calc(var(--heading-size) + 20px);
   }
 }
-
 .np-button {
   font-family: var(--heading-font);
   font-size: var(--text-size);
@@ -102,13 +107,10 @@
   display: inline-block;
   text-decoration: none;
 }
-
-/* Remove shadow & background on hover */
 .np-button:hover {
   color: white;
 }
 
-/* Underline effect */
 .np-button::after {
   content: "";
   position: absolute;
@@ -257,7 +259,7 @@
 .np-card-title {
   font-size: var(--text-size);
   font-weight: var(--heading-weight);
-  color: white;
+  color: var(--overlay-color);
   margin: 0;
   font-family: var(--heading-font);
   text-align: center;
@@ -265,9 +267,8 @@
 }
 
 .np-card.center .np-card-title {
-  font-size: calc(var(--text-size) + 2px);
+  font-size: calc(var(--text-size) * 1.1);
 }
-
 /* Hover reveal content */
 .np-card-hover-content {
   position: absolute;
@@ -605,6 +606,14 @@
     height: 6px;
   }
 }
+
+@media (max-width: 480px) {
+  .np-card-description,
+  .np-view-offer-link {
+    font-size: calc(var(--text-size) * 0.85);
+  }
+}
+
 
 /* Screen reader only text */
 .sr-only {
