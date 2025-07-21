@@ -196,7 +196,7 @@
 
 .copyright-section {
   background-color: var(--primary-color);
-  padding: 10px 0;
+  padding: 5px 0;
   position: relative;
   z-index: 2;
 }
