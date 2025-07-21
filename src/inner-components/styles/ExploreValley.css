@@ -1,0 +1,114 @@
+.explore-valley-container {
+  padding: var(--padding);
+  background-color: var(--background-color);
+}
+
+.explore-valley-body{
+    background-color: var(--background-color);
+    /* padding: var(--padding); */
+    width: 90%;
+    margin: 0 auto;
+}
+.explore-valley {
+  padding: var(--padding);
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  /* gap: 3rem; */
+
+}
+
+#explore-valley-title{
+    /* padding: 3rem 0; */
+    font-family: var(--heading-font);
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: var(--heading-size);
+    color: var(--primary-color);
+    font-weight: var(--heading-weight);
+
+}
+
+#explore-valley-desc {
+  font-family: var(--text-font);
+  font-size: var(--text-size);
+  color: var(--text-muted);
+  text-align: center;
+
+}
+
+.valley-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  flex-wrap: wrap; 
+}
+
+.row-normal {
+  flex-direction: row;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.valley-image {
+  flex: 1;
+  min-width: 300px;
+  
+  /* max-width: 600px; */
+}
+
+.valley-image img {
+  width: 100%;
+  height: 350px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.valley-image img:hover {
+  transform: scale(1.03);
+  transition: transform all 0.3s ease;
+}
+.valley-text {
+  flex: 1;
+  /* min-width: 300px; */
+  color: var(--text-muted);
+  font-family: var(--text-font);
+}
+
+.valley-text h2 {
+  font-family: 25px;
+  font-size: var(--heading-size);
+  font-weight: var(--heading-weight);
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.valley-text p {
+  font-size: var(--text-size);
+  font-weight: var(--text-weight);
+  line-height: var(--line-height);
+  color: var(--text-muted);
+  white-space: pre-line;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .valley-section {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .valley-text h2 {
+    font-size: var(--heading-mq-size);
+    font-weight: var(--heading-mq-weight);
+  }
+
+  .valley-text p {
+    font-size: 1rem;
+  }
+}

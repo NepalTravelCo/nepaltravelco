@@ -1,9 +1,22 @@
-import React from 'react'
+import React from 'react';
+import './styles/ExploreValley.css';
+import SacredTemples from './SacredTemples';
+import DurbarSquares from './DurbarSquares';
+import Festivals from './Festivals';
+import Hikes from './Hikes';
 
-function ExploreValley() {
+
+const ExploreValley = () => {
   return (
-    <div>ExploreValley</div>
-  )
-}
 
-export default ExploreValley
+    <div className="explore-valley-container">
+    <SacredTemples />
+    <DurbarSquares/>
+    <Festivals/>
+    <Hikes/>
+
+    </div>
+  );
+};
+
+export default ExploreValley;
