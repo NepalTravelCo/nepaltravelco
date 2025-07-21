@@ -32,6 +32,8 @@
   --line-height: 1.5;
   --letter-spacing: 2%;
 
+  --heading-mq-size:  1.25rem;
+  --heading-mq-weight: 500;
 
   --emerald-300: #6ee7b7;
   --emerald-400: #34d399;
@@ -52,3 +54,5 @@
     visibility: hidden;
   }
 }
+
+

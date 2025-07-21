@@ -163,6 +163,11 @@ width: 90%;
     margin-bottom: 2rem;
   }
 
+  .faq-title {
+    font-size: var(--heading-mq-size);
+    font-weight: var(--heading-mq-weight );
+  }
+
   .faq-question {
     padding: 1.25rem;
   }
