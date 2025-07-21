@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { Link, useLocation } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./Navigation.css"
 
@@ -6,29 +7,53 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showNavbar, setShowNavbar] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const location = useLocation(); // 👈 GET CURRENT ROUTE
+  const isHomePage = location.pathname === "/"; // 👈 CHECK IF HOMEPAGE
 
-  // Scroll detection for navbar visibility and background
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
+    if (!isHomePage) return; // 👈 EXIT if not on homepage
 
-      // Show/hide navbar based on scroll direction
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Hide navbar on scroll down, show on scroll up
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down
-        setShowNavbar(false)
+        setShowNavbar(false);
       } else {
-        // Scrolling up
-        setShowNavbar(true)
+        setShowNavbar(true);
       }
 
-      // Change background opacity based on scroll position
-      setIsScrolled(currentScrollY > 50)
-      setLastScrollY(currentScrollY)
-    }
+      setIsScrolled(currentScrollY > 50);
+      setLastScrollY(currentScrollY);
+    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY])
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY, isHomePage]);
+
+  // Scroll detection for navbar visibility and background
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollY = window.scrollY
+
+  //     // Show/hide navbar based on scroll direction
+  //     if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        
+  //       setShowNavbar(false)
+  //     } else {
+  //       // Scrolling up
+  //       setShowNavbar(true)
+  //     }
+
+      
+  //     setIsScrolled(currentScrollY > 50)
+  //     setLastScrollY(currentScrollY)
+  //   }
+
+  //   window.addEventListener("scroll", handleScroll, { passive: true })
+  //   return () => window.removeEventListener("scroll", handleScroll)
+  // }, [lastScrollY])
 
   // Initialize Bootstrap dropdowns
   // useEffect(() => {
@@ -51,20 +76,28 @@ const Navigation = () => {
       id="main-navbar"
       className={`navbar navbar-expand-lg fixed-top transition-all ${showNavbar ? "navbar-visible" : "navbar-hidden"}`}
       style={{
-        backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
-        backdropFilter: isScrolled ? "blur(10px)" : "none",
+        backgroundColor: isHomePage
+          ? isScrolled
+            ? "rgba(255, 255, 255, 0.95)"
+            : "transparent"
+          : "rgba(255, 255, 255, 1)", // normal background on other pages
+
+        backdropFilter: isHomePage && isScrolled ? "blur(10px)" : "none",
+
+        transform:
+          isHomePage && !showNavbar ? "translateY(-100%)" : "translateY(0)",
+
         transition: "all 0.3s ease-in-out",
-        transform: showNavbar ? "translateY(0)" : "translateY(-100%)",
         zIndex: 1000,
         padding: "0.8rem 0",
       }}
     >
       <div className="container-fluid px-4">
         {/* Brand Logo */}
-        <a
+        <Link
           id="navbar-brand"
           className="navbar-brand fw-bold"
-          href="#"
+          to="/"
           style={{
             fontFamily: "var(--heading-font)",
             fontSize: "1.8rem",
@@ -74,7 +107,7 @@ const Navigation = () => {
           }}
         >
           Nepal Travel Co
-        </a>
+        </Link>
 
         {/* Mobile Toggle Button */}
         <button
