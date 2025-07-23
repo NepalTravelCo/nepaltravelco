@@ -20,7 +20,6 @@ const ExploreValley = () => {
         <Festivals/>
         <Hikes/>
     </div>
-    <BrandInfo />
     <ReachUs />
     </>
   );

@@ -1,11 +1,11 @@
 .explore-valley-container {
-  padding: var(--padding);
-  background-color: var(--background-color);
+padding: 0 !important;
+    background-color: var(--background-color);
 }
 
 .explore-valley-body{
     background-color: var(--background-color);
-    /* padding: var(--padding); */
+
     width: 90%;
     margin: 0 auto;
 }
