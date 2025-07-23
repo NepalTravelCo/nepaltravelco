@@ -1,0 +1,716 @@
+/* Festivals Component Styles */
+.festivals-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 5% 5%;
+  background-color: var(--background-color);
+}
+
+/* Festival Header */
+.festivals-header {
+  margin-bottom: 8rem;
+  text-align: center;
+}
+
+.festivals-header h2 {
+  font-size: var(--heading-size);
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  color: var(--primary-color);
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.festivals-header .header-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-family: var(--text-font);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.festivals-header .header-line {
+  width: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--primary-color);
+  margin: 0 auto;
+}
+
+/* Festival Statistics */
+.festival-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding: 2rem 0;
+}
+
+.festival-stats .stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.festival-stats .stat-number {
+  font-size: 3rem;
+  font-family: var(--heading-font);
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.festival-stats .stat-label {
+  font-size: 0.9rem;
+  font-family: var(--text-font);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.festival-stats .stat-divider {
+  font-size: 2rem;
+  color: var(--primary-color);
+  opacity: 0.3;
+  font-weight: 300;
+}
+
+/* Festival Content */
+.festivals-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10rem;
+  margin-bottom: 8rem;
+}
+
+/* Festival Item */
+.festival-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.festival-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.festival-item:nth-child(even) {
+  grid-template-areas: "details image";
+}
+
+.festival-item:nth-child(odd) {
+  grid-template-areas: "image details";
+}
+
+.festival-item:nth-child(even) .festival-image-wrapper {
+  grid-area: image;
+}
+
+.festival-item:nth-child(even) .festival-details {
+  grid-area: details;
+}
+
+.festival-item:nth-child(odd) .festival-image-wrapper {
+  grid-area: image;
+}
+
+.festival-item:nth-child(odd) .festival-details {
+  grid-area: details;
+}
+
+/* Festival Image */
+.festival-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.festival-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+  cursor: pointer;
+}
+
+.festival-image-wrapper:hover .festival-image {
+  transform: scale(1.03);
+}
+
+.festival-image-wrapper .image-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.festival-image-wrapper .location-tag,
+.festival-image-wrapper .duration-tag {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--primary-color);
+  font-family: var(--text-font);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.festival-image-wrapper .duration-tag {
+  background: rgba(217, 79, 48, 0.9);
+  color: var(--overlay-color);
+}
+
+/* Festival Details */
+.festival-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.festival-meta {
+  margin-bottom: 1rem;
+}
+
+.festival-significance {
+  font-family: var(--text-font);
+  font-size: 0.8rem;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.festival-details h2 {
+  font-size: 2.8rem;
+  font-family: var(--heading-font);
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.festival-details h3 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-family: var(--text-font);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* Festival Description */
+.festival-description {
+  margin-bottom: 2.5rem;
+}
+
+.festival-description .short-content {
+  font-size: 1.1rem;
+  font-family: var(--text-font);
+  line-height: 1.8;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: var(--text-weight);
+}
+
+.festival-description .full-content {
+  margin-top: 1.5rem;
+}
+
+.festival-description .full-content p {
+  font-family: var(--text-font);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* Festival Actions */
+.festival-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.read-more-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.read-more-button:hover {
+  color: var(--accent-color);
+}
+
+.view-button {
+  background: none;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.8rem 2rem;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--heading-font);
+}
+
+.view-button:hover {
+  background: var(--primary-color);
+  color: var(--overlay-color);
+}
+
+/* Festival Footer */
+.festivals-footer {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.festivals-footer .footer-line {
+  width: 60px;
+  height: 2px;
+  background-color: var(--primary-color);
+  margin: 0 auto 1rem;
+}
+
+.festivals-footer p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-family: var(--text-font);
+}
+
+/* Carousel Modal */
+.carousel-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.carousel-content {
+  width: 90%;
+  height: 90%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #eee;
+}
+
+.carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.carousel-header h3 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--primary-color);
+  letter-spacing: 1px;
+  font-family: var(--heading-font);
+}
+
+.carousel-close {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-close:hover {
+  color: var(--primary-color);
+}
+
+.carousel-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 2rem;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.carousel-nav.prev {
+  left: 2rem;
+}
+
+.carousel-nav.next {
+  right: 2rem;
+}
+
+.carousel-nav:hover {
+  background: var(--accent-color);
+  color: var(--overlay-color);
+}
+
+.carousel-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.carousel-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  animation: fadeIn 0.3s ease;
+}
+
+.carousel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #eee;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.carousel-counter {
+  font-size: 0.9rem;
+  color: #666;
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design for Festival Stats */
+@media screen and (max-width: 768px) {
+  .festival-stats {
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+  }
+
+  .festival-stats .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .festival-stats .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .festival-stats .stat-divider {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .festival-stats {
+    gap: 1rem;
+  }
+
+  .festival-stats .stat-number {
+    font-size: 2rem;
+  }
+
+  .festival-stats .stat-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .festivals-content {
+    gap: 8rem;
+  }
+
+  .festival-item {
+    gap: 4rem;
+  }
+
+  .festival-image-wrapper {
+    height: 400px;
+  }
+
+  .festival-details h2 {
+    font-size: 2.4rem;
+  }
+
+  .carousel-nav.prev {
+    left: 1rem;
+  }
+
+  .carousel-nav.next {
+    right: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .festivals-header {
+    margin-bottom: 4rem;
+  }
+
+  .festivals-content {
+    gap: 6rem;
+  }
+
+  .festival-item,
+  .festival-item:nth-child(even),
+  .festival-item:nth-child(odd) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "image"
+      "details";
+    gap: 3rem;
+  }
+
+  .festival-image-wrapper {
+    height: 350px;
+  }
+
+  .festival-details h2 {
+    font-size: 2rem;
+  }
+
+  .festival-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .carousel-content {
+    width: 95%;
+    height: 95%;
+  }
+
+  .carousel-header {
+    padding: 1.5rem;
+  }
+
+  .carousel-main {
+    padding: 1rem;
+  }
+
+  .carousel-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .carousel-nav.prev {
+    left: 1rem;
+  }
+
+  .carousel-nav.next {
+    right: 1rem;
+  }
+
+  .carousel-footer {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .festival-image-wrapper {
+    height: 250px;
+  }
+
+  .festival-details h2 {
+    font-size: 1.8rem;
+  }
+
+  .festival-description .short-content {
+    font-size: 1rem;
+  }
+
+  .carousel-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .carousel-nav {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Original styles preserved for compatibility */
+.explore-valley-body {
+  background-color: var(--background-color);
+  width: 90%;
+  margin: 0 auto;
+}
+
+.explore-valley {
+  padding: var(--padding);
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+}
+
+#explore-valley-title {
+  font-family: var(--heading-font);
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: var(--heading-size);
+  text-transform: uppercase;
+  color: var(--primary-color);
+  font-weight: var(--heading-weight);
+}
+
+#explore-valley-desc {
+  font-family: var(--text-font);
+  font-size: var(--text-size);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.valley-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  flex-wrap: wrap;
+}
+
+.row-normal {
+  flex-direction: row;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.valley-image {
+  flex: 1;
+  min-width: 300px;
+}
+
+.valley-image img {
+  width: 100%;
+  height: 350px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.valley-image img:hover {
+  transform: scale(1.03);
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.valley-text {
+  flex: 1;
+  color: var(--text-muted);
+  font-family: var(--text-font);
+}
+
+.valley-text h2 {
+  font-family: var(--heading-font);
+  font-size: 35px;
+  font-weight: var(--heading-weight);
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.valley-text p {
+  font-size: var(--text-size);
+  font-family: var(--text-font);
+  font-weight: var(--text-weight);
+  line-height: var(--line-height);
+  color: var(--text-muted);
+  white-space: pre-line;
+}
+
+@media screen and (max-width: 768px) {
+  .valley-section {
+    flex-direction: column !important;
+    text-align: center;
+  }
+}
