@@ -1,25 +1,24 @@
+/* Hikes Component Styles */
 
-.durbar-squares-main{
+.hikes-main {
     width: 100%;
     background-color: var(--primary-color);
-  
-   
 }
-/* Durbar Squares Component Styles */
-.durbar-container {
+
+.hikes-container {
   width: 90%;
   margin: 0 auto;
   padding: 5% 5%;
-
+  
 }
 
-/* Durbar Header */
-.durbar-header {
+/* Hikes Header */
+.hikes-header {
   margin-bottom: 8rem;
   text-align: center;
 }
 
-.durbar-header h2 {
+.hikes-header h2 {
   font-size: var(--heading-size);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -29,7 +28,7 @@
   text-transform: uppercase;
 }
 
-.durbar-header .header-subtitle {
+.hikes-header .header-subtitle {
   font-size: 1.1rem;
   color: var(--overlay-color);
   font-family: var(--text-font);
@@ -37,122 +36,26 @@
   font-style: italic;
 }
 
-.durbar-header .header-line {
+.hikes-header .header-line {
   width: 60px;
   height: 3px;
   border-radius: 2px;
-  background-color: var(--accent-color);
+  background-color: var(--primary-color);
   margin: 0 auto;
 }
 
 
-.heritage-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 3rem;
-  padding: 2rem 0;
-}
 
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex: 1;
-}
-
-.stat-number {
-  font-size: 4rem;
-
-  font-family: var(--heading-font);
-  font-weight: 700;
-  color: var(--accent-color); /* Dark neutral for minimalism */
-  line-height: 1.1;
-  margin-bottom: 0.2rem;
-}
-
-.stat-number {
-  display: inline-block;
-  font-variant-numeric: tabular-nums;
-  transition: transform 0.2s ease;
-}
-
-
-.stat-label {
-  font-size: 1rem;
-  font-family: var(--text-font, sans-serif);
-  color: var(--overlay-color); /* Softer muted text */
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
-}
-
-/* Attractive minimalist divider */
-.stat-divider {
-  width: 1px;
-  height: 50px;
-  background-color:  var(--accent-color );
-  
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .heritage-stats {
-    flex-wrap: wrap;
-    gap: 2rem;
-    margin: 2rem auto;
-    padding: 1.5rem;
-  }
-
-  .stat-item {
-    flex: 0 0 45%;
-  }
-
-  .stat-number {
-    font-size: 3rem;
-  }
-
-  .stat-label {
-    font-size: 0.85rem;
-  }
-
-  .stat-divider {
-    display: none; /* hide on small screens */
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .heritage-stats {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .stat-item {
-    flex: 1;
-  }
-
-  .stat-number {
-    font-size: 2.5rem;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
-  }
-}
-
-
-/* Durbar Content */
-.durbar-content {
+/* Hikes Content */
+.hikes-content {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10rem;
   margin-bottom: 8rem;
 }
 
-/* Durbar Item */
-.durbar-item {
+/* Hike Item */
+.hike-item {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
@@ -160,45 +63,45 @@
   transform: translateY(30px);
 }
 
-.durbar-item.visible {
+.hike-item.visible {
   opacity: 1;
   transform: translateY(0);
   animation: fadeIn 1s ease-out forwards;
 }
 
-.durbar-item:nth-child(even) {
+.hike-item:nth-child(even) {
   grid-template-areas: "details image";
 }
 
-.durbar-item:nth-child(odd) {
+.hike-item:nth-child(odd) {
   grid-template-areas: "image details";
 }
 
-.durbar-item:nth-child(even) .durbar-image-wrapper {
+.hike-item:nth-child(even) .hike-image-wrapper {
   grid-area: image;
 }
 
-.durbar-item:nth-child(even) .durbar-details {
+.hike-item:nth-child(even) .hike-details {
   grid-area: details;
 }
 
-.durbar-item:nth-child(odd) .durbar-image-wrapper {
+.hike-item:nth-child(odd) .hike-image-wrapper {
   grid-area: image;
 }
 
-.durbar-item:nth-child(odd) .durbar-details {
+.hike-item:nth-child(odd) .hike-details {
   grid-area: details;
 }
 
-/* Durbar Image */
-.durbar-image-wrapper {
+/* Hike Image */
+.hike-image-wrapper {
   position: relative;
   overflow: hidden;
   height: 500px;
   border-radius: 10px;
 }
 
-.durbar-image {
+.hike-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -206,11 +109,11 @@
   cursor: pointer;
 }
 
-.durbar-image-wrapper:hover .durbar-image {
+.hike-image-wrapper:hover .hike-image {
   transform: scale(1.03);
 }
 
-.durbar-image-wrapper .image-overlay {
+.hike-image-wrapper .image-overlay {
   position: absolute;
   top: 20px;
   left: 20px;
@@ -220,35 +123,36 @@
   gap: 0.5rem;
 }
 
-.durbar-image-wrapper .location-tag,
-.durbar-image-wrapper .established-tag {
+.hike-image-wrapper .location-tag,
+.hike-image-wrapper .difficulty-tag {
   background: rgba(255, 255, 255, 0.95);
   color: var(--primary-color);
   font-family: var(--text-font);
-  padding: 0.4rem 0.8rem;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   font-weight: 500;
+  border-radius: 3px;
 }
 
-.durbar-image-wrapper .established-tag {
+.hike-image-wrapper .difficulty-tag {
   background: rgba(4, 64, 71, 0.9);
   color: var(--overlay-color);
 }
 
-/* Durbar Details */
-.durbar-details {
+/* Hike Details */
+.hike-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.durbar-meta {
+.hike-meta {
   margin-bottom: 1rem;
 }
 
-.durbar-significance {
+.hike-duration {
   font-family: var(--text-font);
   font-size: 0.8rem;
   color: var(--accent-color);
@@ -257,7 +161,7 @@
   font-weight: 600;
 }
 
-.durbar-details h2 {
+.hike-details h2 {
   font-size: 2.8rem;
   font-family: var(--heading-font);
   font-weight: 500;
@@ -266,7 +170,7 @@
   line-height: 1.2;
 }
 
-.durbar-details h3 {
+.hike-details h3 {
   font-size: 1.1rem;
   font-weight: 400;
   color: var(--overlay-color);
@@ -275,12 +179,12 @@
   font-style: italic;
 }
 
-/* Durbar Description */
-.durbar-description {
+/* Hike Description */
+.hike-description {
   margin-bottom: 2.5rem;
 }
 
-.durbar-description .short-content {
+.hike-description .short-content {
   font-size: 1.1rem;
   font-family: var(--text-font);
   line-height: 1.8;
@@ -289,11 +193,11 @@
   font-weight: var(--text-weight);
 }
 
-.durbar-description .full-content {
+.hike-description .full-content {
   margin-top: 1.5rem;
 }
 
-.durbar-description .full-content p {
+.hike-description .full-content p {
   font-family: var(--text-font);
   font-size: 1rem;
   line-height: 1.8;
@@ -301,14 +205,14 @@
   margin-bottom: 1.5rem;
 }
 
-/* Durbar Actions */
-.durbar-actions {
+/* Hike Actions */
+.hike-actions {
   display: flex;
   gap: 1rem;
   align-items: center;
 }
 
-.dub-read-more-button {
+.hike-read-more-button {
   background: none;
   border: none;
   color: var(--overlay-color);
@@ -322,17 +226,14 @@
   text-underline-offset: 4px;
 }
 
-.dub-read-more-button:hover {
+.hike-read-more-button:hover {
   transform: scale(1.02);
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
   color: var(--background-color);
 }
 
 
-
-
-
-/* Carousel Modal (Reusing styles from Sacred Temples) */
+/* Carousel Modal */
 .carousel-modal {
   position: fixed;
   top: 0;
@@ -428,7 +329,7 @@
 }
 
 .carousel-nav:hover {
-  background: var(--accent-color);
+  background: var(--secondary-color);
   color: var(--overlay-color);
 }
 
@@ -494,21 +395,56 @@
   }
 }
 
+/* Responsive Design for Hiking Stats */
+@media screen and (max-width: 768px) {
+  .hiking-stats {
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+  }
+
+  .hiking-stats .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .hiking-stats .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .hiking-stats .stat-divider {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hiking-stats {
+    gap: 1rem;
+  }
+
+  .hiking-stats .stat-number {
+    font-size: 2rem;
+  }
+
+  .hiking-stats .stat-label {
+    font-size: 0.75rem;
+  }
+}
+
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
-  .durbar-content {
+  .hikes-content {
     gap: 8rem;
   }
 
-  .durbar-item {
+  .hike-item {
     gap: 4rem;
   }
 
-  .durbar-image-wrapper {
+  .hike-image-wrapper {
     height: 400px;
   }
 
-  .durbar-details h2 {
+  .hike-details h2 {
     font-size: 2.4rem;
   }
 
@@ -522,17 +458,17 @@
 }
 
 @media screen and (max-width: 768px) {
-  .durbar-header {
+  .hikes-header {
     margin-bottom: 4rem;
   }
 
-  .durbar-content {
+  .hikes-content {
     gap: 6rem;
   }
 
-  .durbar-item,
-  .durbar-item:nth-child(even),
-  .durbar-item:nth-child(odd) {
+  .hike-item,
+  .hike-item:nth-child(even),
+  .hike-item:nth-child(odd) {
     grid-template-columns: 1fr;
     grid-template-areas:
       "image"
@@ -540,15 +476,15 @@
     gap: 3rem;
   }
 
-  .durbar-image-wrapper {
+  .hike-image-wrapper {
     height: 350px;
   }
 
-  .durbar-details h2 {
+  .hike-details h2 {
     font-size: 2rem;
   }
 
-  .durbar-actions {
+  .hike-actions {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
@@ -587,15 +523,15 @@
 }
 
 @media screen and (max-width: 480px) {
-  .durbar-image-wrapper {
+  .hike-image-wrapper {
     height: 250px;
   }
 
-  .durbar-details h2 {
+  .hike-details h2 {
     font-size: 1.8rem;
   }
 
-  .durbar-description .short-content {
+  .hike-description .short-content {
     font-size: 1rem;
   }
 
