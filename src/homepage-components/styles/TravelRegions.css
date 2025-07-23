@@ -45,7 +45,7 @@
 }
 
 .content-wrapper {
-  color: white;
+  color: var(--overlay);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -160,7 +160,7 @@
 .nav-button {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  color: var(--overlay-color);
   width: 3rem;
   height: 3rem;
   border-radius: 50%;

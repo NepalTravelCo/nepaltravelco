@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import "./styles/TravelRegions.css"
 
 type RegionKey = "Himalayan" | "Hilly" | "Terai"
@@ -115,8 +116,7 @@ const TravelRegions = () => {
               </div>
 
               <div className="image-panel">
-                <div className="image-container">
-                  <img
+                  <Image
                     src={
                       slide.type === "overview"
                         ? "/Images/SVG/nepal.svg"
@@ -128,7 +128,11 @@ const TravelRegions = () => {
                         : `${slide.regionKey} Region`
                     }
                     className="region-image"
+                    width={350}
+                    height={250}
+                    priority={slide.type === "overview"}
                   />
+                
                 </div>
               </div>
             </div>
@@ -173,7 +177,7 @@ const TravelRegions = () => {
             ))}
           </div>
         </div>
-      </div>
+      
     </>
   )
 }

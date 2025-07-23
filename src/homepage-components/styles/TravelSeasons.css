@@ -111,12 +111,14 @@
 }
 
 .season-name {
-  font-size: 40px;
+  font-size: var(--heading-size);
   font-weight: var(--heading-weight);
+  font-family: var(--heading-font);
   margin-bottom: 0.5rem;
 }
 
 .season-description {
+  font-family: var(--text-font);
   font-size: var(--text-size);
   opacity: 0;
   max-height: 0;

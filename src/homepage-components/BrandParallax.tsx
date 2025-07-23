@@ -15,10 +15,11 @@ const BrandParallax = () => {
       { threshold: 0.3 }
     )
 
-    if (contentRef.current) observer.observe(contentRef.current)
+    const currentRef = contentRef.current
+    if (currentRef) observer.observe(currentRef)
 
     return () => {
-      if (contentRef.current) observer.unobserve(contentRef.current)
+      if (currentRef) observer.unobserve(currentRef)
     }
   }, [])
 

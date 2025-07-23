@@ -1,18 +1,23 @@
 .hero-title {
   font-family: var(--heading-font);
   font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.1;
-  letter-spacing: -0.025em;
+  /* letter-spacing: -0.025em; */
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   margin: 0;
+      color: var(--overlay-color) !important;
 }
 
 .hero-subtitle {
+
   font-family: var(--text-font);
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   font-weight: 300;
   line-height: 1.4;
+  color: var(--overlay-muted) !important;
   letter-spacing: 0.01em;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   opacity: 0.95;
@@ -108,7 +113,7 @@
 }
 
 .text-white {
-  color: white;
+  color: var(--overlay-color);
 }
 
 .px-4 {
