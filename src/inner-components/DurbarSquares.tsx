@@ -221,7 +221,7 @@ function DurbarSquares() {
         {/* Section Header */}
         <header className="durbar-header">
           <h2>Historic Durbar Squares</h2>
-          <p className="header-subtitle">Royal palaces and ancient courtyards that shaped Nepal's cultural heritage</p>
+          <p className="header-subtitle">Royal palaces and ancient courtyards that shaped Nepal&apos;s cultural heritage</p>
           <div className="header-line"></div>
                     {/* Statistics Section */}
 <div className="heritage-stats">
