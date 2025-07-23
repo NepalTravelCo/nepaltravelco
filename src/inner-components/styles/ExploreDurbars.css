@@ -1,9 +1,16 @@
+
+.durbar-squares-main{
+    width: 100%;
+    background-color: var(--primary-color);
+  
+   
+}
 /* Durbar Squares Component Styles */
 .durbar-container {
   width: 90%;
   margin: 0 auto;
   padding: 5% 5%;
-  background-color: var(--background-color);
+
 }
 
 /* Durbar Header */
@@ -16,7 +23,7 @@
   font-size: var(--heading-size);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  color: var(--primary-color);
+  color: var(--overlay-color);
   letter-spacing: 2px;
   margin-bottom: 1rem;
   text-transform: uppercase;
@@ -24,7 +31,7 @@
 
 .durbar-header .header-subtitle {
   font-size: 1.1rem;
-  color: var(--text-muted);
+  color: var(--overlay-color);
   font-family: var(--text-font);
   margin-bottom: 2rem;
   font-style: italic;
@@ -34,7 +41,7 @@
   width: 60px;
   height: 3px;
   border-radius: 2px;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   margin: 0 auto;
 }
 
@@ -156,7 +163,7 @@
   font-size: 2.8rem;
   font-family: var(--heading-font);
   font-weight: 500;
-  color: var(--primary-color);
+  color: var(--overlay-color);
   margin-bottom: 0.5rem;
   line-height: 1.2;
 }
@@ -164,7 +171,7 @@
 .durbar-details h3 {
   font-size: 1.1rem;
   font-weight: 400;
-  color: var(--text-muted);
+  color: var(--overlay-color);
   font-family: var(--text-font);
   margin-bottom: 2rem;
   font-style: italic;
@@ -179,7 +186,7 @@
   font-size: 1.1rem;
   font-family: var(--text-font);
   line-height: 1.8;
-  color: var(--text-color);
+  color: var(--overlay-muted);
   margin-bottom: 1rem;
   font-weight: var(--text-weight);
 }
@@ -192,7 +199,7 @@
   font-family: var(--text-font);
   font-size: 1rem;
   line-height: 1.8;
-  color: var(--text-muted);
+  color: var(--overlay-muted);
   margin-bottom: 1.5rem;
 }
 
@@ -203,10 +210,10 @@
   align-items: center;
 }
 
-.read-more-button {
+.dub-read-more-button {
   background: none;
   border: none;
-  color: var(--primary-color);
+  color: var(--overlay-color);
   font-family: var(--heading-font);
   font-size: 0.9rem;
   letter-spacing: 1px;
@@ -217,8 +224,10 @@
   text-underline-offset: 4px;
 }
 
-.read-more-button:hover {
-  color: var(--accent-color);
+.dub-read-more-button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  color: var(--background-color);
 }
 
 .view-button {

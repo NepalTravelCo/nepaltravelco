@@ -174,7 +174,8 @@ function DurbarSquares() {
   }, [carouselOpen, selectedSquare])
 
   return (
-    <>
+    <div className="durbar-squares-main">
+      {/* Main Container */}
       <div ref={containerRef} className="durbar-container">
         {/* Section Header */}
         <header className="durbar-header">
@@ -226,7 +227,7 @@ function DurbarSquares() {
                 </div>
 
                 <div className="durbar-actions">
-                  <button className="read-more-button" onClick={() => toggleExpanded(index)}>
+                  <button className="dub-read-more-button" onClick={() => toggleExpanded(index)}>
                     {expandedSections.has(index) ? "Read Less" : "Read More"}
                   </button>
                   
@@ -297,7 +298,7 @@ function DurbarSquares() {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
