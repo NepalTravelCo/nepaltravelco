@@ -1,27 +1,37 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import Image from "next/image";
 import "./styles/HeroSection.css";
 
 const HeroSection = () => {
+  // Memoize heroContent so it doesn't recreate every render
+  const heroContent = useMemo(
+    () => [
+      {
+        type: "video",
+        src: "/Videos/hero-section.mp4",
+      },
+      // Example image slide (uncomment and add real path if needed)
+      // {
+      //   type: "image",
+      //   src: "/images/hero-image1.jpg",
+      // },
+    ],
+    []
+  );
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const heroContent = [
-    {
-      type: "video",
-      src: "/Videos/hero-section.mp4",
-    }
-  ];
-
-  // No need for slideshow timer if only one item
   useEffect(() => {
     if (heroContent.length <= 1) return;
+
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroContent.length);
-    }, 8000); // Default to 8 seconds
+    }, 8000); // Slide change every 8 seconds
 
     return () => clearInterval(timer);
-  }, [currentSlide, heroContent]);
+  }, [heroContent]);
 
   return (
     <section className="relative overflow-hidden h-screen hero-section">
@@ -47,11 +57,12 @@ const HeroSection = () => {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <img
+              <Image
                 src={content.src}
                 alt="Hero"
-                className="w-full h-full object-cover"
-                loading={index === 0 ? "eager" : "lazy"}
+                fill
+                style={{ objectFit: "cover" }}
+                priority={index === 0}
               />
             )}
           </div>
