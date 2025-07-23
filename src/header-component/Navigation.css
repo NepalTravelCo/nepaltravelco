@@ -1,5 +1,15 @@
 /* Navbar hover background effects */
+        #main-navbar {
+          transition: all 0.3s ease !important;
+        }
 
+        #main-navbar.scrolled {
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        #main-navbar:hover {
+          background-color: #fafafa !important;
+        }
       
         #main-navbar:hover .nav-link{
           text-shadow: none !important;
