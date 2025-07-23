@@ -88,7 +88,7 @@
   font-size: 35px;
   font-weight: var(--heading-weight);
   margin-bottom: 1rem;
-  color: var(--text-color);
+  color: var(--background-color);
 }
 
 .valley-text p {

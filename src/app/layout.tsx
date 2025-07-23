@@ -1,28 +1,14 @@
 
 
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import 'bootstrap/dist/css/bootstrap.min.css'
-// import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import Head from "next/head";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import ScrollToTop from "@/footer-components/ScrollToTop";
 import Navigation from "@/header-component/Navigation";
 import FooterSection from "@/footer-components/FooterSection";
 import BackToTopButton from "@/footer-components/BackToTopButton";
 import BootstrapClientLoader from "./BootstrapClientLoader";
-
-
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata: Metadata = {
   title: "Nepal Travel Co",
@@ -31,12 +17,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         {/* Google Fonts */}
         <link
           href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&family=Poppins:wght@400;600&family=Quicksand:wght@300;500;600&display=swap"
@@ -55,21 +41,17 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-
-      </Head>
+      </head>
 
       <body>
-
         <BootstrapClientLoader />
         <ScrollToTop />
         <Navigation />
-       
+
         {children}
 
         <FooterSection />
         <BackToTopButton />
-        {/* Bootstrap JS */}
-       
       </body>
     </html>
   );
