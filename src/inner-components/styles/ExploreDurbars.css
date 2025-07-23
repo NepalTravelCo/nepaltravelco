@@ -46,15 +46,15 @@
 }
 
 
-
-/* Heritage Statistics */
 .heritage-stats {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
-  margin-top: 3rem;
-  padding: 2rem 0;
+  gap: 3rem;
+  margin: 4rem auto;
+  padding: 2rem;
+  width: 80%;
+  max-width: 1200px;
 }
 
 .stat-item {
@@ -62,39 +62,77 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  flex: 1;
 }
 
 .stat-number {
-  font-size: 3rem;
+  font-size: 4rem;
+
   font-family: var(--heading-font);
   font-weight: 700;
-  color: var(--overlay-color);
-  line-height: 1;
-  margin-bottom: 0.5rem;
+  color: var(--accent-color); /* Dark neutral for minimalism */
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
 }
 
+.stat-number {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.2s ease;
+}
+
+
 .stat-label {
-  font-size: 0.9rem;
-  font-family: var(--text-font);
-  color: var(--overlay-muted);
+  font-size: 1rem;
+  font-family: var(--text-font, sans-serif);
+  color: var(--overlay-color); /* Softer muted text */
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
 }
 
+/* Attractive minimalist divider */
 .stat-divider {
-  font-size: 2rem;
-  color: var(--primary-color);
-  opacity: 0.3;
-  font-weight: 300;
+  width: 1px;
+  height: 50px;
+  background-color:  var(--accent-color );
+  
 }
 
-/* Responsive Design for Stats */
+/* Responsive Design */
 @media screen and (max-width: 768px) {
   .heritage-stats {
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+
+  .stat-item {
+    flex: 0 0 45%;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+  }
+
+  .stat-divider {
+    display: none; /* hide on small screens */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .heritage-stats {
+    flex-direction: column;
     gap: 1.5rem;
-    margin-top: 2rem;
-    padding: 1.5rem 0;
+  }
+
+  .stat-item {
+    flex: 1;
   }
 
   .stat-number {
@@ -104,25 +142,8 @@
   .stat-label {
     font-size: 0.8rem;
   }
-
-  .stat-divider {
-    font-size: 1.5rem;
-  }
 }
 
-@media screen and (max-width: 480px) {
-  .heritage-stats {
-    gap: 1rem;
-  }
-
-  .stat-number {
-    font-size: 2rem;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-  }
-}
 
 /* Durbar Content */
 .durbar-content {

@@ -1,5 +1,5 @@
 "use client"
-import './styles/ExploreValley.css';
+import './styles/Festivals.css';
 
 const sections = [
   

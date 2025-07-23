@@ -93,6 +93,47 @@ function DurbarSquares() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => {
+  const statElements = document.querySelectorAll(".stat-number")
+  let hasAnimated = false
+
+  const animateCount = (el: Element, target: number) => {
+    let start = 0
+    const duration = 1500
+    const startTime = performance.now()
+
+    const step = (currentTime: number) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1)
+      const easeOut = 1 - Math.pow(1 - progress, 3) // smooth ease-out
+      const current = Math.floor(start + (target - start) * easeOut)
+      el.textContent = current.toString()
+      if (progress < 1) requestAnimationFrame(step)
+    }
+
+    requestAnimationFrame(step)
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          hasAnimated = true
+          statElements.forEach((el) => {
+            const target = parseInt(el.getAttribute("data-target") || "0", 10)
+            animateCount(el, target)
+          })
+        }
+      })
+    },
+    { threshold: 0.5 }
+  )
+
+  const statsContainer = document.querySelector(".heritage-stats")
+  if (statsContainer) observer.observe(statsContainer)
+
+  return () => observer.disconnect()
+}, [])
+ 
   // Intersection observer for animations
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -183,22 +224,24 @@ function DurbarSquares() {
           <p className="header-subtitle">Royal palaces and ancient courtyards that shaped Nepal's cultural heritage</p>
           <div className="header-line"></div>
                     {/* Statistics Section */}
-          <div className="heritage-stats">
-            <div className="stat-item">
-              <span className="stat-number">50</span>
-              <span className="stat-label">Temples</span>
-            </div>
-            <div className="stat-divider">|</div>
-            <div className="stat-item">
-              <span className="stat-number">200</span>
-              <span className="stat-label">Monuments</span>
-            </div>
-            <div className="stat-divider">|</div>
-            <div className="stat-item">
-              <span className="stat-number">800</span>
-              <span className="stat-label">Years of History</span>
-            </div>
-          </div>
+<div className="heritage-stats">
+  <div className="stat-item">
+    <span className="stat-number" data-target="50">0</span>
+    <span className="stat-label">Temples</span>
+  </div>
+  <div className="stat-divider"></div>
+  <div className="stat-item">
+    <span className="stat-number" data-target="200">0</span>
+    <span className="stat-label">Monuments</span>
+  </div>
+  <div className="stat-divider"></div>
+  <div className="stat-item">
+    <span className="stat-number" data-target="800">0</span>
+    <span className="stat-label">Years of History</span>
+  </div>
+</div>
+
+
         </header>
 
         {/* Main Content */}
