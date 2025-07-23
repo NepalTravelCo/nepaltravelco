@@ -166,67 +166,39 @@ background: transparent;
 
 
 @media (max-width: 768px) {
-
-    .season-description {
-    font-size: clamp(13px, 2.5vw, 14.4px); /* previously: 0.9rem */
-    line-height: 1.4;
-  }
-
-  .season-name {
-    font-size: clamp(20px, 6vw, 28px); /* previously: 28px */
-  }
-
   .scroll-container {
     width: 100%;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 
   .cards-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
     padding: 0;
-    gap: 0.5rem;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .season-card-wrapper {
-    width: 100vw;
-    padding: 0 1rem;
     scroll-snap-align: center;
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 0;
   }
 
   .season-card-wrapper.active {
-    width: 100vw;
+    width: 100%;
   }
 
   .season-card {
-    height: 460px; /* Keep height same */
     width: 100%;
-    border-radius: 12px;
-  }
-
-  .nav-arrow {
-    width: 2.5rem;
-    height: 2.5rem;
+    height: 500px;
   }
 
   .navigation-arrows {
-    display: none;
+    display: none; /* Hide arrows on small screens */
   }
-
-  .season-description {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .season-name {
-    font-size: 28px;
-  }
-
-  .scroll-container {
-  overflow-x: hidden; /* hides horizontal scroll */
-  }
-
-  .scroll-container::-webkit-scrollbar {
-    display: none; /* hides scrollbar in WebKit browsers */
-  }
-
 }

@@ -50,11 +50,7 @@ function BestSelling() {
         <div className="section-header">  
           <h2 className="section-title">TRAVELER&apos;S FAVORITES</h2>
           <p className="section-description">
-         
-
-Discover Nepal&apos;s best with handpicked journeys—scenic, cultural, and thoughtfully crafted for adventure, comfort, and wonder.
-
-
+              Discover Nepal&apos;s best with handpicked journeys—scenic, cultural, and thoughtfully crafted for adventure, comfort, and wonder.
           </p>
         </div>
 
