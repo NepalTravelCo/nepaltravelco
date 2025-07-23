@@ -138,8 +138,8 @@ const TravelRegions = () => {
             </div>
           </div>
 
-          <div className="nav-left">
-            <button onClick={goToPrev} className="nav-button" aria-label="Previous Slide">
+          <div className="travel-nav-left">
+            <button onClick={goToPrev} className="travel-nav-button" aria-label="Previous Slide">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M15 18L9 12L15 6"
@@ -152,8 +152,8 @@ const TravelRegions = () => {
             </button>
           </div>
 
-          <div className="nav-right">
-            <button onClick={goToNext} className="nav-button" aria-label="Next Slide">
+          <div className="travel-nav-right">
+            <button onClick={goToNext} className="travel-nav-button" aria-label="Next Slide">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M9 18L15 12L9 6"

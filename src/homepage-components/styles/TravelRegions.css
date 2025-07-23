@@ -141,23 +141,26 @@
 }
 
 /* Navigation Controls */
-.nav-left,
-.nav-right {
+.travel-nav-left,
+.travel-nav-right {
+
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
 }
 
-.nav-left {
+
+
+.travel-nav-left {
   left: 2rem;
 }
 
-.nav-right {
+.travel-nav-right {
   right: 2rem;
 }
 
-.nav-button {
+.travel-nav-button {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--overlay-color);
@@ -172,11 +175,11 @@
   backdrop-filter: blur(8px);
 }
 
-.nav-button:hover {
+.travel-nav-button:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-.nav-arrow {
+.travel-nav-arrow {
   font-size: clamp(1rem, 1.5vw, 1.5rem);
   font-weight: bold;
 }
