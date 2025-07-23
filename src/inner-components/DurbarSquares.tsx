@@ -182,6 +182,23 @@ function DurbarSquares() {
           <h2>Historic Durbar Squares</h2>
           <p className="header-subtitle">Royal palaces and ancient courtyards that shaped Nepal's cultural heritage</p>
           <div className="header-line"></div>
+                    {/* Statistics Section */}
+          <div className="heritage-stats">
+            <div className="stat-item">
+              <span className="stat-number">50</span>
+              <span className="stat-label">Temples</span>
+            </div>
+            <div className="stat-divider">|</div>
+            <div className="stat-item">
+              <span className="stat-number">200</span>
+              <span className="stat-label">Monuments</span>
+            </div>
+            <div className="stat-divider">|</div>
+            <div className="stat-item">
+              <span className="stat-number">800</span>
+              <span className="stat-label">Years of History</span>
+            </div>
+          </div>
         </header>
 
         {/* Main Content */}

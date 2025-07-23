@@ -45,6 +45,85 @@
   margin: 0 auto;
 }
 
+
+
+/* Heritage Statistics */
+.heritage-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding: 2rem 0;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-family: var(--heading-font);
+  font-weight: 700;
+  color: var(--overlay-color);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  font-family: var(--text-font);
+  color: var(--overlay-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.stat-divider {
+  font-size: 2rem;
+  color: var(--primary-color);
+  opacity: 0.3;
+  font-weight: 300;
+}
+
+/* Responsive Design for Stats */
+@media screen and (max-width: 768px) {
+  .heritage-stats {
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .stat-divider {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .heritage-stats {
+    gap: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+}
+
 /* Durbar Content */
 .durbar-content {
   display: grid;
