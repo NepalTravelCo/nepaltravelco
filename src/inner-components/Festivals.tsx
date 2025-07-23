@@ -187,23 +187,7 @@ function Festivals() {
             Living traditions that transform ancient streets into stages of devotion and joy
           </p>
           {/* Festival Statistics */}
-          <div className="festival-stats">
-            <div className="stat-item">
-              <span className="stat-number">365</span>
-              <span className="stat-label">Days of Celebration</span>
-            </div>
-            <div className="stat-divider">|</div>
-            <div className="stat-item">
-              <span className="stat-number">50</span>
-              <span className="stat-label">Major Festivals</span>
-            </div>
-            <div className="stat-divider">|</div>
-            <div className="stat-item">
-              <span className="stat-number">1400</span>
-              <span className="stat-label">Years of Tradition</span>
-            </div>
-          </div>
-          <div className="header-line"></div>
+
         </header>
 
         {/* Main Content */}
@@ -261,11 +245,8 @@ function Festivals() {
           ))}
         </main>
 
-        {/* Festival Footer */}
-        <footer className="festivals-footer">
-          <div className="footer-line"></div>
-          <p>Where ancient traditions dance with modern life in eternal celebration</p>
-        </footer>
+
+    
       </div>
 
       {/* Image Carousel Modal */}

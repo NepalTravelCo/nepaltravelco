@@ -170,7 +170,7 @@
 }
 
 .festival-image-wrapper .duration-tag {
-  background: rgba(217, 79, 48, 0.9);
+  background: var(--primary-color);
   color: var(--overlay-color);
 }
 
@@ -263,23 +263,7 @@
   color: var(--accent-color);
 }
 
-.view-button {
-  background: none;
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
-  padding: 0.8rem 2rem;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: var(--heading-font);
-}
 
-.view-button:hover {
-  background: var(--primary-color);
-  color: var(--overlay-color);
-}
 
 /* Festival Footer */
 .festivals-footer {
