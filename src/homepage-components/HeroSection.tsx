@@ -12,11 +12,7 @@ const HeroSection = () => {
         type: "video",
         src: "/Videos/hero-section.mp4",
       },
-      // Example image slide (uncomment and add real path if needed)
-      // {
-      //   type: "image",
-      //   src: "/images/hero-image1.jpg",
-      // },
+   
     ],
     []
   );
