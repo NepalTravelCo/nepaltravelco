@@ -180,9 +180,11 @@ function SacredTemples() {
         {/* Main Content */}
         <main className="minimalist-content">
           {sections.map((section, index) => (
-            <article
+            <div
               key={index}
-              ref={(el) => (sectionRefs.current[index] = el)}
+              ref={(el) => {
+                  sectionRefs.current[index] = el
+                }}
               data-index={index}
               className={`temple-item ${visibleSections.has(index) ? "visible" : ""}`}
               style={{ animationDelay: `${index * 0.2}s` }}
@@ -228,7 +230,7 @@ function SacredTemples() {
                   </button> */}
                 </div>
               </div>
-            </article>
+            </div>
           ))}
         </main>
 

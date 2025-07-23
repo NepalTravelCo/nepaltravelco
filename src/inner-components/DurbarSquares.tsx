@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import "./styles/ExploreDurbars.css"
 
 const sections = [
@@ -93,12 +93,13 @@ function DurbarSquares() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
 
+  
   useEffect(() => {
   const statElements = document.querySelectorAll(".stat-number")
   let hasAnimated = false
 
   const animateCount = (el: Element, target: number) => {
-    let start = 0
+    const start = 0
     const duration = 1500
     const startTime = performance.now()
 
@@ -171,17 +172,7 @@ function DurbarSquares() {
     document.body.style.overflow = "unset"
   }
 
-  // Navigate carousel
-  const navigateCarousel = (direction: "next" | "prev") => {
-    if (selectedSquare === null) return
-
-    const totalImages = sections[selectedSquare].images.length
-    if (direction === "next") {
-      setCurrentImageIndex((prev) => (prev + 1) % totalImages)
-    } else {
-      setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages)
-    }
-  }
+  
 
   // Toggle expanded content
   const toggleExpanded = (index: number) => {
@@ -195,24 +186,39 @@ function DurbarSquares() {
       return newSet
     })
   }
+  const navigateCarousel = useCallback((direction: "next" | "prev") => {
+  if (selectedSquare === null) return;
+
+  const totalImages = sections[selectedSquare].images.length;
+  if (direction === "next") {
+    setCurrentImageIndex((prev) => (prev + 1) % totalImages);
+  } else {
+    setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
+  }
+}, [selectedSquare]);
+
 
   // Handle keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (carouselOpen) {
-        if (e.key === "Escape") {
-          closeCarousel()
-        } else if (e.key === "ArrowRight") {
-          navigateCarousel("next")
-        } else if (e.key === "ArrowLeft") {
-          navigateCarousel("prev")
-        }
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (carouselOpen) {
+      if (e.key === "Escape") {
+        closeCarousel()
+      } else if (e.key === "ArrowRight") {
+        navigateCarousel("next")
+      } else if (e.key === "ArrowLeft") {
+        navigateCarousel("prev")
       }
     }
+  }
 
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [carouselOpen, selectedSquare])
+  document.addEventListener("keydown", handleKeyDown)
+  return () => document.removeEventListener("keydown", handleKeyDown)
+}, [carouselOpen, navigateCarousel]) // ✅ include navigateCarousel
+
+
+
+
 
   return (
     <div className="durbar-squares-main">
@@ -247,9 +253,14 @@ function DurbarSquares() {
         {/* Main Content */}
         <main className="durbar-content">
           {sections.map((section, index) => (
-            <article
+            <div
               key={index}
-              ref={(el) => (sectionRefs.current[index] = el)}
+              ref={(el) => {
+                  sectionRefs.current[index] = el
+                }}
+
+
+
               data-index={index}
               className={`durbar-item ${visibleSections.has(index) ? "visible" : ""}`}
               style={{ animationDelay: `${index * 0.2}s` }}
@@ -293,7 +304,7 @@ function DurbarSquares() {
                   
                 </div>
               </div>
-            </article>
+            </div>
           ))}
         </main>
 

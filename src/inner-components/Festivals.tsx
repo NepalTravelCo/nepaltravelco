@@ -209,9 +209,11 @@ function Festivals() {
         {/* Main Content */}
         <main className="festivals-content">
           {sections.map((section, index) => (
-            <article
+            <div
               key={index}
-              ref={(el) => (sectionRefs.current[index] = el)}
+              ref={(el) => {
+                  sectionRefs.current[index] = el
+                }}
               data-index={index}
               className={`festival-item ${visibleSections.has(index) ? "visible" : ""}`}
               style={{ animationDelay: `${index * 0.2}s` }}
@@ -255,7 +257,7 @@ function Festivals() {
                   
                 </div>
               </div>
-            </article>
+            </div>
           ))}
         </main>
 
