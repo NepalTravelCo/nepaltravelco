@@ -71,7 +71,7 @@ const HeroSection = () => {
         <div className="text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="hero-title mb-6">Unveil Nepal&apos;s Natural Beauty</h1>
           <p className="hero-subtitle max-w-2xl mx-auto">
-            Adventure, Spirituality, and Culture — All in One Journey
+            Explore the Spirit, Embrace the Culture, Live the Adventure.
           </p>
         </div>
       </div>
