@@ -24,10 +24,7 @@ width: 90%;
   text-transform: uppercase;
 }
 
-.explore-valley-container {
-    padding: 0 !important;
-    background-color: var(--background-color);
-}
+
 
 .header-subtitle {
   font-size: 1.1rem;
