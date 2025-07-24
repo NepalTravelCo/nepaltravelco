@@ -1,6 +1,7 @@
 .explore-valley-container {
-  padding-top: 3rem  !important ;
-  padding-bottom: 0 !important;
+  padding-top: 5rem !important ;
+  padding-bottom: 0rem !important;
+
   background-color: var(--background-color);
   min-height: 100vh;
 }
