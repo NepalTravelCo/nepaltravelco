@@ -1,6 +1,8 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
 import "./styles/Festivals.css"
+import Image from 'next/image';
+
 
 const sections = [
   {
@@ -196,18 +198,24 @@ function Festivals() {
             <div
               key={index}
               ref={(el) => {
-                  sectionRefs.current[index] = el
-                }}
+                sectionRefs.current[index] = el
+              }}
               data-index={index}
               className={`festival-item ${visibleSections.has(index) ? "visible" : ""}`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="festival-image-wrapper">
-                <img
+              <div
+                className="festival-image-wrapper"
+                onClick={() => openCarousel(index)}
+                style={{ cursor: "pointer" }}
+              >
+                <Image
                   src={section.mainImage || "/placeholder.svg"}
                   alt={section.title}
+                  width={600}     // adjust width & height based on your design
+                  height={400}
                   className="festival-image"
-                  onClick={() => openCarousel(index)}
+                  style={{ objectFit: "cover" }}
                 />
                 <div className="image-overlay">
                   <span className="location-tag">{section.location}</span>
@@ -238,7 +246,7 @@ function Festivals() {
                   <button className="read-more-button" onClick={() => toggleExpanded(index)}>
                     {expandedSections.has(index) ? "Read Less" : "Read More"}
                   </button>
-                  
+
                 </div>
               </div>
             </div>
@@ -246,7 +254,7 @@ function Festivals() {
         </main>
 
 
-    
+
       </div>
 
       {/* Image Carousel Modal */}
@@ -271,11 +279,17 @@ function Festivals() {
                 ‹
               </button>
 
-              <div className="carousel-image-container">
-                <img
+              <div
+                className="carousel-image-container"
+                style={{ position: "relative", width: "100%", height: "100%" }}
+              >
+                <Image
                   src={sections[selectedFestival].images[currentImageIndex] || "/placeholder.svg"}
                   alt={`${sections[selectedFestival].title} - Image ${currentImageIndex + 1}`}
-                  className="carousel-image"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  priority
                 />
               </div>
 

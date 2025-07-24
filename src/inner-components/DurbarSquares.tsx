@@ -1,6 +1,8 @@
 "use client"
 import { useState, useEffect, useRef, useCallback } from "react"
 import "./styles/ExploreDurbars.css"
+import Image from 'next/image';
+
 
 const sections = [
   {
@@ -93,48 +95,48 @@ function DurbarSquares() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
 
-  
+
   useEffect(() => {
-  const statElements = document.querySelectorAll(".stat-number")
-  let hasAnimated = false
+    const statElements = document.querySelectorAll(".stat-number")
+    let hasAnimated = false
 
-  const animateCount = (el: Element, target: number) => {
-    const start = 0
-    const duration = 1500
-    const startTime = performance.now()
+    const animateCount = (el: Element, target: number) => {
+      const start = 0
+      const duration = 1500
+      const startTime = performance.now()
 
-    const step = (currentTime: number) => {
-      const progress = Math.min((currentTime - startTime) / duration, 1)
-      const easeOut = 1 - Math.pow(1 - progress, 3) // smooth ease-out
-      const current = Math.floor(start + (target - start) * easeOut)
-      el.textContent = current.toString()
-      if (progress < 1) requestAnimationFrame(step)
+      const step = (currentTime: number) => {
+        const progress = Math.min((currentTime - startTime) / duration, 1)
+        const easeOut = 1 - Math.pow(1 - progress, 3) // smooth ease-out
+        const current = Math.floor(start + (target - start) * easeOut)
+        el.textContent = current.toString()
+        if (progress < 1) requestAnimationFrame(step)
+      }
+
+      requestAnimationFrame(step)
     }
 
-    requestAnimationFrame(step)
-  }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true
+            statElements.forEach((el) => {
+              const target = parseInt(el.getAttribute("data-target") || "0", 10)
+              animateCount(el, target)
+            })
+          }
+        })
+      },
+      { threshold: 0.5 }
+    )
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          hasAnimated = true
-          statElements.forEach((el) => {
-            const target = parseInt(el.getAttribute("data-target") || "0", 10)
-            animateCount(el, target)
-          })
-        }
-      })
-    },
-    { threshold: 0.5 }
-  )
+    const statsContainer = document.querySelector(".heritage-stats")
+    if (statsContainer) observer.observe(statsContainer)
 
-  const statsContainer = document.querySelector(".heritage-stats")
-  if (statsContainer) observer.observe(statsContainer)
+    return () => observer.disconnect()
+  }, [])
 
-  return () => observer.disconnect()
-}, [])
- 
   // Intersection observer for animations
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -172,7 +174,7 @@ function DurbarSquares() {
     document.body.style.overflow = "unset"
   }
 
-  
+
 
   // Toggle expanded content
   const toggleExpanded = (index: number) => {
@@ -187,34 +189,34 @@ function DurbarSquares() {
     })
   }
   const navigateCarousel = useCallback((direction: "next" | "prev") => {
-  if (selectedSquare === null) return;
+    if (selectedSquare === null) return;
 
-  const totalImages = sections[selectedSquare].images.length;
-  if (direction === "next") {
-    setCurrentImageIndex((prev) => (prev + 1) % totalImages);
-  } else {
-    setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
-  }
-}, [selectedSquare]);
+    const totalImages = sections[selectedSquare].images.length;
+    if (direction === "next") {
+      setCurrentImageIndex((prev) => (prev + 1) % totalImages);
+    } else {
+      setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
+    }
+  }, [selectedSquare]);
 
 
   // Handle keyboard navigation
   useEffect(() => {
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (carouselOpen) {
-      if (e.key === "Escape") {
-        closeCarousel()
-      } else if (e.key === "ArrowRight") {
-        navigateCarousel("next")
-      } else if (e.key === "ArrowLeft") {
-        navigateCarousel("prev")
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (carouselOpen) {
+        if (e.key === "Escape") {
+          closeCarousel()
+        } else if (e.key === "ArrowRight") {
+          navigateCarousel("next")
+        } else if (e.key === "ArrowLeft") {
+          navigateCarousel("prev")
+        }
       }
     }
-  }
 
-  document.addEventListener("keydown", handleKeyDown)
-  return () => document.removeEventListener("keydown", handleKeyDown)
-}, [carouselOpen, navigateCarousel]) // ✅ include navigateCarousel
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [carouselOpen, navigateCarousel]) // ✅ include navigateCarousel
 
 
 
@@ -229,23 +231,23 @@ function DurbarSquares() {
           <h2>Historic Durbar Squares</h2>
           <p className="header-subtitle">Royal palaces and ancient courtyards that shaped Nepal&apos;s cultural heritage</p>
           <div className="header-line"></div>
-                    {/* Statistics Section */}
-<div className="heritage-stats">
-  <div className="stat-item">
-    <span className="stat-number" data-target="50">0</span>
-    <span className="stat-label">Temples</span>
-  </div>
-  <div className="stat-divider"></div>
-  <div className="stat-item">
-    <span className="stat-number" data-target="200">0</span>
-    <span className="stat-label">Monuments</span>
-  </div>
-  <div className="stat-divider"></div>
-  <div className="stat-item">
-    <span className="stat-number" data-target="800">0</span>
-    <span className="stat-label">Years of History</span>
-  </div>
-</div>
+          {/* Statistics Section */}
+          <div className="heritage-stats">
+            <div className="stat-item">
+              <span className="stat-number" data-target="50">0</span>
+              <span className="stat-label">Temples</span>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <span className="stat-number" data-target="200">0</span>
+              <span className="stat-label">Monuments</span>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <span className="stat-number" data-target="800">0</span>
+              <span className="stat-label">Years of History</span>
+            </div>
+          </div>
 
 
         </header>
@@ -256,8 +258,8 @@ function DurbarSquares() {
             <div
               key={index}
               ref={(el) => {
-                  sectionRefs.current[index] = el
-                }}
+                sectionRefs.current[index] = el
+              }}
 
 
 
@@ -265,12 +267,18 @@ function DurbarSquares() {
               className={`durbar-item ${visibleSections.has(index) ? "visible" : ""}`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="durbar-image-wrapper">
-                <img
+              <div
+                className="durbar-image-wrapper"
+                onClick={() => openCarousel(index)}
+                style={{ cursor: "pointer" }}
+              >
+                <Image
                   src={section.mainImage || "/placeholder.svg"}
                   alt={section.title}
+                  width={600}   // adjust to your design
+                  height={400}
                   className="durbar-image"
-                  onClick={() => openCarousel(index)}
+                  style={{ objectFit: "cover" }}
                 />
                 <div className="image-overlay">
                   <span className="location-tag">{section.location}</span>
@@ -301,14 +309,14 @@ function DurbarSquares() {
                   <button className="dub-read-more-button" onClick={() => toggleExpanded(index)}>
                     {expandedSections.has(index) ? "Read Less" : "Read More"}
                   </button>
-                  
+
                 </div>
               </div>
             </div>
           ))}
         </main>
 
-      
+
       </div>
 
       {/* Image Carousel Modal */}
@@ -333,13 +341,20 @@ function DurbarSquares() {
                 ‹
               </button>
 
-              <div className="carousel-image-container">
-                <img
+              <div
+                className="carousel-image-container"
+                style={{ position: "relative", width: "100%", height: "100%" }}
+              >
+                <Image
                   src={sections[selectedSquare].images[currentImageIndex] || "/placeholder.svg"}
                   alt={`${sections[selectedSquare].title} - Image ${currentImageIndex + 1}`}
-                  className="carousel-image"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  priority
                 />
               </div>
+
 
               <button
                 className="carousel-nav next"

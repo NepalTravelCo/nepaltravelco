@@ -1,6 +1,8 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
 import "./styles/Hikes.css"
+import Image from 'next/image';
+
 
 const sections = [
   {
@@ -203,18 +205,20 @@ function Hikes() {
             <div
               key={index}
               ref={(el) => {
-                  sectionRefs.current[index] = el
-                }}
+                sectionRefs.current[index] = el
+              }}
               data-index={index}
               className={`hike-item ${visibleSections.has(index) ? "visible" : ""}`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="hike-image-wrapper">
-                <img
+              <div className="hike-image-wrapper" onClick={() => openCarousel(index)} style={{ cursor: "pointer" }}>
+                <Image
                   src={section.mainImage || "/placeholder.svg"}
                   alt={section.title}
+                  width={600}   // adjust width/height to your layout
+                  height={400}
                   className="hike-image"
-                  onClick={() => openCarousel(index)}
+                  style={{ objectFit: "cover" }}
                 />
                 <div className="image-overlay">
                   <span className="location-tag">{section.location}</span>
@@ -275,13 +279,17 @@ function Hikes() {
                 ‹
               </button>
 
-              <div className="carousel-image-container">
-                <img
+              <div className="carousel-image-container" style={{ position: "relative", width: "100%", height: "100%" }}>
+                <Image
                   src={sections[selectedHike].images[currentImageIndex] || "/placeholder.svg"}
                   alt={`${sections[selectedHike].title} - Image ${currentImageIndex + 1}`}
-                  className="carousel-image"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  priority
                 />
               </div>
+
 
               <button
                 className="carousel-nav next"

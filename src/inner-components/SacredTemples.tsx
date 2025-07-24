@@ -1,6 +1,8 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
 import "./styles/SacredTemples.css"
+import Image from "next/image"
+
 
 const sections = [
   {
@@ -183,18 +185,20 @@ function SacredTemples() {
             <div
               key={index}
               ref={(el) => {
-                  sectionRefs.current[index] = el
-                }}
+                sectionRefs.current[index] = el
+              }}
               data-index={index}
               className={`temple-item ${visibleSections.has(index) ? "visible" : ""}`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="temple-image-wrapper">
-                <img
+              <div className="temple-image-wrapper" onClick={() => openCarousel(index)}>
+                <Image
                   src={section.mainImage || "/placeholder.svg"}
                   alt={section.title}
+                  width={600} // adjust as needed
+                  height={400} // adjust as needed
                   className="temple-image"
-                  onClick={() => openCarousel(index)}
+                  style={{ objectFit: "cover" }}
                 />
                 <div className="image-overlay">
                   <span className="location-tag">{section.location}</span>
@@ -225,16 +229,14 @@ function SacredTemples() {
                   <button className="read-more-button" onClick={() => toggleExpanded(index)}>
                     {expandedSections.has(index) ? "Read Less" : "Read More"}
                   </button>
-                  {/* <button className="view-button" onClick={() => openCarousel(index)}>
-                    View Gallery
-                  </button> */}
+
                 </div>
               </div>
             </div>
           ))}
         </main>
 
-      
+
       </div>
 
       {/* Image Carousel Modal */}
@@ -259,11 +261,14 @@ function SacredTemples() {
                 ‹
               </button>
 
-              <div className="carousel-image-container">
-                <img
+              <div className="carousel-image-container" style={{ position: "relative", width: "100%", height: "100%" }}>
+                <Image
                   src={sections[selectedTemple].images[currentImageIndex] || "/placeholder.svg"}
                   alt={`${sections[selectedTemple].title} - Image ${currentImageIndex + 1}`}
-                  className="carousel-image"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  priority
                 />
               </div>
 
