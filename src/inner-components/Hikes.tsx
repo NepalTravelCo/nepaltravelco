@@ -191,7 +191,7 @@ function Hikes() {
         <header className="hikes-header">
           <h2>Short Hikes & Adventures</h2>
           <p className="header-subtitle">
-            Escape the city and discover nature&apos;s tranquility just beyond Kathmandu's borders
+            Escape the city and discover nature&apos;s tranquility just beyond Kathmandu&apos;s borders
           </p>
 
           <div className="header-line"></div>
@@ -202,7 +202,9 @@ function Hikes() {
           {sections.map((section, index) => (
             <div
               key={index}
-              ref={(el) => (sectionRefs.current[index] = el)}
+              ref={(el) => {
+                  sectionRefs.current[index] = el
+                }}
               data-index={index}
               className={`hike-item ${visibleSections.has(index) ? "visible" : ""}`}
               style={{ animationDelay: `${index * 0.2}s` }}
