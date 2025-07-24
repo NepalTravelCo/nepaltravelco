@@ -90,9 +90,11 @@ function DurbarSquares() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set())
   const [expandedSections, setExpandedSections] = useState<Set<number>>(new Set())
+  const [statsAnimated, setStatsAnimated] = useState(false)
 
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
 
   // Use useLayoutEffect for immediate execution before paint
   useLayoutEffect(() => {
@@ -148,6 +150,49 @@ function DurbarSquares() {
 
     return () => observer.disconnect()
   }, [])
+
+  // Counter animation function
+  const animateCounter = (element: HTMLElement, target: number, duration = 2000) => {
+    const start = 0
+    const increment = target / (duration / 16) // 60fps
+    let current = start
+
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= target) {
+        current = target
+        clearInterval(timer)
+      }
+      element.textContent = Math.floor(current).toString()
+    }, 16)
+  }
+
+  // Stats intersection observer
+  useEffect(() => {
+    if (!statsRef.current) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !statsAnimated) {
+            setStatsAnimated(true)
+
+            // Animate each counter
+            const statNumbers = entry.target.querySelectorAll(".stat-number")
+            statNumbers.forEach((element) => {
+              const target = Number.parseInt(element.getAttribute("data-target") || "0")
+              animateCounter(element as HTMLElement, target)
+            })
+          }
+        })
+      },
+      { threshold: 0.5 },
+    )
+
+    observer.observe(statsRef.current)
+
+    return () => observer.disconnect()
+  }, [statsAnimated])
 
   // Open carousel
   const openCarousel = (squareIndex: number) => {
@@ -222,7 +267,7 @@ function DurbarSquares() {
           </p>
           <div className="header-line"></div>
           {/* Statistics Section */}
-          <div className="heritage-stats">
+          <div className="heritage-stats" ref={statsRef}>
             <div className="stat-item">
               <span className="stat-number" data-target="50">
                 0
