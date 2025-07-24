@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
-import "./styles/ExploreValley.css"
+import "./styles/SacredTemples.css"
 
 const sections = [
   {
