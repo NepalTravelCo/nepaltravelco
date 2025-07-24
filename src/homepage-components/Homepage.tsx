@@ -23,10 +23,7 @@ function Homepage() {
         <BrandParallax />
          <FAQ />
         <BrandInfo />
-
         <ReachUs />
-
-
     </div>
   )
 }

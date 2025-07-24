@@ -145,7 +145,7 @@
 }
 
 .nav-arrow {
-background: transparent;
+  background: transparent;
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
   width: 3rem;

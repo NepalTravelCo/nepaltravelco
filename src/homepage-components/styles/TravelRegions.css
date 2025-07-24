@@ -1,4 +1,10 @@
 /* Main Container */
+.travel-region-info{
+  position: relative; /* 👈 makes .travel-navigation position relative to this */
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
 .travel-regions-container {
   position: relative;
   min-height: 100vh;
@@ -140,46 +146,68 @@
   cursor: pointer;
 }
 
-/* Navigation Controls */
-.travel-nav-left,
-.travel-nav-right {
 
+.travel-navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 15;
+  
+}
+
+
+
+
+/* Navigation Controls */
+.travel-region-nav-left,
+.travel-region-nav-right {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
   z-index: 20;
-}
-
-
-
-.travel-nav-left {
-  left: 2rem;
-}
-
-.travel-nav-right {
-  right: 2rem;
-}
-
-.travel-nav-button {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--overlay-color);
-  width: 3rem;
-  height: 3rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
   backdrop-filter: blur(8px);
 }
 
-.travel-nav-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+
+.travel-region-nav-left {
+  left: 2rem;
 }
 
-.travel-nav-arrow {
+.travel-region-nav-right {
+  right: 2rem;
+}
+
+.travel-region-nav-button {
+   background: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  pointer-events: all;
+}
+
+.travel-region-nav-button:hover {
+  transform: scale(1.1);
+
+}
+
+.travel-region-nav-arrow {
   font-size: clamp(1rem, 1.5vw, 1.5rem);
   font-weight: bold;
 }
@@ -279,9 +307,22 @@
   }
 }
 
-@media (max-width: 480px) {
-  .nav-button {
-    width: 2.5rem;
-    height: 2.5rem;
+/* Mobile fix */
+@media (max-width: 768px) {
+  .travel-region-nav-left,
+  .travel-region-nav-right {
+    top: auto;
+    bottom: 1.5rem; /* place near bottom but visible */
+    transform: none;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .travel-region-nav-left {
+    left: 1rem;
+  }
+
+  .travel-region-nav-right {
+    right: 1rem;
   }
 }

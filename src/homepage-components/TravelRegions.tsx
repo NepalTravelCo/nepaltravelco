@@ -137,9 +137,9 @@ const TravelRegions = () => {
               </div>
             </div>
           </div>
-
-          <div className="travel-nav-left">
-            <button onClick={goToPrev} className="travel-nav-button" aria-label="Previous Slide">
+                    <div className="travel-navigation">
+          <div className="travel-region-nav-left">
+            <button onClick={goToPrev} className="travel-region-nav-button" aria-label="Previous Slide">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M15 18L9 12L15 6"
@@ -152,8 +152,8 @@ const TravelRegions = () => {
             </button>
           </div>
 
-          <div className="travel-nav-right">
-            <button onClick={goToNext} className="travel-nav-button" aria-label="Next Slide">
+          <div className="travel-region-nav-right">
+            <button onClick={goToNext} className="travel-region-nav-button" aria-label="Next Slide">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M9 18L15 12L9 6"
@@ -165,6 +165,7 @@ const TravelRegions = () => {
               </svg>
             </button>
           </div>
+       
 
           <div className="slide-dots">
             {slides.map((_, index) => (
@@ -177,7 +178,8 @@ const TravelRegions = () => {
             ))}
           </div>
         </div>
-      
+        </div>
+         
     </>
   )
 }
