@@ -24,6 +24,11 @@ width: 90%;
   text-transform: uppercase;
 }
 
+.explore-valley-container {
+    padding: 0 !important;
+    background-color: var(--background-color);
+}
+
 .header-subtitle {
   font-size: 1.1rem;
   color: var(--text-muted);
@@ -283,7 +288,7 @@ font-family: var(--heading-font);
 .carousel-header h3 {
   font-size: 1.5rem;
   font-weight: 300;
-  color: #2c5f5d;
+  color: var(--primary-color);
   letter-spacing: 1px;
 }
 
