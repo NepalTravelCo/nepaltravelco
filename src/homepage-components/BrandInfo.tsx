@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import "./styles/BrandInfo.css"
 
+
 const BrandInfo = () => {
   const [startIndex, setStartIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)

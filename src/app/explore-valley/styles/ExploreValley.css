@@ -10,7 +10,7 @@
     margin: 0 auto;
 }
 .explore-valley {
-  padding: var(--padding);
+
   background-color: var(--background-color);
   display: flex;
   flex-direction: column;
