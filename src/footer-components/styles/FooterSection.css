@@ -197,7 +197,7 @@
 
 .copyright-section {
   background-color: var(--primary-color);
-  padding: 5px 0;
+  padding: 8px 0;
   position: relative;
   z-index: 2;
 }
@@ -207,9 +207,9 @@
   color: var(--overlay-color, white);
   text-align: center;
   margin: 0;
-  font-size: var(--text-size, 0.9rem);
+  font-size: 16px;
   font-weight: var(--text-weight, 400);
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 /* Tablet and Medium Screens */
