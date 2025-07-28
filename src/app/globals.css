@@ -51,6 +51,13 @@
   animation: fadeOut 0.5s ease-in forwards;
 }
 
+.inner-pages-container{
+  padding-top: 5rem !important ;
+  padding-bottom: 0rem !important;
+
+  background-color: var(--background-color);
+  min-height: 100vh;
+}
 @keyframes fadeOut {
   to {
     opacity: 0;

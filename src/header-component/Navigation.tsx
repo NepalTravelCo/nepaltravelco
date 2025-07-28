@@ -206,9 +206,9 @@ const Navigation = () => {
                         </a>
                       </div>
                       <div className="menu-footer-links">
-                        <a href="#" className="footer-link">
+                        <Link href="/treks" className="footer-link">
                           All Trek Packages
-                        </a>
+                        </Link>
                         <a href="#" className="footer-link">
                           Custom Treks
                         </a>
@@ -224,7 +224,7 @@ const Navigation = () => {
                         </div>
                         <div className="featured-text">
                           <h6>Featured: Nepal – Land of the Himalayas</h6>
-                          <button className="explore-btn">Explore Treks</button>
+                          <Link href="/treks"><button className="explore-btn" > Explore Treks </button></Link>
                         </div>
                       </div>
                     </div>
@@ -288,9 +288,9 @@ const Navigation = () => {
                         </a>
                       </div>
                       <div className="menu-footer-links">
-                        <a href="#" className="footer-link">
+                        <Link href="/experiences" className="footer-link">
                           All Experiences
-                        </a>
+                        </Link>
                         <a href="#" className="footer-link">
                           Group Tours
                         </a>
@@ -306,7 +306,7 @@ const Navigation = () => {
                         </div>
                         <div className="featured-text">
                           <h6>Featured: Ultimate Adventure Package</h6>
-                          <button className="explore-btn">Explore Adventures</button>
+                          <Link href="/experiences"><button className="explore-btn">Explore Adventures</button></Link>
                         </div>
                       </div>
                     </div>
@@ -396,7 +396,7 @@ const Navigation = () => {
                         </div>
                         <div className="featured-text">
                           <h6>Featured: Complete Travel Guide</h6>
-                          <button className="explore-btn">Travel Guide</button>
+                          <Link href="/travel-guide"><button className="explore-btn">Travel Guide</button></Link>
                         </div>
                       </div>
                     </div>
@@ -409,10 +409,10 @@ const Navigation = () => {
 
             {/* Contact Us */}
             <li className="nav-item mx-3">
-              <a
+              <Link
                 id="contact-link"
                 className="nav-link fw-semibold"
-                href="#"
+                href="/contact"
                 style={{
                   color: isHomePage
                     ? isScrolled
@@ -427,7 +427,7 @@ const Navigation = () => {
               >
                 Contact Us
                 {/* <i className="fa-solid fa-phone" id="nav-contact"/> */}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
