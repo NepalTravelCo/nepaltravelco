@@ -1,5 +1,4 @@
 "use client";
-
 import "./styles/VisaInfo.css";
 
 const VisaInfo = () => {

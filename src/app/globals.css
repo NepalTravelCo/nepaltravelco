@@ -21,7 +21,23 @@
   --overlay-muted: #e0e0e0;
   --text-font: 'Nunito', sans-serif;
   --heading-font: 'Quicksand', sans-serif;
-  
+   --border-light: #e2e8f0;
+  --border-medium: #cbd5e0;
+  --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-large: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+  /* Nepal flag colors */
+  --nepal-crimson: #dc143c;
+  --nepal-blue: #003893;
+  --nepal-gold: #ffd700;
+
+  /* Spacing */
+  --section-padding: 4rem 0;
+  --container-padding: 0 2rem;
+  --card-padding: 2rem;
+  --border-radius: 12px;
+  --border-radius-large: 20px;
 
   --padding: 4rem 0; 
 
