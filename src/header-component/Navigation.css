@@ -174,13 +174,13 @@
 
         .explore-btn {
           background-color: var(--primary-color) !important;
-          color: white !important;
+          color: var(--overlay--color) !important;
           border: none !important;
           padding: 0.75rem 2rem !important;
           font-family: var(--text-font) !important;
           font-weight: 600 !important;
           font-size: 1rem !important;
-          border-radius: 50px !important;
+          border-radius: 10px !important;
           cursor: pointer !important;
           transition: all 0.3s ease !important;
         }
