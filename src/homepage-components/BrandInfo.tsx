@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import "./styles/BrandInfo.css"
 
@@ -8,43 +7,54 @@ const BrandInfo = () => {
   const [startIndex, setStartIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
-  const nationalParks = [
+  const trekkinginfo = [
     {
       id: 1,
-      name: "Sagarmatha National Park",
-      description:
-        "Home to Mount Everest, this park offers breathtaking Himalayan landscapes and unique Sherpa culture.",
-      imageUrl: "https://i.pinimg.com/1200x/bb/2d/cc/bb2dcc9ca5685ef21de47c97498f8b25.jpg",
-      badge: "25% Discount",
-      location: "Solukhumbu District",
-      established: "1976",
+      name: "Annapurna Region",
+      description: "A diverse trek with mountain views, Gurung villages, and the iconic Thorong La Pass.",
+      imageUrl: "https://i.pinimg.com/1200x/1f/07/61/1f0761fe50b6f7065295facdabbc3888.jpg",
+      location: "Annapurna Zone",
+      altitude: "800m to 5,416m",
     },
     {
       id: 2,
-      name: "Chitwan National Park",
-      description: "Famous for its wildlife, including one-horned rhinos, Bengal tigers, and various bird species.",
-      imageUrl: "https://i.pinimg.com/1200x/4f/d2/ca/4fd2ca4ed6c192e7ddd880cbb4105831.jpg",
-      badge: "Travel Package!",
-      location: "Chitwan District",
-      established: "1973",
+      name: "Everest Region",
+      description: "Follow legendary trails to Everest, passing Sherpa villages and dramatic peaks.",
+      imageUrl: "https://i.pinimg.com/736x/f6/07/c2/f607c258d0496fc99679b72ddc950f74.jpg",
+      location: "Solukhumbu District",
+      altitude: "2,800m to 5,545m",
     },
-    // {
-    //   id: 3,
-    //   name: "Langtang National Park",
-    //   description: "Beautiful landscapes, glaciers, and diverse flora & fauna close to Kathmandu.",
-    //   imageUrl: "https://i.pinimg.com/736x/1e/07/37/1e07375628bd97d229c9ac1167ff8f9e.jpg",
-    //   badge: "New!",
-    //   location: "Rasuwa District",
-    //   established: "1976",
-    // },
+    {
+      id: 3,
+      name: "Langtang Region",
+      description: "A peaceful trek near Kathmandu with forests, glaciers, and Tamang culture.",
+      imageUrl: "https://i.pinimg.com/1200x/48/8c/c9/488cc9fe4e540b5227ba7e11b64434e0.jpg",
+      location: "Rasuwa District",
+      altitude: "1,470m to 4,984m",
+    },
     {
       id: 4,
-      name: "Bardiya National Park",
-      description: "A serene park with rich biodiversity and fewer tourists, ideal for wildlife spotting.",
-      imageUrl: "https://i.pinimg.com/736x/f9/1c/eb/f91ceb5a8e78fd6afa8e5666c6476ef5.jpg",
-      badge: "Featured",
-      location: "Bardiya District",
-      established: "1988",
+      name: "Manaslu Region",
+      description: "A remote circuit with views of Manaslu and Tibetan-influenced villages.",
+      imageUrl: "https://i.pinimg.com/1200x/ca/66/19/ca6619121c189c63b7e4fa1cee8b48eb.jpg",
+      location: "Gorkha District",
+      altitude: "700m to 5,160m ",
+    },
+    {
+      id: 5,
+      name: "Mustang Region",
+      description: "Explore arid valleys, ancient caves, and the walled city of Lo Manthang.",
+      imageUrl: "https://i.pinimg.com/736x/07/2b/e9/072be96a4e88c546dc538ae0b0fb4c93.jpg",
+      location: "Upper Mustang",
+      altitude: "2,800m to 4,200m",
+    },
+    {
+      id: 6,
+      name: "Dolpo Region",
+      description: "A mystical trail through rugged landscapes and remote Buddhist villages.",
+      imageUrl: "https://i.pinimg.com/1200x/97/2b/b5/972bb5eb9b13d680aa743c59db1797f7.jpg",
+      location: "Dolpa District",
+      altitude: "2,500m to 5,190m",
     },
   ]
 
@@ -52,7 +62,7 @@ const BrandInfo = () => {
     if (isTransitioning) return
     setIsTransitioning(true)
     setTimeout(() => {
-      setStartIndex((prev) => (prev + 1) % nationalParks.length)
+      setStartIndex((prev) => (prev + 1) % trekkinginfo.length)
       setTimeout(() => setIsTransitioning(false), 300)
     }, 100)
   }
@@ -61,7 +71,7 @@ const BrandInfo = () => {
     if (isTransitioning) return
     setIsTransitioning(true)
     setTimeout(() => {
-      setStartIndex((prev) => (prev - 1 + nationalParks.length) % nationalParks.length)
+      setStartIndex((prev) => (prev - 1 + trekkinginfo.length) % trekkinginfo.length)
       setTimeout(() => setIsTransitioning(false), 300)
     }, 100)
   }
@@ -93,9 +103,9 @@ const BrandInfo = () => {
   const getVisibleParks = () => {
     const parks = []
     for (let i = 0; i < 3; i++) {
-      const index = (startIndex + i) % nationalParks.length
+      const index = (startIndex + i) % trekkinginfo.length
       parks.push({
-        ...nationalParks[index],
+        ...trekkinginfo[index],
         position: i === 0 ? "left" : i === 1 ? "center" : "right",
       })
     }
@@ -114,14 +124,15 @@ const BrandInfo = () => {
       <div className="np-background-image"></div>
       <div className="np-content-wrapper">
         <div className="np-left-section">
-          <h2 className="np-heading">National Parks of Nepal</h2>
+          <h2 className="np-heading">Trekking Gems of Nepal</h2>
+
           <a
             className="np-button"
             href="#"
             role="button"
             aria-label="View all national parks"
           >
-            View All Parks
+            View All Trails
             <span className="np-button-icon" aria-hidden="true">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -162,8 +173,9 @@ const BrandInfo = () => {
                   <div className="np-card-hover-content">
                     <div className="np-card-info">
                       <div className="np-card-meta">
-                        <span className="np-location">📍 {park.location}</span>
-                        <span className="np-established">🗓️ Est. {park.established}</span>
+                        <span className="np-location">🗺 {park.location}</span>
+                        <span className="np-altitude">⛰ {park.altitude}</span>
+
                       </div>
                       <p className="np-card-description">{park.description}</p>
                       <a href="#" className="np-view-offer-link" aria-label={`View details about ${park.name}`}>
