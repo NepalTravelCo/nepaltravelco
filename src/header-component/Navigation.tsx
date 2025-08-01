@@ -346,12 +346,12 @@ const Navigation = () => {
                   <div className="row h-100">
                     <div className="col-lg-5 col-md-6 menu-links-section">
                       <div className="menu-links-container">
-                        <a href="#" className="finland-menu-link" id="visa-link">
+                        <Link href="/visa-information" className="finland-menu-link" id="visa-link">
                           <span>Visa Information</span>
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                             <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                           </svg>
-                        </a>
+                        </Link>
                         <a href="#" className="finland-menu-link" id="weather-link">
                           <span>Weather & Climate</span>
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
