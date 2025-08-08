@@ -168,7 +168,7 @@ const Navigation = () => {
                           </svg>
                         </a>
                       </div>
-                      <div className="menu-footer-links">
+                      {/* <div className="menu-footer-links">
                         <Link href="/treks" className="footer-link">
                           All Trek Packages
                         </Link>
@@ -178,7 +178,7 @@ const Navigation = () => {
                         <a href="#" className="footer-link">
                           Trek Calendar
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="col-lg-7 col-md-6 menu-featured-section">
                       <div className="featured-content">
@@ -250,7 +250,7 @@ const Navigation = () => {
                           </svg>
                         </Link>
                       </div>
-                      <div className="menu-footer-links">
+                      {/* <div className="menu-footer-links">
                         <Link href="/experiences" className="footer-link">
                           All Experiences
                         </Link>
@@ -260,7 +260,7 @@ const Navigation = () => {
                         <a href="#" className="footer-link">
                           Private Tours
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="col-lg-7 col-md-6 menu-featured-section">
                       <div className="featured-content">
@@ -333,14 +333,9 @@ const Navigation = () => {
                             <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                           </svg>
                         </a>
-                        <a href="#" className="finland-menu-link" id="faqs-link">
-                          <span>FAQs</span>
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                          </svg>
-                        </a>
+                        
                       </div>
-                      <div className="menu-footer-links">
+                      {/* <div className="menu-footer-links">
                         <a href="#" className="footer-link">
                           Travel Insurance
                         </a>
@@ -350,7 +345,7 @@ const Navigation = () => {
                         <a href="#" className="footer-link">
                           Health & Safety
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="col-lg-7 col-md-6 menu-featured-section">
                       <div className="featured-content">
