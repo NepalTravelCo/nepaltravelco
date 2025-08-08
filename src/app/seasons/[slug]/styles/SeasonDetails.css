@@ -1,0 +1,202 @@
+/* Unique, conflict-free classes prefixed with ntc- */
+.season-details-body {
+  /* max-width: 1200px; */
+  width: 100%;
+  background-color: var(--background-color);
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+.ntc-season-page {
+  /* --ntc-maxw: 1100px; */
+  width: 90%;
+  --ntc-gap: 1rem;
+  --ntc-radius: 14px;
+  --ntc-shadow: var(--shadow-medium, 0 10px 25px rgba(0, 0, 0, 0.1));
+  /* padding: 2rem 1rem; */
+  margin: 0 auto;
+  max-width: var(--ntc-maxw);
+  background-color: var(--background-color, #fafafa);
+  color: var(--text-color, #333);
+  
+}
+
+.ntc-breadcrumbs {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+}
+
+.ntc-breadcrumbs-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  font-family: var(--heading-font);
+  color: var(--primary-color);
+}
+.ntc-breadcrumb-link {
+  
+  text-decoration: none;
+}
+.ntc-breadcrumb-link:hover {
+  color: var(--accent-color);
+  /* text-decoration: underline; */
+}
+.ntc-breadcrumb-sep {
+  color: var(--text-muted, #666);
+}
+.ntc-breadcrumb-current {
+  font-weight: 600;
+}
+
+.ntc-season-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ntc-radius);
+  box-shadow: var(--ntc-shadow);
+  background: #000;
+}
+
+.ntc-season-figure {
+  margin: 0;
+  position: relative;
+  line-height: 0;
+}
+.ntc-season-hero-img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  display: block;
+}
+.ntc-hero-caption {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.ntc-hero-text {
+  padding: 1rem 1rem 1.25rem 1rem;
+  background: var(--overlay-color, #f4f4f4);
+}
+.ntc-season-title {
+  font-family: var(--heading-font, Georgia, serif);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  margin: 0 0 0.25rem 0;
+}
+.ntc-season-subtitle {
+  margin: 0;
+  color: var(--text-muted, #666);
+}
+
+.ntc-season-content {
+  margin-top: 1.5rem;
+}
+.ntc-section-title {
+  font-size: 1.25rem;
+  font-family: var(--heading-font);
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+}
+.ntc-paragraph {
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-family: var(--text-font);
+  margin: 0 0 0.75rem 0;
+}
+
+.ntc-season-panels {
+  display: grid;
+  gap: var(--ntc-gap);
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .ntc-season-panels {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ntc-panel {
+  border-radius: var(--ntc-radius);
+  padding: 1.25rem;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  
+}
+
+.ntc-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background-image: url("/icons/pattern.svg"); /* optional subtle pattern */
+  background-size: cover;
+  pointer-events: none;
+}
+
+.ntc-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.ntc-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Individual panel themes */
+.ntc-panel.months {
+  background: linear-gradient(135deg, #28b0bd, #2cc2c3);
+}
+
+.ntc-panel.highlights {
+  background: linear-gradient(135deg, #dc143c, #ff5e62);
+}
+
+.ntc-panel.tips {
+  background: linear-gradient(135deg, #143094, #2a4eb8);
+}
+
+.ntc-list{
+  list-style: none;
+
+}
+.ntc-list-item {
+  margin: 0.35rem 0;
+  font-family: var(--text-font);
+}
+
+
+.ntc-cta {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+.ntc-cta-link {
+  display: inline-block;
+  background: var(--accent-color, #D94F30);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.ntc-cta-link:hover {
+  background: var(--button-hover, #00636B);
+}
