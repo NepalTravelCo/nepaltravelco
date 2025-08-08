@@ -37,44 +37,7 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, isHomePage]);
 
-  // Scroll detection for navbar visibility and background
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollY = window.scrollY
-
-  //     // Show/hide navbar based on scroll direction
-  //     if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        
-  //       setShowNavbar(false)
-  //     } else {
-  //       // Scrolling up
-  //       setShowNavbar(true)
-  //     }
-
-      
-  //     setIsScrolled(currentScrollY > 50)
-  //     setLastScrollY(currentScrollY)
-  //   }
-
-  //   window.addEventListener("scroll", handleScroll, { passive: true })
-  //   return () => window.removeEventListener("scroll", handleScroll)
-  // }, [lastScrollY])
-
-  // Initialize Bootstrap dropdowns
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-      
-  //     import("bootstrap/dist/js/bootstrap.bundle.min.js").then(() => {
-        
-  //       const dropdownElementList = document.querySelectorAll(".dropdown-toggle")
-  //       dropdownElementList.forEach((dropdownToggleEl) => {
-  //         if (window.bootstrap) {
-  //           new window.bootstrap.Dropdown(dropdownToggleEl)
-  //         }
-  //       })
-  //     })
-  //   }
-  // }, [])
+  
 
   return (
     <nav
@@ -280,12 +243,12 @@ const Navigation = () => {
                             <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                           </svg>
                         </a>
-                        <a href="#" className="finland-menu-link" id="cultural-tours-link">
+                        <Link href="/explore-valley" className="finland-menu-link" id="cultural-tours-link">
                           <span>Explore The Valley</span>
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                             <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                           </svg>
-                        </a>
+                        </Link>
                       </div>
                       <div className="menu-footer-links">
                         <Link href="/experiences" className="footer-link">
