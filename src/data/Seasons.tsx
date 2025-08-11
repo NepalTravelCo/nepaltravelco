@@ -106,7 +106,7 @@ export const seasonsData: Season[] = [
     slug: toSlug("Festivals"),
     name: "Festivals",
     image:
-      "https://i.pinimg.com/736x/b0/85/7d/b0857d75f0d95c4dd9200b7d11533e11.jpg",
+      "https://i.pinimg.com/1200x/46/14/e3/4614e3974aa171267fc4096895b67610.jpg",
     description: "Dashain, Tihar, Holi and more cultural joy.",
     longDescription: [
       "Nepal’s festivals are a window into the soul of the nation—a blend of spirituality, community, and joyous celebration. Spread throughout the year, each festival carries its own unique flavor and cultural significance. Dashain, the country’s largest festival, spans fifteen days and honors the goddess Durga’s victory over evil. Families reunite, elders bless the younger generation, and kites dance in the autumn sky. Tihar follows soon after, illuminating the nights with oil lamps, candles, and colorful rangoli patterns, as each day honors a different animal or deity.",

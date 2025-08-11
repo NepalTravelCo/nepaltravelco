@@ -3,46 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import "../homepage-components/styles/TravelSeasons.css"
-import { toSlug } from "../data/Seasons"
-
-type SeasonCard = {
-  name: string
-  image: string
-  description: string
-}
-
-const seasons: SeasonCard[] = [
-  {
-    name: "Spring",
-    image:
-      "https://i.pinimg.com/736x/20/4b/7b/204b7b34290c881a13e0d347d23466f1.jpg",
-    description: "Blooming trails and perfect weather for hikes.",
-  },
-  {
-    name: "Summer",
-    image:
-      "https://i.pinimg.com/1200x/a4/8d/38/a48d38b909a472a7cf03dadcdee52a63.jpg",
-    description: "Crystal clear lakes and lush green valleys.",
-  },
-  {
-    name: "Autumn",
-    image:
-      "https://i.pinimg.com/1200x/04/1a/09/041a09f90fb85d0725a79b967a7c0fdb.jpg",
-    description: "Golden forests and traditional village festivals.",
-  },
-  {
-    name: "Winter",
-    image:
-      "https://i.pinimg.com/736x/b5/29/e9/b529e9830fbd52a1cf8911dc289d9464.jpg",
-    description: "Snowy peaks and peaceful mountain retreats.",
-  },
-  {
-    name: "Festivals",
-    image:
-      "https://i.pinimg.com/736x/b0/85/7d/b0857d75f0d95c4dd9200b7d11533e11.jpg",
-    description: "Dashain, Tihar, Holi and more cultural joy.",
-  },
-]
+import { seasonsData, toSlug } from "../data/Seasons"  // ✅ import directly
 
 export default function TravelSeasons() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -59,13 +20,13 @@ export default function TravelSeasons() {
   }, [])
 
   const scrollToNext = useCallback(() => {
-    const nextIndex = (activeIndex + 1) % seasons.length
+    const nextIndex = (activeIndex + 1) % seasonsData.length
     scrollToIndex(nextIndex)
     setActiveIndex(nextIndex)
   }, [activeIndex, scrollToIndex])
 
   const scrollToPrev = () => {
-    const prevIndex = (activeIndex - 1 + seasons.length) % seasons.length
+    const prevIndex = (activeIndex - 1 + seasonsData.length) % seasonsData.length
     scrollToIndex(prevIndex)
     setActiveIndex(prevIndex)
   }
@@ -104,21 +65,18 @@ export default function TravelSeasons() {
     return () => stopAutoScroll()
   }, [isHovered, startAutoScroll, stopAutoScroll])
 
-  // SEO: JSON-LD ItemList for the seasons carousel
+  // ✅ SEO: JSON-LD ItemList
   const itemListStructuredData = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: seasons.map((s, idx) => {
-      const slug = toSlug(s.name)
-      return {
-        "@type": "ListItem",
-        position: idx + 1,
-        url: `/seasons/${slug}`,
-        name: s.name,
-        image: s.image,
-        description: s.description,
-      }
-    }),
+    itemListElement: seasonsData.map((s, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: `/seasons/${s.slug}`,
+      name: s.name,
+      image: s.image,
+      description: s.description,
+    })),
   }
 
   return (
@@ -174,45 +132,41 @@ export default function TravelSeasons() {
 
         <div className="scroll-container" ref={containerRef}>
           <div className="cards-wrapper">
-            {seasons.map((season, index) => {
-              const slug = toSlug(season.name)
-              return (
-                <article
-                  key={slug}
-                  className={`season-card-wrapper ${index === activeIndex ? "active" : ""}`}
-                  onMouseEnter={() => handleCardMouseEnter(index)}
-                  onMouseLeave={handleCardMouseLeave}
+            {seasonsData.map((season, index) => (
+              <article
+                key={season.slug}
+                className={`season-card-wrapper ${index === activeIndex ? "active" : ""}`}
+                onMouseEnter={() => handleCardMouseEnter(index)}
+                onMouseLeave={handleCardMouseLeave}
+              >
+                <Link
+                  href={`/seasons/${season.slug}`}
+                  className="ntc-season-link"
+                  aria-label={`Explore ${season.name} in Nepal`}
+                  title={`Explore ${season.name} in Nepal`}
+                  style={{ display: "block", textDecoration: "none", color: "inherit" }}
                 >
-                  <Link
-                    href={`/seasons/${slug}`}
-                    className="ntc-season-link"
-                    aria-label={`Explore ${season.name} in Nepal`}
-                    title={`Explore ${season.name} in Nepal`}
-                    style={{ display: "block", textDecoration: "none", color: "inherit" }}
+                  <div
+                    className="season-card"
+                    style={{ backgroundImage: `url(${season.image})` }}
+                    role="img"
+                    aria-label={`${season.name} - ${season.description}`}
                   >
-                    <div
-                      className="season-card"
-                      style={{ backgroundImage: `url(${season.image})` }}
-                      role="img"
-                      aria-label={`${season.name} - ${season.description}`}
-                    >
-                      <div className="card-overlay" />
-                      <div className="card-content">
-                        <h3 className="season-name">{season.name}</h3>
-                        <p className="season-description">{season.description}</p>
-                      </div>
+                    <div className="card-overlay" />
+                    <div className="card-content">
+                      <h3 className="season-name">{season.name}</h3>
+                      <p className="season-description">{season.description}</p>
                     </div>
-                  </Link>
-                </article>
-              )
-            })}
+                  </div>
+                </Link>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListStructuredData) }}
       />
     </>
