@@ -28,9 +28,9 @@ export const seasonsData: Season[] = [
       "https://i.pinimg.com/736x/20/4b/7b/204b7b34290c881a13e0d347d23466f1.jpg",
     description: "Blooming trails and perfect weather for hikes.",
     longDescription: [
-      "Spring in Nepal is a vibrant and colorful season, often regarded as one of the best times for trekking and exploration. The hillsides come alive with blooming rhododendrons, magnolias, and wildflowers, creating striking contrasts against the snow-clad Himalayan peaks. Mild daytime temperatures make both high- and mid-altitude treks comfortable, while the air remains fresh and crisp. The season also coincides with major cultural events like Holi, adding bursts of color and festivity to the travel experience. Wildlife viewing is also excellent during this time, with national parks teeming with activity",
+      "Spring in Nepal (March to May) is a season of rebirth, when nature shakes off winter’s chill and bursts into a celebration of color. Across the hillsides, forests turn into vibrant tapestries of pink, red, and white rhododendrons, complemented by blooming magnolias and orchids. Trekkers walking through trails like Ghorepani, Langtang, and Annapurna find themselves surrounded by petals underfoot and blossoms overhead, while distant snow-capped peaks stand in crisp contrast under clear blue skies.",
 
-      "The clear skies during spring allow for spectacular, uninterrupted views of mountains like Everest, Annapurna, and Langtang. Villages along trekking routes are bustling with activity as locals prepare fields for planting, offering an authentic glimpse into rural Nepali life. Whether exploring cultural heritage sites in Kathmandu Valley or hiking through flower-covered hillsides, spring provides an ideal balance of natural beauty and cultural immersion.",
+      "Temperatures are pleasantly warm in the day and refreshingly cool at night, making this one of the most comfortable trekking periods. Wildlife viewing in Chitwan and Bardiya National Parks is particularly rewarding, with migratory birds and active mammals filling the lush grasslands. On the cultural side, spring coincides with Holi—the festival of colors—where locals joyfully splash water and powdered pigments, turning towns into living rainbows. For travelers seeking a perfect mix of trekking, wildlife, and cultural immersion, spring offers Nepal at its most charming.",
     ],
     bestMonths: ["March", "April", "May"],
     highlights: [
@@ -52,9 +52,9 @@ export const seasonsData: Season[] = [
       "https://i.pinimg.com/1200x/a4/8d/38/a48d38b909a472a7cf03dadcdee52a63.jpg",
     description: "Crystal clear lakes and lush green valleys.",
     longDescription: [
-      "Summer in Nepal coincides with the monsoon season, transforming the landscapes into lush green paradises. Heavy rains nourish the valleys, fill rivers to their brim, and create countless waterfalls cascading down hillsides. Although high-altitude treks can be challenging due to slippery trails and cloud cover, rain-shadow regions like Mustang, Dolpo, and Manang remain relatively dry and accessible. These regions offer dramatic desert-like landscapes that stand in stark contrast to the rest of the country’s greenery.",
+      "Summer in Nepal (June to August) is synonymous with the monsoon—a season that breathes life into every corner of the country. Rainfall sweeps across the hills and plains, painting the valleys in a hundred shades of green. Rice terraces glisten under the clouds, rivers swell into roaring torrents, and waterfalls cascade dramatically down mountain cliffs. While high-altitude trekking can be tricky due to slippery paths and limited visibility, regions in the rain-shadow like Upper Mustang, Dolpo, and Manang remain mostly dry and open for exploration.",
 
-      "This is also a time when rice planting dominates the rural landscape, with farmers working in flooded terraces—a fascinating cultural scene for visitors. The vibrant greenery and refreshed air bring a sense of renewal to the land, while fewer tourists mean quieter trails and better opportunities for deep cultural engagement. Summer is also an excellent season for photography, with moody skies, rich colors, and dramatic weather patterns.",
+      "This is a time when rural Nepal hums with agricultural activity. Travelers visiting villages will see farmers ankle-deep in water, planting rice seedlings in neat rows, often to the beat of folk songs. The air is fresh and earthy after rainfall, and fewer visitors mean quieter trails and lower prices. For photographers, the dramatic skies and shifting light create breathtaking compositions. Summer is also ideal for those who enjoy cultural immersion, local homestays, and exploring lush, lesser-trodden landscapes.",
     ],
     bestMonths: ["June", "July", "August"],
     highlights: ["Lush greenery", "Fewer crowds", "Vibrant waterfalls"],
@@ -71,8 +71,9 @@ export const seasonsData: Season[] = [
       "https://i.pinimg.com/1200x/04/1a/09/041a09f90fb85d0725a79b967a7c0fdb.jpg",
     description: "Golden forests and traditional village festivals.",
     longDescription: [
-      "Autumn is considered Nepal’s peak tourist season, thanks to its stable weather, warm days, and crystal-clear skies. This is the prime time for trekking, with mountain ranges visible in all their glory—snow-capped peaks sharply outlined against deep blue skies. Trails across the Everest, Annapurna, and Langtang regions buzz with trekkers from around the world, creating a lively, multicultural atmosphere.",
-      "The season is also deeply cultural, as it aligns with Nepal’s biggest festivals—Dashain and Tihar. Villages and cities are decorated with vibrant lights, colorful kites, and traditional patterns, while the air is filled with music, laughter, and the aroma of festive foods. Beyond trekking, autumn is perfect for sightseeing, cultural tours, and wildlife safaris, as animals are active and the terrain is easily navigable.",
+      "Autumn (September to November) is the crown jewel of Nepal’s travel seasons, drawing trekkers, climbers, and culture-seekers from around the world. The monsoon rains have washed the skies clear, revealing Himalayan giants in sharp detail—Everest, Annapurna, and Dhaulagiri shining under brilliant blue. The weather is stable, with warm days and cool nights, making it perfect for both high-altitude trekking and lowland adventures.",
+
+      "Beyond its natural allure, autumn is steeped in cultural richness. The season hosts Nepal’s grandest celebrations—Dashain, a festival symbolizing the triumph of good over evil, and Tihar, the luminous festival of lights. Streets and homes are adorned with lanterns and rangoli, while families gather to share traditional feasts. Trekkers find villages along routes alive with festivities, music, and dance. Whether you’re scaling mountain passes, strolling through golden forests, or joining in local celebrations, autumn offers Nepal in its most iconic and picture-perfect form.",
     ],
     bestMonths: ["September", "October", "November"],
     highlights: ["Best mountain visibility", "Festival season", "Prime trekking"],
@@ -89,9 +90,9 @@ export const seasonsData: Season[] = [
       "https://i.pinimg.com/736x/b5/29/e9/b529e9830fbd52a1cf8911dc289d9464.jpg",
     description: "Snowy peaks and peaceful mountain retreats.",
     longDescription: [
-      "Winter in Nepal offers a serene, peaceful experience with fewer tourists and crisp, clear air. While high mountain passes may be snowbound and inaccessible, lower-altitude treks and cultural explorations are highly rewarding. Popular trails like Ghorepani Poon Hill, Helambu, and the Kathmandu Valley rim provide breathtaking winter vistas without extreme conditions.",
+      "Winter (December to February) in Nepal paints the landscape in crisp whites and cool blues, offering a tranquil, crowd-free escape. While snow makes high mountain passes challenging, lower-altitude treks like Ghorepani Poon Hill, Helambu, and the Kathmandu Valley rim remain accessible and rewarding. These trails offer clear skies, sharp mountain silhouettes, and peaceful paths free from the peak-season rush.",
       
-      "In the high Himalayas, peaks stand majestically against an intense blue sky, their slopes dusted with fresh snow. In cities and rural towns, winter days are sunny and cool, while evenings invite cozy gatherings around fires. The season is also excellent for cultural immersion—visiting monasteries, exploring heritage sites, and experiencing local winter traditions. For photographers, the clarity of the air brings exceptional visibility and sharp mountain views",
+      "In the Himalayas, freshly fallen snow glitters under the winter sun, creating breathtaking scenery for photographers and nature lovers. Cities like Kathmandu and Pokhara enjoy mild, sunny days perfect for sightseeing, while evenings invite cozy moments around fire pits. This is also the season for exploring monasteries, ancient temples, and cultural heritage sites without the bustle of large crowds. Winter in Nepal offers a slower pace, serene beauty, and a unique chance to experience the country’s landscapes and traditions in a more intimate setting.",
     ],
     bestMonths: ["December", "January", "February"],
     highlights: ["Quieter trails", "Clear horizons", "Cultural immersion"],
@@ -108,9 +109,9 @@ export const seasonsData: Season[] = [
       "https://i.pinimg.com/736x/b0/85/7d/b0857d75f0d95c4dd9200b7d11533e11.jpg",
     description: "Dashain, Tihar, Holi and more cultural joy.",
     longDescription: [
-      "Nepal’s cultural calendar is filled with festivals that reflect the country’s religious diversity and deep traditions. Dashain, the longest and most significant festival, celebrates the victory of good over evil with family reunions, elaborate feasts, and ceremonial rituals. Tihar, the festival of lights, transforms streets and homes with glowing oil lamps, colorful rangoli, and the melodic songs of children performing Deusi-Bhailo.",
+      "Nepal’s festivals are a window into the soul of the nation—a blend of spirituality, community, and joyous celebration. Spread throughout the year, each festival carries its own unique flavor and cultural significance. Dashain, the country’s largest festival, spans fifteen days and honors the goddess Durga’s victory over evil. Families reunite, elders bless the younger generation, and kites dance in the autumn sky. Tihar follows soon after, illuminating the nights with oil lamps, candles, and colorful rangoli patterns, as each day honors a different animal or deity.",
 
-      "In spring, Holi erupts in a joyful explosion of colors, water, and music, uniting communities in playful celebration. Beyond the major festivals, local jatras, processions, and harvest celebrations offer intimate cultural encounters, often unique to specific towns or villages. These events are a rare opportunity for travelers to immerse themselves in Nepal’s living traditions, taste festive foods, and witness age-old rituals passed down through generations.",
+      "In spring, Holi explodes in a swirl of colors, with people playfully throwing powdered pigments and water in the streets. Many regions host their own jatras—traditional processions that can involve chariots, masked dances, and centuries-old rituals. Visitors can also witness smaller harvest festivals, Buddhist celebrations in monasteries, and regional events tied to the lunar calendar. For travelers, participating in these festivals is more than just sightseeing—it’s an invitation to join in the heartbeat of Nepali life.",
     ],
     bestMonths: ["Varies by festival"],
     highlights: [
