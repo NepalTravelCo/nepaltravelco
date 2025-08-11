@@ -4,7 +4,6 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Season from "./Seasons"
 import { seasonsData } from "../../data/Seasons"
-import FAQ from "@/homepage-components/FAQ"
 import BrandParallax from "@/homepage-components/BrandParallax"
 import ReachUs from "@/homepage-components/ReachUs"
 
@@ -61,7 +60,7 @@ export default function SeasonsIndexPage() {
       />
     </div>
     <BrandParallax/>
-    <FAQ/>
+   
     <ReachUs/>
     </>
   )
