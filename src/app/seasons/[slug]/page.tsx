@@ -5,12 +5,13 @@ import { getSeasonBySlug, getAllSeasonSlugs } from "../../../data/Seasons";
 import "./styles/SeasonDetails.css";
 import ReachUs from "@/homepage-components/ReachUs";
 import FAQ from "@/homepage-components/FAQ";
+import Image from "next/image";
 
 // Explicit type for route params
 type SeasonPageProps = {
-  params: Promise<{
+  params: {
     slug: string;
-  }>;
+  };
 };
 
 // Pre-render all known season pages for performance and SEO
@@ -22,7 +23,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 export async function generateMetadata(
   { params }: SeasonPageProps
 ): Promise<Metadata> {
-  const { slug } = await params; // ✅ Await params here
+  const { slug } = params; // ✅ No need to await
   const season = getSeasonBySlug(slug);
 
   if (!season) {
@@ -60,7 +61,7 @@ export async function generateMetadata(
 }
 
 export default async function SeasonPage({ params }: SeasonPageProps) {
-  const { slug } = await params; 
+  const { slug } = params; // ✅ No need to await
   const season = getSeasonBySlug(slug);
 
   if (!season) return notFound();
@@ -103,11 +104,7 @@ export default async function SeasonPage({ params }: SeasonPageProps) {
     <>
       <div className="inner-pages-container">
         <div className="season-details-body">
-          <main
-            id="ntc-season-page"
-            className="ntc-season-page"
-            role="main"
-          >
+          <main id="ntc-season-page" className="ntc-season-page" role="main">
             <nav aria-label="Breadcrumb" className="ntc-breadcrumbs">
               <ol className="ntc-breadcrumbs-list">
                 <li>
@@ -122,29 +119,27 @@ export default async function SeasonPage({ params }: SeasonPageProps) {
                   </Link>
                 </li>
                 <li><span className="ntc-breadcrumb-sep">›</span></li>
-                <li
-                  aria-current="page"
-                  className="ntc-breadcrumb-current"
-                >
+                <li aria-current="page" className="ntc-breadcrumb-current">
                   {season.name}
                 </li>
               </ol>
             </nav>
 
-            <header className="ntc-season-hero">
-              <figure className="ntc-season-figure">
-                <img
-                  src={season.image || "/placeholder.svg"}
-                  alt={`${season.name} in Nepal`}
-                  className="ntc-season-hero-img"
-                  loading="eager"
-                />
-              </figure>
-              <div className="ntc-hero-text">
-                <h1 className="ntc-season-title">{season.name} in Nepal</h1>
-                <p className="ntc-season-subtitle">{season.description}</p>
-              </div>
-            </header>
+            <figure className="ntc-season-figure">
+              <Image
+                src={season.image || "/placeholder.svg"}
+                alt={`${season.name} in Nepal`}
+                className="ntc-season-hero-img"
+                width={800}
+                height={400}
+                priority
+              />
+            </figure>
+
+            <div className="ntc-hero-text">
+              <h1 className="ntc-season-title">{season.name} in Nepal</h1>
+              <p className="ntc-season-subtitle">{season.description}</p>
+            </div>
 
             <section
               className="ntc-season-content"
