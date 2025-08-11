@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { trekkinginfo } from "@/data/Treks"
 import { Mountain, MapPin, Calendar, Users } from "lucide-react"
 import Link from "next/link"
-
-import FAQ from "@/homepage-components/FAQ"
+import "./treks.css"
 import ReachUs from "@/homepage-components/ReachUs"
 
 interface TrekSection {
@@ -35,6 +34,7 @@ export default function TreksPage() {
   const [currentAltitude, setCurrentAltitude] = useState(sortedTreks[0]?.altitude || 0)
   const [activeSection, setActiveSection] = useState(0)
   const [animatedSections, setAnimatedSections] = useState(new Set<number>())
+  const [showAltitude, setShowAltitude] = useState(true)
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const animationRef = useRef<number>()
   const isAnimatingRef = useRef(false)
@@ -51,8 +51,8 @@ export default function TreksPage() {
     isAnimatingRef.current = true
     const difference = Math.abs(fromAltitude - toAltitude)
 
-    // Dynamic duration: larger differences take longer (min 800ms, max 2500ms)
-    const baseDuration = Math.min(Math.max(difference * 0.8, 800), 2500)
+    // Dynamic duration: larger differences take longer (min 1000ms, max 3000ms)
+    const baseDuration = Math.min(Math.max(difference * 1.2, 1000), 3000)
     const duration = baseDuration
 
     const startTime = Date.now()
@@ -79,9 +79,17 @@ export default function TreksPage() {
 
   useEffect(() => {
     const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
+
+      // Hide altitude number when near the bottom (last 20% of page)
+      const bottomThreshold = documentHeight - windowHeight * 1.2
+      setShowAltitude(window.scrollY < bottomThreshold)
+
       if (isAnimatingRef.current) return
 
-      const scrollPosition = window.scrollY + window.innerHeight / 2
+      let currentSectionIndex = -1
 
       sectionRefs.current.forEach((section, index) => {
         if (!section) return
@@ -90,13 +98,17 @@ export default function TreksPage() {
         const sectionBottom = sectionTop + section.offsetHeight
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-          if (activeSection !== index && !animatedSections.has(index)) {
-            setActiveSection(index)
-            const targetAltitude = sortedTreks[index]?.altitude || 0
-            animateToAltitude(currentAltitude, targetAltitude, index)
-          }
+          currentSectionIndex = index
         }
       })
+
+      if (currentSectionIndex !== -1 && currentSectionIndex !== activeSection) {
+        setActiveSection(currentSectionIndex)
+        if (!animatedSections.has(currentSectionIndex)) {
+          const targetAltitude = sortedTreks[currentSectionIndex]?.altitude || 0
+          animateToAltitude(currentAltitude, targetAltitude, currentSectionIndex)
+        }
+      }
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -111,243 +123,66 @@ export default function TreksPage() {
   }, [currentAltitude, activeSection, animatedSections])
 
   return (
-    <div className="inner-pages-container" style={{ paddingTop: 0 }}>
-      {/* Fixed Number Display - Left Side */}
-      <div
-        style={{
-          position: "fixed",
-          left: "5%",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 10,
-          pointerEvents: "none",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "clamp(4rem, 12vw, 8rem)",
-            fontFamily: "var(--heading-font)",
-            fontWeight: "900",
-            color: "white",
-            textShadow: "0 4px 20px rgba(0,0,0,0.8)",
-            lineHeight: "1",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          {currentAltitude.toLocaleString()}
-        </div>
-        <div
-          style={{
-            fontSize: "clamp(0.9rem, 2vw, 1.2rem)",
-            fontFamily: "var(--text-font)",
-            color: "rgba(255,255,255,0.9)",
-            textAlign: "center",
-            marginTop: "0.5rem",
-            textShadow: "0 2px 10px rgba(0,0,0,0.8)",
-          }}
-        >
-          meters
-        </div>
+    <div className="inner-pages-container">
+      {/* Fixed Altitude Display - Only show during trek sections */}
+      <div className={`fixed-altitude-display ${showAltitude ? "visible" : ""}`}>
+        <div className="altitude-number">{currentAltitude.toLocaleString()}</div>
+        <div className="altitude-label">meters</div>
       </div>
 
-      {/* Trek Sections with Content on Right */}
+      {/* Trek Sections */}
       {sortedTreks.map((trek, index) => (
         <div
           key={trek.id}
           ref={(el) => (sectionRefs.current[index] = el)}
+          className="trek-section"
           style={{
-            height: "100vh",
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("${trek.imageUrl}")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundAttachment: "fixed",
+            backgroundImage: `url("${trek.imageUrl}")`,
           }}
         >
-          {/* Content positioned on the right */}
-          <div
-            style={{
-              position: "absolute",
-              right: "5%",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "white",
-              maxWidth: "500px",
-              padding: "2rem",
-              backgroundColor: "rgba(0,0,0,0.3)",
-              borderRadius: "var(--border-radius-large)",
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(255,255,255,0.1)",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "clamp(2rem, 4vw, 3rem)",
-                fontFamily: "var(--heading-font)",
-                fontWeight: "var(--heading-weight)",
-                marginBottom: "1rem",
-                textShadow: "0 2px 10px rgba(0,0,0,0.5)",
-              }}
-            >
-              {trek.name}
-            </h2>
+          {/* Modern Content Layout */}
+          <div className="trek-content">
+            <h2 className="trek-title">{trek.name}</h2>
 
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                fontSize: "1.1rem",
-                fontFamily: "var(--text-font)",
-                color: "rgba(255,255,255,0.9)",
-                marginBottom: "1.5rem",
-                textShadow: "0 1px 5px rgba(0,0,0,0.5)",
-              }}
-            >
-              <MapPin size={20} style={{ marginRight: "0.5rem" }} />
+            <div className="trek-location">
+              <MapPin size={24} />
               {trek.location}
             </div>
 
-            <p
-              style={{
-                fontSize: "1rem",
-                fontFamily: "var(--text-font)",
-                lineHeight: "var(--line-height)",
-                color: "rgba(255,255,255,0.85)",
-                textShadow: "0 1px 5px rgba(0,0,0,0.5)",
-                marginBottom: "2rem",
-              }}
-            >
-              {trek.description}
-            </p>
+            <p className="trek-description">{trek.description}</p>
 
             {/* Trek Stats */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "1rem",
-                marginBottom: "2rem",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  fontSize: "0.9rem",
-                  color: "rgba(255,255,255,0.8)",
-                }}
-              >
-                <Mountain size={16} />
+            <div className="trek-stats">
+              <div className="trek-stat">
+                <Mountain size={18} />
                 <span>Max: {trek.altitude.toLocaleString()}m</span>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  fontSize: "0.9rem",
-                  color: "rgba(255,255,255,0.8)",
-                }}
-              >
-                <Calendar size={16} />
+              <div className="trek-stat">
+                <Calendar size={18} />
                 <span>12-16 days</span>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  fontSize: "0.9rem",
-                  color: "rgba(255,255,255,0.8)",
-                }}
-              >
-                <Users size={16} />
+              <div className="trek-stat">
+                <Users size={18} />
                 <span>2-12 people</span>
               </div>
-              <div
-                style={{
-                  fontSize: "0.9rem",
-                  color: "rgba(255,255,255,0.8)",
-                }}
-              >
-                🏔️ Moderate-Hard
-              </div>
+              <div className="trek-stat-text">🏔️ Moderate-Hard</div>
             </div>
 
             {/* Action Button */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <Link href={`/treks/${trek.id}`} style={{ textDecoration: "none" }}>
-                <button
-                  style={{
-                    width: "100%",
-                    padding: "1rem 2rem",
-                    backgroundColor: "white",
-                    color: "var(--primary-color)",
-                    border: "none",
-                    borderRadius: "var(--border-radius)",
-                    fontSize: "1.1rem",
-                    fontFamily: "var(--text-font)",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-2px)"
-                    e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.3)"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)"
-                    e.currentTarget.style.boxShadow = "none"
-                  }}
-                >
-                  Explore This Trek
-                </button>
+            <div className="d-flex flex-column">
+              <Link href={`/treks/${trek.id}`} className="trek-button">
+                Explore This Trek
               </Link>
             </div>
           </div>
 
           {/* Section indicator */}
-          <div
-            style={{
-              position: "absolute",
-              top: "2rem",
-              right: "2rem",
-              backgroundColor: "rgba(255,255,255,0.1)",
-              border: "1px solid rgba(255,255,255,0.3)",
-              borderRadius: "50%",
-              width: "50px",
-              height: "50px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              fontSize: "1.1rem",
-              fontFamily: "var(--text-font)",
-              fontWeight: "600",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            {index + 1}
-          </div>
+          <div className="section-indicator">{index + 1}</div>
         </div>
       ))}
 
       {/* Navigation Dots */}
-      <div
-        style={{
-          position: "fixed",
-          right: "2rem",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 20,
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-        }}
-      >
+      <div className="nav-dots">
         {sortedTreks.map((_, index) => (
           <button
             key={index}
@@ -357,37 +192,15 @@ export default function TreksPage() {
                 section.scrollIntoView({ behavior: "smooth" })
               }
             }}
-            style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "50%",
-              border: "2px solid white",
-              backgroundColor: activeSection === index ? "white" : "transparent",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              opacity: activeSection === index ? 1 : 0.6,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.2)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)"
-            }}
+            className={`nav-dot ${activeSection === index ? "active" : ""}`}
           />
         ))}
       </div>
 
-      {/* FAQ Section */}
-      <div>
-        <FAQ />
-       
-      </div>
+     
 
       {/* ReachUs Section */}
-      <div>
-        <ReachUs />
-      
-      </div>
+      <ReachUs/>
     </div>
   )
 }
