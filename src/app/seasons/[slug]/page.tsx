@@ -7,23 +7,19 @@ import ReachUs from "@/homepage-components/ReachUs";
 import FAQ from "@/homepage-components/FAQ";
 import Image from "next/image";
 
-// Explicit type for route params
-type SeasonPageProps = {
-  params: {
-    slug: string;
-  };
+type PageProps = {
+  params: Promise<{ slug: string }>;
 };
 
-// Pre-render all known season pages for performance and SEO
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  return getAllSeasonSlugs().map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = getAllSeasonSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
-// Page-level SEO with dynamic metadata based on slug
 export async function generateMetadata(
-  { params }: SeasonPageProps
+  { params }: PageProps
 ): Promise<Metadata> {
-  const { slug } = params; // ✅ No need to await
+  const { slug } = await params;
   const season = getSeasonBySlug(slug);
 
   if (!season) {
@@ -35,16 +31,15 @@ export async function generateMetadata(
   }
 
   const title = `${season.name} in Nepal: Travel Guide, Best Months & Highlights`;
-  const description = season.description;
   const canonical = `https://www.example.com/seasons/${season.slug}`;
 
   return {
     title,
-    description,
+    description: season.description,
     alternates: { canonical },
     openGraph: {
       title,
-      description,
+      description: season.description,
       url: canonical,
       type: "article",
       images: season.image
@@ -54,16 +49,15 @@ export async function generateMetadata(
     twitter: {
       card: "summary_large_image",
       title,
-      description,
+      description: season.description,
       images: season.image ? [season.image] : [],
     },
   };
 }
 
-export default async function SeasonPage({ params }: SeasonPageProps) {
-  const { slug } = params; // ✅ No need to await
+export default async function SeasonPage({ params }: PageProps) {
+  const { slug } = await params;
   const season = getSeasonBySlug(slug);
-
   if (!season) return notFound();
 
   const structuredData = {
@@ -79,18 +73,8 @@ export default async function SeasonPage({ params }: SeasonPageProps) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "/",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Seasons",
-        item: "/seasons",
-      },
+      { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+      { "@type": "ListItem", position: 2, name: "Seasons", item: "/seasons" },
       {
         "@type": "ListItem",
         position: 3,
@@ -112,14 +96,21 @@ export default async function SeasonPage({ params }: SeasonPageProps) {
                     Home
                   </Link>
                 </li>
-                <li><span className="ntc-breadcrumb-sep">›</span></li>
+                <li>
+                  <span className="ntc-breadcrumb-sep">›</span>
+                </li>
                 <li>
                   <Link href="/seasons" className="ntc-breadcrumb-link">
                     Seasons
                   </Link>
                 </li>
-                <li><span className="ntc-breadcrumb-sep">›</span></li>
-                <li aria-current="page" className="ntc-breadcrumb-current">
+                <li>
+                  <span className="ntc-breadcrumb-sep">›</span>
+                </li>
+                <li
+                  aria-current="page"
+                  className="ntc-breadcrumb-current"
+                >
                   {season.name}
                 </li>
               </ol>
@@ -149,7 +140,9 @@ export default async function SeasonPage({ params }: SeasonPageProps) {
                 Overview
               </h2>
               {season.longDescription.map((para, i) => (
-                <p key={i} className="ntc-paragraph">{para}</p>
+                <p key={i} className="ntc-paragraph">
+                  {para}
+                </p>
               ))}
             </section>
 
@@ -158,7 +151,9 @@ export default async function SeasonPage({ params }: SeasonPageProps) {
                 <h2 className="ntc-panel-title">📅 Best Months</h2>
                 <ul className="ntc-list">
                   {season.bestMonths.map((m) => (
-                    <li key={m} className="ntc-list-item">{m}</li>
+                    <li key={m} className="ntc-list-item">
+                      {m}
+                    </li>
                   ))}
                 </ul>
               </article>
@@ -167,7 +162,9 @@ export default async function SeasonPage({ params }: SeasonPageProps) {
                 <h2 className="ntc-panel-title">🌟 Highlights</h2>
                 <ul className="ntc-list">
                   {season.highlights.map((h) => (
-                    <li key={h} className="ntc-list-item">{h}</li>
+                    <li key={h} className="ntc-list-item">
+                      {h}
+                    </li>
                   ))}
                 </ul>
               </article>
@@ -176,7 +173,9 @@ export default async function SeasonPage({ params }: SeasonPageProps) {
                 <h2 className="ntc-panel-title">💡 Travel Tips</h2>
                 <ul className="ntc-list">
                   {season.tips.map((t) => (
-                    <li key={t} className="ntc-list-item">{t}</li>
+                    <li key={t} className="ntc-list-item">
+                      {t}
+                    </li>
                   ))}
                 </ul>
               </article>
