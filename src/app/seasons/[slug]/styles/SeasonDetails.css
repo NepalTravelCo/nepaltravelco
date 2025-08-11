@@ -38,7 +38,7 @@
   color: var(--primary-color);
 }
 .ntc-breadcrumb-link {
-  
+  color: var(--primary-color);
   text-decoration: none;
 }
 .ntc-breadcrumb-link:hover {

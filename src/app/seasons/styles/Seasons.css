@@ -5,6 +5,52 @@
     width: 100%;
     background-color: var(--background-color);
 }
+.ntc-seasonlist-page {
+  /* --ntc-maxw: 1100px; */
+  width: 90%;
+  --ntc-gap: 1rem;
+  --ntc-radius: 14px;
+  --ntc-shadow: var(--shadow-medium, 0 10px 25px rgba(0, 0, 0, 0.1));
+  /* padding: 2rem 1rem; */
+  margin: 0 auto;
+  max-width: var(--ntc-maxw);
+  background-color: var(--background-color, #fafafa);
+  color: var(--text-color, #333);
+  
+}
+
+.ntc-seasonlist-breadcrumbs {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+}
+
+.ntc-seasonlist-breadcrumbs-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  font-family: var(--heading-font);
+  color: var(--primary-color);
+}
+.ntc-seasonlist-breadcrumb-link {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+.ntc-seasonlist-breadcrumb-link:hover {
+  color: var(--accent-color);
+  /* text-decoration: underline; */
+}
+.ntc-seasonlist-breadcrumb-sep {
+  color: var(--text-muted, #666);
+}
+.ntc-seasonlist-breadcrumb-current {
+  font-weight: 600;
+}
+
 .ntc-seasonlist-index {
   width: 100%;
   /* max-width: 1200px; */

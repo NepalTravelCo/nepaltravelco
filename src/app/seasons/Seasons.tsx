@@ -8,12 +8,12 @@ export default function Season() {
   return (
     <>
     <div className="seasons-list-container">
-    <main id="ntc-season-page" className="ntc-season-page" role="main">
-    <nav aria-label="Breadcrumb" className="ntc-breadcrumbs">
-        <ol className="ntc-breadcrumbs-list">
-          <li><Link href="/" className="ntc-breadcrumb-link">Home</Link></li>
-          <li><span className="ntc-seasons-breadcrumb-sep">›</span></li>
-          <li aria-current="page" className="ntc-breadcrumb-current">Seasons</li>
+    <main id="ntc-seasonlist-page" className="ntc-seasonlist-page" role="main">
+    <nav aria-label="Breadcrumb" className="ntc-seasonlist-breadcrumbs">
+        <ol className="ntc-seasonlist-breadcrumbs-list">
+          <li><Link href="/" className="ntc-seasonlist-breadcrumb-link">Home</Link></li>
+          <li><span className="ntc-seasonlist-breadcrumb-sep">›</span></li>
+          <li aria-current="page" className="ntc-seasonlist-breadcrumb-current">Seasons</li>
         </ol>
       </nav>
 
