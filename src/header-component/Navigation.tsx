@@ -187,7 +187,7 @@ const Navigation = () => {
                         </div>
                         <div className="featured-text">
                           <h6>Featured: Nepal – Land of the Himalayas</h6>
-                          <Link href="/treks/scroll-animation"><button className="explore-btn" > Explore Treks </button></Link>
+                          <Link href="/treks"><button className="explore-btn" > Explore Treks </button></Link>
                         </div>
                       </div>
                     </div>

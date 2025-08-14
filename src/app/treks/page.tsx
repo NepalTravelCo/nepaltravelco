@@ -17,51 +17,47 @@ interface TrekSection {
   fullTrek: any
 }
 
-// Sort treks by altitude (highest first) for the animation sequence
-const sortedTreks: TrekSection[] = trekkinginfo
-  .map((trek) => ({
-    id: trek.id,
-    name: trek.name,
-    altitude: trek.maxAltitude,
-    description: trek.description,
-    imageUrl: trek.imageUrl,
-    location: trek.location,
-    fullTrek: trek,
-  }))
-  .sort((a, b) => b.altitude - a.altitude)
+const trekSections: TrekSection[] = trekkinginfo.map((trek) => ({
+  id: trek.id,
+  name: trek.name,
+  altitude: trek.maxAltitude,
+  description: trek.description,
+  imageUrl: trek.imageUrl,
+  location: trek.location,
+  fullTrek: trek,
+}))
 
 export default function TreksPage() {
-  const [currentAltitude, setCurrentAltitude] = useState(sortedTreks[0]?.altitude || 0)
+  const [currentAltitude, setCurrentAltitude] = useState(0) // Start with 0 to ensure proper initialization
   const [activeSection, setActiveSection] = useState(0)
-  const [animatedSections, setAnimatedSections] = useState(new Set<number>())
   const [showAltitude, setShowAltitude] = useState(true)
+  const [isInitialized, setIsInitialized] = useState(false) // Track initialization state
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const animationRef = useRef<number>()
   const isAnimatingRef = useRef(false)
 
-  // Easing function for smooth animation
-  const easeOutCubic = (t: number): number => {
-    return 1 - Math.pow(1 - t, 3)
+  const easeOutQuart = (t: number): number => {
+    return 1 - Math.pow(1 - t, 4)
   }
 
-  // Animate number with dynamic duration based on difference
-  const animateToAltitude = (fromAltitude: number, toAltitude: number, sectionIndex: number) => {
-    if (isAnimatingRef.current) return
+  const animateToAltitude = (fromAltitude: number, toAltitude: number) => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current)
+    }
+
+    if (fromAltitude === toAltitude) return
 
     isAnimatingRef.current = true
     const difference = Math.abs(fromAltitude - toAltitude)
 
-    // Dynamic duration: larger differences take longer (min 1000ms, max 3000ms)
-    const baseDuration = Math.min(Math.max(difference * 1.2, 1000), 3000)
-    const duration = baseDuration
-
+    const baseDuration = Math.min(Math.max(difference * 0.8, 600), 1500)
     const startTime = Date.now()
     const startValue = fromAltitude
 
     const animate = () => {
       const elapsed = Date.now() - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const easedProgress = easeOutCubic(progress)
+      const progress = Math.min(elapsed / baseDuration, 1)
+      const easedProgress = easeOutQuart(progress)
 
       const currentValue = Math.round(startValue + (toAltitude - startValue) * easedProgress)
       setCurrentAltitude(currentValue)
@@ -70,11 +66,30 @@ export default function TreksPage() {
         animationRef.current = requestAnimationFrame(animate)
       } else {
         isAnimatingRef.current = false
-        setAnimatedSections((prev) => new Set([...prev, sectionIndex]))
       }
     }
 
     animationRef.current = requestAnimationFrame(animate)
+  }
+
+  const calculateInitialActiveSection = (): number => {
+    const scrollPosition = window.scrollY + window.innerHeight / 2
+
+    for (let index = 0; index < sectionRefs.current.length; index++) {
+      const section = sectionRefs.current[index]
+      if (!section) continue
+
+      const rect = section.getBoundingClientRect()
+      const sectionTop = rect.top + window.scrollY
+      const sectionBottom = sectionTop + rect.height
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+        return index
+      }
+    }
+
+    // If no section is found, return 0 (first section)
+    return 0
   }
 
   useEffect(() => {
@@ -83,44 +98,77 @@ export default function TreksPage() {
       const windowHeight = window.innerHeight
       const documentHeight = document.documentElement.scrollHeight
 
-      // Hide altitude number when near the bottom (last 20% of page)
+      // Hide altitude number when near the bottom
       const bottomThreshold = documentHeight - windowHeight * 1.2
       setShowAltitude(window.scrollY < bottomThreshold)
 
-      if (isAnimatingRef.current) return
-
-      let currentSectionIndex = -1
+      let newActiveSection = 0
 
       sectionRefs.current.forEach((section, index) => {
         if (!section) return
 
-        const sectionTop = section.offsetTop
-        const sectionBottom = sectionTop + section.offsetHeight
+        const rect = section.getBoundingClientRect()
+        const sectionTop = rect.top + window.scrollY
+        const sectionBottom = sectionTop + rect.height
 
+        // Check if the center of the viewport is within this section
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-          currentSectionIndex = index
+          newActiveSection = index
         }
       })
 
-      if (currentSectionIndex !== -1 && currentSectionIndex !== activeSection) {
-        setActiveSection(currentSectionIndex)
-        if (!animatedSections.has(currentSectionIndex)) {
-          const targetAltitude = sortedTreks[currentSectionIndex]?.altitude || 0
-          animateToAltitude(currentAltitude, targetAltitude, currentSectionIndex)
-        }
+      if (newActiveSection !== activeSection && !isAnimatingRef.current) {
+        setActiveSection(newActiveSection)
+        const targetAltitude = trekSections[newActiveSection]?.altitude || 0
+        animateToAltitude(currentAltitude, targetAltitude)
       }
     }
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll() // Initial check
+    let ticking = false
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    const initializeComponent = () => {
+      // Wait for refs to be populated
+      setTimeout(() => {
+        const initialActiveSection = calculateInitialActiveSection()
+        const initialAltitude = trekSections[initialActiveSection]?.altitude || trekSections[0]?.altitude || 0
+
+        setActiveSection(initialActiveSection)
+        setCurrentAltitude(initialAltitude)
+        setIsInitialized(true)
+
+        // Call handleScroll to ensure everything is in sync
+        handleScroll()
+      }, 100)
+    }
+
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true })
+    initializeComponent() // Initialize component properly
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("scroll", throttledHandleScroll)
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [currentAltitude, activeSection, animatedSections])
+  }, [])
+
+  useEffect(() => {
+    if (!isInitialized) return
+
+    const targetAltitude = trekSections[activeSection]?.altitude || 0
+    if (targetAltitude !== currentAltitude && !isAnimatingRef.current) {
+      animateToAltitude(currentAltitude, targetAltitude)
+    }
+  }, [activeSection, isInitialized])
 
   return (
     <div className="inner-pages-container">
@@ -131,7 +179,7 @@ export default function TreksPage() {
       </div>
 
       {/* Trek Sections */}
-      {sortedTreks.map((trek, index) => (
+      {trekSections.map((trek, index) => (
         <div
           key={trek.id}
           ref={(el) => (sectionRefs.current[index] = el)}
@@ -183,7 +231,7 @@ export default function TreksPage() {
 
       {/* Navigation Dots */}
       <div className="nav-dots">
-        {sortedTreks.map((_, index) => (
+        {trekSections.map((_, index) => (
           <button
             key={index}
             onClick={() => {
@@ -197,10 +245,8 @@ export default function TreksPage() {
         ))}
       </div>
 
-     
-
       {/* ReachUs Section */}
-      <ReachUs/>
+      <ReachUs />
     </div>
   )
 }

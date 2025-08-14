@@ -197,7 +197,7 @@ export default function ClientTrekPage({ params }: TrekPageProps) {
               </div>
 
               <div className="sidebar-card">
-                <h3 className="sidebar-title">What's Included</h3>
+                <h3 className="sidebar-title">What&apos;s Included</h3>
                 <ul className="included-list">
                   {[
                     "Experienced trekking guide",
