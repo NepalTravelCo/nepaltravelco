@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { trekkinginfo } from "@/data/Treks"
+import { treksData } from "@/data/Treks"
 import { Mountain, MapPin, Calendar, Users } from "lucide-react"
 import Link from "next/link"
 import "./treks.css"
@@ -17,21 +17,23 @@ interface TrekSection {
   fullTrek: any
 }
 
-const trekSections: TrekSection[] = trekkinginfo.map((trek) => ({
-  id: trek.id,
+const trekSections: TrekSection[] = treksData.map((trek, index) => ({
+  id: index + 1,
   name: trek.name,
-  altitude: trek.maxAltitude,
+  altitude: trek.altitude,
   description: trek.description,
-  imageUrl: trek.imageUrl,
-  location: trek.location,
+  imageUrl: trek.image,
+  location: trek.slug.replace(/-/g, " "), // simple placeholder (you can add real location field later)
   fullTrek: trek,
 }))
 
+
 export default function TreksPage() {
-  const [currentAltitude, setCurrentAltitude] = useState(0) // Start with 0 to ensure proper initialization
+  const [currentAltitude, setCurrentAltitude] = useState(0)
   const [activeSection, setActiveSection] = useState(0)
   const [showAltitude, setShowAltitude] = useState(true)
-  const [isInitialized, setIsInitialized] = useState(false) // Track initialization state
+  const [isInitialized, setIsInitialized] = useState(false)
+  const [expandedTrek, setExpandedTrek] = useState<number | null>(null) // NEW: track which trek is expanded
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const animationRef = useRef<number>()
   const isAnimatingRef = useRef(false)
@@ -88,7 +90,6 @@ export default function TreksPage() {
       }
     }
 
-    // If no section is found, return 0 (first section)
     return 0
   }
 
@@ -98,7 +99,6 @@ export default function TreksPage() {
       const windowHeight = window.innerHeight
       const documentHeight = document.documentElement.scrollHeight
 
-      // Hide altitude number when near the bottom
       const bottomThreshold = documentHeight - windowHeight * 1.2
       setShowAltitude(window.scrollY < bottomThreshold)
 
@@ -111,7 +111,6 @@ export default function TreksPage() {
         const sectionTop = rect.top + window.scrollY
         const sectionBottom = sectionTop + rect.height
 
-        // Check if the center of the viewport is within this section
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
           newActiveSection = index
         }
@@ -136,22 +135,21 @@ export default function TreksPage() {
     }
 
     const initializeComponent = () => {
-      // Wait for refs to be populated
       setTimeout(() => {
         const initialActiveSection = calculateInitialActiveSection()
-        const initialAltitude = trekSections[initialActiveSection]?.altitude || trekSections[0]?.altitude || 0
+        const initialAltitude =
+          trekSections[initialActiveSection]?.altitude || trekSections[0]?.altitude || 0
 
         setActiveSection(initialActiveSection)
         setCurrentAltitude(initialAltitude)
         setIsInitialized(true)
 
-        // Call handleScroll to ensure everything is in sync
         handleScroll()
       }, 100)
     }
 
     window.addEventListener("scroll", throttledHandleScroll, { passive: true })
-    initializeComponent() // Initialize component properly
+    initializeComponent()
 
     return () => {
       window.removeEventListener("scroll", throttledHandleScroll)
@@ -172,7 +170,7 @@ export default function TreksPage() {
 
   return (
     <div className="inner-pages-container">
-      {/* Fixed Altitude Display - Only show during trek sections */}
+      {/* Fixed Altitude Display */}
       <div className={`fixed-altitude-display ${showAltitude ? "visible" : ""}`}>
         <div className="altitude-number">{currentAltitude.toLocaleString()}</div>
         <div className="altitude-label">meters</div>
@@ -188,7 +186,6 @@ export default function TreksPage() {
             backgroundImage: `url("${trek.imageUrl}")`,
           }}
         >
-          {/* Modern Content Layout */}
           <div className="trek-content">
             <h2 className="trek-title">{trek.name}</h2>
 
@@ -199,7 +196,6 @@ export default function TreksPage() {
 
             <p className="trek-description">{trek.description}</p>
 
-            {/* Trek Stats */}
             <div className="trek-stats">
               <div className="trek-stat">
                 <Mountain size={18} />
@@ -218,13 +214,13 @@ export default function TreksPage() {
 
             {/* Action Button */}
             <div className="d-flex flex-column">
-              <Link href={`/treks/${trek.id}`} className="trek-button">
+              <Link href={`/treks/${trek.fullTrek.slug}`} className="trek-button">
                 Explore This Trek
               </Link>
+
             </div>
           </div>
 
-          {/* Section indicator */}
           <div className="section-indicator">{index + 1}</div>
         </div>
       ))}
@@ -245,7 +241,6 @@ export default function TreksPage() {
         ))}
       </div>
 
-      {/* ReachUs Section */}
       <ReachUs />
     </div>
   )

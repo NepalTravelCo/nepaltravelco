@@ -13,7 +13,17 @@
 .fixed-altitude-display.visible {
   opacity: 1;
 }
-
+.trek-section {
+  background-size: cover;       /* Fill section */
+  background-position: center;  /* Keep centered */
+  background-repeat: no-repeat; /* Prevent tiling */
+  min-height: 100vh;            /* Make it full viewport height */
+  width: 100%;                  /* Full width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 .altitude-number {
   font-size: clamp(6rem, 15vw, 12rem);
   font-family: var(--heading-font);
