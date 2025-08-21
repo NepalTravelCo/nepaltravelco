@@ -33,7 +33,6 @@ export default function TreksPage() {
   const [activeSection, setActiveSection] = useState(0)
   const [showAltitude, setShowAltitude] = useState(true)
   const [isInitialized, setIsInitialized] = useState(false)
-  const [expandedTrek, setExpandedTrek] = useState<number | null>(null) // NEW: track which trek is expanded
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const animationRef = useRef<number | null>(null)
   const isAnimatingRef = useRef(false)

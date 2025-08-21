@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { treksData, getTrekBySlug, getAllTrekSlugs } from "@/data/Treks"
+import { getTrekBySlug, getAllTrekSlugs } from "@/data/Treks"
 import { Mountain, Calendar, Users, MapPin } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
