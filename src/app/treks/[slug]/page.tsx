@@ -152,6 +152,46 @@ export default async function TrekPage({ params }: TrekPageProps) {
             </div>
           )}
 
+          {/* Itinerary */}
+          {trek.itinerary.length > 0 && (
+            <div>
+              <h2 className="section-title">Itinerary</h2>
+              <ul>
+                {trek.itinerary.map((day) => (
+                  <li key={day.day}>
+                    <strong>Day {day.day}:</strong> {day.title} - {day.description}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Estimated Cost */}
+          {trek.estimatedCost && (
+            <div>
+              <h2 className="section-title">Estimated Cost</h2>
+              <p><strong>Budget:</strong> {trek.estimatedCost.budget}</p>
+              <p><strong>Includes:</strong></p>
+              <ul>
+                {trek.estimatedCost.includes.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Permits */}
+          {trek.permits.length > 0 && (
+            <div>
+              <h2 className="section-title">Permits Required</h2>
+              <ul>
+                {trek.permits.map((permit, idx) => (
+                  <li key={idx}>{permit}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Gallery */}
           {trek.gallery.length > 0 && (
             <div>

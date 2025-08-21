@@ -11,6 +11,9 @@ export type Trek = {
   highlights: string[];
   tips: string[];
   gallery: string[];
+  itinerary: { day: number; title: string; description: string }[]; // ✅ added
+  estimatedCost: { budget: string; includes: string[] }; // ✅ added
+  permits: string[]; // ✅ added
 };
 
 // ✅ helper function
@@ -26,8 +29,7 @@ export const treksData: Trek[] = [
   {
     slug: toSlug("Everest Base Camp"),
     name: "Everest Base Camp",
-    image:
-      "https://i.pinimg.com/1200x/98/1b/2d/981b2d7f86a5206bc1dbe334e00da65a.jpg",
+    image: "/Images/TrekImages/ebc.jpg",
     duration: "12-14 days",
     difficulty: "Hard",
     description:
@@ -52,12 +54,40 @@ export const treksData: Trek[] = [
       "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
       "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
     ],
+    itinerary: [
+      { day: 1, title: "Fly to Lukla (2,860 m), trek to Phakding (2,610 m)", description: "30-min flight, then trek 3–4 hrs along Dudh Koshi River to Phakding." },
+      { day: 2, title: "Trek to Namche Bazaar (3,440 m)", description: "6–7 hrs hike through pine forests & suspension bridges to reach Sherpa hub." },
+      { day: 3, title: "Acclimatization at Namche", description: "Short hike to Everest View Hotel (3,880 m) for panoramic mountain views." },
+      { day: 4, title: "Trek to Tengboche (3,860 m)", description: "5–6 hrs trek to Tengboche Monastery with Everest & Ama Dablam views." },
+      { day: 5, title: "Trek to Dingboche (4,410 m)", description: "5–6 hrs trek past rhododendron forests & alpine meadows." },
+      { day: 6, title: "Acclimatization at Dingboche", description: "Short hike to Nangkartshang Peak (5,083 m) for views of Makalu & Lhotse." },
+      { day: 7, title: "Trek to Lobuche (4,910 m)", description: "5–6 hrs trek through rocky terrain & climber memorials." },
+      { day: 8, title: "Trek to Gorak Shep, hike to Everest Base Camp", description: "3 hrs trek to Gorak Shep, then hike to EBC (5,364 m)." },
+      { day: 9, title: "Hike Kala Patthar (5,545 m), descend to Pheriche", description: "Best sunrise view of Everest, then descend 6–7 hrs to Pheriche." },
+      { day: 10, title: "Trek to Namche Bazaar", description: "6–7 hrs downhill trek back to Namche." },
+      { day: 11, title: "Trek to Lukla", description: "6–7 hrs descend, final night celebration." },
+      { day: 12, title: "Fly back to Kathmandu", description: "Morning flight to Kathmandu, rest & relax." },
+    ],
+    estimatedCost: {
+      budget: "$1,200–$1,500 per person",
+      includes: [
+        "Domestic flights (Kathmandu–Lukla)",
+        "Meals during trek",
+        "Accommodation",
+        "Guide & porter",
+        "Permits",
+      ],
+    },
+    permits: [
+      "Sagarmatha National Park Entry Permit",
+      "Khumbu Pasang Lhamu Rural Municipality Permit",
+    ],
   },
   {
     slug: toSlug("Annapurna Circuit"),
     name: "Annapurna Circuit",
     image:
-      "https://i.pinimg.com/1200x/cf/5e/7f/cf5e7f730fc61a2a1a1c7e58fcb0f34c.jpg",
+      "/Images/TrekImages/ac.jpg",
     duration: "15-20 days",
     difficulty: "Moderate to Hard",
     description:
@@ -82,12 +112,40 @@ export const treksData: Trek[] = [
       "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
       "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
     ],
+    itinerary: [
+      { day: 1, title: "Fly to Lukla (2,860 m), trek to Phakding (2,610 m)", description: "30-min flight, then trek 3–4 hrs along Dudh Koshi River to Phakding." },
+      { day: 2, title: "Trek to Namche Bazaar (3,440 m)", description: "6–7 hrs hike through pine forests & suspension bridges to reach Sherpa hub." },
+      { day: 3, title: "Acclimatization at Namche", description: "Short hike to Everest View Hotel (3,880 m) for panoramic mountain views." },
+      { day: 4, title: "Trek to Tengboche (3,860 m)", description: "5–6 hrs trek to Tengboche Monastery with Everest & Ama Dablam views." },
+      { day: 5, title: "Trek to Dingboche (4,410 m)", description: "5–6 hrs trek past rhododendron forests & alpine meadows." },
+      { day: 6, title: "Acclimatization at Dingboche", description: "Short hike to Nangkartshang Peak (5,083 m) for views of Makalu & Lhotse." },
+      { day: 7, title: "Trek to Lobuche (4,910 m)", description: "5–6 hrs trek through rocky terrain & climber memorials." },
+      { day: 8, title: "Trek to Gorak Shep, hike to Everest Base Camp", description: "3 hrs trek to Gorak Shep, then hike to EBC (5,364 m)." },
+      { day: 9, title: "Hike Kala Patthar (5,545 m), descend to Pheriche", description: "Best sunrise view of Everest, then descend 6–7 hrs to Pheriche." },
+      { day: 10, title: "Trek to Namche Bazaar", description: "6–7 hrs downhill trek back to Namche." },
+      { day: 11, title: "Trek to Lukla", description: "6–7 hrs descend, final night celebration." },
+      { day: 12, title: "Fly back to Kathmandu", description: "Morning flight to Kathmandu, rest & relax." },
+    ],
+    estimatedCost: {
+      budget: "$1,200–$1,500 per person",
+      includes: [
+        "Domestic flights (Kathmandu–Lukla)",
+        "Meals during trek",
+        "Accommodation",
+        "Guide & porter",
+        "Permits",
+      ],
+    },
+    permits: [
+      "Sagarmatha National Park Entry Permit",
+      "Khumbu Pasang Lhamu Rural Municipality Permit",
+    ],
   },
   {
     slug: toSlug("Langtang Valley"),
     name: "Langtang Valley",
     image:
-      "https://i.pinimg.com/1200x/3f/8c/7e/3f8c7e734cf9f2a2b897cfcdd7ff5364.jpg",
+      "/Images/TrekImages/lv.jpg",
     duration: "7-10 days",
     difficulty: "Moderate",
     description:
@@ -111,12 +169,40 @@ export const treksData: Trek[] = [
       "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
       "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
     ],
+    itinerary: [
+      { day: 1, title: "Fly to Lukla (2,860 m), trek to Phakding (2,610 m)", description: "30-min flight, then trek 3–4 hrs along Dudh Koshi River to Phakding." },
+      { day: 2, title: "Trek to Namche Bazaar (3,440 m)", description: "6–7 hrs hike through pine forests & suspension bridges to reach Sherpa hub." },
+      { day: 3, title: "Acclimatization at Namche", description: "Short hike to Everest View Hotel (3,880 m) for panoramic mountain views." },
+      { day: 4, title: "Trek to Tengboche (3,860 m)", description: "5–6 hrs trek to Tengboche Monastery with Everest & Ama Dablam views." },
+      { day: 5, title: "Trek to Dingboche (4,410 m)", description: "5–6 hrs trek past rhododendron forests & alpine meadows." },
+      { day: 6, title: "Acclimatization at Dingboche", description: "Short hike to Nangkartshang Peak (5,083 m) for views of Makalu & Lhotse." },
+      { day: 7, title: "Trek to Lobuche (4,910 m)", description: "5–6 hrs trek through rocky terrain & climber memorials." },
+      { day: 8, title: "Trek to Gorak Shep, hike to Everest Base Camp", description: "3 hrs trek to Gorak Shep, then hike to EBC (5,364 m)." },
+      { day: 9, title: "Hike Kala Patthar (5,545 m), descend to Pheriche", description: "Best sunrise view of Everest, then descend 6–7 hrs to Pheriche." },
+      { day: 10, title: "Trek to Namche Bazaar", description: "6–7 hrs downhill trek back to Namche." },
+      { day: 11, title: "Trek to Lukla", description: "6–7 hrs descend, final night celebration." },
+      { day: 12, title: "Fly back to Kathmandu", description: "Morning flight to Kathmandu, rest & relax." },
+    ],
+    estimatedCost: {
+      budget: "$1,200–$1,500 per person",
+      includes: [
+        "Domestic flights (Kathmandu–Lukla)",
+        "Meals during trek",
+        "Accommodation",
+        "Guide & porter",
+        "Permits",
+      ],
+    },
+    permits: [
+      "Sagarmatha National Park Entry Permit",
+      "Khumbu Pasang Lhamu Rural Municipality Permit",
+    ],
   },
   {
     slug: toSlug("Manaslu Circuit"),
     name: "Manaslu Circuit",
     image:
-      "https://i.pinimg.com/1200x/f1/6c/62/f16c62e4f41b78114eac8dd6a1dbb95f.jpg",
+      "/Images/TrekImages/mc.jpg",
     duration: "14-18 days",
     difficulty: "Hard",
     description:
@@ -140,12 +226,40 @@ export const treksData: Trek[] = [
       "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
       "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
     ],
+    itinerary: [
+      { day: 1, title: "Fly to Lukla (2,860 m), trek to Phakding (2,610 m)", description: "30-min flight, then trek 3–4 hrs along Dudh Koshi River to Phakding." },
+      { day: 2, title: "Trek to Namche Bazaar (3,440 m)", description: "6–7 hrs hike through pine forests & suspension bridges to reach Sherpa hub." },
+      { day: 3, title: "Acclimatization at Namche", description: "Short hike to Everest View Hotel (3,880 m) for panoramic mountain views." },
+      { day: 4, title: "Trek to Tengboche (3,860 m)", description: "5–6 hrs trek to Tengboche Monastery with Everest & Ama Dablam views." },
+      { day: 5, title: "Trek to Dingboche (4,410 m)", description: "5–6 hrs trek past rhododendron forests & alpine meadows." },
+      { day: 6, title: "Acclimatization at Dingboche", description: "Short hike to Nangkartshang Peak (5,083 m) for views of Makalu & Lhotse." },
+      { day: 7, title: "Trek to Lobuche (4,910 m)", description: "5–6 hrs trek through rocky terrain & climber memorials." },
+      { day: 8, title: "Trek to Gorak Shep, hike to Everest Base Camp", description: "3 hrs trek to Gorak Shep, then hike to EBC (5,364 m)." },
+      { day: 9, title: "Hike Kala Patthar (5,545 m), descend to Pheriche", description: "Best sunrise view of Everest, then descend 6–7 hrs to Pheriche." },
+      { day: 10, title: "Trek to Namche Bazaar", description: "6–7 hrs downhill trek back to Namche." },
+      { day: 11, title: "Trek to Lukla", description: "6–7 hrs descend, final night celebration." },
+      { day: 12, title: "Fly back to Kathmandu", description: "Morning flight to Kathmandu, rest & relax." },
+    ],
+    estimatedCost: {
+      budget: "$1,200–$1,500 per person",
+      includes: [
+        "Domestic flights (Kathmandu–Lukla)",
+        "Meals during trek",
+        "Accommodation",
+        "Guide & porter",
+        "Permits",
+      ],
+    },
+    permits: [
+      "Sagarmatha National Park Entry Permit",
+      "Khumbu Pasang Lhamu Rural Municipality Permit",
+    ],
   },
   {
     slug: toSlug("Gokyo Lakes"),
     name: "Gokyo Lakes",
     image:
-      "https://i.pinimg.com/1200x/65/8c/52/658c523f7e936d0219e9e99e0c89d50e.jpg",
+      "/Images/TrekImages/gl.jpg",
     duration: "12-14 days",
     difficulty: "Moderate to Hard",
     description:
@@ -168,6 +282,34 @@ export const treksData: Trek[] = [
     gallery: [
       "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
       "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
+    ],
+    itinerary: [
+      { day: 1, title: "Fly to Lukla (2,860 m), trek to Phakding (2,610 m)", description: "30-min flight, then trek 3–4 hrs along Dudh Koshi River to Phakding." },
+      { day: 2, title: "Trek to Namche Bazaar (3,440 m)", description: "6–7 hrs hike through pine forests & suspension bridges to reach Sherpa hub." },
+      { day: 3, title: "Acclimatization at Namche", description: "Short hike to Everest View Hotel (3,880 m) for panoramic mountain views." },
+      { day: 4, title: "Trek to Tengboche (3,860 m)", description: "5–6 hrs trek to Tengboche Monastery with Everest & Ama Dablam views." },
+      { day: 5, title: "Trek to Dingboche (4,410 m)", description: "5–6 hrs trek past rhododendron forests & alpine meadows." },
+      { day: 6, title: "Acclimatization at Dingboche", description: "Short hike to Nangkartshang Peak (5,083 m) for views of Makalu & Lhotse." },
+      { day: 7, title: "Trek to Lobuche (4,910 m)", description: "5–6 hrs trek through rocky terrain & climber memorials." },
+      { day: 8, title: "Trek to Gorak Shep, hike to Everest Base Camp", description: "3 hrs trek to Gorak Shep, then hike to EBC (5,364 m)." },
+      { day: 9, title: "Hike Kala Patthar (5,545 m), descend to Pheriche", description: "Best sunrise view of Everest, then descend 6–7 hrs to Pheriche." },
+      { day: 10, title: "Trek to Namche Bazaar", description: "6–7 hrs downhill trek back to Namche." },
+      { day: 11, title: "Trek to Lukla", description: "6–7 hrs descend, final night celebration." },
+      { day: 12, title: "Fly back to Kathmandu", description: "Morning flight to Kathmandu, rest & relax." },
+    ],
+    estimatedCost: {
+      budget: "$1,200–$1,500 per person",
+      includes: [
+        "Domestic flights (Kathmandu–Lukla)",
+        "Meals during trek",
+        "Accommodation",
+        "Guide & porter",
+        "Permits",
+      ],
+    },
+    permits: [
+      "Sagarmatha National Park Entry Permit",
+      "Khumbu Pasang Lhamu Rural Municipality Permit",
     ],
   },
 ];
