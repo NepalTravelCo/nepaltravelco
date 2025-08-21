@@ -10,7 +10,7 @@ export type Trek = {
   bestMonths: string[];
   highlights: string[];
   tips: string[];
-  gallery?: string[];
+  gallery: string[];
 };
 
 // ✅ helper function
@@ -78,6 +78,10 @@ export const treksData: Trek[] = [
       "Prepare for both hot and cold weather.",
       "Stay hydrated at high altitude.",
     ],
+    gallery: [
+      "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
+      "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
+    ],
   },
   {
     slug: toSlug("Langtang Valley"),
@@ -102,6 +106,10 @@ export const treksData: Trek[] = [
     tips: [
       "Good option if you have limited time.",
       "Pack warm clothes for high altitude nights.",
+    ],
+    gallery: [
+      "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
+      "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
     ],
   },
   {
@@ -128,6 +136,10 @@ export const treksData: Trek[] = [
       "Carry cash—ATMs are rare.",
       "Trek with a guide due to permit requirements.",
     ],
+    gallery: [
+      "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
+      "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
+    ],
   },
   {
     slug: toSlug("Gokyo Lakes"),
@@ -152,6 +164,10 @@ export const treksData: Trek[] = [
     tips: [
       "Allow rest days for acclimatization.",
       "Pack layers for changing mountain weather.",
+    ],
+    gallery: [
+      "https://i.pinimg.com/1200x/20/6d/c8/206dc8f388c1a8701f038b99f30f7c70.jpg",
+      "https://i.pinimg.com/1200x/92/b9/2e/92b92ed0f8fc8b5d7e802e963da08d4b.jpg",
     ],
   },
 ];

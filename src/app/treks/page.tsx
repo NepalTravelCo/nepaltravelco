@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { treksData } from "@/data/Treks"
+import { Trek, treksData } from "@/data/Treks"
 import { Mountain, MapPin, Calendar, Users } from "lucide-react"
 import Link from "next/link"
 import "./treks.css"
@@ -14,7 +14,7 @@ interface TrekSection {
   description: string
   imageUrl: string
   location: string
-  fullTrek: any
+  fullTrek: Trek
 }
 
 const trekSections: TrekSection[] = treksData.map((trek, index) => ({
@@ -35,7 +35,7 @@ export default function TreksPage() {
   const [isInitialized, setIsInitialized] = useState(false)
   const [expandedTrek, setExpandedTrek] = useState<number | null>(null) // NEW: track which trek is expanded
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | null>(null)
   const isAnimatingRef = useRef(false)
 
   const easeOutQuart = (t: number): number => {
@@ -180,7 +180,9 @@ export default function TreksPage() {
       {trekSections.map((trek, index) => (
         <div
           key={trek.id}
-          ref={(el) => (sectionRefs.current[index] = el)}
+          ref={(el) => {
+              sectionRefs.current[index] = el
+            }}
           className="trek-section"
           style={{
             backgroundImage: `url("${trek.imageUrl}")`,

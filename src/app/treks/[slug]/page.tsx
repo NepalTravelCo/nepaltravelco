@@ -1,17 +1,41 @@
+import type { Metadata } from "next";
 import { treksData, getTrekBySlug, getAllTrekSlugs } from "@/data/Treks"
 import { Mountain, Calendar, Users, MapPin } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import "./trek-details.css"   // 👈 Import your CSS file
 
-interface TrekPageProps {
-  params: {
-    slug: string
+type TrekPageProps = {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const slugs = getAllTrekSlugs()
+  return slugs.map((slug) => ({ slug }))
+}
+
+export async function generateMetadata(
+  { params }: TrekPageProps
+): Promise<Metadata> {
+  const { slug } = await params;
+  const trek = getTrekBySlug(slug)
+
+  if (!trek) {
+    return {
+      title: "Trek Not Found",
+      description: "This trek does not exist in our records.",
+    }
+  }
+
+  return {
+    title: `${trek.name} - Nepal Treks`,
+    description: trek.description,
   }
 }
 
-export default function TrekPage({ params }: TrekPageProps) {
-  const trek = getTrekBySlug(params.slug)
+export default async function TrekPage({ params }: TrekPageProps) {
+  const {slug} = await params;
+  const trek = getTrekBySlug(slug)
 
   if (!trek) {
     return (
@@ -129,7 +153,7 @@ export default function TrekPage({ params }: TrekPageProps) {
           )}
 
           {/* Gallery */}
-          {trek.gallery?.length > 0 && (
+          {trek.gallery.length > 0 && (
             <div>
               <h2 className="section-title">Gallery</h2>
               <div className="gallery-grid">
@@ -152,21 +176,6 @@ export default function TrekPage({ params }: TrekPageProps) {
   )
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params   // ✅ await params
-  const trek = getTrekBySlug(slug)
 
-  if (!trek) {
-    return {
-      title: "Trek Not Found",
-      description: "This trek does not exist in our records.",
-    }
-  }
-
-  return {
-    title: `${trek.name} - Nepal Treks`,
-    description: trek.description,
-  }
-}
 
 
