@@ -2,11 +2,18 @@
 import { getTrekBySlug } from "@/data/Treks"
 import { Mountain, Calendar, Users, MapPin, ChevronDown, ChevronUp, Star, Clock, X, ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import "./trek-details.css"
 import React from "react"
 
 type TrekPageProps = {
   params: { slug: string }
+}
+
+type ItineraryDay = {
+  day: string
+  title: string
+  description: string
 }
 
 function GokyoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -40,7 +47,7 @@ function GokyoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
       { day: "Day 5", title: "Trek to Machhermo", description: "Continue up the Dudh Koshi valley" },
       { day: "Day 6", title: "Trek to Gokyo", description: "Reach the third Gokyo lake and the village" },
       { day: "Day 7", title: "Climb Gokyo Ri", description: "Early morning summit for spectacular mountain views" },
-    ],
+    ] as ItineraryDay[],
   }
 
   if (!isOpen) return null
@@ -95,7 +102,7 @@ function GokyoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   )
 }
 
-function ItineraryToggle({ itinerary }: { itinerary: any[] }) {
+function ItineraryToggle({ itinerary }: { itinerary: ItineraryDay[] }) {
   const [isOpen, setIsOpen] = React.useState(false)
   const [activeDay, setActiveDay] = React.useState<number | null>(null)
 
@@ -110,9 +117,11 @@ function ItineraryToggle({ itinerary }: { itinerary: any[] }) {
         <div className="itinerary-content">
           <div className="itinerary-layout">
             <div className="itinerary-map">
-              <img
+              <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Evetrest%20trek-uPtS1zBSQfQxCDFqwDRasxJABsAPCC.png"
                 alt="Everest Trek Route Map"
+                width={800}
+                height={600}
                 className="trek-map"
               />
             </div>
@@ -154,7 +163,9 @@ export default function TrekPage({ params }: TrekPageProps) {
 
   return (
     <div className="inner-pages-container">
-      <div className="trek-hero" style={{ backgroundImage: `url(${trek.image})` }}>
+      {/* Hero Section */}
+      <div className="trek-hero relative w-full h-[500px]">
+        <Image src={trek.image} alt={trek.name} fill className="object-cover" priority />
         <Link href="/treks" className="back-button">
           <div className="back-button-inner">
             <ArrowLeft size={20} />
@@ -180,7 +191,9 @@ export default function TrekPage({ params }: TrekPageProps) {
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="content-wrapper">
+        {/* Info Cards */}
         <div className="info-cards">
           <div className="info-card">
             <Calendar size={24} />
@@ -207,6 +220,7 @@ export default function TrekPage({ params }: TrekPageProps) {
           </div>
         </div>
 
+        {/* Highlights */}
         {trek.highlights?.length > 0 && (
           <section className="highlights-section">
             <h2 className="section-title">Trek Highlights</h2>
@@ -221,6 +235,7 @@ export default function TrekPage({ params }: TrekPageProps) {
           </section>
         )}
 
+        {/* Gokyo Extension */}
         {showGokyoExtension && (
           <section className="gokyo-section">
             <h2 className="section-title">Gokyo Lakes Extension</h2>
@@ -250,8 +265,10 @@ export default function TrekPage({ params }: TrekPageProps) {
           </section>
         )}
 
-        {trek.itinerary.length > 0 && <ItineraryToggle itinerary={trek.itinerary} />}
+        {/* Itinerary */}
+        {trek.itinerary.length > 0 && <ItineraryToggle itinerary={trek.itinerary as ItineraryDay[]} />}
 
+        {/* Tips */}
         {trek.tips?.length > 0 && (
           <section className="tips-section">
             <h2 className="section-title">Essential Tips</h2>
@@ -266,6 +283,7 @@ export default function TrekPage({ params }: TrekPageProps) {
           </section>
         )}
 
+        {/* Cost + Permits */}
         <div className="info-sections">
           {trek.estimatedCost && (
             <section className="cost-section">
@@ -295,6 +313,7 @@ export default function TrekPage({ params }: TrekPageProps) {
           )}
         </div>
 
+        {/* Booking CTA */}
         <section className="booking-section">
           <div className="booking-content">
             <h2 className="booking-title">Ready for Adventure?</h2>
