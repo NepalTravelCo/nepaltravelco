@@ -11,7 +11,7 @@ type TrekPageProps = {
 }
 
 type ItineraryDay = {
-  day: string
+  day: number | string
   title: string
   description: string
 }
