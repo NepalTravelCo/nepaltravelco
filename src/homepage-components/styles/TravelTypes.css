@@ -68,10 +68,12 @@
   transform: scale(1.05);
 }
 
-.icon-emoji {
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  filter: grayscale(1) brightness(0) invert(1);
+.category-icon svg {
+  color: white; /* Set Lucide icon stroke to white */
+  stroke: white; /* Explicitly set stroke for SVG icons */
 }
+
+
 
 .category-name {
   font-family: var(--text-font);

@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Mountain, Plane, Footprints, Landmark, Sparkles, ChevronLeft, ChevronRight } from "lucide-react"
 import "./styles/TravelTypes.css"
 
 function TravelTypes() {
@@ -11,7 +13,7 @@ function TravelTypes() {
     {
       id: 0,
       name: "ADVENTURE THRILLS",
-      icon: "🧗‍♂️",  // You can replace with any icon from the list below
+      icon: <Mountain size={24} />,
       images: [
         {
           src: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -33,7 +35,7 @@ function TravelTypes() {
     {
       id: 1,
       name: "SCENIC FLIGHTS",
-      icon: "🚁", // Alternative: ✈️, 🛩️, 🪂
+      icon: <Plane size={24} />,
       images: [
         {
           src: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -55,7 +57,7 @@ function TravelTypes() {
     {
       id: 2,
       name: "TREKKING & NATURE",
-      icon: "🏔️", // Alternative: 🥾, 🌲, ⛰️, 🏕️
+      icon: <Footprints size={24} />,
       images: [
         {
           src: "https://www.intrepidtravel.com/adventures/wp-content/uploads/2018/05/Hiker-800.jpg",
@@ -77,7 +79,7 @@ function TravelTypes() {
     {
       id: 3,
       name: "CULTURE & HERITAGE",
-      icon: "🏛️", // Alternative: 🕉️, ☸️, 🏯, 🛕
+      icon: <Landmark size={24} />,
       images: [
         {
           src: "https://www.atishahotel.com/wp-content/uploads/2024/05/Bouddhanath-Stupa-amazing-vieww.jpg",
@@ -99,7 +101,7 @@ function TravelTypes() {
     {
       id: 4,
       name: "FESTIVALS & TRADITIONS",
-      icon: "🪔", // Alternative: 🎪, 🥁, 🎨, 🪔, 🎊
+      icon: <Sparkles size={24} />,
       images: [
         {
           src: "https://i.pinimg.com/1200x/af/07/00/af07000df2711a6032369d41c92ea6f5.jpg",
@@ -122,13 +124,11 @@ function TravelTypes() {
 
   const currentCategory = categories[activeCategory]
   const currentImages = currentCategory.images
-  const currentImage = currentImages[currentImageIndex]
 
   const handleCategoryClick = (categoryIndex: number) => {
     setActiveCategory(categoryIndex)
-    setCurrentImageIndex(0) // Reset to first image when changing category
+    setCurrentImageIndex(0)
   }
-
 
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? currentImages.length - 1 : prev - 1))
@@ -138,27 +138,43 @@ function TravelTypes() {
     setCurrentImageIndex((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1))
   }
 
+  // Animation variants for category items
+  const categoryVariants = {
+    initial: { scale: 1, y: 0 },
+    active: { scale: 1.1, y: -5 },
+    hover: { scale: 1.05, y: -3 },
+  }
+
   return (
     <section className="travel-types-section">
       <div className="travel-types-container">
         {/* Header */}
-        <div className="travel-types-header">
+        <motion.div 
+          className="travel-types-header"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="travel-types-title">THINGS TO DO</h2>
-        </div>
+        </motion.div>
 
         {/* Category Icons */}
         <div className="category-icons">
           {categories.map((category, index) => (
-            <div
+            <motion.div
               key={category.id}
               className={`category-item ${activeCategory === index ? "active" : ""}`}
               onClick={() => handleCategoryClick(index)}
+              variants={categoryVariants}
+              initial="initial"
+              animate={activeCategory === index ? "active" : "initial"}
+              
             >
               <div className="category-icon">
-                <span className="icon-emoji">{category.icon}</span>
+                {category.icon}
               </div>
               <p className="category-name">{category.name}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -173,22 +189,25 @@ function TravelTypes() {
 
               if (!isVisible) return null
 
-              let position = "center"
-              if (isPrev) position = "left"
-              if (isNext) position = "right"
+              const position = isActive ? "center" : isPrev ? "left" : "right"
 
               return (
                 <div
-                  key={index}
+                  key={`${activeCategory}-${index}`}
                   className={`carousel-slide ${position} ${isActive ? "active" : ""}`}
                   onClick={() => setCurrentImageIndex(index)}
                 >
                   <div className="image-card">
                     <img src={image.src || "/placeholder.svg"} alt={image.title} className="card-image" />
-                    <div className="image-overlay">
+                    <motion.div 
+                      className="image-overlay"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 30 }}
+                      transition={{ duration: 0.3, delay: 0.2 }}
+                    >
                       <h3 className="image-title">{image.title}</h3>
                       <p className="image-description">{image.description}</p>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               )
@@ -197,35 +216,26 @@ function TravelTypes() {
 
           {/* Navigation Arrows */}
           <div className="carousel-navigation">
-            <button className="nav-btn nav-prev" onClick={handlePrevImage} aria-label="Previous image">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M15 18L9 12L15 6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-            <button className="nav-btn nav-next" onClick={handleNextImage} aria-label="Next image">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M9 18L15 12L9 6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+            <motion.button 
+              className="nav-btn nav-prev" 
+              onClick={handlePrevImage} 
+              aria-label="Previous image"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft size={20} />
+            </motion.button>
+            <motion.button 
+              className="nav-btn nav-next" 
+              onClick={handleNextImage} 
+              aria-label="Next image"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight size={20} />
+            </motion.button>
           </div>
         </div>
-
-        {/* Discover More Button */}
-        {/* <div className="discover-more">
-          <button className="discover-btn">DISCOVER MORE</button>
-        </div> */}
       </div>
     </section>
   )

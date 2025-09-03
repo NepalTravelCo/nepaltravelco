@@ -1,5 +1,7 @@
 "use client"
+import { motion } from "framer-motion"
 import "./styles/BestSelling.css"
+import Image from "next/image"
 
 function BestSelling() {
   const travelCards = [
@@ -15,7 +17,7 @@ function BestSelling() {
     {
       id: 2,
       image:
-        "https://powertraveller.com/wp-content/uploads/2024/09/1_upper-mustang-motorbike-tour-14-days.jpg",
+        "https://i.pinimg.com/736x/16/37/80/16378017612eb06c5d85821f7062cd4e.jpg",
       location: "Lomanthang, Mustang",
       title: "Bike Ride To Upper Mustang",
       rating: "4/5",
@@ -29,7 +31,6 @@ function BestSelling() {
       location: "Sauraha, Chitwan",
       title: "Safari Escape To Chitwan",
       rating: "4/5",
-     
     },
     {
       id: 4,
@@ -42,45 +43,57 @@ function BestSelling() {
     },
   ]
 
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  }
+
   return (
     <div className="main-best-selling">
-    <section className="best-selling-section">
-      <div className="container">
-        {/* Header */}
-        <div className="section-header">  
-          <h2 className="section-title">TRAVELER&apos;S FAVORITES</h2>
-          <p className="section-description">
+      <section className="best-selling-section">
+        <div className="container">
+          {/* Header */}
+          <div className="section-header">
+            <h2 className="section-title">TRAVELER&apos;S FAVORITES</h2>
+            <p className="section-description">
               Discover Nepal&apos;s best with handpicked journeys—scenic, cultural, and thoughtfully crafted for adventure, comfort, and wonder.
-          </p>
-        </div>
+            </p>
+          </div>
 
-        {/* Travel Cards */}
-        <div className="travel-cards-container">
-          {travelCards.map((card) => (
-            <div key={card.id} className="travel-card">
-              <div className="card-image-container">
-                <img src={card.image || "/placeholder.svg"} alt={card.title} className="card-image" />
-                <div className="card-overlay"></div>
-
-                {/* Popular Badge
-                {card.popular && <div className="popular-badge">POPULAR</div>}
-              {card.trending && <div className="trending-badge">TRENDING</div>} */}
-
-               
-
-                {/* Content */}
-                <div className="card-content">
-                  <p className="card-location">{card.location}</p>
-                  <h3 className="card-title">{card.title}</h3>
+          {/* Travel Cards */}
+          <div className="travel-cards-container">
+            {travelCards.map((card) => (
+              <motion.div
+                key={card.id}
+                className="travel-card"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+                variants={cardVariants}
+              >
+                <div className="card-image-container">
+                  <Image
+                      src={card.image || "/placeholder.svg"}
+                      alt={card.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      className="card-image"
+                    />
+                  <div className="card-overlay"></div>
+                  <div className="card-content">
+                    <p className="card-location">{card.location}</p>
+                    <h3 className="card-title">{card.title}</h3>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
-
-       
-      </div>
-    </section>
+      </section>
     </div>
   )
 }

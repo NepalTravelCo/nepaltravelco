@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { motion } from "framer-motion"
 import "./styles/FAQ.css"
 
 // Define a type for each FAQ item
@@ -95,7 +96,13 @@ function FAQ() {
   )
 
   return (
-    <section className="faq-section">
+    <motion.section
+      className="faq-section"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="faq-container">
         {/* Header */}
         <div className="faq-header">
@@ -109,7 +116,7 @@ function FAQ() {
           {renderFAQColumn(rightQuestions, 1)}
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 
