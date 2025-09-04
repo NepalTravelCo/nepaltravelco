@@ -310,21 +310,30 @@
 .np-location,
 .np-established {
   font-family: var(--heading-font);
-  font-size: calc(var(--text-size) + 2px);
   font-weight: var(--heading-weight);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
+  font-size: calc(var(--text-size) - 4px);
 }
 
 .np-card-description {
   color: white;
-  font-size: var(--text-size);
   margin-bottom: 0.8rem;
   font-family: var(--text-font);
   line-height: var(--line-height);
+  font-size: calc(var(--text-size) - 3px);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+
+
 
 .np-view-offer-link {
   display: inline-flex;
@@ -334,11 +343,13 @@
   text-decoration: none;
   font-family: var(--text-font);
   background: var(--accent-color);
-  padding: 0.5rem 1rem;
-  border-radius: 16px;
   font-size: var(--text-size);
   transition: background 0.2s ease;
+  font-size: calc(var(--text-size) - 2px);
+  padding: 0.35rem 0.8rem;
+  border-radius: 12px;
 }
+
 
 .np-view-offer-link:hover {
   background: var(--button-hover);
