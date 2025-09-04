@@ -33,6 +33,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+
+        <link rel="icon" type="image/png" href="/Images/Logo/logo-white.png?v=2" />
+
       </head>
       <body suppressHydrationWarning={true}>
         <BootstrapClientLoader />
