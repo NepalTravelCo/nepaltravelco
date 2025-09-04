@@ -29,6 +29,20 @@
           text-decoration: none !important;
         }
 
+        .logo {
+          position: relative !important;  /* Required when using Next.js Image with fill */
+          object-fit: contain;            /* Makes sure the logo keeps proportions */
+          width: 200px !important;        /* Adjust as per your navbar size */
+          height: 80px !important;        /* Fixed height */
+          max-width: 100%;
+          cursor: pointer;
+          transition: transform 0.3s ease-in-out;
+          /* transform: scale(1.2); */
+        }
+
+        .logo:hover {
+         transition: all 0.3s ease-in-out;   
+    }
 
         
 

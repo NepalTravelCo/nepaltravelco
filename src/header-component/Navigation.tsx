@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import "./Navigation.css"
 import { usePathname } from "next/navigation"
+import Image from "next/image"
 
 
 
@@ -12,6 +13,7 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showNavbar, setShowNavbar] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
   const pathname = usePathname(); //  GET CURRENT ROUTE
   const isHomePage = pathname === "/"; //  CHECK IF HOMEPAGE
 
@@ -37,20 +39,28 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, isHomePage]);
 
+  const logoSrc = isHomePage
+  ? (isScrolled || isHovered
+      ? "/Images/Logo/logo-black.png"
+      : "/Images/Logo/logo-white.png")
+  : "/Images/Logo/logo-black.png";
   
 
   return (
     <nav
         id="main-navbar"
         className={`navbar navbar-expand-lg fixed-top transition-all ${showNavbar ? "navbar-visible" : "navbar-hidden"} ${isScrolled ? "scrolled" : ""}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         style={{
+          cursor: "pointer",
           backgroundColor: isHomePage
-            ? isScrolled
+            ? isScrolled || isHovered
               ? "rgba(255, 255, 255, 0.95)"
               : "transparent"
             : "rgba(255, 255, 255, 1)", // normal background on other pages
 
-          backdropFilter: isHomePage && isScrolled ? "blur(10px)" : "none",
+          backdropFilter: isHomePage && (isScrolled || isHovered) ? "blur(10px)" : "none",
 
           transform:
             isHomePage && !showNavbar ? "translateY(-100%)" : "translateY(0)",
@@ -79,9 +89,15 @@ const Navigation = () => {
             transition: "all 0.3s ease",
           }}
         >
-          Nepal Travel Co
+        <Image
+            src={logoSrc}
+            alt="Nepal Travel Logo"
+            fill
+            className="d-inline-block align-top me-2 logo"
+          />
+          {/* <Image src="/Images/Logo/logo-with-sun.png" alt="Nepal Travel Co." fill className="logo" /> */}
+          
         </Link>
-
         {/* Mobile Toggle Button */}
         <button
           id="navbar-toggler"

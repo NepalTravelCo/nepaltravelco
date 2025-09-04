@@ -3,6 +3,25 @@
   --footer-bg-image: url("/Images/Footer/footer.jpg");
 }
 
+.footer-img-container {
+  position: relative;
+  width: 230px;               /* Adjust the width as needed */
+  height: 150px;   
+  /* margin-bottom: 0px; */
+} 
+.footer-logo {
+  position: relative !important; /* required with Next.js fill */
+  object-fit: cover;           /* keep proportions */
+  width: 100% !important;       /* adjust to fit your footer */
+  height: auto !important;
+          /* spacing below the logo */
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.footer-logo:hover {
+  transform: scale(1.05);        /* subtle hover effect */
+}
 
 .footer-section {
   position: relative;
@@ -37,7 +56,7 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 30px 15px;
+  /* padding: 30px 15px; */
 }
 
 .footer-brand h2 {
@@ -72,7 +91,7 @@
 
 .social-icons {
   display: flex;
-  gap: 15px;
+  gap: 25px;
   flex-wrap: wrap;
   justify-content: left;
 }

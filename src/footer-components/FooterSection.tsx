@@ -1,7 +1,7 @@
 "use client"
 import "./styles/FooterSection.css"
 import CopyrightSection from "@/footer-components/CopyrightSection"
-
+import Image from "next/image";
 function FooterSection() {
 
   return (
@@ -16,7 +16,10 @@ function FooterSection() {
             {/* Brand Section */}
             <div className="col-lg-3 col-md-6 mb-4 mb-lg-0">
               <div className="footer-brand">
-                <h2>Nepal Travel Co</h2>
+                <div className="footer-img-container">
+                <Image src="/Images/Logo/logo-white.png" alt="Nepal Travel Co." fill className="footer-logo" />
+                </div>
+                {/* <h2>Nepal Travel Co</h2> */}
                 <div className="social-media-text">Follow us on our Social Media</div>
                 <div className="social-icons">
                   <a href="#" className="social-icon facebook">

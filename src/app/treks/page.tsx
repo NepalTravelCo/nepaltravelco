@@ -242,7 +242,7 @@ export default function TreksPage() {
         ))}
       </div>
 
-      <ReachUs />
+      {/* <ReachUs /> */}
     </div>
   )
 }
