@@ -281,7 +281,7 @@
 }
 
 /* Clean section styling */
-.section-title {
+.trek-section-title {
   font-size: 2rem;
   font-weight: 600;
   color: var(--primary-color);
@@ -644,7 +644,7 @@
   margin-right: auto;
 }
 
-.section-header {
+.trek-section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -654,7 +654,7 @@
   transition: border-color 0.3s ease;
 }
 
-.section-header:hover {
+.trek-section-header:hover {
   border-color: var(--primary-color);
 }
 

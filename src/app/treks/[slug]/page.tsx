@@ -3,7 +3,7 @@ import { getTrekBySlug, getAllTrekSlugs } from "@/data/Treks"
 import TrekClientPage from "./TrekClientPage"
 
 type TrekPageProps = {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }
 
 export async function generateStaticParams() {
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: TrekPageProps): Promise<Metadata> {
-  const { slug } = await params
+  const { slug } = params
   const trek = getTrekBySlug(slug)
 
   if (!trek) {
@@ -29,6 +29,6 @@ export async function generateMetadata({ params }: TrekPageProps): Promise<Metad
 }
 
 export default async function TrekPage({ params }: TrekPageProps) {
-  const { slug } = await params
+  const { slug } = params
   return <TrekClientPage params={{ slug }} />
 }

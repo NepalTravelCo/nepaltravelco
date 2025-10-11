@@ -108,8 +108,8 @@ function ItineraryToggle({ itinerary }: { itinerary: ItineraryDay[] }) {
 
   return (
     <div className="itinerary-section">
-      <div className="section-header" onClick={() => setIsOpen(!isOpen)}>
-        <h2 className="section-title">Day-by-Day Itinerary</h2>
+      <div className="trek-section-header" onClick={() => setIsOpen(!isOpen)}>
+        <h2 className="trek-section-title">Day-by-Day Itinerary</h2>
         <button className="toggle-button">{isOpen ? <ChevronUp size={24} /> : <ChevronDown size={24} />}</button>
       </div>
 
