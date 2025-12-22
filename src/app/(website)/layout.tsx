@@ -2,7 +2,7 @@
 
 // app/layout.tsx
 import type { Metadata } from "next";
-import "./globals.css";
+import "../../app/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css"; 
 
 import ScrollToTop from "@/footer-components/ScrollToTop";
