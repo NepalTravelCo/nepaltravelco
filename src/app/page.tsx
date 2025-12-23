@@ -1,10 +1,10 @@
 "use client"
 
-
 import Homepage from '@/homepage-components/Homepage';
 import LoadingScreen from './LoadingScreen';
 import { useState, useEffect } from 'react';
-
+import Navigation from '@/header-component/Navigation';
+import FooterSection from '@/footer-components/FooterSection';
 
 export default function Home() {
 
@@ -25,8 +25,9 @@ export default function Home() {
 
   return (
     <div>
-      {/* <Navigation /> */}
+      <Navigation />
       <Homepage />
+      <FooterSection />
     </div>
   );
 }

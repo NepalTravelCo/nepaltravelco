@@ -1,16 +1,15 @@
 "use client"
+
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight, ArrowLeft, Compass, Mountain } from "lucide-react"
 import Link from "next/link"
 import { treksData } from "@/data/Treks"
-import "./styles/BrandInfo.css"
 
 const BrandInfo = () => {
   const [startIndex, setStartIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
-  // Select first 6 treks for carousel
   const trekkinginfo = treksData.slice(0, 6).map((trek) => ({
     id: trek.slug,
     name: trek.name,
@@ -39,120 +38,152 @@ const BrandInfo = () => {
     }, 100)
   }
 
-  // Autoplay
   useEffect(() => {
-    const autoplayInterval = setInterval(() => {
-      handleNext()
-    }, 3000)
-    return () => clearInterval(autoplayInterval)
+    const interval = setInterval(handleNext, 3000)
+    return () => clearInterval(interval)
   }, [isTransitioning])
 
-  // Keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowLeft") handlePrev()
-      else if (event.key === "ArrowRight") handleNext()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") handlePrev()
+      if (e.key === "ArrowRight") handleNext()
     }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
   }, [])
 
-  // Get 3 visible parks for carousel
-  const getVisibleParks = () => {
-    const parks = []
-    for (let i = 0; i < 3; i++) {
-      const index = (startIndex + i) % trekkinginfo.length
-      parks.push({
-        ...trekkinginfo[index],
-        position: i === 0 ? "left" : i === 1 ? "center" : "right",
-      })
+  const visibleParks = [0, 1, 2].map((i) => {
+    const index = (startIndex + i) % trekkinginfo.length
+    return {
+      ...trekkinginfo[index],
+      position: i === 0 ? "left" : i === 1 ? "center" : "right",
     }
-    return parks
-  }
-
-  const visibleParks = getVisibleParks()
+  })
 
   return (
     <motion.section
-      id="np-brand-info-section"
-      className="np-brand-info-section"
       role="region"
       aria-label="Trekking Gems of Nepal"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+      className="relative py-20 bg-gradient-to-br from-primary via-emerald-900 to-slate-800"
     >
-      <div className="np-background-image"></div>
-      <div className="np-content-wrapper">
-        <div className="np-left-section">
-          <h2 className="np-heading">Trekking Gems of Nepal</h2>
+      {/* Pattern */}
+      <div className="absolute inset-0 bg-[url('/Images/SVG/tortoise-shell.svg')] opacity-10 pointer-events-none" />
 
-          <Link href="/treks" className="np-button" aria-label="View all treks">
-            View All Trails
-            <span className="np-button-icon" aria-hidden="true">
-              <ArrowRight size={18} />
-            </span>
+      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 px-6 items-center">
+
+        {/* LEFT */}
+        <div className="text-center lg:text-left">
+          <h2 className="font-heading text-4xl lg:text-5xl font-bold text-white mb-6">
+            Trekking Gems of Nepal
+          </h2>
+
+          <Link
+            href="/treks"
+            className="inline-flex items-center gap-2 uppercase tracking-wide text-white font-semibold relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-accent after:transition-all hover:after:w-full"
+          >
+            View All Trails <ArrowRight size={18} />
           </Link>
         </div>
 
-        <div className="np-right-section">
-          <div className={`np-carousel-container ${isTransitioning ? "transitioning" : ""}`}>
-            {visibleParks.map((park, index) => (
-              <div
-                key={`${park.id}-${startIndex}-${index}`}
-                className={`np-card ${park.position} ${isTransitioning ? "transitioning" : ""}`}
-                data-position={park.position}
-              >
-                <div className="np-card-image-container">
+        {/* RIGHT */}
+        <div className="relative flex justify-center items-center">
+
+          {/* Carousel */}
+          <div className="relative flex items-center gap-1 pb-12">
+
+            {visibleParks.map((park) => {
+              const base =
+                "relative rounded-xl overflow-hidden transition-all duration-500 cursor-pointer group"
+
+              const positionStyles =
+                park.position === "center"
+                  ? "w-[250px] h-[400px] z-30 shadow-xl scale-100"
+                  : "w-[225px] h-[400px] opacity-80 scale-90 z-10"
+
+              const transform =
+                park.position === "left"
+                  ? "-translate-x-2 -rotate-2"
+                  : park.position === "right"
+                  ? "translate-x-2 rotate-2"
+                  : ""
+
+              return (
+                <div
+                  key={park.id}
+                  className={`${base} ${positionStyles} ${transform} ${
+                    isTransitioning ? "transition-all" : ""
+                  } hidden md:block`}
+                >
                   <img
-                    src={park.imageUrl || "/placeholder.svg"}
-                    alt={`Beautiful landscape of ${park.name}`}
-                    className="np-card-image"
+                    src={park.imageUrl}
+                    alt={park.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="np-card-overlay"></div>
-                  <div className="np-card-title-overlay">
-                    <h3 className="np-card-title">{park.name}</h3>
+
+                  {/* Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70" />
+
+                  {/* Title */}
+                  <div className="absolute bottom-6 inset-x-4 text-center text-white font-heading font-semibold text-lg group-hover:opacity-0 transition-opacity">
+                    {park.name}
                   </div>
-                  <div className="np-card-hover-content">
-                    <div className="np-card-info">
-                      <div className="np-card-meta">
-                        <span className="np-location">
-                          <Compass size={16} className="inline-block mr-1" /> {park.location}
+
+                  {/* Hover content */}
+                  <div className="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <div className="text-white text-center px-4">
+                      <div className="flex flex-col gap-1 text-sm mb-2">
+                        <span className="flex justify-center gap-1">
+                          <Compass size={14} /> {park.location}
                         </span>
-                        <span className="np-altitude">
-                          <Mountain size={16} className="inline-block mr-1" /> {park.altitude}
+                        <span className="flex justify-center gap-1">
+                          <Mountain size={14} /> {park.altitude}
                         </span>
                       </div>
-                      <p className="np-card-description">{park.description}</p>
+
+                      <p className="text-xs line-clamp-3 mb-3">
+                        {park.description}
+                      </p>
+
                       <Link
                         href={`/treks/${park.slug}`}
-                        className="np-view-offer-link"
-                        aria-label={`View details about ${park.name}`}
+                        className="inline-flex items-center gap-1 bg-accent px-3 py-1 rounded-lg text-xs font-semibold hover:bg-button-hover"
                       >
-                        Explore Region <ArrowRight size={18} className="inline-block ml-1" />
+                        Explore <ArrowRight size={14} />
                       </Link>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
+
+            {/* Mobile card */}
+            <div className="md:hidden w-full max-w-sm h-[360px] rounded-xl overflow-hidden shadow-lg relative">
+              <img
+                src={visibleParks[1].imageUrl}
+                alt={visibleParks[1].name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Nav buttons */}
+            <button
+              onClick={handlePrev}
+              disabled={isTransitioning}
+              className="absolute -left-6 md:left-[18rem] top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full w-12 h-12 flex items-center justify-center hover:bg-accent disabled:opacity-50"
+            >
+              <ArrowLeft />
+            </button>
 
             <button
-              className="np-nav-button np-nav-left"
-              onClick={handlePrev}
-              aria-label="Previous trek"
-              disabled={isTransitioning}
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <button
-              className="np-nav-button np-nav-right"
               onClick={handleNext}
-              aria-label="Next trek"
               disabled={isTransitioning}
+              className="absolute -right-6 md:right-[18rem] top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full w-12 h-12 flex items-center justify-center hover:bg-accent disabled:opacity-50"
             >
-              <ArrowRight size={20} />
+              <ArrowRight />
             </button>
           </div>
         </div>

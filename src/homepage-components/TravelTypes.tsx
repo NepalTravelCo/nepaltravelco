@@ -1,11 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { Mountain, Plane, Footprints, Landmark, Sparkles, ChevronLeft, ChevronRight } from "lucide-react"
-import "./styles/TravelTypes.css"
 
-function TravelTypes() {
+export default function TravelTypes() {
   const [activeCategory, setActiveCategory] = useState(0)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -125,8 +124,8 @@ function TravelTypes() {
   const currentCategory = categories[activeCategory]
   const currentImages = currentCategory.images
 
-  const handleCategoryClick = (categoryIndex: number) => {
-    setActiveCategory(categoryIndex)
+  const handleCategoryClick = (index: number) => {
+    setActiveCategory(index)
     setCurrentImageIndex(0)
   }
 
@@ -138,107 +137,114 @@ function TravelTypes() {
     setCurrentImageIndex((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1))
   }
 
-  // Animation variants for category items
-  const categoryVariants = {
-    initial: { scale: 1, y: 0 },
-    active: { scale: 1.1, y: -5 },
-    hover: { scale: 1.05, y: -3 },
-  }
-
   return (
-    <section className="travel-types-section">
-      <div className="travel-types-container">
+    <section className="bg-gray-50 py-16 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+
         {/* Header */}
-        <motion.div 
-          className="travel-types-header"
+        <motion.div
+          className="text-center mb-12"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="travel-types-title">THINGS TO DO</h2>
+          <h2 className="text-4xl font-bold text-primary uppercase">Things to Do</h2>
         </motion.div>
 
         {/* Category Icons */}
-        <div className="category-icons">
-          {categories.map((category, index) => (
+        <div className="flex flex-wrap justify-center gap-6 mb-12">
+          {categories.map((cat, idx) => (
             <motion.div
-              key={category.id}
-              className={`category-item ${activeCategory === index ? "active" : ""}`}
-              onClick={() => handleCategoryClick(index)}
-              variants={categoryVariants}
-              initial="initial"
-              animate={activeCategory === index ? "active" : "initial"}
-              
+              key={cat.id}
+              className={`flex flex-col items-center cursor-pointer transition transform rounded-lg p-2 
+                          ${activeCategory === idx ? "scale-105" : "scale-100"}`}
+              onClick={() => handleCategoryClick(idx)}
+              whileHover={{ scale: 1.1 }}
             >
-              <div className="category-icon">
-                {category.icon}
+              <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-2 
+                              ${activeCategory === idx ? "bg-accent" : "bg-primary"} shadow-lg`}>
+                {cat.icon}
               </div>
-              <p className="category-name">{category.name}</p>
+              <p className={`text-sm font-semibold text-center uppercase transition-colors 
+                             ${activeCategory === idx ? "text-primary" : "text-gray-700"}`}>
+                {cat.name}
+              </p>
             </motion.div>
           ))}
         </div>
 
         {/* Image Carousel */}
-        <div className="image-carousel">
-          <div className="carousel-track">
-            {currentImages.map((image, index) => {
-              const isActive = index === currentImageIndex
-              const isPrev = index === (currentImageIndex - 1 + currentImages.length) % currentImages.length
-              const isNext = index === (currentImageIndex + 1) % currentImages.length
-              const isVisible = isActive || isPrev || isNext
+        <div className="relative flex justify-center items-center min-h-[450px] mt-8">
+          {currentImages.map((image, index) => {
+            const isActive = index === currentImageIndex
+            const isPrev = index === (currentImageIndex - 1 + currentImages.length) % currentImages.length
+            const isNext = index === (currentImageIndex + 1) % currentImages.length
+            if (!(isActive || isPrev || isNext)) return null
 
-              if (!isVisible) return null
+            const xPosition = isActive ? 0 : isPrev ? -40 : 40
+            const zIndex = isActive ? 30 : 20
+            const scale = isActive ? 1 : 0.85
+            const opacity = isActive ? 1 : 0.6
+            const blur = isActive ? "blur(0px)" : "blur(2px)"
 
-              const position = isActive ? "center" : isPrev ? "left" : "right"
-
-              return (
-                <div
-                  key={`${activeCategory}-${index}`}
-                  className={`carousel-slide ${position} ${isActive ? "active" : ""}`}
-                  onClick={() => setCurrentImageIndex(index)}
-                >
-                  <div className="image-card">
-                    <img src={image.src || "/placeholder.svg"} alt={image.title} className="card-image" />
-                    <motion.div 
-                      className="image-overlay"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 30 }}
-                      transition={{ duration: 0.3, delay: 0.2 }}
+            return (
+              <motion.div
+                key={index}
+                className="absolute w-full max-w-[700px] px-4"
+                initial={false}
+                animate={{
+                  x: `${xPosition}%`,
+                  scale,
+                  opacity,
+                  zIndex,
+                  filter: blur
+                }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              >
+                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-2xl cursor-pointer group">
+                  <img
+                    src={image.src}
+                    alt={image.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-8 flex flex-col justify-end">
+                    <motion.h3
+                      className="text-2xl md:text-3xl font-bold text-white mb-2"
+                      animate={{ y: isActive ? 0 : 20 }}
                     >
-                      <h3 className="image-title">{image.title}</h3>
-                      <p className="image-description">{image.description}</p>
-                    </motion.div>
+                      {image.title}
+                    </motion.h3>
+                    <motion.p
+                      className="text-white/90 text-sm md:text-base max-w-md"
+                      animate={{ opacity: isActive ? 1 : 0 }}
+                    >
+                      {image.description}
+                    </motion.p>
                   </div>
                 </div>
-              )
-            })}
-          </div>
+              </motion.div>
+            )
+          })}
 
           {/* Navigation Arrows */}
-          <div className="carousel-navigation">
-            <motion.button 
-              className="nav-btn nav-prev" 
-              onClick={handlePrevImage} 
+          <div className="absolute inset-y-0 -left-4 -right-4 flex items-center justify-between pointer-events-none z-40">
+            <button
+              onClick={handlePrevImage}
               aria-label="Previous image"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 text-primary flex items-center justify-center shadow-xl hover:bg-primary hover:text-white transition-all pointer-events-auto"
             >
-              <ChevronLeft size={20} />
-            </motion.button>
-            <motion.button 
-              className="nav-btn nav-next" 
-              onClick={handleNextImage} 
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={handleNextImage}
               aria-label="Next image"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 text-primary flex items-center justify-center shadow-xl hover:bg-primary hover:text-white transition-all pointer-events-auto"
             >
-              <ChevronRight size={20} />
-            </motion.button>
+              <ChevronRight size={24} />
+            </button>
           </div>
         </div>
       </div>
     </section>
   )
 }
-
-export default TravelTypes

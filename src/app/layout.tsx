@@ -2,14 +2,19 @@
 
 // app/layout.tsx
 import type { Metadata } from "next";
-import "../../app/globals.css";
-import "bootstrap/dist/css/bootstrap.min.css"; 
+import "./globals.css";
+import { Inter, Poppins } from "next/font/google";
 
-import ScrollToTop from "@/footer-components/ScrollToTop";
-import Navigation from "@/header-component/Navigation";
-import FooterSection from "@/footer-components/FooterSection";
-import BackToTopButton from "@/footer-components/BackToTopButton";
-import BootstrapClientLoader from "./BootstrapClientLoader";
+export const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+export const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
 
 export const metadata: Metadata = {
   title: "Nepal Travel Co",
@@ -37,13 +42,10 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/Images/Logo/logo-white.png?v=2" />
 
       </head>
-      <body suppressHydrationWarning={true}>
-        <BootstrapClientLoader />
-        <ScrollToTop />
-        <Navigation />
+      <body className={`${inter.variable} ${poppins.variable}`} suppressHydrationWarning={true}>
+
         {children}
-        <FooterSection />
-        <BackToTopButton />
+
       </body>
     </html>
   );

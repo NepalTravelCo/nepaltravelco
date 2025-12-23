@@ -2,9 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import "./styles/FAQ.css"
 
-// Define a type for each FAQ item
 type FAQItem = {
   question: string
   answer: string
@@ -17,7 +15,7 @@ function FAQ() {
     {
       question: "What is the best time to visit Nepal?",
       answer:
-        "The best time to visit Nepal is during autumn (September-November) and spring (March-May). Autumn offers clear mountain views and stable weather, while spring brings blooming rhododendrons and moderate temperatures.",
+        "The best time to visit Nepal is during autumn (September–November) and spring (March–May). Autumn offers clear mountain views and stable weather, while spring brings blooming rhododendrons and moderate temperatures.",
     },
     {
       question: "Do I need a visa to visit Nepal?",
@@ -27,22 +25,22 @@ function FAQ() {
     {
       question: "What should I pack for trekking in Nepal?",
       answer:
-        "Essential trekking gear includes sturdy hiking boots, layered clothing system, warm sleeping bag, rain gear, sun protection, first aid kit, water purification tablets, and headlamp.",
+        "Essential trekking gear includes sturdy hiking boots, layered clothing, a warm sleeping bag, rain gear, sun protection, a first aid kit, water purification tablets, and a headlamp.",
     },
     {
       question: "Is it safe to travel solo in Nepal?",
       answer:
-        "Nepal is generally safe for solo travelers. The Nepalese people are known for their hospitality. However, it's recommended to trek with a guide or in groups, especially on remote trails.",
+        "Nepal is generally safe for solo travelers. The Nepalese people are known for their hospitality. However, trekking with a guide or group is recommended on remote trails.",
     },
     {
       question: "What is altitude sickness and how to prevent it?",
       answer:
-        "Altitude sickness occurs when ascending too quickly to high altitudes. Prevention includes gradual ascent, proper acclimatization days, staying hydrated, and listening to your body.",
+        "Altitude sickness occurs when ascending too quickly. Prevent it by ascending gradually, acclimatizing properly, staying hydrated, and listening to your body.",
     },
     {
       question: "What kind of accommodation is available during treks?",
       answer:
-        "Accommodation ranges from basic teahouses to comfortable lodges depending on the trek route. Popular routes have well-established teahouses with beds, blankets, and meals.",
+        "Accommodation ranges from basic teahouses to comfortable lodges depending on the route. Popular routes have well-established teahouses with beds, blankets, and meals.",
     },
   ]
 
@@ -50,29 +48,56 @@ function FAQ() {
     setActiveIndex(activeIndex === index ? null : index)
   }
 
-  // Split questions into left and right columns
-  const leftQuestions = faqData.filter((_, index) => index % 2 === 0)
-  const rightQuestions = faqData.filter((_, index) => index % 2 === 1)
+  const leftQuestions = faqData.filter((_, i) => i % 2 === 0)
+  const rightQuestions = faqData.filter((_, i) => i % 2 === 1)
 
-  // Add types to function parameters
-  const renderFAQColumn = (questions: FAQItem[], startIndex: number) => (
-    <div className="faq-column">
+  const renderColumn = (questions: FAQItem[], startIndex: number) => (
+    <div className="flex flex-col gap-4">
       {questions.map((faq, index) => {
         const actualIndex = startIndex === 0 ? index * 2 : index * 2 + 1
+        const isActive = activeIndex === actualIndex
+
         return (
           <div
             key={actualIndex}
-            className={`faq-item ${activeIndex === actualIndex ? "active" : ""}`}
+            className={`
+              rounded-xl border transition-all duration-300 bg-gradient-to-br
+              from-white to-[#f8fffe]
+              ${isActive
+                ? "border-primary shadow-[0_12px_30px_rgba(0,64,71,0.15)]"
+                : "border-[rgba(0,64,71,0.08)] shadow-[0_2px_8px_rgba(0,64,71,0.04)]"}
+              hover:-translate-y-0.5 hover:border-primary
+              hover:shadow-[0_8px_25px_rgba(0,64,71,0.12)]
+            `}
           >
-            <div className="faq-question" onClick={() => toggleFAQ(actualIndex)}>
-              <h3>{faq.question}</h3>
-              <div className="faq-icon">
+            {/* Question */}
+            <button
+              onClick={() => toggleFAQ(actualIndex)}
+              className="
+                w-full flex items-center justify-between gap-4
+                px-6 py-6 text-left
+                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+              "
+            >
+              <h3 className="font-body text-base font-semibold text-gray-800 leading-relaxed">
+                {faq.question}
+              </h3>
+
+              <span
+                className={`
+                  flex h-6 w-6 items-center justify-center rounded-full
+                  transition-all duration-300
+                  ${isActive
+                    ? "bg-primary text-white"
+                    : "bg-[rgba(0,64,71,0.08)] text-primary"}
+                `}
+              >
                 <svg
+                  className={`transition-transform duration-300 ${isActive ? "rotate-180" : ""}`}
                   width="20"
                   height="20"
                   viewBox="0 0 24 24"
                   fill="none"
-                  className={`chevron ${activeIndex === actualIndex ? "rotated" : ""}`}
                 >
                   <path
                     d="M6 9L12 15L18 9"
@@ -82,11 +107,20 @@ function FAQ() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </div>
-            </div>
-            <div className={`faq-answer ${activeIndex === actualIndex ? "expanded" : ""}`}>
-              <div className="faq-answer-content">
-                <p>{faq.answer}</p>
+              </span>
+            </button>
+
+            {/* Answer */}
+            <div
+              className={`
+                overflow-hidden transition-[max-height] duration-400 ease-in-out
+                ${isActive ? "max-h-64" : "max-h-0"}
+              `}
+            >
+              <div className="px-6 pb-6 border-t border-[rgba(0,64,71,0.08)]">
+                <p className="pt-4 text-sm text-gray-500 leading-relaxed font-body">
+                  {faq.answer}
+                </p>
               </div>
             </div>
           </div>
@@ -97,23 +131,27 @@ function FAQ() {
 
   return (
     <motion.section
-      className="faq-section"
+      className="py-16 bg-background"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="faq-container">
+      <div className="w-[90%] mx-auto px-4">
         {/* Header */}
-        <div className="faq-header">
-          <h2 className="faq-title">FREQUENTLY ASKED QUESTIONS</h2>
-          <p className="faq-subtitle">Got Questions? We Have Answers</p>
+        <div className="text-center mb-12">
+          <h2 className="font-heading text-3xl font-bold text-primary tracking-wide mb-3">
+            FREQUENTLY ASKED QUESTIONS
+          </h2>
+          <p className="font-body text-gray-500">
+            Got Questions? We Have Answers
+          </p>
         </div>
 
-        {/* FAQ Grid */}
-        <div className="faq-grid">
-          {renderFAQColumn(leftQuestions, 0)}
-          {renderFAQColumn(rightQuestions, 1)}
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {renderColumn(leftQuestions, 0)}
+          {renderColumn(rightQuestions, 1)}
         </div>
       </div>
     </motion.section>
