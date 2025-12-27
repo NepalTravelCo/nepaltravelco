@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,49 +8,47 @@
    Root Design Tokens
 ================================ */
 :root {
-  /* Colors */
-  --primary: #0A2E52;
-  --secondary: #1E5FA8;
-  --accent: #DF5535;
-  --background: #F8FAFC;
-  --overlay: #FFFFFF;
-  --text-color: #1F2933;
-  --text-muted: #6B7280;
+  /* Premium Travel Palette */
+  --primary: #0f172a;
+  /* Deep Slate/Midnight */
+  --secondary: #c2410c;
+  /* Rich Terracotta */
+  --accent: #b45309;
+  /* Golden Amber */
+  --background: #fafaf9;
+  /* Warm Stone */
+  --foreground: #1c1917;
+  /* Stone Dark */
+  --overlay: rgba(255, 255, 255, 0.8);
+  --text-muted: #78716c;
+  /* Stone Muted */
 
-  /* Typography */
-  --heading-font: "Poppins", sans-serif;
-  --text-font: "Inter", system-ui, sans-serif;
+  /* Typography - Playfair for elegance, Inter for clarity */
+  --heading-font: "Playfair Display", serif;
+  --text-font: "Inter", sans-serif;
 
-  --heading-size: 2rem;
-  --text-size: 1rem;
-  --heading-weight: 600;
+  --heading-size: 2.5rem;
+  --text-size: 1.0625rem;
+  --heading-weight: 700;
   --text-weight: 400;
 
-  --letter-spacing: 0.08em;
+  --letter-spacing: -0.01em;
   --line-height: 1.6;
 
   /* Spacing */
-  --padding: 5rem 0;
+  --padding: 24;
 
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  /* Radius - More organic feel */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 24px;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 64, 71, 0.04);
-  --shadow-md: 0 6px 15px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 12px 30px rgba(0, 64, 71, 0.15);
+  /* Shadows - Soft and atmospheric */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
 }
 
-
-@theme inline{
-  --primary-color: var(--primary);
-  --secondary-color: var(--secondary);
-  --accent-color: var(--accent);
-  --background-color: var(--background);
-  --text-color: var(--text-color);
-}
 /* ================================
    Base Reset & Defaults
 ================================ */
@@ -67,8 +67,8 @@ body {
   font-family: var(--text-font);
   font-size: var(--text-size);
   line-height: var(--line-height);
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--background);
+  color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -83,7 +83,7 @@ h4,
 h5,
 h6 {
   font-family: var(--heading-font);
-  color: var(--primary-color);
+  color: var(--primary);
   font-weight: var(--heading-weight);
   letter-spacing: var(--letter-spacing);
   margin: 0;
@@ -148,7 +148,30 @@ button {
 }
 
 .fade-up {
-  animation: fadeUp 0.6s ease-out forwards;
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark-glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Luxury Text Gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ================================
@@ -163,10 +186,10 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
+  background: var(--primary);
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-color);
+  background: var(--accent);
 }

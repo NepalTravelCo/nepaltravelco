@@ -2,7 +2,10 @@
 
 import { useRef, useEffect, useState, useCallback } from "react"
 import Link from "next/link"
+import { motion, AnimatePresence } from "framer-motion"
 import { seasonsData } from "../data/Seasons"
+import { ChevronLeft, ChevronRight, Calendar } from "lucide-react"
+import Image from "next/image"
 
 export default function TravelSeasons() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -13,7 +16,7 @@ export default function TravelSeasons() {
   const scrollToIndex = useCallback((index: number) => {
     const container = containerRef.current
     if (!container) return
-    const cardWidth = 380 + 16 // Tailwind gap = 4 = 1rem
+    const cardWidth = 384 + 32 // Width + gap
     container.scrollTo({ left: index * cardWidth, behavior: "smooth" })
   }, [])
 
@@ -31,7 +34,7 @@ export default function TravelSeasons() {
 
   const startAutoScroll = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current)
-    intervalRef.current = window.setInterval(scrollToNext, 3000)
+    intervalRef.current = window.setInterval(scrollToNext, 5000)
   }, [scrollToNext])
 
   const stopAutoScroll = useCallback(() => {
@@ -45,98 +48,107 @@ export default function TravelSeasons() {
     return () => stopAutoScroll()
   }, [isHovered, startAutoScroll, stopAutoScroll])
 
-  const handleCardMouseEnter = (index: number) => {
-    setIsHovered(true)
-    setActiveIndex(index)
-  }
-  const handleCardMouseLeave = () => setIsHovered(false)
-
-  const itemListStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: seasonsData.map((s, idx) => ({
-      "@type": "ListItem",
-      position: idx + 1,
-      url: `/seasons/${s.slug}`,
-      name: s.name,
-      image: s.image,
-      description: s.description,
-    })),
-  }
-
   return (
-    <>
-      <section className="relative py-16 bg-gray-50">
-        <div className="text-center mb-12 px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">SEASONAL SPLENDOR</h2>
-          <p className="max-w-3xl mx-auto text-gray-600 text-lg md:text-xl">
-            Nepal comes alive with traditions, rituals, and celebrations that welcome travelers with open arms.
-          </p>
-        </div>
+    <section className="bg-stone-50 py-24 overflow-hidden">
+      <div className="container-max">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="max-w-2xl"
+          >
+            <span className="text-secondary font-semibold tracking-widest uppercase text-xs mb-3 block">Timing is Everything</span>
+            <h2 className="font-[var(--heading-font)] text-primary text-4xl md:text-5xl font-bold">
+              Seasonal <span className="italic font-normal">Splendor</span>
+            </h2>
+          </motion.div>
 
-        <div className="relative">
-          {/* Navigation Arrows */}
-          <button
-            onClick={scrollToPrev}
-            className="absolute top-1/2 left-4 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full border border-primary text-primary bg-white/10 backdrop-blur-md hover:bg-accent hover:text-white transition z-20"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          <button
-            onClick={scrollToNext}
-            className="absolute top-1/2 right-4 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full border border-primary text-primary bg-white/10 backdrop-blur-md hover:bg-accent hover:text-white transition z-20"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-
-          {/* Scrollable Cards */}
-          <div
-            ref={containerRef}
-            className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-4 px-4 md:px-8 pb-12"
-          >
-            {seasonsData.map((season, idx) => (
-              <article
-                key={season.slug}
-                onMouseEnter={() => handleCardMouseEnter(idx)}
-                onMouseLeave={handleCardMouseLeave}
-                className={`flex-shrink-0 w-80 md:w-96 snap-center transition-all duration-300 ${
-                  idx === activeIndex ? "md:w-[32rem]" : ""
-                }`}
-              >
-                <Link href={`/seasons/${season.slug}`} className="block relative">
-                  <div
-                    className="relative h-64 md:h-80 rounded-xl bg-cover bg-center cursor-pointer overflow-hidden transition-transform duration-300 hover:scale-105"
-                    style={{ backgroundImage: `url(${season.image})` }}
-                    role="img"
-                    aria-label={`${season.name} - ${season.description}`}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <h3 className="text-xl md:text-2xl font-bold mb-1">{season.name}</h3>
-                      <p
-                        className={`transition-all duration-300 overflow-hidden ${
-                          idx === activeIndex ? "max-h-24 opacity-100" : "max-h-0 opacity-0"
-                        }`}
-                      >
-                        {season.description}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            ))}
+          <div className="flex gap-4">
+            <button
+              onClick={scrollToPrev}
+              className="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={scrollToNext}
+              className="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md"
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
         </div>
-      </section>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListStructuredData) }}
-      />
-    </>
+        {/* Carousel */}
+        <div
+          ref={containerRef}
+          className="flex overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory gap-8 pb-12"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {seasonsData.map((season, idx) => (
+            <motion.article
+              key={season.slug}
+              className={`flex-shrink-0 w-[80vw] md:w-[400px] snap-center rounded-[2rem] overflow-hidden group relative h-[500px] shadow-lg hover:shadow-2xl transition-all duration-500`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+              onClick={() => setActiveIndex(idx)}
+            >
+              <Link href={`/seasons/${season.slug}`} className="block h-full">
+                <Image
+                  src={season.image}
+                  alt={season.name}
+                  fill
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Seasonal Badge */}
+                <div className="absolute top-8 left-8">
+                  <div className="glass px-4 py-2 rounded-full flex items-center gap-2 border border-white/20">
+                    <Calendar size={14} className="text-secondary" />
+                    <span className="text-white text-xs font-bold uppercase tracking-wider">
+                      {season.name}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 p-8 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <h3 className="text-white font-[var(--heading-font)] text-3xl font-bold mb-3">
+                    {season.name}
+                  </h3>
+                  <p className="text-stone-300 text-sm font-light leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
+                    {season.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-white font-semibold text-sm group/btn">
+                    <span>Explore Season</span>
+                    <ChevronRight size={16} className="transition-transform group-hover/btn:translate-x-2" />
+                  </div>
+                </div>
+              </Link>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+
+      {/* CSS for hiding scrollbar */}
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+    </section>
   )
 }

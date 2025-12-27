@@ -15,63 +15,85 @@ export default function LoginPage() {
     )
 
     return (
-        <div className="flex min-h-screen w-full">
-            {/* Left Side - Brand/Logo Area */}
-            <div className="hidden lg:flex w-1/2 bg-slate-900 items-center justify-center p-12 relative overflow-hidden">
-                {/* Background pattern or image could go here */}
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2671&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
-                <div className="relative z-10 text-white text-center">
-                    <div className="mb-6 flex justify-center">
-                        {/* Placeholder for Logo */}
-                        <div className="h-20 w-20 bg-white rounded-full flex items-center justify-center text-slate-900 font-bold text-3xl">
-                            NT
-                        </div>
-                    </div>
-                    <h1 className="text-4xl font-bold mb-4">Nepal Travel Co.</h1>
-                    <p className="text-lg text-slate-200 max-w-md mx-auto">
-                        Admin Portal to manage your treks, experiences, and bookings efficiently.
-                    </p>
+        <div className="flex min-h-screen w-full bg-white dark:bg-gray-950">
+            {/* Left Side - Logo Area */}
+            <div className="hidden lg:flex w-1/2 bg-gray-50 dark:bg-gray-900 items-center justify-center p-12 border-r border-gray-200 dark:border-gray-800">
+                <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
+                    <Image
+                        src="/Images/Logo/logo.png"
+                        alt="Nepal Travel Co. Logo"
+                        width={400}
+                        height={400}
+                        className="object-contain"
+                        priority
+                    />
                 </div>
             </div>
 
             {/* Right Side - Login Form */}
-            <div className="flex-1 flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-900">
-                <div className="w-full max-w-sm space-y-6">
-                    <div className="text-center lg:text-left">
-                        <h2 className="text-2xl font-bold tracking-tight">Welcome back</h2>
-                        <p className="text-muted-foreground mt-2">Enter your credentials to access the admin dashboard.</p>
+            <div className="flex-1 flex items-center justify-center p-6 sm:p-12">
+                <div className="w-full max-w-sm space-y-8">
+                    <div className="space-y-2 text-center lg:text-left">
+                        <div className="lg:hidden flex justify-center mb-6">
+                            <Image
+                                src="/Images/Logo/logo.png"
+                                alt="Nepal Travel Co. Logo"
+                                width={120}
+                                height={120}
+                                className="object-contain"
+                            />
+                        </div>
+                        <h1 className="text-3xl font-bold tracking-tight">Admin Login</h1>
+                        <p className="text-muted-foreground">
+                            Welcome back. Please enter your details to manage the portal.
+                        </p>
                     </div>
 
-                    <form action={dispatch} className="space-y-4">
+                    <form action={dispatch} className="space-y-5">
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
-                            <Input id="email" type="email" name="email" placeholder="admin@example.com" required />
+                            <Label htmlFor="email" className="text-sm font-medium">Email Address</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                name="email"
+                                placeholder="name@company.com"
+                                required
+                                className="h-11"
+                            />
                         </div>
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <Label htmlFor="password">Password</Label>
-                                <a href="#" className="text-sm text-primary hover:underline">Forgot password?</a>
+                                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                                <a href="#" className="text-sm text-orange-600 hover:text-orange-500 font-medium">
+                                    Forgot password?
+                                </a>
                             </div>
-                            <Input id="password" type="password" name="password" required />
+                            <Input id="password" type="password" name="password" required className="h-11" />
                         </div>
 
-                        <Button className="w-full h-11" type="submit" disabled={isPending}>
-                            {isPending ? 'Authenticating...' : 'Sign In'}
+                        <Button
+                            className="w-full h-11 bg-orange-600 hover:bg-orange-700 text-white font-semibold transition-all"
+                            type="submit"
+                            disabled={isPending}
+                        >
+                            {isPending ? 'Authenticating...' : 'Sign In to Dashboard'}
                         </Button>
 
                         <div
-                            className="flex h-8 items-end space-x-1"
+                            className="flex min-h-[1.5rem] items-center justify-center"
                             aria-live="polite"
                             aria-atomic="true"
                         >
                             {errorMessage && (
-                                <p className="text-sm text-red-500">{errorMessage}</p>
+                                <p className="text-sm font-medium text-red-500 bg-red-50 dark:bg-red-900/10 px-3 py-1 rounded-md">
+                                    {errorMessage}
+                                </p>
                             )}
                         </div>
                     </form>
 
-                    <p className="text-center text-sm text-muted-foreground">
-                        Don&apos;t have an account? Contact your super admin.
+                    <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                        © {new Date().getFullYear()} Nepal Travel Co. All rights reserved.
                     </p>
                 </div>
             </div>

@@ -11,124 +11,138 @@ function BestSelling() {
         "https://i.pinimg.com/736x/16/37/80/16378017612eb06c5d85821f7062cd4e.jpg",
       location: "Namche, Solukhumbu",
       title: "Everest Base Camp Trek",
+      duration: "14 Days",
+      price: "$1,299"
     },
     {
       id: 2,
       image:
-        "https://i.pinimg.com/736x/16/37/80/16378017612eb06c5d85821f7062cd4e.jpg",
+        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop",
       location: "Lomanthang, Mustang",
       title: "Bike Ride To Upper Mustang",
+      duration: "10 Days",
+      price: "$2,450"
     },
     {
       id: 3,
       image:
-        "https://i.pinimg.com/736x/a1/3f/30/a13f305aaa49500143d0d60ecf4fc1a9.jpg",
+        "https://images.unsplash.com/photo-1583133373400-df33d5e2e88a?q=80&w=2071&auto=format&fit=crop",
       location: "Sauraha, Chitwan",
       title: "Safari Escape To Chitwan",
+      duration: "3 Days",
+      price: "$450"
     },
     {
       id: 4,
       image:
-        "https://i.pinimg.com/736x/cd/4f/05/cd4f0588787d88ff975aea1b78ec6d24.jpg",
-      location: "Majadevi Temple, Lumbini",
+        "https://images.unsplash.com/photo-1623492701902-47dc207df5dc?q=80&w=2070&auto=format&fit=crop",
+      location: "Lumbini",
       title: "Lumbini Heritage Tour",
+      duration: "2 Days",
+      price: "$300"
     },
   ]
 
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
+  const containerVariants = {
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
     },
   }
 
   return (
-    <section className="bg-[var(--background-color)] py-20">
-      <div className="max-w-[1400px] mx-auto px-4">
-
+    <section className="bg-stone-50 py-24">
+      <div className="container-max">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-heading text-primary text-3xl md:text-4xl font-bold tracking-wide mb-4">
-            TRAVELER&apos;S FAVORITES
-          </h2>
-          <p className="max-w-3xl mx-auto text-muted text-base md:text-lg font-body">
-            Discover Nepal&apos;s best with handpicked journeys—scenic, cultural,
-            and thoughtfully crafted for adventure, comfort, and wonder.
-          </p>
+        <div className="mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6"
+          >
+            <div className="max-w-3xl">
+              <span className="text-secondary font-semibold tracking-widest uppercase text-xs mb-3 block">Featured Experiences</span>
+              <h2 className="font-[var(--heading-font)] text-primary text-4xl md:text-5xl font-bold leading-tight">
+                Traveler&apos;s <span className="italic font-normal">Favorites</span>
+              </h2>
+              <p className="max-w-3xl text-stone-500 text-lg leading-relaxed mt-4">
+              Discover Nepal&apos;s best with handpicked journeys—scenic, cultural,
+              and thoughtfully crafted for wonder.
+            </p>
+            </div>
+            
+          </motion.div>
         </div>
 
-        {/* Cards */}
-        <div
+        {/* Cards Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
           className="
-            grid gap-5
-            grid-cols-[repeat(auto-fit,minmax(300px,1fr))]
-            md:grid
-            max-md:flex max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory
+            grid gap-4
+            grid-cols-1 md:grid-cols-2 lg:grid-cols-4
           "
         >
           {travelCards.map((card) => (
             <motion.div
               key={card.id}
               variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              className="
-                group relative rounded-xl overflow-hidden
-                bg-[var(--background-color)]
-                shadow-[0_6px_18px_rgba(0,0,0,0.08)]
-                transition-all duration-500 ease-out
-                hover:-translate-y-3 hover:scale-[1.04]
-                hover:shadow-[0_30px_60px_rgba(0,0,0,0.15)]
-                cursor-pointer
-                max-md:flex-shrink-0 max-md:w-full max-md:h-[500px] max-md:snap-start
-              "
+              className="group relative h-[500px] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
             >
               {/* Image */}
-              <div className="relative h-[550px] max-md:h-full overflow-hidden">
-                <Image
-                  src={card.image}
-                  alt={card.title}
-                  fill
-                  className="
-                    object-cover
-                    transition-transform duration-700
-                    group-hover:scale-110
-                  "
-                />
+              <Image
+                src={card.image}
+                alt={card.title}
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
 
-                {/* Overlay */}
-                <div
-                  className="
-                    absolute inset-0
-                    bg-gradient-to-b
-                    from-black/10 via-black/40 to-black/80
-                    transition-opacity duration-300
-                    group-hover:opacity-90
-                  "
-                />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
 
-                {/* Content */}
-                <div
-                  className="
-                    absolute bottom-0 inset-x-0 p-6 z-10
-                    transition-transform duration-300
-                    group-hover:-translate-y-1
-                  "
-                >
-                  <p className="text-white/90 text-sm mb-2 drop-shadow">
+              {/* Floating Labels */}
+              <div className="absolute top-6 left-6 flex flex-col gap-2">
+                <span className="px-4 py-1.5 glass text-primary-900 text-xs font-bold rounded-full uppercase tracking-wider backdrop-blur-md">
+                  {card.duration}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="absolute bottom-0 inset-x-0 p-8 z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary" />
+                  <span className="text-white/80 text-xs uppercase tracking-[0.2em] font-medium">
                     {card.location}
-                  </p>
-                  <h3 className="text-white font-heading text-xl md:text-2xl font-bold leading-snug drop-shadow">
-                    {card.title}
-                  </h3>
+                  </span>
+                </div>
+                <h3 className="text-white font-[var(--heading-font)] text-2xl font-bold mb-4 leading-tight">
+                  {card.title}
+                </h3>
+
+                <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                  <span className="text-white font-bold text-lg">{card.price}</span>
+                  <span className="text-white/80 underline text-sm font-medium">View Details</span>
                 </div>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -1,14 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { ArrowRight, ArrowLeft, Compass, Mountain } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ArrowRight, ArrowLeft, Compass, Mountain, ChevronRight } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { treksData } from "@/data/Treks"
 
 const BrandInfo = () => {
   const [startIndex, setStartIndex] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [direction, setDirection] = useState(0)
 
   const trekkinginfo = treksData.slice(0, 6).map((trek) => ({
     id: trek.slug,
@@ -21,174 +22,150 @@ const BrandInfo = () => {
   }))
 
   const handleNext = () => {
-    if (isTransitioning) return
-    setIsTransitioning(true)
-    setTimeout(() => {
-      setStartIndex((prev) => (prev + 1) % trekkinginfo.length)
-      setTimeout(() => setIsTransitioning(false), 300)
-    }, 100)
+    setDirection(1)
+    setStartIndex((prev) => (prev + 1) % trekkinginfo.length)
   }
 
   const handlePrev = () => {
-    if (isTransitioning) return
-    setIsTransitioning(true)
-    setTimeout(() => {
-      setStartIndex((prev) => (prev - 1 + trekkinginfo.length) % trekkinginfo.length)
-      setTimeout(() => setIsTransitioning(false), 300)
-    }, 100)
+    setDirection(-1)
+    setStartIndex((prev) => (prev - 1 + trekkinginfo.length) % trekkinginfo.length)
   }
 
   useEffect(() => {
-    const interval = setInterval(handleNext, 3000)
+    const interval = setInterval(handleNext, 6000)
     return () => clearInterval(interval)
-  }, [isTransitioning])
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") handlePrev()
-      if (e.key === "ArrowRight") handleNext()
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
   }, [])
 
-  const visibleParks = [0, 1, 2].map((i) => {
-    const index = (startIndex + i) % trekkinginfo.length
-    return {
-      ...trekkinginfo[index],
-      position: i === 0 ? "left" : i === 1 ? "center" : "right",
+  const getVisibleItems = () => {
+    const items = []
+    for (let i = 0; i < 3; i++) {
+      items.push(trekkinginfo[(startIndex + i) % trekkinginfo.length])
     }
-  })
+    return items
+  }
 
   return (
-    <motion.section
-      role="region"
-      aria-label="Trekking Gems of Nepal"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="relative py-20 bg-gradient-to-br from-primary via-emerald-900 to-slate-800"
-    >
-      {/* Pattern */}
-      <div className="absolute inset-0 bg-[url('/Images/SVG/tortoise-shell.svg')] opacity-10 pointer-events-none" />
+    <section className="relative py-24 bg-primary overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] -translate-y-1/2" />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] translate-y-1/2" />
 
-      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 px-6 items-center">
+      <div className="container-max relative z-10">
+        <div className="flex flex-col lg:flex-row items-end justify-between gap-8 mb-16">
+          <div className="max-w-2xl">
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block"
+            >
+              Beyond the Ordinary
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="font-[var(--heading-font)] text-4xl md:text-6xl font-bold text-white leading-tight"
+            >
+              Trekking Gems <br />
+              <span className="italic font-normal">of the Himalayas</span>
+            </motion.h2>
+          </div>
 
-        {/* LEFT */}
-        <div className="text-center lg:text-left">
-          <h2 className="font-heading text-4xl lg:text-5xl font-bold text-white mb-6">
-            Trekking Gems of Nepal
-          </h2>
-
-          <Link
-            href="/treks"
-            className="inline-flex items-center gap-2 uppercase tracking-wide text-white font-semibold relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-accent after:transition-all hover:after:w-full"
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4"
           >
-            View All Trails <ArrowRight size={18} />
-          </Link>
+            <Link
+              href="/treks"
+              className="group flex items-center gap-3 text-white font-semibold uppercase tracking-widest text-xs border-b border-white/20 pb-2 hover:border-secondary transition-colors"
+            >
+              Explore All Trails
+              <ArrowRight size={16} className="text-secondary transition-transform group-hover:translate-x-2" />
+            </Link>
+          </motion.div>
         </div>
 
-        {/* RIGHT */}
-        <div className="relative flex justify-center items-center">
-
-          {/* Carousel */}
-          <div className="relative flex items-center gap-1 pb-12">
-
-            {visibleParks.map((park) => {
-              const base =
-                "relative rounded-xl overflow-hidden transition-all duration-500 cursor-pointer group"
-
-              const positionStyles =
-                park.position === "center"
-                  ? "w-[250px] h-[400px] z-30 shadow-xl scale-100"
-                  : "w-[225px] h-[400px] opacity-80 scale-90 z-10"
-
-              const transform =
-                park.position === "left"
-                  ? "-translate-x-2 -rotate-2"
-                  : park.position === "right"
-                  ? "translate-x-2 rotate-2"
-                  : ""
-
-              return (
-                <div
-                  key={park.id}
-                  className={`${base} ${positionStyles} ${transform} ${
-                    isTransitioning ? "transition-all" : ""
-                  } hidden md:block`}
+        {/* Carousel Container */}
+        <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <AnimatePresence mode="wait" initial={false}>
+              {getVisibleItems().map((trek, idx) => (
+                <motion.div
+                  key={`${trek.id}-${startIndex}-${idx}`}
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -30, scale: 0.95 }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="group relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl bg-white/5 border border-white/10"
                 >
-                  <img
-                    src={park.imageUrl}
-                    alt={park.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
+                  <Image
+                    src={trek.imageUrl}
+                    alt={trek.name}
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
 
-                  {/* Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70" />
+                  {/* Overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
 
-                  {/* Title */}
-                  <div className="absolute bottom-6 inset-x-4 text-center text-white font-heading font-semibold text-lg group-hover:opacity-0 transition-opacity">
-                    {park.name}
-                  </div>
-
-                  {/* Hover content */}
-                  <div className="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                    <div className="text-white text-center px-4">
-                      <div className="flex flex-col gap-1 text-sm mb-2">
-                        <span className="flex justify-center gap-1">
-                          <Compass size={14} /> {park.location}
-                        </span>
-                        <span className="flex justify-center gap-1">
-                          <Mountain size={14} /> {park.altitude}
-                        </span>
-                      </div>
-
-                      <p className="text-xs line-clamp-3 mb-3">
-                        {park.description}
-                      </p>
-
-                      <Link
-                        href={`/treks/${park.slug}`}
-                        className="inline-flex items-center gap-1 bg-accent px-3 py-1 rounded-lg text-xs font-semibold hover:bg-button-hover"
-                      >
-                        Explore <ArrowRight size={14} />
-                      </Link>
+                  {/* Badges */}
+                  <div className="absolute top-6 left-6 flex flex-col gap-2">
+                    <div className="glass px-3 py-1.5 rounded-full flex items-center gap-2 border border-white/20">
+                      <Compass size={12} className="text-secondary" />
+                      <span className="text-white text-[10px] font-bold uppercase tracking-wider">{trek.location}</span>
                     </div>
                   </div>
-                </div>
-              )
-            })}
 
-            {/* Mobile card */}
-            <div className="md:hidden w-full max-w-sm h-[360px] rounded-xl overflow-hidden shadow-lg relative">
-              <img
-                src={visibleParks[1].imageUrl}
-                alt={visibleParks[1].name}
-                className="w-full h-full object-cover"
-              />
-            </div>
+                  {/* Content */}
+                  <div className="absolute bottom-0 inset-x-0 p-8">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Mountain size={14} className="text-secondary" />
+                      <span className="text-white/60 text-[10px] uppercase tracking-widest font-bold">Max Altitude: {trek.altitude}</span>
+                    </div>
+                    <h3 className="font-[var(--heading-font)] text-2xl font-bold text-white mb-4">
+                      {trek.name}
+                    </h3>
+                    <p className="text-stone-300 text-sm line-clamp-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      {trek.description}
+                    </p>
+                    <Link
+                      href={`/treks/${trek.slug}`}
+                      className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] group/btn"
+                    >
+                      View Details
+                      <ChevronRight size={14} className="text-secondary transition-transform group-hover/btn:translate-x-2" />
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
 
-            {/* Nav buttons */}
+          {/* Navigation Controls */}
+          <div className="flex justify-center mt-12 gap-6">
             <button
               onClick={handlePrev}
-              disabled={isTransitioning}
-              className="absolute -left-6 md:left-[18rem] top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full w-12 h-12 flex items-center justify-center hover:bg-accent disabled:opacity-50"
+              className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-500 shadow-xl"
             >
-              <ArrowLeft />
+              <ArrowLeft size={20} />
             </button>
-
             <button
               onClick={handleNext}
-              disabled={isTransitioning}
-              className="absolute -right-6 md:right-[18rem] top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full w-12 h-12 flex items-center justify-center hover:bg-accent disabled:opacity-50"
+              className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-500 shadow-xl"
             >
-              <ArrowRight />
+              <ArrowRight size={20} />
             </button>
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }
 

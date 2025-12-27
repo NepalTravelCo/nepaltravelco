@@ -7,9 +7,12 @@ export const authConfig = {
     },
     callbacks: {
         async redirect({ url, baseUrl }) {
-            // Redirect to /admin after login if the redirect URL is root
-            if (url === baseUrl) return `${baseUrl}/admin`
-            return url
+            // If url is already /admin or a sub-path, keep it
+            if (url.startsWith(baseUrl + "/admin") && !url.includes("/admin/login")) {
+                return url
+            }
+            // Default redirect to /admin after login
+            return `${baseUrl}/admin`
         },
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user
