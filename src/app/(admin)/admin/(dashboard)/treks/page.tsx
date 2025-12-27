@@ -63,7 +63,7 @@ export default async function TreksPage() {
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
-                        ) : treks.map((trek: any) => (
+                        ) : treks.map((trek) => (
                             <TableRow key={trek.id}>
                                 <TableCell>
                                     <div className="font-medium">{trek.name}</div>
@@ -84,7 +84,7 @@ export default async function TreksPage() {
                                 </TableCell>
                                 <TableCell>
                                     {/* Assuming estimatedCost is stored as JSON with budget */}
-                                    {(trek.estimatedCost as any)?.budget || "N/A"}
+                                    {(trek.estimatedCost as { budget?: string })?.budget || "N/A"}
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex items-center justify-end space-x-2">

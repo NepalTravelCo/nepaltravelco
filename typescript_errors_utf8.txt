@@ -1,0 +1,9 @@
+﻿.next/types/app/layout.ts(12,13): error TS2344: Type 'OmitWithTag<typeof import("D:/Freelance/nepaltravelco/src/app/layout"), "default" | "metadata" | "viewport" | "config" | "generateStaticParams" | "revalidate" | "dynamic" | "dynamicParams" | ... 6 more ... | "experimental_ppr", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'inter' is incompatible with index signature.
+    Type 'NextFontWithVariable' is not assignable to type 'never'.
+.next/types/app/treks/[slug]/page.ts(34,29): error TS2344: Type 'TrekPageProps' does not satisfy the constraint 'PageProps'.
+  Types of property 'params' are incompatible.
+    Type '{ slug: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+.next/types/app/treks/[slug]/page.ts(38,31): error TS2344: Type 'TrekPageProps' does not satisfy the constraint 'PageProps'.
+  Types of property 'params' are incompatible.
+    Type '{ slug: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]

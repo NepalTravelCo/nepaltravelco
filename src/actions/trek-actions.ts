@@ -6,10 +6,8 @@ import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
 // Define schema for Trek validation
-const TrekSchema = z.object({
-    name: z.string().min(1),
-    slug: z.string().min(1),
-})
+
+
 
 export async function deleteTrek(id: string) {
     try {

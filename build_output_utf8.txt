@@ -1,0 +1,301 @@
+﻿
+> nepaltravel-next@0.1.0 build
+> next build
+
+   Γû▓ Next.js 15.5.9
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully in 4.3s
+   Linting and checking validity of types ...
+node.exe : 
+At C:\Program Files\n
+odejs\npm.ps1:29 
+char:3
++   & $NODE_EXE 
+$NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (:String   
+ ) [], RemoteExce    
+ption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+Failed to compile.
+
+./src/actions/trek-ac
+tions.ts
+9:7  Warning: 
+'TrekSchema' is 
+assigned a value but 
+never used.  @typescr
+ipt-eslint/no-unused-
+vars
+
+./src/app/(admin)/adm
+in/(dashboard)/page.t
+sx
+3:10  Warning: 
+'prisma' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+
+./src/app/(admin)/adm
+in/(dashboard)/treks/
+page.tsx
+66:46  Error: 
+Unexpected any. 
+Specify a different 
+type.  @typescript-es
+lint/no-explicit-any
+87:61  Error: 
+Unexpected any. 
+Specify a different 
+type.  @typescript-es
+lint/no-explicit-any
+
+./src/app/experiences
+/HeroExperience.tsx
+4:10  Warning: 
+'motion' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+
+./src/app/experiences
+/page.tsx
+3:8  Warning: 
+'BrandInfo' is 
+defined but never 
+used.  @typescript-es
+lint/no-unused-vars
+4:8  Warning: 
+'ReachUs' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+
+./src/app/layout.tsx
+6:10  Warning: 
+'Inter' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+6:17  Warning: 
+'Poppins' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+
+./src/app/seasons/pag
+e.tsx
+4:8  Warning: 'Link' 
+is defined but never 
+used.  @typescript-es
+lint/no-unused-vars
+58:9  Warning: 
+Unused 
+eslint-disable 
+directive (no 
+problems were 
+reported from 
+'react/no-danger').
+
+./src/app/seasons/Sea
+sons.tsx
+47:17  Warning: 
+Using `<img>` could 
+result in slower LCP 
+and higher 
+bandwidth. Consider 
+using `<Image />` 
+from `next/image` or 
+a custom image 
+loader to 
+automatically 
+optimize images. 
+This may incur 
+additional usage or 
+cost from your 
+provider. See: https:
+//nextjs.org/docs/mes
+sages/no-img-element 
+ @next/next/no-img-el
+ement
+
+./src/app/travel-guid
+e/page.tsx
+3:8  Warning: 
+'BrandInfo' is 
+defined but never 
+used.  @typescript-es
+lint/no-unused-vars
+
+./src/app/travel-guid
+e/VisaInfo.tsx
+3:8  Warning: 
+'Image' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+
+./src/app/treks/page.
+tsx
+8:8  Warning: 
+'ReachUs' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+159:6  Warning: 
+React Hook useEffect 
+has missing 
+dependencies: 
+'activeSection', 
+'animateToAltitude', 
+and 
+'currentAltitude'. 
+Either include them 
+or remove the 
+dependency array.  re
+act-hooks/exhaustive-
+deps
+168:6  Warning: 
+React Hook useEffect 
+has missing 
+dependencies: 
+'animateToAltitude' 
+and 
+'currentAltitude'. 
+Either include them 
+or remove the 
+dependency array.  re
+act-hooks/exhaustive-
+deps
+
+./src/auth.ts
+50:34  Warning: 
+'trigger' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+50:43  Warning: 
+'session' is defined 
+but never used.  @typ
+escript-eslint/no-unu
+sed-vars
+53:39  Error: 
+Unexpected any. 
+Specify a different 
+type.  @typescript-es
+lint/no-explicit-any
+60:34  Error: 
+Unexpected any. 
+Specify a different 
+type.  @typescript-es
+lint/no-explicit-any
+
+./src/components/ui/i
+nput.tsx
+5:18  Error: An 
+interface declaring 
+no members is 
+equivalent to its 
+supertype.  @typescri
+pt-eslint/no-empty-ob
+ject-type
+
+./src/header-componen
+t/Navigation.tsx
+18:9  Warning: 
+'isHomePage' is 
+assigned a value but 
+never used.  @typescr
+ipt-eslint/no-unused-
+vars
+
+./src/homepage-compon
+ents/BrandInfo.tsx
+12:10  Warning: 
+'direction' is 
+assigned a value but 
+never used.  @typescr
+ipt-eslint/no-unused-
+vars
+37:6  Warning: React 
+Hook useEffect has a 
+missing dependency: 
+'handleNext'. Either 
+include it or remove 
+the dependency 
+array.  react-hooks/e
+xhaustive-deps
+
+./src/homepage-compon
+ents/TravelRegions.ts
+x
+6:37  Warning: 
+'ArrowRight' is 
+defined but never 
+used.  @typescript-es
+lint/no-unused-vars
+
+./src/homepage-compon
+ents/TravelSeasons.ts
+x
+5:18  Warning: 
+'AnimatePresence' is 
+defined but never 
+used.  @typescript-es
+lint/no-unused-vars
+
+./src/inner-component
+s/Festivals.tsx
+213:6  Warning: 
+React Hook useEffect 
+has a missing 
+dependency: 
+'navigateCarousel'. 
+Either include it or 
+remove the 
+dependency array.  re
+act-hooks/exhaustive-
+deps
+
+./src/inner-component
+s/Hikes.tsx
+219:6  Warning: 
+React Hook useEffect 
+has a missing 
+dependency: 
+'navigateCarousel'. 
+Either include it or 
+remove the 
+dependency array.  re
+act-hooks/exhaustive-
+deps
+
+./src/inner-component
+s/SacredTemples.tsx
+210:6  Warning: 
+React Hook useEffect 
+has a missing 
+dependency: 
+'navigateCarousel'. 
+Either include it or 
+remove the 
+dependency array.  re
+act-hooks/exhaustive-
+deps
+
+info  - Need to 
+disable some ESLint 
+rules? Learn more 
+here: https://nextjs.
+org/docs/app/api-refe
+rence/config/eslint#d
+isabling-rules
