@@ -66,7 +66,7 @@ const HeroSection = () => {
         </AnimatePresence>
 
         {/* Improved Gradient Overlay */}
-        <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+        <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
       </div>
 
       {/* Text Content */}
@@ -88,7 +88,7 @@ const HeroSection = () => {
             "
           >
             Unveil Nepal&apos;s <br />
-            <span className="text-gradient">Natural Beauty</span>
+            <span className="text-secondary">Natural Beauty</span>
           </motion.h1>
 
           <motion.p
