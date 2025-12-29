@@ -7,15 +7,16 @@ import TrekInteraction from "./TrekInteraction"
 
 export default function TreksPage() {
   return (
-    <div className="bg-black min-h-screen text-white font-[var(--text-font)]">
+    <div className="bg-black text-white font-[var(--text-font)] h-screen overflow-hidden">
       <Navigation />
 
-      <main>
+      <main className="h-screen w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         <TreksHero />
         <TrekInteraction />
+        <div className="snap-start">
+          <FooterSection />
+        </div>
       </main>
-
-      <FooterSection />
     </div>
   )
 }

@@ -1,4 +1,3 @@
-
 import "@/app/globals.css"
 import { Metadata } from "next"
 
@@ -12,11 +11,5 @@ export default function AdminRootLayout({
 }: {
     children: React.ReactNode
 }) {
-    return (
-        <html lang="en">
-            <body className="antialiased min-h-screen bg-gray-50 dark:bg-gray-900">
-                {children}
-            </body>
-        </html>
-    )
+    return children
 }

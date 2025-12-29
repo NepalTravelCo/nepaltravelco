@@ -75,10 +75,6 @@ const FillerInfo = () => {
                       />
                     </div>
                   ))}
-                  <div className="pl-6 flex flex-col justify-center">
-                    <span className="text-sm font-bold text-primary">500+ Explorers</span>
-                    <span className="text-xs text-stone-500">Joined this year</span>
-                  </div>
                 </div>
               </div>
             </motion.div>

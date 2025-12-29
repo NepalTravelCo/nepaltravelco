@@ -15,6 +15,13 @@ const config: Config = {
                 accent: "var(--accent)",
                 text: "var(--text-color)",
                 muted: "var(--text-muted)",
+                "admin-bg": "var(--admin-bg)",
+                "admin-card": "var(--admin-card-bg)",
+                "admin-border": "var(--admin-card-border)",
+                "admin-text-primary": "var(--admin-text-primary)",
+                "admin-text-secondary": "var(--admin-text-secondary)",
+                "admin-accent": "var(--admin-accent)",
+                "admin-accent-soft": "var(--admin-accent-soft)",
             },
             fontFamily: {
                 heading: ["var(--font-poppins)", "sans-serif"],

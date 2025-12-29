@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -47,6 +47,25 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+
+  /* Admin Design System - Professional & Accessible */
+  --admin-bg: #f8fafc;
+  --admin-sidebar-bg: #ffffff;
+  --admin-card-bg: #ffffff;
+  --admin-card-border: #e2e8f0;
+  --admin-text-primary: #0f172a;
+  --admin-text-secondary: #64748b;
+  --admin-accent: #ea580c;
+  --admin-accent-soft: rgba(234, 88, 12, 0.1);
+}
+
+.dark {
+  --admin-bg: #0f172a;
+  --admin-sidebar-bg: #1e293b;
+  --admin-card-bg: #1e293b;
+  --admin-card-border: #334155;
+  --admin-text-primary: #f8fafc;
+  --admin-text-secondary: #94a3b8;
 }
 
 /* ================================
@@ -190,6 +209,48 @@ button {
   border-radius: 8px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+/* ================================
+   Admin Layout Helpers - Professional Refinement
+================================ */
+.admin-card {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--admin-text-primary);
+}
+
+.admin-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--admin-accent);
+}
+
+.admin-surface {
+  background: var(--admin-bg);
+  color: var(--admin-text-primary);
+}
+
+.admin-sidebar {
+  background: var(--admin-sidebar-bg);
+  border-right: 1px solid var(--admin-card-border);
+}
+
+.stat-card-accent {
+  border-top: 3px solid var(--admin-accent);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--admin-text-secondary);
+}
+
+.stat-value {
+  font-size: 1.875rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--admin-text-primary);
 }
