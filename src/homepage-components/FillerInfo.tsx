@@ -24,7 +24,7 @@ const FillerInfo = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[120vh] overflow-hidden bg-[#FDFBF7] flex items-center justify-center py-24"
+      className="relative z-10 min-h-[120vh] overflow-hidden bg-[#FDFBF7] flex items-center justify-center py-24"
     >
       {/* Massive Background Text */}
       <motion.div

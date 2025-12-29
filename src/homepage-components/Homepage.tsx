@@ -14,16 +14,20 @@ import BrandParallax from './BrandParallax'
 function Homepage() {
   return (
     <div>
+      <div className="relative">
         <HeroSection />
         <FillerInfo />
-        <BestSelling />
-        <TravelTypes />
-        <TravelRegions />
-        <TravelSeasons />
+      </div>
+      <BestSelling />
+      <TravelTypes />
+      <div className="relative">
         <BrandParallax />
-         <FAQ />
         <BrandInfo />
-        <ReachUs />
+      </div>
+      <TravelSeasons />
+      <FAQ />
+      <TravelRegions />
+      <ReachUs />
     </div>
   )
 }

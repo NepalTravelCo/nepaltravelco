@@ -45,7 +45,7 @@ const BrandInfo = () => {
   }
 
   return (
-    <section className="relative py-24 bg-primary overflow-hidden">
+    <section className="relative z-10 py-24 bg-primary overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] -translate-y-1/2" />

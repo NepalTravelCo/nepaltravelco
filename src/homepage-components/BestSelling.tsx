@@ -17,7 +17,7 @@ function BestSelling() {
     {
       id: 2,
       image:
-        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop",
+        "https://i.pinimg.com/736x/86/98/b2/8698b252000d0a556352cd68053dcdc7.jpg",
       location: "Lomanthang, Mustang",
       title: "Bike Ride To Upper Mustang",
       duration: "10 Days",
@@ -26,7 +26,7 @@ function BestSelling() {
     {
       id: 3,
       image:
-        "https://images.unsplash.com/photo-1583133373400-df33d5e2e88a?q=80&w=2071&auto=format&fit=crop",
+        "https://i.pinimg.com/736x/1d/a2/40/1da2405ab9b54c95932327cde28f4a1c.jpg",
       location: "Sauraha, Chitwan",
       title: "Safari Escape To Chitwan",
       duration: "3 Days",
@@ -35,7 +35,7 @@ function BestSelling() {
     {
       id: 4,
       image:
-        "https://images.unsplash.com/photo-1623492701902-47dc207df5dc?q=80&w=2070&auto=format&fit=crop",
+        "https://i.pinimg.com/736x/cd/4f/05/cd4f0588787d88ff975aea1b78ec6d24.jpg",
       location: "Lumbini",
       title: "Lumbini Heritage Tour",
       duration: "2 Days",

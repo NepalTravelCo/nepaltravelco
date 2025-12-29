@@ -28,7 +28,7 @@ const HeroSection = () => {
   }, [heroContent]);
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="sticky top-0 z-0 h-screen overflow-hidden">
       {/* Background */}
       <div className="relative h-full">
         <AnimatePresence mode="wait">

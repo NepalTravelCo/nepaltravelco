@@ -61,10 +61,10 @@ export default function TravelRegions() {
   return (
     <section className="relative w-full min-h-screen lg:h-[800px] overflow-hidden bg-primary text-white">
       {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+      {/* <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent rounded-full blur-[120px]" />
-      </div>
+      </div> */}
 
       <div className="container-max h-full relative z-10 py-20 flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
