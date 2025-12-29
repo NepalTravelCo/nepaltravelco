@@ -59,7 +59,7 @@ export default function TravelRegions() {
   const goToPrev = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
 
   return (
-    <section className="relative w-full min-h-screen lg:h-[800px] overflow-hidden bg-primary text-white">
+    <section className="relative z-10 w-full min-h-screen lg:h-[800px] overflow-hidden bg-primary text-white">
       {/* Background Decorative Elements */}
       {/* <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary rounded-full blur-[120px]" />

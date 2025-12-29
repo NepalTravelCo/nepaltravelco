@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useRef } from "react"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { ChevronDown, HelpCircle } from "lucide-react"
 
 type FAQItem = {
@@ -10,6 +10,7 @@ type FAQItem = {
 }
 
 function FAQ() {
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   const faqData: FAQItem[] = [
@@ -50,10 +51,14 @@ function FAQ() {
   }
 
   return (
-    <section className="py-24 bg-stone-50 overflow-hidden">
-      <div className="container-max">
+    <section
+      className="sticky top-0 z-0 min-h-screen flex items-center bg-stone-50 overflow-hidden py-24"
+    >
+      <div
+        className="container-max w-full"
+      >
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -82,46 +87,42 @@ function FAQ() {
         </div>
 
         {/* FAQ Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {/* Left Column */}
           <div className="space-y-4">
             {faqData.filter((_, i) => i % 2 === 0).map((faq, index) => {
               const actualIndex = index * 2
               return (
-                <motion.div
+                <div
                   key={actualIndex}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   className={`
-                    group rounded-2xl border transition-all duration-500
+                    group rounded-xl border transition-all duration-300
                     ${activeIndex === actualIndex
-                      ? "bg-white border-secondary/30 shadow-xl"
-                      : "bg-white/50 border-stone-200 hover:border-secondary/20 hover:shadow-md"}
+                      ? "bg-white border-secondary/30 shadow-md scale-[1.02]"
+                      : "bg-white/50 border-stone-200 hover:border-secondary/20 hover:shadow-sm"}
                   `}
                 >
                   <button
                     onClick={() => toggleFAQ(actualIndex)}
-                    className="w-full flex items-center justify-between gap-6 px-8 py-7 text-left outline-none"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left outline-none"
                   >
                     <div className="flex items-center gap-4">
                       <div className={`
-                        w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-500
+                        w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 shrink-0
                         ${activeIndex === actualIndex ? "bg-secondary text-white" : "bg-stone-100 text-stone-400 group-hover:text-secondary"}
                       `}>
-                        <HelpCircle size={18} />
+                        <HelpCircle size={16} />
                       </div>
-                      <h3 className="font-semibold text-primary lg:text-lg">
+                      <h3 className="font-semibold text-primary text-sm md:text-base">
                         {faq.question}
                       </h3>
                     </div>
 
                     <div className={`
-                      w-8 h-8 rounded-full border border-stone-200 flex items-center justify-center transition-all duration-500
+                      w-6 h-6 rounded-full border border-stone-200 flex items-center justify-center transition-all duration-300 shrink-0
                       ${activeIndex === actualIndex ? "rotate-180 bg-primary text-white border-primary" : "text-stone-400 group-hover:border-stone-300"}
                     `}>
-                      <ChevronDown size={16} />
+                      <ChevronDown size={14} />
                     </div>
                   </button>
 
@@ -131,18 +132,18 @@ function FAQ() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="px-8 pb-8 pt-0 ml-14">
-                          <p className="text-stone-600 leading-relaxed max-w-2xl">
+                        <div className="px-6 pb-6 pt-0 ml-12">
+                          <p className="text-stone-600 text-sm leading-relaxed">
                             {faq.answer}
                           </p>
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
               )
             })}
           </div>
@@ -152,40 +153,36 @@ function FAQ() {
             {faqData.filter((_, i) => i % 2 !== 0).map((faq, index) => {
               const actualIndex = index * 2 + 1
               return (
-                <motion.div
+                <div
                   key={actualIndex}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
-                  viewport={{ once: true }}
                   className={`
-                    group rounded-2xl border transition-all duration-500
+                    group rounded-xl border transition-all duration-300
                     ${activeIndex === actualIndex
-                      ? "bg-white border-secondary/30 shadow-xl"
-                      : "bg-white/50 border-stone-200 hover:border-secondary/20 hover:shadow-md"}
+                      ? "bg-white border-secondary/30 shadow-md scale-[1.02]"
+                      : "bg-white/50 border-stone-200 hover:border-secondary/20 hover:shadow-sm"}
                   `}
                 >
                   <button
                     onClick={() => toggleFAQ(actualIndex)}
-                    className="w-full flex items-center justify-between gap-6 px-8 py-7 text-left outline-none"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left outline-none"
                   >
                     <div className="flex items-center gap-4">
                       <div className={`
-                        w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-500
+                        w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 shrink-0
                         ${activeIndex === actualIndex ? "bg-secondary text-white" : "bg-stone-100 text-stone-400 group-hover:text-secondary"}
                       `}>
-                        <HelpCircle size={18} />
+                        <HelpCircle size={16} />
                       </div>
-                      <h3 className="font-semibold text-primary lg:text-lg">
+                      <h3 className="font-semibold text-primary text-sm md:text-base">
                         {faq.question}
                       </h3>
                     </div>
 
                     <div className={`
-                      w-8 h-8 rounded-full border border-stone-200 flex items-center justify-center transition-all duration-500
+                      w-6 h-6 rounded-full border border-stone-200 flex items-center justify-center transition-all duration-300 shrink-0
                       ${activeIndex === actualIndex ? "rotate-180 bg-primary text-white border-primary" : "text-stone-400 group-hover:border-stone-300"}
                     `}>
-                      <ChevronDown size={16} />
+                      <ChevronDown size={14} />
                     </div>
                   </button>
 
@@ -195,18 +192,18 @@ function FAQ() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="px-8 pb-8 pt-0 ml-14">
-                          <p className="text-stone-600 leading-relaxed max-w-2xl">
+                        <div className="px-6 pb-6 pt-0 ml-12">
+                          <p className="text-stone-600 text-sm leading-relaxed">
                             {faq.answer}
                           </p>
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
               )
             })}
           </div>

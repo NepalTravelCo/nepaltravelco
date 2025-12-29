@@ -25,8 +25,10 @@ function Homepage() {
         <BrandInfo />
       </div>
       <TravelSeasons />
-      <FAQ />
-      <TravelRegions />
+      <div className="relative">
+        <FAQ />
+        <TravelRegions />
+      </div>
       <ReachUs />
     </div>
   )
