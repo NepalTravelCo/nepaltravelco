@@ -2,27 +2,27 @@
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { deleteTrek } from "@/actions/trek-actions"
-import { Plus, Pencil, Trash2, Calendar } from "lucide-react"
+import { Plus, Pencil, Trash2, Calendar, MapPin, DollarSign, Clock } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-// Inline Table components for speed/safety if UI lib not fully ready
+// Inline Table components for high-level UI control
 function Table({ children }: { children: React.ReactNode }) {
-    return <div className="w-full overflow-auto"><table className="w-full caption-bottom text-sm">{children}</table></div>
+    return <div className="w-full overflow-hidden rounded-xl border border-admin-card-border bg-admin-card shadow-sm"><table className="w-full text-sm text-left">{children}</table></div>
 }
 function TableHeader({ children }: { children: React.ReactNode }) {
-    return <thead className="[&_tr]:border-b [&_tr]:border-primary/5">{children}</thead>
+    return <thead className="bg-admin-bg/50 border-b border-admin-card-border">{children}</thead>
 }
 function TableRow({ children, className }: { children: React.ReactNode, className?: string }) {
-    return <tr className={cn("border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted", className)}>{children}</tr>
+    return <tr className={cn("border-b border-admin-card-border transition-colors hover:bg-admin-bg/30 last:border-0", className)}>{children}</tr>
 }
 function TableHead({ children, className }: { children: React.ReactNode, className?: string }) {
-    return <th className={cn("h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0", className)}>{children}</th>
+    return <th className={cn("h-12 px-6 align-middle font-bold text-[10px] uppercase tracking-widest text-admin-text-secondary", className)}>{children}</th>
 }
 function TableBody({ children }: { children: React.ReactNode }) {
-    return <tbody className="[&_tr:last-child]:border-0">{children}</tbody>
+    return <tbody>{children}</tbody>
 }
-function TableCell({ children, className }: { children?: React.ReactNode, className?: string }) {
-    return <td className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}>{children}</td>
+function TableCell({ children, className, colSpan }: { children?: React.ReactNode, className?: string, colSpan?: number }) {
+    return <td className={cn("p-6 align-middle", className)} colSpan={colSpan}>{children}</td>
 }
 
 export default async function TreksPage() {
@@ -31,65 +31,80 @@ export default async function TreksPage() {
     })
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <div className="space-y-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-4xl font-black tracking-tight text-primary">Treks</h2>
-                    <p className="text-stone-500 font-medium">Manage your portfolio of Himalayan expeditions.</p>
+                    <h2 className="text-3xl font-bold tracking-tight text-admin-text-primary">Expeditions</h2>
+                    <p className="text-admin-text-secondary mt-1">Manage and curate your portfolio of Himalayan trekking adventures.</p>
                 </div>
                 <Link href="/admin/treks/new">
-                    <button className="inline-flex items-center justify-center rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 h-12 py-2 px-6">
-                        <Plus className="mr-2 h-4 w-4" /> Add New Trek
+                    <button className="inline-flex items-center justify-center rounded-xl bg-admin-accent text-white px-6 py-3 text-sm font-bold shadow-lg shadow-admin-accent/20 hover:bg-admin-accent/90 transition-all active:scale-95">
+                        <Plus className="mr-2 h-4 w-4" /> New Trek
                     </button>
                 </Link>
             </div>
 
-            <div className="rounded-md border border-secondary/20 bg-white dark:bg-gray-800 shadow-sm">
+            <div className="grid gap-6">
                 <Table>
                     <TableHeader>
-                        <TableRow className="bg-stone-50/50 hover:bg-stone-50/50">
-                            <TableHead className="py-6 px-6 text-[10px] font-black uppercase tracking-widest text-stone-400">Name & ID</TableHead>
-                            <TableHead className="py-6 px-6 text-[10px] font-black uppercase tracking-widest text-stone-400">Duration</TableHead>
-                            <TableHead className="py-6 px-6 text-[10px] font-black uppercase tracking-widest text-stone-400">Difficulty</TableHead>
-                            <TableHead className="py-6 px-6 text-[10px] font-black uppercase tracking-widest text-stone-400">Entry Fee</TableHead>
-                            <TableHead className="py-6 px-6"><span className="sr-only">Actions</span></TableHead>
+                        <TableRow>
+                            <TableHead>Trek Details</TableHead>
+                            <TableHead>Specs</TableHead>
+                            <TableHead>Difficulty</TableHead>
+                            <TableHead>Inventory/Cost</TableHead>
+                            <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {treks.length === 0 ? (
                             <TableRow>
-                                <TableCell>No treks found. Add your first one!</TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
+                                <TableCell className="text-center py-12 text-admin-text-secondary italic" colSpan={5}>
+                                    No treks found. Add your first masterpiece!
+                                </TableCell>
                             </TableRow>
                         ) : treks.map((trek) => (
-                            <TableRow key={trek.id}>
-                                <TableCell className="px-6 py-6">
-                                    <div className="font-black text-primary mb-1">{trek.name}</div>
-                                    <div className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">{trek.slug}</div>
-                                </TableCell>
-                                <TableCell className="px-6 py-6">
-                                    <div className="flex items-center text-stone-600 font-bold text-xs">
-                                        <Calendar className="mr-2 h-4 w-4 text-secondary/60" />
-                                        {trek.duration}
+                            <TableRow key={trek.id} className="group">
+                                <TableCell>
+                                    <div className="flex flex-col">
+                                        <span className="font-bold text-admin-text-primary text-base group-hover:text-admin-accent transition-colors">{trek.name}</span>
+                                        <div className="flex items-center gap-1.5 mt-1">
+                                            <MapPin className="h-3 w-3 text-admin-text-secondary" />
+                                            <span className="text-[10px] font-bold text-admin-text-secondary uppercase tracking-wider">{trek.slug}</span>
+                                        </div>
                                     </div>
                                 </TableCell>
-                                <TableCell className="px-6 py-6">
-                                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest 
-                        ${trek.difficulty === 'Hard' ? 'bg-red-50 text-red-600 border border-red-100' :
-                                            trek.difficulty === 'Moderate' ? 'bg-orange-50 text-orange-600 border border-orange-100' : 'bg-green-50 text-green-600 border border-green-100'}`}>
+                                <TableCell>
+                                    <div className="space-y-1.5">
+                                        <div className="flex items-center text-xs font-medium text-admin-text-primary">
+                                            <Clock className="mr-2 h-3.5 w-3.5 text-admin-accent/60" />
+                                            {trek.duration}
+                                        </div>
+                                        <div className="flex items-center text-[10px] text-admin-text-secondary font-bold uppercase tracking-tighter">
+                                            <Calendar className="mr-2 h-3.5 w-3.5 opacity-50" />
+                                            Active Season
+                                        </div>
+                                    </div>
+                                </TableCell>
+                                <TableCell>
+                                    <span className={cn(
+                                        "inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest border",
+                                        trek.difficulty === 'Hard' ? 'bg-red-500/10 text-red-500 border-red-500/20' :
+                                        trek.difficulty === 'Moderate' ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 
+                                        'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                                    )}>
                                         {trek.difficulty}
                                     </span>
                                 </TableCell>
-                                <TableCell className="px-6 py-6 font-black text-primary">
-                                    {(trek.estimatedCost as { budget?: string })?.budget || "N/A"}
+                                <TableCell>
+                                    <div className="flex items-center font-bold text-admin-text-primary">
+                                        <DollarSign className="h-3.5 w-3.5 text-admin-text-secondary mr-0.5" />
+                                        {(trek.estimatedCost as { budget?: string })?.budget || "0.00"}
+                                    </div>
                                 </TableCell>
-                                <TableCell className="px-6 py-6">
-                                    <div className="flex items-center justify-end space-x-3">
+                                <TableCell className="text-right">
+                                    <div className="flex items-center justify-end gap-2">
                                         <Link href={`/admin/treks/${trek.id}`}>
-                                            <button className="p-3 bg-stone-50 hover:bg-stone-100 rounded-xl text-stone-400 hover:text-primary transition-all duration-300 border border-stone-200 shadow-sm">
+                                            <button className="p-2.5 rounded-lg bg-admin-bg border border-admin-card-border text-admin-text-secondary hover:text-admin-accent hover:border-admin-accent/30 transition-all shadow-sm">
                                                 <Pencil className="h-4 w-4" />
                                             </button>
                                         </Link>
@@ -97,7 +112,7 @@ export default async function TreksPage() {
                                             'use server'
                                             await deleteTrek(trek.id)
                                         }}>
-                                            <button className="p-3 bg-red-50 hover:bg-red-100 rounded-xl text-red-400 hover:text-red-600 transition-all duration-300 border border-red-100 shadow-sm">
+                                            <button className="p-2.5 rounded-lg bg-red-500/5 border border-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-sm">
                                                 <Trash2 className="h-4 w-4" />
                                             </button>
                                         </form>
