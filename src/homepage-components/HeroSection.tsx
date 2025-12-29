@@ -72,7 +72,7 @@ const HeroSection = () => {
       </div>
 
       {/* Main Content - Centered Layout */}
-      <div className="relative z-40 h-full flex flex-col items-center justify-center px-6">
+      <div className="absolute inset-0 z-40 h-full flex flex-col items-center justify-center px-6">
         <div className="max-w-5xl w-full">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -98,6 +98,7 @@ const HeroSection = () => {
               text-white
               leading-[0.95]
               tracking-tighter
+              text-center
               mb-10
             "
           >
@@ -120,7 +121,7 @@ const HeroSection = () => {
             transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col items-center gap-12"
           >
-            <p className="max-w-2xl text-white/80 text-lg md:text-xl font-light leading-relaxed">
+            <p className="max-w-2xl text-white/80 text-lg md:text-xl font-light leading-relaxed text-center">
               Curating extraordinary journeys through the heart of the Himalayas. 
               Witness the majesty of nature through a lens of refined luxury.
             </p>
