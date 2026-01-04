@@ -184,7 +184,7 @@ export function TrekForm({ initialData, regions }: TrekFormProps) {
                             </button>
                         </div>
                         <div className="grid gap-4">
-                            {formData.highlights.map((h, i) => (
+                            {formData.highlights.map((h: string, i: number) => (
                                 <div key={i} className="flex gap-2">
                                     <input 
                                         value={h} 

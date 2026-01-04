@@ -89,6 +89,7 @@ model Region {
   slug        String   @unique
   image       String
   trailCount  Int
+  altitude    Int      @default(3500) // Basecamp altitude in meters
   description String
   treks       Trek[]
   createdAt   DateTime @default(now())

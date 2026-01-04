@@ -1,15 +1,18 @@
 
 'use server'
 
-import { prisma } from "@/lib/prisma"
+import { prisma as prismaClient } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
+
+const prisma = prismaClient as any
 
 const regionSchema = z.object({
     name: z.string().min(1),
     slug: z.string().min(1),
     image: z.string().url(),
     trailCount: z.number().int(),
+    altitude: z.number().int().min(0),
     description: z.string().min(1),
 })
 
@@ -41,5 +44,20 @@ export async function updateRegion(id: string, data: any) {
     } catch (error) {
         console.error("Failed to update region:", error)
         return { success: false, message: "Failed to update region" }
+    }
+}
+
+export async function deleteRegion(id: string) {
+    try {
+        await prisma.region.delete({
+            where: { id },
+        })
+
+        revalidatePath("/admin/regions")
+        revalidatePath("/treks")
+        return { success: true, message: "Region deleted successfully" }
+    } catch (error) {
+        console.error("Failed to delete region:", error)
+        return { success: false, message: "Failed to delete region" }
     }
 }
