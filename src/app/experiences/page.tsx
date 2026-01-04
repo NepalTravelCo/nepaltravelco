@@ -1,21 +1,29 @@
-"use client"
+"use client";
 
-import BrandInfo from '@/homepage-components/BrandInfo'
-import ReachUs from '@/homepage-components/ReachUs'
+import Navigation from "@/header-component/Navigation";
+import FooterSection from "@/footer-components/FooterSection";
+import ExperiencesHero from "./ExperiencesHero";
+import ExperienceInfoSection from "./ExperienceInfoSection";
+import ExperienceGrid from "./ExperienceGrid";
+import ReachUs from "@/homepage-components/ReachUs";
 
-import React from 'react'
-import HeroExperience from './HeroExperience'
-
-function page() {
+export default function ExperiencesPage() {
   return (
-    <>
-    <div className="inner-pages-container">
-        <HeroExperience/>
-        {/* <BrandInfo/> */}
-        {/* <ReachUs/> */}
-    </div>
-    </>
-  )
-}
+    <div className="bg-stone-50 text-primary font-[var(--text-font)]">
+      <Navigation />
 
-export default page
+      <main className="w-full relative">
+        <div className="relative z-10">
+          <ExperiencesHero />
+        </div>
+
+        <div className="relative">
+          <ExperienceInfoSection />
+          <ExperienceGrid />
+        </div>
+      </main>
+      <ReachUs />
+      <FooterSection />
+    </div>
+  );
+}

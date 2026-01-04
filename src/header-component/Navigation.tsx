@@ -5,7 +5,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, ChevronDown, Search, ArrowRight, Mountain } from "lucide-react"
+import { Menu, X, ChevronDown, Search, ArrowRight, Mountain, Star } from "lucide-react"
+import { experiences } from "@/app/experiences/data"
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -44,7 +45,7 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Treks", href: "/treks", hasMega: true },
-    { name: "Experiences", href: "/experiences" },
+    { name: "Experiences", href: "/experiences", hasMega: true },
     { name: "Plan Your Trip", href: "/travel-guide" },
     { name: "Contact Us", href: "/contact" },
   ]
@@ -115,64 +116,123 @@ const Navigation = () => {
                         >
                           <div className="bg-white shadow-2xl border-t border-black/5">
                             <div className="container-max grid grid-cols-12 min-h-[450px]">
-                              {/* Menu Left */}
+                              {/* Menu Left (Conditional Content) */}
                               <div className="col-span-4 py-12 pr-12 border-r border-black/5">
-                                <h3 className="font-[var(--heading-font)] text-2xl font-bold text-primary mb-8">Trekking Regions</h3>
+                                <h3 className="font-[var(--heading-font)] text-2xl font-bold text-primary mb-8">
+                                  {link.name === "Treks" ? "Trekking Regions" : "Our Experiences"}
+                                </h3>
                                 <div className="grid grid-cols-1 gap-2">
-                                  {trekkingRegions.map((region) => (
-                                    <a
-                                      key={region.name}
-                                      href="#"
-                                      className="group/item flex items-center justify-between py-3 px-4 rounded-xl hover:bg-stone-50 transition-all duration-300"
-                                    >
-                                      <div>
-                                        <p className="text-sm font-bold text-primary group-hover/item:text-secondary transition-colors">{region.name}</p>
-                                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{region.count}</p>
-                                      </div>
-                                      <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
-                                    </a>
-                                  ))}
+                                  {link.name === "Treks" ? (
+                                    trekkingRegions.map((region) => (
+                                      <a
+                                        key={region.name}
+                                        href={`/treks#${region.name.toLowerCase().replace(' ', '-')}`}
+                                        className="group/item flex items-center justify-between py-3 px-4 rounded-xl hover:bg-stone-50 transition-all duration-300"
+                                      >
+                                        <div>
+                                          <p className="text-sm font-bold text-primary group-hover/item:text-secondary transition-colors">{region.name}</p>
+                                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{region.count}</p>
+                                        </div>
+                                        <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
+                                      </a>
+                                    ))
+                                  ) : (
+                                    experiences.map((exp) => (
+                                      <Link
+                                        key={exp.slug}
+                                        href={`/experiences/${exp.slug}`}
+                                        className="group/item flex items-center justify-between py-3 px-4 rounded-xl hover:bg-stone-50 transition-all duration-300"
+                                      >
+                                        <div>
+                                          <p className="text-sm font-bold text-primary group-hover/item:text-secondary transition-colors">{exp.title}</p>
+                                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{exp.difficulty} · {exp.duration}</p>
+                                        </div>
+                                        <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
+                                      </Link>
+                                    ))
+                                  )}
                                 </div>
                               </div>
 
-                              {/* Menu Right */}
+                              {/* Menu Right (Conditional Content) */}
                               <div className="col-span-8 p-12 flex items-center gap-12 relative overflow-hidden">
                                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
 
-                                <div className="flex-1">
-                                  <span className="text-secondary text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block">Recommended Journey</span>
-                                  <h3 className="font-[var(--heading-font)] text-4xl font-bold text-primary mb-6">Everest Base Camp</h3>
-                                  <p className="text-stone-500 text-sm leading-relaxed mb-8 max-w-sm">
-                                    Journey to the base of the world&apos;s highest peak through legendary Sherpa villages and ancient monasteries. Experience the pinnacle of Himalayan adventure.
-                                  </p>
-                                  <Link
-                                    href="/treks"
-                                    className="inline-flex items-center gap-3 text-primary text-xs font-bold uppercase tracking-widest hover:text-secondary transition-colors"
-                                  >
-                                    Explore all adventures <ArrowRight size={16} />
-                                  </Link>
-                                </div>
+                                {link.name === "Treks" ? (
+                                  <>
+                                    <div className="flex-1">
+                                      <span className="text-secondary text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block">Recommended Journey</span>
+                                      <h3 className="font-[var(--heading-font)] text-4xl font-bold text-primary mb-6">Everest Base Camp</h3>
+                                      <p className="text-stone-500 text-sm leading-relaxed mb-8 max-w-sm">
+                                        Journey to the base of the world&apos;s highest peak through legendary Sherpa villages and ancient monasteries. Experience the pinnacle of Himalayan adventure.
+                                      </p>
+                                      <Link
+                                        href="/treks"
+                                        className="inline-flex items-center gap-3 text-primary text-xs font-bold uppercase tracking-widest hover:text-secondary transition-colors"
+                                      >
+                                        Explore all adventures <ArrowRight size={16} />
+                                      </Link>
+                                    </div>
 
-                                <div className="flex-1 relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-                                  <Image
-                                    src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070"
-                                    alt="Everest Base Camp"
-                                    fill
-                                    className="object-cover transition-transform duration-700 hover:scale-110"
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                                  <div className="absolute bottom-6 left-6 right-6">
-                                    <div className="flex justify-between items-end">
-                                      <div>
-                                        <p className="text-white text-xl font-bold mb-1">Everest Base Camp</p>
-                                        <p className="text-white/70 text-xs font-medium uppercase tracking-widest">14 Days · Khumbu Region</p>
-                                      </div>
-                                      <div className="bg-secondary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
-                                        Best Seller
+                                    <div className="flex-1 relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                                      <Image
+                                        src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070"
+                                        alt="Everest Base Camp"
+                                        fill
+                                        className="object-cover transition-transform duration-700 hover:scale-110"
+                                      />
+                                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                      <div className="absolute bottom-6 left-6 right-6">
+                                        <div className="flex justify-between items-end">
+                                          <div>
+                                            <p className="text-white text-xl font-bold mb-1">Everest Base Camp</p>
+                                            <p className="text-white/70 text-xs font-medium uppercase tracking-widest">14 Days · Khumbu Region</p>
+                                          </div>
+                                          <div className="bg-secondary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
+                                            Best Seller
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="flex-1">
+                                      <span className="text-secondary text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block">Featured Experience</span>
+                                      <h3 className="font-[var(--heading-font)] text-4xl font-bold text-primary mb-6">{experiences[0].title}</h3>
+                                      <p className="text-stone-500 text-sm leading-relaxed mb-8 max-w-sm">
+                                        {experiences[0].description}
+                                      </p>
+                                      <Link
+                                        href="/experiences"
+                                        className="inline-flex items-center gap-3 text-primary text-xs font-bold uppercase tracking-widest hover:text-secondary transition-colors"
+                                      >
+                                        Discover all experiences <ArrowRight size={16} />
+                                      </Link>
+                                    </div>
+
+                                    <div className="flex-1 relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                                      <Image
+                                        src={experiences[0].image}
+                                        alt={experiences[0].title}
+                                        fill
+                                        className="object-cover transition-transform duration-700 hover:scale-110"
+                                      />
+                                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                      <div className="absolute bottom-6 left-6 right-6">
+                                        <div className="flex justify-between items-end">
+                                          <div>
+                                            <p className="text-white text-xl font-bold mb-1">{experiences[0].title}</p>
+                                            <p className="text-white/70 text-xs font-medium uppercase tracking-widest">{experiences[0].subtitle}</p>
+                                          </div>
+                                          <div className="bg-[var(--accent)] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
+                                            Handpicked
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -262,17 +322,33 @@ const Navigation = () => {
                 </div>
 
                 <div className="space-y-6">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Nepal Experience</p>
-                  <div className="grid grid-cols-1 gap-6">
-                    <div className="flex items-center gap-4 bg-stone-50 p-6 rounded-3xl">
-                      <div className="w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center">
-                        <Mountain size={20} />
-                      </div>
-                      <div>
-                        <p className="font-bold text-primary">Trekking Peaks</p>
-                        <p className="text-xs text-stone-400 mt-0.5">Legendary Himalayan Trails</p>
-                      </div>
-                    </div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Exclusive Experiences</p>
+                  <div className="grid grid-cols-1 gap-4">
+                    {experiences.slice(0, 3).map((exp) => (
+                      <Link
+                        key={exp.slug}
+                        href={`/experiences/${exp.slug}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <div className="flex items-center gap-4 bg-stone-50 p-6 rounded-3xl">
+                          <div className="w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center overflow-hidden relative">
+                            <Image src={exp.image} alt={exp.title} fill className="object-cover opacity-50" />
+                            <Star size={20} className="relative z-10" />
+                          </div>
+                          <div>
+                            <p className="font-bold text-primary">{exp.title}</p>
+                            <p className="text-xs text-stone-400 mt-0.5">{exp.subtitle}</p>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                    <Link
+                      href="/experiences"
+                      className="text-center py-4 text-xs font-bold uppercase tracking-widest text-secondary"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      View All Experiences
+                    </Link>
                   </div>
                 </div>
               </div>
