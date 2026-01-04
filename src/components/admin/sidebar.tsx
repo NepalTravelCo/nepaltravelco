@@ -10,6 +10,7 @@ import { signOutAction } from "@/lib/actions"
 
 const sidebarItems = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/admin/regions", label: "Regions", icon: Compass },
     { href: "/admin/treks", label: "Treks", icon: Mountain },
     { href: "/admin/experiences", label: "Experiences", icon: Compass },
     { href: "/admin/bookings", label: "Bookings", icon: Calendar },

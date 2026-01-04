@@ -1,19 +1,24 @@
 import type { Metadata } from "next"
-import { getTrekBySlug, getAllTrekSlugs } from "@/data/Treks"
 import TrekClientPage from "./TrekClientPage"
+import { prisma } from "@/lib/prisma"
+import { notFound } from "next/navigation"
 
 type TrekPageProps = {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  const slugs = getAllTrekSlugs()
-  return slugs.map((slug) => ({ slug }))
+  const treks = await prisma.trek.findMany({
+    select: { slug: true }
+  })
+  return treks.map((t) => ({ slug: t.slug }))
 }
 
 export async function generateMetadata({ params }: TrekPageProps): Promise<Metadata> {
   const { slug } = await params
-  const trek = getTrekBySlug(slug)
+  const trek = await prisma.trek.findUnique({
+    where: { slug }
+  })
 
   if (!trek) {
     return {
@@ -30,5 +35,14 @@ export async function generateMetadata({ params }: TrekPageProps): Promise<Metad
 
 export default async function TrekPage({ params }: TrekPageProps) {
   const { slug } = await params
-  return <TrekClientPage params={{ slug }} />
+  const trek = await prisma.trek.findUnique({
+    where: { slug },
+    include: { region: true }
+  })
+
+  if (!trek) {
+    notFound()
+  }
+
+  return <TrekClientPage trek={trek} />
 }

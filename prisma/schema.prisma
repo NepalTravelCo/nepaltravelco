@@ -77,8 +77,22 @@ model Trek {
   itinerary       Json     // Array of objects
   estimatedCost   Json     // Object
   permits         String[]
+  regionId        String?
+  region          Region?  @relation(fields: [regionId], references: [id])
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model Region {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  image       String
+  trailCount  Int
+  description String
+  treks       Trek[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Experience {

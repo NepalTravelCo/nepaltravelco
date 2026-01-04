@@ -159,13 +159,13 @@ export default function TreksHero() {
                     duration: 0.8,
                     ease: [0.16, 1, 0.3, 1]
                 }}
-                className="absolute bottom-1/4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 cursor-pointer group"
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 cursor-pointer group"
                 onClick={handleScrollDown}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
             >
                 <motion.span 
-                    className="text-white/70 text-xs uppercase tracking-[0.3em] font-bold group-hover:text-[#ea580c] transition-colors duration-300"
+                    className="text-white/70 text-xs uppercase tracking-[0.3em] font-bold group-hover:text-[#ea580c] transition-colors duration-300 whitespace-nowrap"
                     animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >

@@ -1,13 +1,34 @@
 "use client"
-import { getTrekBySlug } from "@/data/Treks"
-import { Mountain, Calendar, Users, MapPin, ChevronDown, ChevronUp, Star, Clock, X, ArrowLeft } from "lucide-react"
+
+import { Mountain, Calendar, Users, MapPin, ArrowLeft, Heart, Share2, Info, CheckCircle2, ChevronRight, Play } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import "./trek-details.css"
-import React from "react"
+import React, { useState, useRef, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+
+interface Trek {
+    id: string
+    name: string
+    slug: string
+    image: string
+    description: string
+    longDescription: string[]
+    altitude: number
+    duration: string
+    difficulty: string
+    bestMonths: string[]
+    highlights: string[]
+    tips: string[]
+    gallery: string[]
+    itinerary: any
+    estimatedCost: any
+    permits: string[]
+    region?: { name: string } | null
+}
 
 type TrekPageProps = {
-  params: { slug: string }
+  trek: Trek
 }
 
 type ItineraryDay = {
@@ -16,317 +37,134 @@ type ItineraryDay = {
   description: string
 }
 
-function GokyoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const gokyoData = {
-    name: "Gokyo Lakes Trek",
-    duration: "12-14 days",
-    altitude: "5,357m",
-    highlights: [
-      "Six pristine turquoise lakes",
-      "Gokyo Ri summit with panoramic views",
-      "Less crowded alternative to EBC",
-      "Views of Everest, Lhotse, Makalu, and Cho Oyu",
-    ],
-    itinerary: [
-      {
-        day: "Day 1",
-        title: "Fly to Lukla, trek to Phakding",
-        description: "Short flight to Lukla followed by gentle trek to Phakding",
-      },
-      {
-        day: "Day 2",
-        title: "Trek to Namche Bazaar",
-        description: "Cross suspension bridges and climb to the Sherpa capital",
-      },
-      {
-        day: "Day 3",
-        title: "Acclimatization in Namche",
-        description: "Rest day with optional hikes for acclimatization",
-      },
-      { day: "Day 4", title: "Trek to Dole", description: "Leave the main EBC trail and head towards Gokyo valley" },
-      { day: "Day 5", title: "Trek to Machhermo", description: "Continue up the Dudh Koshi valley" },
-      { day: "Day 6", title: "Trek to Gokyo", description: "Reach the third Gokyo lake and the village" },
-      { day: "Day 7", title: "Climb Gokyo Ri", description: "Early morning summit for spectacular mountain views" },
-    ] as ItineraryDay[],
-  }
+export default function TrekClientPage({ trek }: TrekPageProps) {
+    const [scrolled, setScrolled] = useState(false)
+    const [activeTab, setActiveTab] = useState('overview')
+    const itinerary = (trek.itinerary as ItineraryDay[]) || []
+    const estimatedCost = trek.estimatedCost as { budget: string; includes: string[] }
 
-  if (!isOpen) return null
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 100)
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>{gokyoData.name}</h2>
-          <button className="modal-close" onClick={onClose}>
-            <X size={24} />
-          </button>
-        </div>
+    return (
+        <div className="minimal-container">
+            {/* Immersive Hero Section */}
+            <section className="trek-hero" style={{ backgroundImage: `url(${trek.image})` }}>
+                <Link href="/treks" className="back-button">
+                    <div className="back-button-inner">
+                        <ArrowLeft size={18} />
+                        <span>All Expeditions</span>
+                    </div>
+                </Link>
 
-        <div className="modal-body">
-          <div className="modal-stats">
-            <div className="modal-stat">
-              <Mountain size={20} />
-              <span>{gokyoData.altitude}</span>
-            </div>
-            <div className="modal-stat">
-              <Calendar size={20} />
-              <span>{gokyoData.duration}</span>
-            </div>
-          </div>
+                <div className="hero-container">
+                    <div className="hero-content">
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="elevation-badge"
+                        >
+                            Max Elevation: {trek.altitude.toLocaleString()}m
+                        </motion.div>
+                        
+                        <div className="hero-title-section">
+                            <motion.h1 
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="hero-main-title"
+                            >
+                                {trek.name}
+                            </motion.h1>
+                            <motion.p 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2 }}
+                                className="hero-subtitle"
+                            >
+                                {trek.description}
+                            </motion.p>
+                        </div>
 
-          <div className="modal-highlights">
-            <h3>Highlights</h3>
-            {gokyoData.highlights.map((highlight, idx) => (
-              <div key={idx} className="modal-highlight">
-                <Star size={16} />
-                <span>{highlight}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="modal-itinerary">
-            <h3>Sample Itinerary</h3>
-            {gokyoData.itinerary.map((day, idx) => (
-              <div key={idx} className="modal-day">
-                <div className="modal-day-number">{day.day}</div>
-                <div className="modal-day-content">
-                  <h4>{day.title}</h4>
-                  <p>{day.description}</p>
+                        <div className="hero-buttons">
+                            <button className="primary-button">Book Expedition</button>
+                            <button className="secondary-button">Download PDF</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function ItineraryToggle({ itinerary }: { itinerary: ItineraryDay[] }) {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const [activeDay, setActiveDay] = React.useState<number | null>(null)
-
-  return (
-    <div className="itinerary-section">
-      <div className="trek-section-header" onClick={() => setIsOpen(!isOpen)}>
-        <h2 className="trek-section-title">Day-by-Day Itinerary</h2>
-        <button className="toggle-button">{isOpen ? <ChevronUp size={24} /> : <ChevronDown size={24} />}</button>
-      </div>
-
-      {isOpen && (
-        <div className="itinerary-content">
-          <div className="itinerary-layout">
-            <div className="itinerary-map">
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Evetrest%20trek-uPtS1zBSQfQxCDFqwDRasxJABsAPCC.png"
-                alt="Everest Trek Route Map"
-                width={800}
-                height={600}
-                className="trek-map"
-              />
-            </div>
-
-            <div className="itinerary-list">
-              {itinerary.map((day, idx) => (
-                <div
-                  key={day.day}
-                  className={`itinerary-item ${activeDay === idx ? "active" : ""}`}
-                  onClick={() => setActiveDay(activeDay === idx ? null : idx)}
-                >
-                  <div className="day-marker">
-                    <span>{day.day}</span>
-                  </div>
-                  <div className="day-details">
-                    <h3 className="day-title">{day.title}</h3>
-                    {activeDay === idx && <p className="day-description">{day.description}</p>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-export default function TrekPage({ params }: TrekPageProps) {
-  const { slug } = params
-  const trek = getTrekBySlug(slug)
-  const [isGokyoModalOpen, setIsGokyoModalOpen] = React.useState(false)
-
-  if (!trek) {
-    return <div className="not-found">Trek not found</div>
-  }
-
-  const showGokyoExtension = slug === "everest-base-camp"
-
-  return (
-    <div className="inner-pages-container">
-      {/* Hero Section */}
-      <div className="trek-hero relative w-full h-[500px]">
-        <Image src={trek.image} alt={trek.name} fill className="object-cover" priority />
-        <Link href="/treks" className="back-button">
-          <div className="back-button-inner">
-            <ArrowLeft size={20} />
-            Back
-          </div>
-        </Link>
-
-        <div className="hero-container">
-          <div className="hero-content">
-            <div className="altitude-info">
-              <p className="altitude-text">{trek.altitude.toLocaleString()}m above sea level</p>
-            </div>
-
-            <div className="hero-title-section">
-              <h1 className="hero-main-title">{trek.name}</h1>
-            </div>
-
-            <div className="hero-buttons">
-              <button className="primary-button">Book Now</button>
-              <button className="secondary-button">Download Itinerary</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="content-wrapper">
-        {/* Info Cards */}
-        <div className="info-cards">
-          <div className="info-card">
-            <Calendar size={24} />
-            <div>
-              <span className="card-label">Duration</span>
-              <span className="card-value">{trek.duration}</span>
-            </div>
-          </div>
-
-          <div className="info-card">
-            <Users size={24} />
-            <div>
-              <span className="card-label">Difficulty</span>
-              <span className="card-value">{trek.difficulty}</span>
-            </div>
-          </div>
-
-          <div className="info-card">
-            <MapPin size={24} />
-            <div>
-              <span className="card-label">Best Months</span>
-              <span className="card-value">{trek.bestMonths.join(", ")}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Highlights */}
-        {trek.highlights?.length > 0 && (
-          <section className="highlights-section">
-            <h2 className="section-title">Trek Highlights</h2>
-            <div className="highlights-list">
-              {trek.highlights.map((highlight, idx) => (
-                <div key={idx} className="highlight-item">
-                  <span className="highlight-dot"></span>
-                  <span>{highlight}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Gokyo Extension */}
-        {showGokyoExtension && (
-          <section className="gokyo-section">
-            <h2 className="section-title">Gokyo Lakes Extension</h2>
-            <div className="gokyo-content">
-              <div className="gokyo-info">
-                <div className="gokyo-highlight">
-                  <Star className="gokyo-icon" size={20} />
-                  <span>Sacred turquoise lakes at 4,700m</span>
-                </div>
-                <div className="gokyo-highlight">
-                  <Mountain className="gokyo-icon" size={20} />
-                  <span>Gokyo Ri summit (5,357m)</span>
-                </div>
-                <div className="gokyo-highlight">
-                  <Clock className="gokyo-icon" size={20} />
-                  <span>Additional 3-4 days</span>
-                </div>
-              </div>
-              <p className="gokyo-description">
-                Extend your adventure with the pristine Gokyo Lakes, offering stunning reflections of Everest and Cho
-                Oyu.
-              </p>
-              <button className="gokyo-button" onClick={() => setIsGokyoModalOpen(true)}>
-                Explore Gokyo Trek
-              </button>
-            </div>
-          </section>
-        )}
-
-        {/* Itinerary */}
-        {trek.itinerary.length > 0 && <ItineraryToggle itinerary={trek.itinerary as ItineraryDay[]} />}
-
-        {/* Tips */}
-        {trek.tips?.length > 0 && (
-          <section className="tips-section">
-            <h2 className="section-title">Essential Tips</h2>
-            <div className="tips-list">
-              {trek.tips.map((tip, idx) => (
-                <div key={idx} className="tip-item">
-                  <span className="tip-dot"></span>
-                  <span>{tip}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Cost + Permits */}
-        <div className="info-sections">
-          {trek.estimatedCost && (
-            <section className="cost-section">
-              <h3 className="subsection-title">Estimated Cost</h3>
-              <p className="cost-budget">{trek.estimatedCost.budget}</p>
-              <div className="includes-list">
-                {trek.estimatedCost.includes.map((item, idx) => (
-                  <span key={idx} className="include-item">
-                    {item}
-                  </span>
-                ))}
-              </div>
             </section>
-          )}
 
-          {trek.permits.length > 0 && (
-            <section className="permits-section">
-              <h3 className="subsection-title">Permits Required</h3>
-              <div className="permits-list">
-                {trek.permits.map((permit, idx) => (
-                  <span key={idx} className="permit-item">
-                    {permit}
-                  </span>
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
+            <div className="inner-pages-container">
+                <div className="content-wrapper">
+                    {/* Quick Stats Grid */}
+                    <div className="info-cards">
+                        <div className="info-card">
+                            <Calendar size={24} />
+                            <div>
+                                <span className="card-label">Duration</span>
+                                <span className="card-value">{trek.duration}</span>
+                            </div>
+                        </div>
+                        <div className="info-card">
+                            <Mountain size={24} />
+                            <div>
+                                <span className="card-label">Difficulty</span>
+                                <span className="card-value">{trek.difficulty}</span>
+                            </div>
+                        </div>
+                        <div className="info-card">
+                            <Users size={24} />
+                            <div>
+                                <span className="card-label">Best Seasons</span>
+                                <span className="card-value">{trek.bestMonths?.join(", ")}</span>
+                            </div>
+                        </div>
+                    </div>
 
-        {/* Booking CTA */}
-        <section className="booking-section">
-          <div className="booking-content">
-            <h2 className="booking-title">Ready for Adventure?</h2>
-            <p className="booking-subtitle">Join us on this incredible journey through the Himalayas</p>
-            <div className="booking-actions">
-              <button className="book-button">Book This Trek</button>
-              <button className="info-button">Get More Info</button>
+                    {/* Detailed Content */}
+                    <div className="main-details-grid">
+                        <div className="details-main-column">
+                            <section className="highlights-section">
+                                <h2 className="trek-section-title">Expedition Highlights</h2>
+                                <div className="highlights-list">
+                                    {trek.highlights?.map((highlight, idx) => (
+                                        <div key={idx} className="highlight-item">
+                                            <div className="highlight-dot" />
+                                            <p>{highlight}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            <section className="itinerary-section">
+                                <h2 className="trek-section-title">The Journey</h2>
+                                <div className="itinerary-list">
+                                    {itinerary.map((day, idx) => (
+                                        <div key={idx} className="itinerary-item">
+                                            <div className="day-marker">D{day.day}</div>
+                                            <div className="day-details">
+                                                <h3 className="day-title">{day.title}</h3>
+                                                <p className="day-description">{day.description}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </section>
-      </div>
 
-      {showGokyoExtension && <GokyoModal isOpen={isGokyoModalOpen} onClose={() => setIsGokyoModalOpen(false)} />}
-    </div>
-  )
+            {/* Final Booking Section */}
+            <section className="final-booking-section">
+                <div className="booking-content-inner">
+                    <h2>Ready for the adventure of a lifetime?</h2>
+                    <p>Spaces are limited for the upcoming season. Reserve your slot today.</p>
+                    <button className="final-cta-btn">Start Your Application</button>
+                </div>
+            </section>
+        </div>
+    )
 }
