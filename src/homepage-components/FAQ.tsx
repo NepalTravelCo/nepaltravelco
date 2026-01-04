@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, HelpCircle } from "lucide-react"
 
 type FAQItem = {
@@ -10,7 +10,6 @@ type FAQItem = {
 }
 
 function FAQ() {
-  const containerRef = useRef<HTMLDivElement | null>(null)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   const faqData: FAQItem[] = [

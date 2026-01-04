@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { seasonsData } from "../../data/Seasons"
 import './styles/Seasons.css' 
 
@@ -44,10 +45,12 @@ export default function Season() {
               aria-label={`Open ${s.name} season details`}
             >
               <figure className="ntc-seasonlist-figure">
-                <img
+                <Image
                   src={s.image || "/placeholder.svg?height=220&width=360&query=season%20thumbnail"}
                   alt={`${s.name} in Nepal`}
                   className="ntc-seasonlist-img"
+                  width={360}
+                  height={220}
                   loading="lazy"
                 />
                 <figcaption className="ntc-seasonlist-caption">

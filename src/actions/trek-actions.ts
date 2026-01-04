@@ -31,7 +31,7 @@ const trekSchema = z.object({
     regionId: z.string().optional().nullable(),
 })
 
-export async function createTrek(data: any) {
+export async function createTrek(data: z.infer<typeof trekSchema>) {
     try {
         const validated = trekSchema.parse(data)
         const trek = await prisma.trek.create({
@@ -46,7 +46,7 @@ export async function createTrek(data: any) {
     }
 }
 
-export async function updateTrek(id: string, data: any) {
+export async function updateTrek(id: string, data: z.infer<typeof trekSchema>) {
     try {
         const validated = trekSchema.parse(data)
         const trek = await prisma.trek.update({

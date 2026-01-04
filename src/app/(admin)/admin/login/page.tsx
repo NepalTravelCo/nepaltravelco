@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
-import { ShieldCheck, Mountain } from "lucide-react"
+import { ShieldCheck } from "lucide-react"
 
 export default function LoginPage() {
     const [errorMessage, dispatch, isPending] = useActionState(

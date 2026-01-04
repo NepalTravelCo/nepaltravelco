@@ -4,7 +4,7 @@ import TreksHero from "./TreksHero"
 import TrekInteraction from "./TrekInteraction"
 import { prisma as prismaClient } from "@/lib/prisma"
 
-const prisma = prismaClient as any
+const prisma = prismaClient
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0

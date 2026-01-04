@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Clock, Mountain, Trophy, MapPin } from "lucide-react";
+import { ArrowLeft, Clock, Mountain, Trophy } from "lucide-react";
 import Link from "next/link";
 import Navigation from "@/header-component/Navigation";
 import FooterSection from "@/footer-components/FooterSection";
@@ -119,7 +119,7 @@ const ExperienceDetailLayout = ({ experience }: { experience: Experience }) => {
                                         </ul>
                                     </div>
                                     <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
-                                        <h3 className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">What's Included</h3>
+                                        <h3 className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">What&apos;s Included</h3>
                                         <ul className="space-y-4">
                                             {["Professional Guide", "High-End Transport", "Refreshments"].map((item, i) => (
                                                 <li key={i} className="flex items-center gap-3 text-sm">

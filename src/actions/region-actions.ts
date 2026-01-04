@@ -5,7 +5,7 @@ import { prisma as prismaClient } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
-const prisma = prismaClient as any
+const prisma = prismaClient
 
 const regionSchema = z.object({
     name: z.string().min(1),
@@ -16,7 +16,7 @@ const regionSchema = z.object({
     description: z.string().min(1),
 })
 
-export async function createRegion(data: any) {
+export async function createRegion(data: z.infer<typeof regionSchema>) {
     try {
         const validated = regionSchema.parse(data)
         const region = await prisma.region.create({
@@ -31,7 +31,7 @@ export async function createRegion(data: any) {
     }
 }
 
-export async function updateRegion(id: string, data: any) {
+export async function updateRegion(id: string, data: z.infer<typeof regionSchema>) {
     try {
         const validated = regionSchema.parse(data)
         const region = await prisma.region.update({

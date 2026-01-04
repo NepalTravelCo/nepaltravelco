@@ -21,6 +21,7 @@ interface Region {
     trailCount: number
     altitude?: number
     description: string
+    type?: 'region'
 }
 
 interface Trek {
@@ -35,7 +36,10 @@ interface Trek {
     bestMonths: string[]
     location?: string
     region?: Region | null
+    type?: 'trek'
 }
+
+type SectionItem = (Region & { type: 'region' }) | (Trek & { type: 'trek' });
 
 interface TrekInteractionProps {
     /**
@@ -47,8 +51,8 @@ interface TrekInteractionProps {
      * 
      * ALL DATA IS DYNAMICALLY FETCHED FROM THE DATABASE.
      */
-    treks: any[]
-    regions: any[]
+    treks: Trek[]
+    regions: Region[]
 }
 
 // Altimeter with scroll-linked smooth number animation
@@ -198,7 +202,7 @@ function SectionCard({
     progress,
     totalCards
 }: {
-    item: any
+    item: SectionItem
     index: number
     progress: MotionValue<number>
     totalCards: number
@@ -226,9 +230,13 @@ function SectionCard({
     const springScale = useSpring(scale, { stiffness: 120, damping: 25 })
     const springOpacity = useSpring(opacity, { stiffness: 120, damping: 25 })
     
+    
     // First card special handling - stay at scale 1 if at very top
-    const displayScale = isFirstCard ? useTransform(progress, [0, end], [1, 0.85]) : springScale
-    const displayOpacity = isFirstCard ? useTransform(progress, [0, end], [1, 0.2]) : springOpacity
+    const firstCardScale = useTransform(progress, [0, end], [1, 0.85]);
+    const firstCardOpacity = useTransform(progress, [0, end], [1, 0.2]);
+
+    const displayScale = isFirstCard ? firstCardScale : springScale;
+    const displayOpacity = isFirstCard ? firstCardOpacity : springOpacity;
 
     return (
         <motion.section

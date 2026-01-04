@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, ArrowLeft, Compass, Mountain, ChevronRight } from "lucide-react"
 import Link from "next/link"
@@ -9,7 +9,6 @@ import { treksData } from "@/data/Treks"
 
 const BrandInfo = () => {
   const [startIndex, setStartIndex] = useState(0)
-  const [direction, setDirection] = useState(0)
 
   const trekkinginfo = treksData.slice(0, 6).map((trek) => ({
     id: trek.slug,
@@ -21,20 +20,18 @@ const BrandInfo = () => {
     slug: trek.slug,
   }))
 
-  const handleNext = () => {
-    setDirection(1)
+  const handleNext = useCallback(() => {
     setStartIndex((prev) => (prev + 1) % trekkinginfo.length)
-  }
+  }, [trekkinginfo.length])
 
   const handlePrev = () => {
-    setDirection(-1)
     setStartIndex((prev) => (prev - 1 + trekkinginfo.length) % trekkinginfo.length)
   }
 
   useEffect(() => {
     const interval = setInterval(handleNext, 6000)
     return () => clearInterval(interval)
-  }, [])
+  }, [handleNext])
 
   const getVisibleItems = () => {
     const items = []

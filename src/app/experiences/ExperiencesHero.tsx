@@ -50,7 +50,7 @@ const ExperiencesHero = () => {
                     transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
                     className="mt-6 max-w-2xl mx-auto text-white/90 text-lg md:text-xl font-light leading-relaxed"
                 >
-                    From the deepest gorges to the highest skies, discover Nepal's most thrilling and exclusive journeys.
+                    From the deepest gorges to the highest skies, discover Nepal&apos;s most thrilling and exclusive journeys.
                 </motion.p>
             </div>
 

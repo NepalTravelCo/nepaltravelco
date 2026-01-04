@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useLayoutEffect, useRef } from "react"
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react"
 import "./styles/SacredTemples.css"
 import Image from "next/image"
 
@@ -159,15 +159,15 @@ function SacredTemples() {
   }
 
   // Close carousel
-  const closeCarousel = () => {
+  const closeCarousel = useCallback(() => {
     setCarouselOpen(false)
     setSelectedTemple(null)
     setCurrentImageIndex(0)
     document.body.style.overflow = "unset"
-  }
+  }, [])
 
   // Navigate carousel
-  const navigateCarousel = (direction: "next" | "prev") => {
+  const navigateCarousel = useCallback((direction: "next" | "prev") => {
     if (selectedTemple === null) return
 
     const totalImages = sections[selectedTemple].images.length
@@ -176,7 +176,7 @@ function SacredTemples() {
     } else {
       setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages)
     }
-  }
+  }, [selectedTemple])
 
   // Toggle expanded content
   const toggleExpanded = (index: number) => {
@@ -207,7 +207,7 @@ function SacredTemples() {
 
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [carouselOpen, selectedTemple])
+  }, [carouselOpen, closeCarousel, navigateCarousel])
 
   return (
     <>

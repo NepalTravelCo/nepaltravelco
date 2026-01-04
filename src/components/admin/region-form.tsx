@@ -8,7 +8,15 @@ import { ArrowLeft, Save } from "lucide-react"
 import Link from "next/link"
 
 interface RegionFormProps {
-    initialData?: any
+    initialData?: {
+        id: string
+        name: string
+        slug: string
+        image: string
+        trailCount: number
+        altitude: number
+        description: string
+    } | null
 }
 
 export function RegionForm({ initialData }: RegionFormProps) {

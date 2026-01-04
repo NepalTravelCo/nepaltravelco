@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, ChevronDown, Search, ArrowRight, Mountain, Star } from "lucide-react"
+import { Menu, X, ChevronDown, Search, ArrowRight, Star } from "lucide-react"
 import { experiences } from "@/app/experiences/data"
 
 const Navigation = () => {
@@ -16,7 +16,6 @@ const Navigation = () => {
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
 
   const pathname = usePathname()
-  const isHomePage = pathname === "/"
 
   useEffect(() => {
     const handleScroll = () => {

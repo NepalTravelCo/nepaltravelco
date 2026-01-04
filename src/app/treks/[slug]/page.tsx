@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import TrekClientPage from "./TrekClientPage"
+import TrekClientPage, { Trek } from "./TrekClientPage"
 import { prisma } from "@/lib/prisma"
 import { notFound } from "next/navigation"
 
@@ -44,5 +44,5 @@ export default async function TrekPage({ params }: TrekPageProps) {
     notFound()
   }
 
-  return <TrekClientPage trek={trek} />
+  return <TrekClientPage trek={trek as unknown as Trek} />
 }

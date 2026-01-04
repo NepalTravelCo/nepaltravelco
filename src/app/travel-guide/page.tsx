@@ -1,6 +1,5 @@
 "use client"
 
-import BrandInfo from '@/homepage-components/BrandInfo'
 import ReachUs from '@/homepage-components/ReachUs'
 import React from 'react'
 import VisaInfo from './VisaInfo'
