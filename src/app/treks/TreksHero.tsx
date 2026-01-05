@@ -150,7 +150,7 @@ export default function TreksHero() {
                 </motion.div>
             </motion.div>
 
-            {/* Enhanced Scroll Indicator - Centered */}
+            {/* Enhanced Scroll Indicator - Perfectly Centered */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -159,7 +159,7 @@ export default function TreksHero() {
                     duration: 0.8,
                     ease: [0.16, 1, 0.3, 1]
                 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 cursor-pointer group"
+                className="absolute inset-x-0 bottom-16 md:bottom-20 z-20 flex flex-col items-center gap-3 cursor-pointer group mx-auto w-fit"
                 onClick={handleScrollDown}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
