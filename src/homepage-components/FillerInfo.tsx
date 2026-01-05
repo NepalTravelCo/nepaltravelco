@@ -19,7 +19,6 @@ const FillerInfo = () => {
   // Images move at different speeds to create depth
   const image1Y = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
   const image2Y = useTransform(scrollYProgress, [0, 1], ["10%", "-25%"]);
-  const image3Y = useTransform(scrollYProgress, [0, 1], ["-5%", "-10%"]);
 
   return (
     <section

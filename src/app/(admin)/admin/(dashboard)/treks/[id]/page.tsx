@@ -1,5 +1,5 @@
 
-import { TrekForm } from "@/components/admin/trek-form"
+import { TrekForm, ItineraryItem, EstimatedCost } from "@/components/admin/trek-form"
 import { prisma } from "@/lib/prisma"
 import { notFound } from "next/navigation"
 
@@ -25,7 +25,14 @@ export default async function EditTrekPage({ params }: EditTrekPageProps) {
 
     return (
         <div className="max-w-7xl mx-auto">
-            <TrekForm initialData={trek} regions={regions} />
+            <TrekForm 
+                initialData={{
+                    ...trek,
+                    itinerary: trek.itinerary as unknown as ItineraryItem[],
+                    estimatedCost: trek.estimatedCost as unknown as EstimatedCost
+                }} 
+                regions={regions} 
+            />
         </div>
     )
 }

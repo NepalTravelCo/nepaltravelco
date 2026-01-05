@@ -1,7 +1,7 @@
 
 
 import type { Metadata } from "next"
-import Link from "next/link"
+
 import Season from "./Seasons"
 import { seasonsData } from "../../data/Seasons"
 import BrandParallax from "@/homepage-components/BrandParallax"
@@ -55,7 +55,6 @@ export default function SeasonsIndexPage() {
 
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListStructuredData) }}
       />
     </div>

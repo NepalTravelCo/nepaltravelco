@@ -25,7 +25,7 @@ const ExperienceGrid = () => {
                             viewport={{ once: true }}
                             className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block"
                         >
-                            Nepal's Finest
+                            Nepal&apos;s Finest
                         </motion.span>
                         <motion.h2
                             initial={{ opacity: 0, x: -20 }}

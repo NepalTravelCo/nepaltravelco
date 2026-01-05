@@ -1,13 +1,12 @@
 "use client"
 
-import { Mountain, Calendar, Users, MapPin, ArrowLeft, Heart, Share2, Info, CheckCircle2, ChevronRight, Play } from "lucide-react"
+import { Mountain, Calendar, Users, ArrowLeft } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
 import "./trek-details.css"
-import React, { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import React from "react"
+import { motion } from "framer-motion"
 
-interface Trek {
+export interface Trek {
     id: string
     name: string
     slug: string
@@ -21,8 +20,8 @@ interface Trek {
     highlights: string[]
     tips: string[]
     gallery: string[]
-    itinerary: any
-    estimatedCost: any
+    itinerary: unknown
+    estimatedCost: { budget: string; includes: string[] }
     permits: string[]
     region?: { name: string } | null
 }
@@ -38,16 +37,7 @@ type ItineraryDay = {
 }
 
 export default function TrekClientPage({ trek }: TrekPageProps) {
-    const [scrolled, setScrolled] = useState(false)
-    const [activeTab, setActiveTab] = useState('overview')
     const itinerary = (trek.itinerary as ItineraryDay[]) || []
-    const estimatedCost = trek.estimatedCost as { budget: string; includes: string[] }
-
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 100)
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
 
     return (
         <div className="minimal-container">

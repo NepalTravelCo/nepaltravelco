@@ -23,12 +23,13 @@ async function main() {
 
   console.log('Admin user seeded:', admin.email);
 
-  // Seed Regions
+  // Seed Regions with correct basecamp elevations
   const regionsData = [
     {
       name: "Annapurna Region",
       slug: "annapurna",
       trailCount: 12,
+      altitude: 4130, // ABC - Annapurna Base Camp
       description: "Home to some of the world's most popular trekking routes, offering diverse landscapes from subtropical forests to high-altitude deserts.",
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2670",
     },
@@ -36,6 +37,7 @@ async function main() {
       name: "Everest Region",
       slug: "everest",
       trailCount: 8,
+      altitude: 5364, // Everest Base Camp
       description: "The legendary Khumbu region, home to the world's highest peak and the resilient Sherpa people.",
       image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2671",
     },
@@ -43,6 +45,7 @@ async function main() {
       name: "Langtang Region",
       slug: "langtang",
       trailCount: 5,
+      altitude: 3870, // Kyanjin Gompa (standard valley height)
       description: "Close to Kathmandu, this region offers stunning glaciated valleys and authentic Tamang culture.",
       image: "https://images.unsplash.com/photo-1582234372722-50d7ccc30ebd?q=80&w=2670",
     },
@@ -50,6 +53,7 @@ async function main() {
       name: "Manaslu Region",
       slug: "manaslu",
       trailCount: 4,
+      altitude: 4800, // Manaslu Base Camp
       description: "A restricted area offering a pristine circuit around the world's eighth-highest mountain.",
       image: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=2670",
     },
@@ -57,6 +61,7 @@ async function main() {
       name: "Mustang Region",
       slug: "mustang",
       trailCount: 6,
+      altitude: 3840, // Lo Manthang
       description: "The 'Forbidden Kingdom' of Lo, featuring rain-shadow landscapes and ancient Tibetan-Buddhist culture.",
       image: "https://images.unsplash.com/photo-1623492701902-47dc207df5dc?q=80&w=2670",
     },
@@ -64,10 +69,13 @@ async function main() {
       name: "Dolpo Region",
       slug: "dolpo",
       trailCount: 3,
+      altitude: 4200, // Shey Gompa
       description: "Remote and rugged, Upper Dolpo is a land of turquoise lakes and centuries-old Bon culture.",
       image: "https://images.unsplash.com/photo-1528484461644-4217abc827d4?q=80&w=2670",
     }
+
   ];
+
 
   const regions = [];
   for (const region of regionsData) {

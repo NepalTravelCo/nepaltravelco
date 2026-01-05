@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { deleteRegion } from "@/actions/region-actions"
-import { Plus, Pencil, Trash2, MapPin, Layers } from "lucide-react"
+import { Plus, Pencil, Trash2, Layers } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // Inline Table components

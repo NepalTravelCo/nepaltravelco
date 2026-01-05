@@ -18,13 +18,20 @@ const trekSchema = z.object({
     highlights: z.array(z.string()),
     tips: z.array(z.string()),
     gallery: z.array(z.string()),
-    itinerary: z.any(),
-    estimatedCost: z.any(),
+    itinerary: z.array(z.object({
+        day: z.number(),
+        title: z.string(),
+        description: z.string(),
+    })),
+    estimatedCost: z.object({
+        budget: z.string(),
+        includes: z.array(z.string()),
+    }),
     permits: z.array(z.string()),
     regionId: z.string().optional().nullable(),
 })
 
-export async function createTrek(data: any) {
+export async function createTrek(data: z.infer<typeof trekSchema>) {
     try {
         const validated = trekSchema.parse(data)
         const trek = await prisma.trek.create({
@@ -39,7 +46,7 @@ export async function createTrek(data: any) {
     }
 }
 
-export async function updateTrek(id: string, data: any) {
+export async function updateTrek(id: string, data: z.infer<typeof trekSchema>) {
     try {
         const validated = trekSchema.parse(data)
         const trek = await prisma.trek.update({

@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useLayoutEffect, useRef } from "react"
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react"
 import "./styles/Festivals.css"
 import Image from "next/image"
 
@@ -162,15 +162,15 @@ function Festivals() {
   }
 
   // Close carousel
-  const closeCarousel = () => {
+  const closeCarousel = useCallback(() => {
     setCarouselOpen(false)
     setSelectedFestival(null)
     setCurrentImageIndex(0)
     document.body.style.overflow = "unset"
-  }
+  }, [])
 
   // Navigate carousel
-  const navigateCarousel = (direction: "next" | "prev") => {
+  const navigateCarousel = useCallback((direction: "next" | "prev") => {
     if (selectedFestival === null) return
 
     const totalImages = sections[selectedFestival].images.length
@@ -179,7 +179,7 @@ function Festivals() {
     } else {
       setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages)
     }
-  }
+  }, [selectedFestival])
 
   // Toggle expanded content
   const toggleExpanded = (index: number) => {
@@ -210,7 +210,7 @@ function Festivals() {
 
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [carouselOpen, selectedFestival])
+  }, [carouselOpen, closeCarousel, navigateCarousel])
 
   return (
     <>

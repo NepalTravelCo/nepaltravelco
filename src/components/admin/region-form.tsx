@@ -8,7 +8,15 @@ import { ArrowLeft, Save } from "lucide-react"
 import Link from "next/link"
 
 interface RegionFormProps {
-    initialData?: any
+    initialData?: {
+        id: string
+        name: string
+        slug: string
+        image: string
+        trailCount: number
+        altitude: number
+        description: string
+    } | null
 }
 
 export function RegionForm({ initialData }: RegionFormProps) {
@@ -19,12 +27,14 @@ export function RegionForm({ initialData }: RegionFormProps) {
         slug: initialData?.slug || "",
         image: initialData?.image || "",
         trailCount: initialData?.trailCount || 0,
+        altitude: initialData?.altitude || 3500,
         description: initialData?.description || "",
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
-        setFormData(prev => ({ ...prev, [name]: name === 'trailCount' ? parseInt(value) || 0 : value }))
+        const numericFields = ['trailCount', 'altitude']
+        setFormData(prev => ({ ...prev, [name]: numericFields.includes(name) ? parseInt(value) || 0 : value }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -106,6 +116,18 @@ export function RegionForm({ initialData }: RegionFormProps) {
                         name="trailCount" 
                         value={formData.trailCount} 
                         onChange={handleChange}
+                        className="w-full bg-admin-bg border border-admin-card-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-admin-accent transition-colors"
+                        required
+                    />
+                </div>
+                <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-admin-text-secondary">Basecamp Altitude (m)</label>
+                    <input 
+                        type="number"
+                        name="altitude" 
+                        value={formData.altitude} 
+                        onChange={handleChange}
+                        placeholder="e.g. 5364 for Everest"
                         className="w-full bg-admin-bg border border-admin-card-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-admin-accent transition-colors"
                         required
                     />

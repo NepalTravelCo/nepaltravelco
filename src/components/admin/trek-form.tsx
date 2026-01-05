@@ -4,7 +4,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { createTrek, updateTrek } from "@/actions/trek-actions"
-import { ArrowLeft, Save, X, Plus, Trash2 } from "lucide-react"
+import { ArrowLeft, Save, Plus, Trash2 } from "lucide-react"
 import Link from "next/link"
 
 interface Region {
@@ -12,8 +12,37 @@ interface Region {
     name: string
 }
 
+export interface ItineraryItem {
+    day: number
+    title: string
+    description: string
+}
+
+export interface EstimatedCost {
+    budget: string
+    includes: string[]
+}
+
 interface TrekFormProps {
-    initialData?: any
+    initialData?: {
+        id: string
+        name: string
+        slug: string
+        image: string
+        description: string
+        longDescription: string[]
+        altitude: number
+        duration: string
+        difficulty: string
+        bestMonths: string[]
+        highlights: string[]
+        tips: string[]
+        gallery: string[]
+        itinerary: ItineraryItem[]
+        estimatedCost: EstimatedCost
+        permits: string[]
+        regionId?: string | null
+    } | null
     regions: Region[]
 }
 
@@ -184,7 +213,7 @@ export function TrekForm({ initialData, regions }: TrekFormProps) {
                             </button>
                         </div>
                         <div className="grid gap-4">
-                            {formData.highlights.map((h, i) => (
+                            {formData.highlights.map((h: string, i: number) => (
                                 <div key={i} className="flex gap-2">
                                     <input 
                                         value={h} 

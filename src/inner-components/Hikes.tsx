@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useLayoutEffect, useRef } from "react"
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react"
 import "./styles/Hikes.css"
 import Image from "next/image"
 
@@ -168,15 +168,15 @@ function Hikes() {
   }
 
   // Close carousel
-  const closeCarousel = () => {
+  const closeCarousel = useCallback(() => {
     setCarouselOpen(false)
     setSelectedHike(null)
     setCurrentImageIndex(0)
     document.body.style.overflow = "unset"
-  }
+  }, [])
 
   // Navigate carousel
-  const navigateCarousel = (direction: "next" | "prev") => {
+  const navigateCarousel = useCallback((direction: "next" | "prev") => {
     if (selectedHike === null) return
 
     const totalImages = sections[selectedHike].images.length
@@ -185,7 +185,7 @@ function Hikes() {
     } else {
       setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages)
     }
-  }
+  }, [selectedHike])
 
   // Toggle expanded content
   const toggleExpanded = (index: number) => {
@@ -216,7 +216,7 @@ function Hikes() {
 
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [carouselOpen, selectedHike])
+  }, [carouselOpen, closeCarousel, navigateCarousel])
 
   return (
     <div className="hikes-main">

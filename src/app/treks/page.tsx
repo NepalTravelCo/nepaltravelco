@@ -2,7 +2,12 @@ import Navigation from "@/header-component/Navigation"
 import FooterSection from "@/footer-components/FooterSection"
 import TreksHero from "./TreksHero"
 import TrekInteraction from "./TrekInteraction"
-import { prisma } from "@/lib/prisma"
+import { prisma as prismaClient } from "@/lib/prisma"
+
+const prisma = prismaClient
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default async function TreksPage() {
   const [treks, regions] = await Promise.all([

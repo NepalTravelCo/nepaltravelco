@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback } from "react"
 import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { seasonsData } from "../data/Seasons"
 import { ChevronLeft, ChevronRight, Calendar } from "lucide-react"
 import Image from "next/image"
