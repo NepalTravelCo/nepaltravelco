@@ -3,7 +3,6 @@
 import Navigation from '@/header-component/Navigation'
 import FooterSection from '@/footer-components/FooterSection'
 import VisaInfo from './VisaInfo'
-import FAQ from '@/homepage-components/FAQ'
 import ReachUs from '@/homepage-components/ReachUs'
 
 const TravelGuidePage = () => {
@@ -12,7 +11,6 @@ const TravelGuidePage = () => {
       <Navigation />
       <main className="w-full relative">
         <VisaInfo />
-        <FAQ />
         <ReachUs />
       </main>
       <FooterSection />

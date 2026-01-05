@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue, Variants } from "framer-motion";
 import {
   ShieldCheck,
   Plane,
@@ -12,14 +12,13 @@ import {
   Calendar,
   Camera,
   CheckCircle2,
-  Globe,
-  ArrowDown
+  Globe
 } from "lucide-react";
 import { useRef } from "react";
 
 // --- Sub-components ---
 
-const Hero = ({ scrollYProgress }: { scrollYProgress: any }) => {
+const Hero = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
@@ -80,38 +79,7 @@ const Hero = ({ scrollYProgress }: { scrollYProgress: any }) => {
   );
 };
 
-// const Intro = () => (
-//   <section className="relative py-24 bg-stone-50 overflow-hidden">
-//     <div className="container-max relative z-10">
-//       <motion.div
-//         initial={{ opacity: 0, y: 40 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         viewport={{ once: true }}
-//         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-//         className="max-w-4xl mx-auto text-center"
-//       >
-//         <div className="flex items-center justify-center gap-4 mb-8">
-//           <span className="h-px w-12 bg-secondary/30" />
-//           <span className="text-secondary text-xs uppercase tracking-[0.4em] font-bold">The First Step</span>
-//           <span className="h-px w-12 bg-secondary/30" />
-//         </div>
-//         <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold leading-tight text-stone-900 mb-8">
-//           Navigating Your <span className="text-secondary italic font-light">Gateway</span> to the Himalayas
-//         </h2>
-//         <p className="text-stone-600 text-lg font-light leading-relaxed mb-10">
-//           Embarking on a journey to Nepal is an invitation to witness the extraordinary.
-//           Whether you are here to scale legendary peaks or find tranquility in ancient temples,
-//           a seamless entry is where your story begins.
-//         </p>
-//         <div className="flex justify-center">
-//           <div className="h-16 w-px bg-gradient-to-b from-secondary/40 to-transparent" />
-//         </div>
-//       </motion.div>
-//     </div>
-//   </section>
-// );
-
-const Requirements = ({ variants, itemVariants }: any) => (
+const Requirements = ({ variants, itemVariants }: { variants: Variants; itemVariants: Variants }) => (
   <section className="py-16 bg-stone-50">
     <div className="container-max">
       <div className="text-center mb-12">
@@ -209,7 +177,7 @@ const Checkpoints = () => (
     <div className="container-max grid lg:grid-cols-3 gap-12">
       <div className="lg:col-span-1">
         <h2 className="text-3xl font-bold mb-6 font-[var(--heading-font)] text-stone-900">Entry <span className="italic font-light">Checkpoints</span></h2>
-        <p className="text-stone-600 leading-relaxed mb-8 text-sm">Nepal's border access is designed for convenience, with dedicated counters at all major international hubs.</p>
+        <p className="text-stone-600 leading-relaxed mb-8 text-sm">Nepal&apos;s border access is designed for convenience, with dedicated counters at all major international hubs.</p>
         <div className="p-6 rounded-3xl bg-[#b45309]/5 border border-[#b45309]/10">
           <div className="flex items-center gap-3 mb-3">
             <AlertTriangle size={18} className="text-[#b45309]" />
@@ -313,7 +281,6 @@ const VisaInfo = () => {
   return (
     <div ref={containerRef} className="relative bg-stone-50 overflow-hidden">
       <Hero scrollYProgress={scrollYProgress} />
-      {/* <Intro /> */}
       <div className="relative">
         <Requirements variants={containerVariants} itemVariants={itemVariants} />
         <Fees />
