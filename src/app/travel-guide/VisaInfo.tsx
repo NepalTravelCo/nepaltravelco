@@ -1,373 +1,325 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  ShieldCheck,
+  Plane,
+  MapPin,
+  Clock,
+  AlertTriangle,
+  Info,
+  Calendar,
+  Camera,
+  CheckCircle2,
+  Globe,
+  ArrowDown
+} from "lucide-react";
+import { useRef } from "react";
+
+// --- Sub-components ---
+
+const Hero = ({ scrollYProgress }: { scrollYProgress: any }) => {
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  return (
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <motion.div style={{ y: heroY }} className="absolute inset-0 z-0">
+        <Image
+          src="https://i.pinimg.com/1200x/e0/57/cf/e057cf6f9fd99510434b05ea95556549.jpg"
+          alt="Nepal Himalayas"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/40 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 z-10" />
+      </motion.div>
+
+      <motion.div style={{ opacity: heroOpacity }} className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="flex items-center justify-center gap-4 mb-6"
+        >
+          <span className="h-px w-12 bg-[#ea580c]" />
+          <span className="text-[#ea580c] text-xs md:text-sm uppercase tracking-[0.5em] font-bold">Essential Travel Intel</span>
+          <span className="h-px w-12 bg-[#ea580c]" />
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="font-[var(--heading-font)] text-[clamp(2.5rem,10vw,6rem)] font-extrabold text-white leading-tight tracking-tighter"
+        >
+          Nepal <span className="text-[#ea580c] italic font-light">Visa Guide</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="mt-8 text-lg md:text-2xl text-stone-200 font-light max-w-3xl mx-auto leading-relaxed"
+        >
+          Your gateway to the roof of the world starts here. Comprehensive details for a seamless entry into the Himalayas.
+        </motion.p>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+      >
+        <span className="text-white/60 text-[10px] uppercase tracking-[0.3em]">Explore More</span>
+        <div className="w-px h-12 bg-gradient-to-b from-[var(--accent)] to-transparent" />
+      </motion.div>
+    </section>
+  );
+};
+
+// const Intro = () => (
+//   <section className="relative py-24 bg-stone-50 overflow-hidden">
+//     <div className="container-max relative z-10">
+//       <motion.div
+//         initial={{ opacity: 0, y: 40 }}
+//         whileInView={{ opacity: 1, y: 0 }}
+//         viewport={{ once: true }}
+//         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+//         className="max-w-4xl mx-auto text-center"
+//       >
+//         <div className="flex items-center justify-center gap-4 mb-8">
+//           <span className="h-px w-12 bg-secondary/30" />
+//           <span className="text-secondary text-xs uppercase tracking-[0.4em] font-bold">The First Step</span>
+//           <span className="h-px w-12 bg-secondary/30" />
+//         </div>
+//         <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold leading-tight text-stone-900 mb-8">
+//           Navigating Your <span className="text-secondary italic font-light">Gateway</span> to the Himalayas
+//         </h2>
+//         <p className="text-stone-600 text-lg font-light leading-relaxed mb-10">
+//           Embarking on a journey to Nepal is an invitation to witness the extraordinary.
+//           Whether you are here to scale legendary peaks or find tranquility in ancient temples,
+//           a seamless entry is where your story begins.
+//         </p>
+//         <div className="flex justify-center">
+//           <div className="h-16 w-px bg-gradient-to-b from-secondary/40 to-transparent" />
+//         </div>
+//       </motion.div>
+//     </div>
+//   </section>
+// );
+
+const Requirements = ({ variants, itemVariants }: any) => (
+  <section className="py-16 bg-stone-50">
+    <div className="container-max">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4 font-[var(--heading-font)] text-stone-900">Visa <span className="italic font-light">Requirements</span></h2>
+        <p className="text-stone-500 tracking-widest uppercase text-[10px] font-bold">Who needs a visa to enter Nepal?</p>
+      </div>
+      <motion.div
+        variants={variants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="grid md:grid-cols-2 gap-8"
+      >
+        <motion.div variants={itemVariants} className="group relative overflow-hidden rounded-[2rem] border border-stone-200 bg-white p-10 shadow-md transition-all duration-500 hover:shadow-xl hover:border-[#ea580c]/30">
+          <div className="relative z-10">
+            <div className="w-16 h-16 rounded-2xl bg-[#ea580c]/10 flex items-center justify-center mb-8">
+              <ShieldCheck size={32} className="text-[#ea580c]" />
+            </div>
+            <h3 className="text-2xl font-bold mb-4 font-[var(--heading-font)]">Visa Exempt</h3>
+            <p className="text-stone-600 mb-8 leading-relaxed text-sm">Nationals of certain countries enjoy free movement to Nepal. Note that valid identification is still required.</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ea580c] text-white text-[10px] font-bold uppercase tracking-widest mb-6">
+              <Globe size={12} /> Indian Nationals
+            </div>
+            <ul className="space-y-3">
+              {["Unrestricted entry and movement", "Valid Passport or Voter ID required", "No visa fees or duration limits"].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-stone-700 text-sm">
+                  <CheckCircle2 size={14} className="text-[#ea580c] flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="group relative overflow-hidden rounded-[2rem] border border-stone-200 bg-white p-10 shadow-md transition-all duration-500 hover:shadow-xl hover:border-[#b45309]/30">
+          <div className="relative z-10">
+            <div className="w-16 h-16 rounded-2xl bg-[#b45309]/10 flex items-center justify-center mb-8">
+              <Plane size={32} className="text-[#b45309]" />
+            </div>
+            <h3 className="text-2xl font-bold mb-4 font-[var(--heading-font)]">Visa Required</h3>
+            <p className="text-stone-600 mb-8 leading-relaxed text-sm">Most international travelers require a tourist visa, which is conveniently available through various methods.</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#b45309] text-white text-[10px] font-bold uppercase tracking-widest mb-6">Global Citizens</div>
+            <ul className="space-y-3">
+              {["Visa on Arrival available at major ports", "Electronic Visa (e-Visa) recommended", "Multiple entry options available"].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-stone-700 text-sm">
+                  <CheckCircle2 size={14} className="text-[#b45309] flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  </section>
+);
+
+const Fees = () => (
+  <section className="py-16 bg-stone-50">
+    <div className="container-max">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4 font-[var(--heading-font)] text-stone-900">Entry <span className="italic font-light">Fees</span></h2>
+        <p className="text-stone-500 tracking-widest uppercase text-[10px] font-bold">Updated for 2025 • Rates in USD</p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { days: 15, fee: 30, tag: "Express", icon: Clock },
+          { days: 30, fee: 50, tag: "Classic", icon: Globe, popular: true },
+          { days: 90, fee: 125, tag: "Expedition", icon: MapPin }
+        ].map((v, i) => (
+          <div key={i} className={`relative p-10 rounded-[2.5rem] border transition-all duration-500 ${v.popular ? 'bg-[#ea580c] border-none scale-105 z-10 shadow-2xl' : 'bg-white border-stone-100 hover:border-[#ea580c]/30 shadow-sm'}`}>
+            {v.popular && <div className="absolute top-6 right-6 bg-white/20 px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-[0.2em] text-white">Popular</div>}
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${v.popular ? 'bg-white/20' : 'bg-[#ea580c]/10'}`}>
+              <v.icon size={20} className={v.popular ? 'text-white' : 'text-[#ea580c]'} />
+            </div>
+            <h4 className={`text-[10px] font-bold tracking-[0.3em] uppercase mb-2 ${v.popular ? 'text-white/80' : 'text-stone-400'}`}>{v.tag}</h4>
+            <div className="flex items-baseline gap-2 mb-8">
+              <span className={`text-5xl font-black ${v.popular ? 'text-white' : 'text-stone-900'}`}>{v.days}</span>
+              <span className={`text-lg font-light opacity-60 ${v.popular ? 'text-white/60' : 'text-stone-500'}`}>Days</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className={`text-2xl font-bold ${v.popular ? 'text-white' : 'text-[#ea580c]'}`}>${v.fee}</div>
+              <div className={`h-px flex-grow ${v.popular ? 'bg-white/20' : 'bg-stone-100'}`} />
+              <Info size={14} className={v.popular ? "text-white/40" : "text-stone-300"} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const Checkpoints = () => (
+  <section className="py-16 bg-stone-50">
+    <div className="container-max grid lg:grid-cols-3 gap-12">
+      <div className="lg:col-span-1">
+        <h2 className="text-3xl font-bold mb-6 font-[var(--heading-font)] text-stone-900">Entry <span className="italic font-light">Checkpoints</span></h2>
+        <p className="text-stone-600 leading-relaxed mb-8 text-sm">Nepal's border access is designed for convenience, with dedicated counters at all major international hubs.</p>
+        <div className="p-6 rounded-3xl bg-[#b45309]/5 border border-[#b45309]/10">
+          <div className="flex items-center gap-3 mb-3">
+            <AlertTriangle size={18} className="text-[#b45309]" />
+            <span className="font-bold uppercase tracking-wider text-[10px] text-[#b45309]">Pro Tip</span>
+          </div>
+          <p className="text-stone-600 text-xs leading-relaxed">Carry exact USD cash and 2 recent passport photos to expedite the process.</p>
+        </div>
+      </div>
+      <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
+        <div className="bg-white border border-stone-100 p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex items-center gap-4 mb-6">
+            <Plane className="text-[#ea580c]" size={24} />
+            <h4 className="text-lg font-bold">Air Hubs</h4>
+          </div>
+          <ul className="space-y-4 text-stone-700">
+            {["Tribhuvan Int'l, Kathmandu", "Gautam Buddha Int'l, Bhairahawa", "Pokhara International Airport"].map(a => (
+              <li key={a} className="flex items-start gap-3 text-sm font-medium"><MapPin size={12} className="mt-1 text-[#ea580c] opacity-60" /> {a}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-white border border-stone-100 p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex items-center gap-4 mb-6">
+            <Globe className="text-[#b45309]" size={24} />
+            <h4 className="text-lg font-bold">Land Borders</h4>
+          </div>
+          <div className="space-y-4">
+            <div>
+              <span className="text-[8px] font-bold uppercase text-stone-400 tracking-widest block mb-2">From India</span>
+              <div className="flex flex-wrap gap-2">{["Belahiya", "Birgunj", "Kakarbhitta"].map(l => <span key={l} className="text-[10px] px-3 py-1 bg-stone-50 rounded-full border border-stone-100">{l}</span>)}</div>
+            </div>
+            <div>
+              <span className="text-[8px] font-bold uppercase text-stone-400 tracking-widest block mb-2">From China</span>
+              <div className="flex flex-wrap gap-2">{["Rasuwa Gadhi", "Kodari"].map(l => <span key={l} className="text-[10px] px-3 py-1 bg-stone-50 rounded-full border border-stone-100">{l}</span>)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const QuickInfo = () => (
+  <section className="py-16 bg-stone-50">
+    <div className="container-max grid grid-cols-2 md:grid-cols-4 gap-6">
+      {[
+        { title: "Passport", desc: "6 Months validity", icon: Globe },
+        { title: "Pages", desc: "2 Blank pages min", icon: Info },
+        { title: "Photos", desc: "Digital/Print copy", icon: Camera },
+        { title: "Validity", desc: "From entry date", icon: Calendar }
+      ].map((item, i) => (
+        <div key={i} className="flex flex-col items-center text-center p-8 rounded-[2rem] bg-white border border-stone-100 shadow-sm transition-all duration-500">
+          <div className="w-10 h-10 rounded-full bg-stone-50 flex items-center justify-center mb-4"><item.icon size={16} className="text-[#ea580c]" /></div>
+          <h5 className="font-bold text-sm mb-1 text-stone-900">{item.title}</h5>
+          <p className="text-stone-500 text-[10px]">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+const VisaCTA = () => (
+  <section className="py-24 bg-stone-50">
+    <div className="container-max">
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative overflow-hidden rounded-[3rem] bg-stone-900 border border-stone-800 p-12 md:p-20 text-center text-white shadow-2xl">
+        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 font-[var(--heading-font)] text-stone-50">Ready for your <span className="text-[#ea580c] italic font-light">Adventure?</span></h2>
+          <p className="text-stone-400 text-lg mb-12 font-light">Visa regulations can evolve. For the most current protocols, visit the official portal.</p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+            <a href="https://www.immigration.gov.np" target="_blank" rel="noopener noreferrer" className="group relative px-10 py-5 bg-white text-black font-bold uppercase tracking-widest text-[10px] rounded-full overflow-hidden transition-all duration-500 hover:text-stone-50">
+              <span className="relative z-10 flex items-center gap-2">Official Portal <Globe size={14} /></span>
+              <div className="absolute inset-0 bg-[#ea580c] translate-y-full group-hover:translate-y-0 transition-transform duration-500 " />
+            </a>
+            <div className="flex items-center gap-3 text-stone-500 text-[10px] italic"><Info size={14} /> Updated as of Dec 2025</div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
+
+// --- Main Component ---
 
 const VisaInfo = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+  };
+
   return (
-    <div className="font-sans text-white uppercase leading-relaxed">
-      {/* Hero Section */}
-      <section className="relative h-[70vh] bg-gradient-to-r from-accent/90 to-primary/90 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        {/* Replace with one or more background images for better visual */}
-        <div className="relative z-10 w-full h-full">
-          {/* <Image
-            src="https://kalinatravelplatform.com/wp-content/uploads/2023/11/Nepal-Blog-.jpg"
-            alt="Himalayas Nepal"
-            fill
-            className="object-cover"
-            priority
-          /> */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        </div>
-
-        <div className="absolute z-20 text-center px-8">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 drop-shadow-lg">
-            Nepal Visa Guide 2025
-          </h1>
-          <p className="text-xl md:text-3xl font-light text-white/90 max-w-2xl mx-auto">
-            Complete visa information for tourists visiting the Himalayas
-          </p>
-        </div>
-      </section>
-
-      <div className="w-full max-w-7xl mx-auto px-4 py-12 md:px-8">
-        {/* Who Needs a Visa */}
-        <section className="py-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-semibold text-blue-800 mb-4">
-              Who Needs a Visa?
-            </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:-translate-y-2 transition-transform">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="text-4xl">🛡️</div>
-                <h3 className="text-2xl font-semibold text-blue-800">Visa Exempt</h3>
-              </div>
-              <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2 rounded-lg inline-block mb-4">
-                Indian Nationals
-              </div>
-              <ul className="space-y-3 text-gray-600">
-                <li className="pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-blue-800 before:font-bold">
-                  No visa required for entry
-                </li>
-                <li className="pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-blue-800 before:font-bold">
-                  Stay up to 6 months with valid passport/ID
-                </li>
-                <li className="pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-blue-800 before:font-bold">
-                  Must enter through designated checkpoints
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:-translate-y-2 transition-transform">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="text-4xl">📋</div>
-                <h3 className="text-2xl font-semibold text-blue-800">Visa Required</h3>
-              </div>
-              <div className="bg-gradient-to-r from-rose-600 to-blue-800 text-white px-4 py-2 rounded-lg inline-block mb-4">
-                All Other Nationalities
-              </div>
-              <ul className="space-y-3 text-gray-600">
-                <li className="pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-blue-800 before:font-bold">
-                  Tourist visa required for entry
-                </li>
-                <li className="pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-blue-800 before:font-bold">
-                  Available as Visa-on-Arrival or e-Visa
-                </li>
-                <li className="pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-blue-800 before:font-bold">
-                  Some nationalities must apply in advance
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Visa on Arrival Locations */}
-        <section className="py-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-semibold text-blue-800 mb-4">
-              Visa-on-Arrival Locations
-            </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:-translate-y-1 transition">
-              <div className="flex items-center gap-4 mb-6 pb-4 border-b-2 border-gray-200">
-                <div className="text-4xl">✈️</div>
-                <h3 className="text-2xl font-semibold text-blue-800">International Airports</h3>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-gray-700">
-                  <div className="w-2 h-2 bg-blue-800 rounded-full"></div>
-                  Tribhuvan International Airport (Kathmandu)
-                </div>
-                <div className="flex items-center gap-3 text-gray-700">
-                  <div className="w-2 h-2 bg-blue-800 rounded-full"></div>
-                  Gautam Buddha Airport (Bhairahawa)
-                </div>
-                <div className="flex items-center gap-3 text-gray-700">
-                  <div className="w-2 h-2 bg-blue-800 rounded-full"></div>
-                  Pokhara International Airport
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:-translate-y-1 transition">
-              <div className="flex items-center gap-4 mb-6 pb-4 border-b-2 border-gray-200">
-                <div className="text-4xl">🚗</div>
-                <h3 className="text-2xl font-semibold text-blue-800">Land Border Crossings</h3>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-semibold text-blue-800 mb-3">From India:</h4>
-                  <div className="flex flex-wrap gap-3">
-                    {["Kakadvitta", "Birgunj", "Belahiya", "Nepalgunj", "Dhangadi", "Mahendranagar"].map((item) => (
-                      <span key={item} className="bg-gray-100 text-gray-700 px-4 py-2 rounded border border-gray-300 text-sm">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-blue-800 mb-3">From Tibet/China:</h4>
-                  <div className="flex flex-wrap gap-3">
-                    {["Kodari", "Rasuwa Gadhi"].map((item) => (
-                      <span key={item} className="bg-gray-100 text-gray-700 px-4 py-2 rounded border border-gray-300 text-sm">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Visa Types and Fees */}
-        <section className="py-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-semibold text-blue-800 mb-4">
-              Tourist Visa Types & Fees
-            </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded"></div>
-            <p className="text-gray-600 italic mt-4">All fees in USD (as of December 2025)</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white border-2 border-gray-300 rounded-xl p-8 text-center hover:-translate-y-3 transition-all shadow-lg">
-              <div className="text-2xl font-bold text-blue-800 mb-2">15 Days</div>
-              <div className="text-5xl font-extrabold text-rose-600 my-4">$30</div>
-              <div className="text-gray-600">
-                <span className="inline-block bg-gray-200 px-4 py-1 rounded-full mb-2">Multiple Entry</span>
-                <p>Perfect for short visits</p>
-              </div>
-            </div>
-
-            <div className="relative bg-gradient-to-br from-white to-rose-50 border-2 border-rose-600 rounded-xl p-8 text-center scale-105 shadow-2xl hover:-translate-y-3 transition-all">
-              <div className="absolute -top-4 -right-8 bg-gradient-to-r from-rose-600 to-red-700 text-white px-8 py-2 rotate-45 shadow-lg text-sm font-bold">
-                Most Popular
-              </div>
-              <div className="text-2xl font-bold text-blue-800 mb-2">30 Days</div>
-              <div className="text-5xl font-extrabold text-rose-600 my-4">$50</div>
-              <div className="text-gray-600">
-                <span className="inline-block bg-gradient-to-r from-rose-600 to-red-700 text-white px-4 py-1 rounded-full mb-2">Multiple Entry</span>
-                <p>Ideal for most tourists</p>
-              </div>
-            </div>
-
-            <div className="bg-white border-2 border-gray-300 rounded-xl p-8 text-center hover:-translate-y-3 transition-all shadow-lg">
-              <div className="text-2xl font-bold text-blue-800 mb-2">90 Days</div>
-              <div className="text-5xl font-extrabold text-rose-600 my-4">$125</div>
-              <div className="text-gray-600">
-                <span className="inline-block bg-gray-200 px-4 py-1 rounded-full mb-2">Multiple Entry</span>
-                <p>For extended stays</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Extension Policy */}
-        <section className="py-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-semibold text-blue-800 mb-4">
-              Visa Extension Policy
-            </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
-              <div className="flex items-center gap-4 mb-6 pb-4 border-b-2 border-gray-200">
-                <div className="text-3xl">⏰</div>
-                <h3 className="text-2xl font-semibold text-blue-800">Extension Details</h3>
-              </div>
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="font-medium">Maximum stay:</span>
-                  <span className="text-gray-600">150 days per calendar year</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-medium">Extension fee:</span>
-                  <span className="text-gray-600">Min 15 days: $45 + $3/day beyond</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-medium">Overstay penalty:</span>
-                  <span className="text-gray-600">$5 USD per day</span>
-                </div>
-                <div className="pt-4">
-                  <span className="font-medium block mb-1">Where to extend:</span>
-                  <span className="text-gray-600">Department of Immigration, Kathmandu or Pokhara</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
-              <div className="flex items-center gap-4 mb-6 pb-4 border-b-2 border-gray-200">
-                <div className="text-3xl">⚠️</div>
-                <h3 className="text-2xl font-semibold text-blue-800">Important Notes</h3>
-              </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full mt-1"></div>
-                  <span className="text-gray-700">Extensions must be done before visa expires</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-3 h-3 bg-red-500 rounded-full mt-1"></div>
-                  <span className="text-gray-700">Overstay penalty: $5 USD per day</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-3 h-3 bg-blue-600 rounded-full mt-1"></div>
-                  <span className="text-gray-700">Regional offices in major cities</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-3 h-3 bg-orange-500 rounded-full mt-1"></div>
-                  <span className="text-gray-700">Online applications available</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Passport Requirements */}
-        <section className="py-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-semibold text-blue-800 mb-4">
-              Passport Requirements
-            </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded"></div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:-translate-y-2 transition">
-              <div className="text-5xl mb-4">📅</div>
-              <h3 className="text-xl font-semibold text-blue-800 mb-2">Validity</h3>
-              <p className="text-gray-600">At least <strong>6 months</strong> from entry</p>
-            </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:-translate-y-2 transition">
-              <div className="text-5xl mb-4">📄</div>
-              <h3 className="text-xl font-semibold text-blue-800 mb-2">Blank Pages</h3>
-              <p className="text-gray-600">At least <strong>2 blank pages</strong></p>
-            </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:-translate-y-2 transition">
-              <div className="text-5xl mb-4">✅</div>
-              <h3 className="text-xl font-semibold text-blue-800 mb-2">Condition</h3>
-              <p className="text-gray-600">Good condition, no damage</p>
-            </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-lg border border-gray-200 hover:-translate-y-2 transition">
-              <div className="text-5xl mb-4">📸</div>
-              <h3 className="text-xl font-semibold text-blue-800 mb-2">Photos</h3>
-              <p className="text-gray-600"><strong>1 recent passport photo</strong></p>
-            </div>
-          </div>
-        </section>
-
-        {/* Travel Advisory */}
-        <section className="py-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-semibold text-blue-800 mb-4">
-              Important Travel Advisory
-            </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-rose-50 border-l-4 border-rose-600 rounded-xl p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="text-3xl">🚨</div>
-                <h3 className="text-2xl font-semibold text-blue-800">Avoid Airport Brokers</h3>
-              </div>
-              <ul className="space-y-3 text-gray-700">
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-rose-600 before:text-xl">
-                  Do not use unofficial agents or brokers at the airport
-                </li>
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-rose-600 before:text-xl">
-                  Apply directly at official counters
-                </li>
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-rose-600 before:text-xl">
-                  Brokers may overcharge or provide invalid documents
-                </li>
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-rose-600 before:text-xl">
-                  Official counters are clearly marked
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-green-50 border-l-4 border-green-600 rounded-xl p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="text-3xl">💡</div>
-                <h3 className="text-2xl font-semibold text-blue-800">Helpful Tips</h3>
-              </div>
-              <ul className="space-y-3 text-gray-700">
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-green-600 before:text-xl">
-                  Carry exact USD cash for fees
-                </li>
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-green-600 before:text-xl">
-                  Fill online form beforehand to save time
-                </li>
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-green-600 before:text-xl">
-                  Keep document copies
-                </li>
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-green-600 before:text-xl">
-                  Verify latest fees before travel
-                </li>
-                <li className="pl-6 relative before:content-['•'] before:absolute before:left-0 before:text-green-600 before:text-xl">
-                  Consider e-Visa online
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Official Information */}
-        <section className="bg-gradient-to-r from-blue-800 to-blue-900 text-white py-12 rounded-3xl my-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-            Official Information
-          </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-yellow-400 to-white mx-auto rounded mb-8"></div>
-          <div className="max-w-4xl mx-auto px-8">
-            <p className="text-lg mb-8">
-              For the most up-to-date information, visit the{" "}
-              <a
-                href="https://www.immigration.gov.np"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-yellow-300 underline hover:text-yellow-100 transition"
-              >
-                Nepal Department of Immigration
-              </a>{" "}
-              official website.
-            </p>
-            <div className="bg-white/10 rounded-xl p-6">
-              <p className="text-sm italic">
-                <strong>Disclaimer:</strong> Visa rules and fees can change. Always check official sources before travel.
-              </p>
-            </div>
-          </div>
-        </section>
+    <div ref={containerRef} className="relative bg-stone-50 overflow-hidden">
+      <Hero scrollYProgress={scrollYProgress} />
+      {/* <Intro /> */}
+      <div className="relative">
+        <Requirements variants={containerVariants} itemVariants={itemVariants} />
+        <Fees />
+        <Checkpoints />
+        <QuickInfo />
+        <VisaCTA />
       </div>
     </div>
   );
