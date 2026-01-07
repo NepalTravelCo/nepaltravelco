@@ -1,154 +1,162 @@
 "use client"
 
-import { useRef, useEffect, useState, useCallback } from "react"
+import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import { seasonsData } from "../data/Seasons"
-import { ChevronLeft, ChevronRight, Calendar } from "lucide-react"
+import { ArrowRight, Calendar } from "lucide-react"
 import Image from "next/image"
 
 export default function TravelSeasons() {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
-  const intervalRef = useRef<number | null>(null)
+  const containerRef = useRef(null)
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" })
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
-  const scrollToIndex = useCallback((index: number) => {
-    const container = containerRef.current
-    if (!container) return
-    const cardWidth = 384 + 32 // Width + gap
-    container.scrollTo({ left: index * cardWidth, behavior: "smooth" })
-  }, [])
-
-  const scrollToNext = useCallback(() => {
-    const nextIndex = (activeIndex + 1) % seasonsData.length
-    scrollToIndex(nextIndex)
-    setActiveIndex(nextIndex)
-  }, [activeIndex, scrollToIndex])
-
-  const scrollToPrev = () => {
-    const prevIndex = (activeIndex - 1 + seasonsData.length) % seasonsData.length
-    scrollToIndex(prevIndex)
-    setActiveIndex(prevIndex)
-  }
-
-  const startAutoScroll = useCallback(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current)
-    intervalRef.current = window.setInterval(scrollToNext, 5000)
-  }, [scrollToNext])
-
-  const stopAutoScroll = useCallback(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current)
-    intervalRef.current = null
-  }, [])
+  // For mobile responsiveness
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    if (!isHovered) startAutoScroll()
-    else stopAutoScroll()
-    return () => stopAutoScroll()
-  }, [isHovered, startAutoScroll, stopAutoScroll])
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   return (
-    <section className="bg-stone-50 py-24 overflow-hidden">
-      <div className="container-max">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="max-w-2xl"
-          >
-            <span className="text-secondary font-semibold tracking-widest uppercase text-xs mb-3 block">Timing is Everything</span>
-            <h2 className="font-[var(--heading-font)] text-primary text-4xl md:text-5xl font-bold">
-              Seasonal <span className="italic font-normal">Splendor</span>
-            </h2>
-          </motion.div>
-
-          <div className="flex gap-4">
-            <button
-              onClick={scrollToPrev}
-              className="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={scrollToNext}
-              className="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </div>
-        </div>
-
-        {/* Carousel */}
-        <div
-          ref={containerRef}
-          className="flex overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory gap-8 pb-12"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          {seasonsData.map((season, idx) => (
-            <motion.article
-              key={season.slug}
-              className={`flex-shrink-0 w-[80vw] md:w-[400px] snap-center rounded-[2rem] overflow-hidden group relative h-[500px] shadow-lg hover:shadow-2xl transition-all duration-500`}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
+    <section className="bg-stone-50 py-24 md:py-32 overflow-hidden min-h-[750px] md:min-h-[1000px] flex flex-col items-center justify-center relative">
+      {/* Header matching the homepage style (BrandInfo) */}
+      <div className="container-max w-full mb-16 md:mb-24 z-10 px-4">
+        <div className="flex flex-col items-center text-center justify-center gap-4">
+          <div className="max-w-3xl">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              onClick={() => setActiveIndex(idx)}
+              className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block"
             >
-              <Link href={`/seasons/${season.slug}`} className="block h-full">
-                <Image
-                  src={season.image}
-                  alt={season.name}
-                  fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
-
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Seasonal Badge */}
-                <div className="absolute top-8 left-8">
-                  <div className="glass px-4 py-2 rounded-full flex items-center gap-2 border border-white/20">
-                    <Calendar size={14} className="text-secondary" />
-                    <span className="text-white text-xs font-bold uppercase tracking-wider">
-                      {season.name}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 p-8 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 className="text-white font-[var(--heading-font)] text-3xl font-bold mb-3">
-                    {season.name}
-                  </h3>
-                  <p className="text-stone-300 text-sm font-light leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
-                    {season.description}
-                  </p>
-                  <div className="flex items-center gap-2 text-white font-semibold text-sm group/btn">
-                    <span>Explore Season</span>
-                    <ChevronRight size={16} className="transition-transform group-hover/btn:translate-x-2" />
-                  </div>
-                </div>
-              </Link>
-            </motion.article>
-          ))}
+              Timing is Everything
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="font-[var(--heading-font)] text-4xl md:text-7xl font-bold text-primary leading-tight"
+            >
+              Seasonal <br />
+              <span className="italic font-normal">Splendor of Nepal</span>
+            </motion.h2>
+          </div>
         </div>
       </div>
 
-      {/* CSS for hiding scrollbar */}
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
+      {/* Card Deck Container */}
+      <div
+        ref={containerRef}
+        className="relative w-full max-w-7xl h-[450px] md:h-[600px] flex items-center justify-center"
+      >
+        <div className="relative w-full h-full flex items-center justify-center translate-y-[-20px] md:translate-y-[-50px]">
+          {seasonsData.map((season, idx) => {
+            const total = seasonsData.length
+            const center = (total - 1) / 2
+            const distance = idx - center
+
+            // Layout calculations for the arc - narrowed to prevent viewport overflow during hover
+            const xOffset = distance * (isMobile ? 70 : 165)
+            const rotation = distance * (isMobile ? 8 : 12)
+            const yOffset = Math.abs(distance) * (isMobile ? 15 : 45)
+            const zIndex = 20 - Math.abs(distance)
+
+            return (
+              <motion.div
+                key={season.slug}
+                className="absolute origin-bottom"
+                style={{ zIndex: hoveredIndex === idx ? 60 : zIndex }}
+                initial={{
+                  x: 0,
+                  y: 100,
+                  rotate: 0,
+                  opacity: 0,
+                  scale: 0.8
+                }}
+                animate={isInView ? {
+                  x: xOffset,
+                  y: yOffset,
+                  rotate: hoveredIndex === idx ? 0 : rotation,
+                  opacity: 1,
+                  scale: hoveredIndex === idx ? (isMobile ? 1.05 : 1.1) : 1,
+                } : {}}
+                transition={{
+                  type: "spring",
+                  stiffness: 60,
+                  damping: 15,
+                  delay: idx * 0.1,
+                }}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <Link href={`/seasons/${season.slug}`} className="block relative">
+                  <motion.div
+                    className="w-[220px] h-[340px] md:w-[320px] md:h-[480px] rounded-[40px] md:rounded-[60px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.3)] bg-stone-200 border-transparent hover:border-white/20 hover:overflow-hidden transition-all duration-500 group relative transform-gpu"
+                    style={{ isolation: 'isolate' }}
+                    whileHover={{
+                      y: isMobile ? -30 : -80,
+                      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+                    }}
+                  >
+                    <Image
+                      src={season.image}
+                      alt={season.name}
+                      fill
+                      className="object-cover rounded-[40px] md:rounded-[60px] transition-transform duration-1000 group-hover:scale-110 rounded-[40px] md:rounded-[60px]"
+                    />
+
+                    {/* Darker Gradient Overlay for better readability - Added rounding here too */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500 rounded-[40px] md:rounded-[60px]" />
+
+                    {/* Seasonal Badge */}
+                    <div className="absolute top-6 left-6 md:top-8 md:left-8 z-20">
+                      <div className="glass px-3 py-1.5 md:px-4 md:py-2 rounded-full flex items-center gap-2 border border-white/20 backdrop-blur-md">
+                        <Calendar size={12} className="text-primary" />
+                        <span className="bg-primarytext-white text-[9px] md:text-[10px] font-bold uppercase tracking-wider">
+                          {season.name}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Content - Added rounding to bottom and z-index */}
+                    <div className="absolute inset-x-0 bottom-0 p-8 md:p-10 flex flex-col justify-end text-white z-10 rounded-b-[40px] md:rounded-b-[60px]">
+                      <div className="mb-0 group-hover:mb-2 transition-all duration-500">
+                        <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-secondary mb-1 block opacity-0 group-hover:opacity-100 transition-opacity">
+                          {season.bestMonths.join(", ")}
+                        </span>
+                        <h3 className="text-3xl md:text-4xl font-bold font-[var(--heading-font)] leading-none text-white tracking-tight">
+                          {season.name}
+                        </h3>
+                      </div>
+
+                      {/* Description that expands on hover */}
+                      <div className="h-0 group-hover:h-auto overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                        <p className="text-[11px] md:text-sm text-stone-200 font-light leading-relaxed mb-6 line-clamp-3">
+                          {season.description}
+                        </p>
+                        <div className="flex items-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-white underline underline-offset-8 decoration-secondary/50 hover:decoration-secondary transition-all">
+                          <span>Explore Season</span>
+                          <ArrowRight size={14} className="text-secondary" />
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Background decoration to add depth */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.03)_0%,transparent_70%)] pointer-events-none" />
     </section>
   )
 }
