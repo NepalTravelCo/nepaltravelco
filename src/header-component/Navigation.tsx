@@ -45,8 +45,16 @@ const Navigation = () => {
   const navLinks = [
     { name: "Treks", href: "/treks", hasMega: true },
     { name: "Experiences", href: "/experiences", hasMega: true },
-    { name: "Plan Your Trip", href: "/travel-guide" },
+    { name: "Plan Your Trip", href: "/travel-guide", hasMega: true },
     { name: "Contact Us", href: "/contact" },
+  ]
+
+  const planningLinks = [
+    { name: "Things to Do", href: "/things-to-do", icon: "Activities" },
+    { name: "Places to Go", href: "/places-to-go", icon: "Destinations" },
+    { name: "Explore Valley", href: "/explore-valley", icon: "Heritage" },
+    { name: "Seasons", href: "/seasons", icon: "Weather" },
+    { name: "Visa Information", href: "/visa-information", icon: "Document" },
   ]
 
   const trekkingRegions = [
@@ -118,7 +126,11 @@ const Navigation = () => {
                               {/* Menu Left (Conditional Content) */}
                               <div className="col-span-4 py-12 pr-12 border-r border-black/5">
                                 <h3 className="font-[var(--heading-font)] text-2xl font-bold text-primary mb-8">
-                                  {link.name === "Treks" ? "Trekking Regions" : "Our Experiences"}
+                                  {link.name === "Treks"
+                                    ? "Trekking Regions"
+                                    : link.name === "Experiences"
+                                      ? "Our Experiences"
+                                      : "Trip Essentials"}
                                 </h3>
                                 <div className="grid grid-cols-1 gap-2">
                                   {link.name === "Treks" ? (
@@ -135,7 +147,7 @@ const Navigation = () => {
                                         <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
                                       </a>
                                     ))
-                                  ) : (
+                                  ) : link.name === "Experiences" ? (
                                     experiences.map((exp) => (
                                       <Link
                                         key={exp.slug}
@@ -145,6 +157,20 @@ const Navigation = () => {
                                         <div>
                                           <p className="text-sm font-bold text-primary group-hover/item:text-secondary transition-colors">{exp.title}</p>
                                           <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{exp.difficulty} · {exp.duration}</p>
+                                        </div>
+                                        <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
+                                      </Link>
+                                    ))
+                                  ) : (
+                                    planningLinks.map((pLink) => (
+                                      <Link
+                                        key={pLink.name}
+                                        href={pLink.href}
+                                        className="group/item flex items-center justify-between py-3 px-4 rounded-xl hover:bg-stone-50 transition-all duration-300"
+                                      >
+                                        <div>
+                                          <p className="text-sm font-bold text-primary group-hover/item:text-secondary transition-colors">{pLink.name}</p>
+                                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{pLink.icon}</p>
                                         </div>
                                         <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
                                       </Link>
@@ -194,7 +220,7 @@ const Navigation = () => {
                                       </div>
                                     </div>
                                   </>
-                                ) : (
+                                ) : link.name === "Experiences" ? (
                                   <>
                                     <div className="flex-1">
                                       <span className="text-secondary text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block">Featured Experience</span>
@@ -226,6 +252,43 @@ const Navigation = () => {
                                           </div>
                                           <div className="bg-[var(--accent)] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
                                             Handpicked
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="flex-1">
+                                      <span className="text-secondary text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block">Comprehensive Guide</span>
+                                      <h3 className="font-[var(--heading-font)] text-4xl font-bold text-primary mb-6">Expert Travel Guide</h3>
+                                      <p className="text-stone-500 text-sm leading-relaxed mb-8 max-w-sm">
+                                        Everything you need to know for your Himalayan adventure. From visa details to seasonal packing lists, our experts have you covered.
+                                      </p>
+                                      <Link
+                                        href="/travel-guide"
+                                        className="inline-flex items-center gap-3 text-primary text-xs font-bold uppercase tracking-widest hover:text-secondary transition-colors"
+                                      >
+                                        Explore the guide <ArrowRight size={16} />
+                                      </Link>
+                                    </div>
+
+                                    <div className="flex-1 relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                                      <Image
+                                        src="https://i.pinimg.com/736x/48/88/14/4888145d133089987f320ae6d4a40576.jpg"
+                                        alt="Kathmandu Valley"
+                                        fill
+                                        className="object-cover transition-transform duration-700 hover:scale-110"
+                                      />
+                                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                      <div className="absolute bottom-6 left-6 right-6">
+                                        <div className="flex justify-between items-end">
+                                          <div>
+                                            <p className="text-white text-xl font-bold mb-1">Travel Guide</p>
+                                            <p className="text-white/70 text-xs font-medium uppercase tracking-widest">Plan Like a Pro</p>
+                                          </div>
+                                          <div className="bg-secondary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
+                                            Primary Link
                                           </div>
                                         </div>
                                       </div>
