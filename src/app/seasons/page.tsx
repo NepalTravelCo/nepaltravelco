@@ -2,13 +2,13 @@
 
 import type { Metadata } from "next"
 
-import Season from "./Seasons"
+import Navigation from "@/header-component/Navigation"
+import FooterSection from "@/footer-components/FooterSection"
+import SeasonsHero from "./SeasonsHero"
+import SeasonsInteraction from "./SeasonsInteraction"
 import { seasonsData } from "../../data/Seasons"
-import BrandParallax from "@/homepage-components/BrandParallax"
-import ReachUs from "@/homepage-components/ReachUs"
 
-
-// Page-level SEO metadata for the seasons index route. App Router supports generateMetadata per route. [^3]
+// Page-level SEO metadata for the seasons index route. App Router supports generateMetadata per route.
 export const metadata: Metadata = {
   title: "Seasons in Nepal | Complete Seasonal Guide",
   description:
@@ -46,22 +46,22 @@ export default function SeasonsIndexPage() {
   }
 
   return (
-    <>
-    
-    <div className="inner-pages-container">
-      
+    <div className="bg-black text-white font-[var(--text-font)] h-screen overflow-hidden">
+      <Navigation />
 
-      <Season />
+      <main className="h-screen w-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth">
+        <SeasonsHero />
+        <SeasonsInteraction />
+        <div className="snap-start">
+          <FooterSection />
+        </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListStructuredData) }}
-      />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListStructuredData) }}
+        />
+      </main>
     </div>
-    <BrandParallax/>
-   
-    <ReachUs/>
-    </>
   )
 }
 
