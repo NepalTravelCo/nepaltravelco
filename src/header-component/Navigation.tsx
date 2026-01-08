@@ -14,6 +14,7 @@ const Navigation = () => {
   const [lastScrollY, setLastScrollY] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
+  const [isHovered, setIsHovered] = useState(false)
 
   const pathname = usePathname()
 
@@ -69,10 +70,12 @@ const Navigation = () => {
   return (
     <>
       <nav
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className={`
           fixed top-0 inset-x-0 z-[100] transition-all duration-500
           ${showNavbar ? "translate-y-0" : "-translate-y-full"}
-          ${isScrolled
+          ${(isScrolled || isHovered)
             ? "bg-white/80 backdrop-blur-xl border-b border-black/5 py-4 shadow-sm"
             : "bg-transparent py-6"}
         `}
@@ -81,7 +84,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link href="/" className="relative w-48 h-12 flex items-center">
             <Image
-              src={isScrolled ? "/Images/Logo/logo-black.png" : "/Images/Logo/logo-white.png"}
+              src={(isScrolled || isHovered) ? "/Images/Logo/logo-black.png" : "/Images/Logo/logo-white.png"}
               alt="Nepal Travel Co."
               fill
               className="object-contain transition-all duration-500"
@@ -103,7 +106,7 @@ const Navigation = () => {
                     href={link.href}
                     className={`
                       text-xs uppercase tracking-[0.2em] font-bold transition-colors flex items-center gap-1.5
-                      ${isScrolled ? "text-primary hover:text-secondary" : "text-white hover:text-secondary"}
+                      ${(isScrolled || isHovered) ? "text-primary hover:text-secondary" : "text-white hover:text-secondary"}
                     `}
                   >
                     {link.name}
@@ -308,7 +311,7 @@ const Navigation = () => {
 
             <div className="flex items-center gap-6 border-l border-current/10 pl-10 ml-2">
               <button
-                className={`p-2 transition-colors ${isScrolled ? "text-primary" : "text-white"} hover:text-secondary`}
+                className={`p-2 transition-colors ${(isScrolled || isHovered) ? "text-primary" : "text-white"} hover:text-secondary`}
                 aria-label="Search"
               >
                 <Search size={20} />
@@ -331,7 +334,7 @@ const Navigation = () => {
           <div className="flex items-center gap-4 lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`w-12 h-12 flex items-center justify-center rounded-full border transition-all ${isScrolled ? "text-primary border-black/5" : "text-white border-white/10"
+              className={`w-12 h-12 flex items-center justify-center rounded-full border transition-all ${(isScrolled || isHovered) ? "text-primary border-black/5" : "text-white border-white/10"
                 }`}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
