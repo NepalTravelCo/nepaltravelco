@@ -55,7 +55,7 @@ const Navigation = () => {
     { name: "Places to Go", href: "/places-to-go", icon: "Destinations" },
     { name: "Explore Valley", href: "/explore-valley", icon: "Heritage" },
     { name: "Seasons", href: "/seasons", icon: "Weather" },
-    { name: "Visa Information", href: "/visa-information", icon: "Document" },
+    // { name: "Visa Information", href: "/visa-information", icon: "Document" },
   ]
 
   const trekkingRegions = [
