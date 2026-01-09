@@ -2,16 +2,16 @@
 
 import Navigation from '@/header-component/Navigation'
 import FooterSection from '@/footer-components/FooterSection'
-import VisaInfo from './VisaInfo'
-import ReachUs from '@/homepage-components/ReachUs'
+import TravelGuideHero from './TravelGuideHero'
+import TravelGuideContent from './TravelGuideContent'
 
 const TravelGuidePage = () => {
   return (
-    <div className="bg-stone-50 text-primary font-[var(--text-font)]">
+    <div className="bg-stone-50 text-stone-900 font-[var(--text-font)]">
       <Navigation />
       <main className="w-full relative">
-        <VisaInfo />
-        <ReachUs />
+        <TravelGuideHero />
+        <TravelGuideContent />
       </main>
       <FooterSection />
     </div>
