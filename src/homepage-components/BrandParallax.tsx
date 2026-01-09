@@ -52,7 +52,6 @@ const BrandParallax = () => {
 
   // Smooth mouse progress
   const smoothMouseX = useSpring(mouseX, { stiffness: 40, damping: 20 })
-  const smoothMouseY = useSpring(mouseY, { stiffness: 40, damping: 20 })
 
   // Layer Parallax (Scroll + Mouse)
   const layer1X = useTransform(smoothMouseX, [0, 1], ["-3%", "3%"])

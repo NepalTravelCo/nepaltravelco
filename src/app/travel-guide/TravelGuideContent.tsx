@@ -14,7 +14,8 @@ import {
     Globe,
     FileText,
     Banknote,
-    ArrowRight
+    ArrowRight,
+    LucideIcon
 } from "lucide-react";
 import React from "react";
 
@@ -61,7 +62,7 @@ const VisaRequirementCard = ({
     title: string;
     desc: string;
     benefits: string[];
-    icon: any;
+    icon: LucideIcon;
     badge: string;
     color: string;
     delay: number;
@@ -101,7 +102,15 @@ const VisaRequirementCard = ({
     </motion.div>
 );
 
-const FeeCard = ({ days, fee, tag, popular, icon: Icon }: any) => (
+interface FeeCardProps {
+    days: number;
+    fee: number;
+    tag: string;
+    popular?: boolean;
+    icon: LucideIcon;
+}
+
+const FeeCard = ({ days, fee, tag, popular, icon: Icon }: FeeCardProps) => (
     <motion.div
         whileHover={{ y: -10 }}
         className={`relative p-8 rounded-[2rem] border transition-all duration-300 ${popular ? 'bg-[#ea580c] border-transparent shadow-2xl shadow-orange-500/20' : 'bg-white border-stone-100 hover:border-[#ea580c]/50 shadow-lg'}`}
