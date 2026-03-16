@@ -142,8 +142,8 @@ export default function TrekInteraction({ treks, regions }: TrekInteractionProps
     
     // Set initial value to first altitude to prevent starting at 0
     const smoothAltitude = useSpring(rawAltitude, {
-        stiffness: 40, // Slightly slower for better stability on start
-        damping: 25,
+        stiffness: 100,
+        damping: 30,
         mass: 1
     })
 
@@ -227,25 +227,21 @@ function SectionCard({
     const bgScale = useTransform(progress, [start, end], [1.1, 1])
     
     // Apply spring physics
-    const springScale = useSpring(scale, { stiffness: 120, damping: 25 })
-    const springOpacity = useSpring(opacity, { stiffness: 120, damping: 25 })
-    
-    
     // First card special handling - stay at scale 1 if at very top
     const firstCardScale = useTransform(progress, [0, end], [1, 0.85]);
     const firstCardOpacity = useTransform(progress, [0, end], [1, 0.2]);
 
-    const displayScale = isFirstCard ? firstCardScale : springScale;
-    const displayOpacity = isFirstCard ? firstCardOpacity : springOpacity;
+    const displayScale = isFirstCard ? firstCardScale : scale;
+    const displayOpacity = isFirstCard ? firstCardOpacity : opacity;
 
     return (
         <motion.section
-            style={{ 
+            style={{
                 scale: displayScale,
                 opacity: displayOpacity,
                 willChange: "transform, opacity"
             }}
-            className="relative h-screen w-full flex items-center justify-center overflow-hidden snap-start snap-always"
+            className="relative h-screen w-full flex items-center justify-center overflow-x-hidden snap-start snap-always"
         >
             {/* Background with Parallax */}
             <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">

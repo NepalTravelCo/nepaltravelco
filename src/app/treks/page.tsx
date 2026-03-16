@@ -25,7 +25,7 @@ export default async function TreksPage() {
     <div className="bg-black text-white font-[var(--text-font)] h-screen overflow-hidden">
       <Navigation />
 
-      <main className="h-screen w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
+      <main className="h-screen w-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth">
         <TreksHero />
         <TrekInteraction treks={treks} regions={regions} />
         <div className="snap-start">

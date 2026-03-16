@@ -7,6 +7,7 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronDown, Search, ArrowRight, Star } from "lucide-react"
 import { experiences } from "@/app/experiences/data"
+import FullScreenSearch from "./FullScreenSearch"
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -15,6 +16,7 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
   const [isHovered, setIsHovered] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
 
   const pathname = usePathname()
 
@@ -311,6 +313,7 @@ const Navigation = () => {
 
             <div className="flex items-center gap-6 border-l border-current/10 pl-10 ml-2">
               <button
+                onClick={() => setIsSearchOpen(true)}
                 className={`p-2 transition-colors ${(isScrolled || isHovered) ? "text-primary" : "text-white"} hover:text-secondary`}
                 aria-label="Search"
               >
@@ -433,6 +436,11 @@ const Navigation = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <FullScreenSearch 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)} 
+      />
     </>
   )
 }

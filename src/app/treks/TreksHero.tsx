@@ -28,7 +28,7 @@ export default function TreksHero() {
     return (
         <section 
             ref={heroRef}
-            className="relative w-screen h-screen flex items-center justify-center overflow-hidden snap-start"
+            className="relative w-full h-screen flex items-center justify-center overflow-hidden snap-start"
         >
             {/* Enhanced Background with Parallax */}
             <div className="absolute inset-0 z-0">
