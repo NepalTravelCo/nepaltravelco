@@ -146,7 +146,7 @@ function ContactForm() {
           viewport={{ once: true }}
           className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block"
         >
-          Let's Plan Together
+          Let&apos;s Plan Together
         </motion.span>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

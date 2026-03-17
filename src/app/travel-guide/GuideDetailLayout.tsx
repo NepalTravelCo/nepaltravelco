@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Clock, MapPin, CheckCircle2, Info, Wind } from "lucide-react";
+import { ArrowLeft, Clock, MapPin, Wind } from "lucide-react";
 import Link from "next/link";
 import Navigation from "@/header-component/Navigation";
 import FooterSection from "@/footer-components/FooterSection";

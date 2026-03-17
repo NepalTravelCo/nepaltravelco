@@ -13,7 +13,6 @@ import {
     CheckCircle2,
     Globe,
     FileText,
-    Banknote,
     ArrowRight,
     LucideIcon
 } from "lucide-react";

@@ -4,10 +4,7 @@ import {
     Compass, 
     Wind, 
     Milestone,
-    Utensils,
-    Camera,
-    Heart,
-    Spade
+    Utensils
 } from "lucide-react";
 
 export const activities = [

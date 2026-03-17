@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, useMemo } from "react"
+import { useRef } from "react"
 import { Calendar, ArrowRight, Sun, CloudRain, Leaf, Snowflake, Sparkles } from "lucide-react"
 import {
     motion,
@@ -8,7 +8,6 @@ import {
     useTransform,
     useSpring,
     MotionValue,
-    AnimatePresence,
 } from "framer-motion"
 import Link from "next/link"
 import { seasonsData, Season } from "../../data/Seasons"

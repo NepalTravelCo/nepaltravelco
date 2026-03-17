@@ -2,18 +2,9 @@
 
 import { motion } from "framer-motion";
 import { 
-    Compass, 
-    Map, 
-    Mountain, 
-    Wind, 
-    Camera, 
-    ArrowRight,
-    Milestone,
-    Heart,
-    Utensils
+    ArrowRight
 } from "lucide-react";
 import React from "react";
-import Image from "next/image";
 
 const SectionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => (
     <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16 px-4">
@@ -55,7 +46,7 @@ const ActivityCard = ({
 }: {
     slug: string;
     title: string;
-    icon: any;
+    icon: React.ElementType;
     desc: string;
     tag: string;
     delay: number;
