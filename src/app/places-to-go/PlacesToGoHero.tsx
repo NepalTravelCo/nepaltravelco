@@ -33,7 +33,7 @@ export default function PlacesToGoHero() {
                 <motion.div
                     className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: "url('https://images.unsplash.com/photo-1526481280693-3bfa7561693f?q=80&w=2070')",
+                        backgroundImage: "url('https://i.pinimg.com/736x/3f/11/30/3f11304b704850cb6ad8e27e6a3a56cb.jpg')",
                         scale: imageScale,
                         y: imageY
                     }}

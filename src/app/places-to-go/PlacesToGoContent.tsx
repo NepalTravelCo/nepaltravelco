@@ -87,7 +87,7 @@ import { destinations } from "./data";
 
 export default function PlacesToGoContent() {
     return (
-        <div className="bg-stone-50 text-stone-900 font-[var(--text-font)] pb-32">
+        <div className="bg-stone-50 text-stone-900 font-[var(--text-font)]">
             <section className="relative py-24 px-6 md:px-12 container-max">
                 <SectionHeader title="Iconic Destinations" subtitle="Where to Wander" />
 
@@ -107,7 +107,7 @@ export default function PlacesToGoContent() {
             </section>
 
             {/* Travel Insight */}
-            <section className="relative py-24 px-6 md:px-12 bg-white">
+            <section className="relative py-24 px-6 md:px-12">
                 <div className="container-max grid lg:grid-cols-2 gap-16 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
@@ -116,7 +116,7 @@ export default function PlacesToGoContent() {
                         className="relative rounded-[3rem] overflow-hidden aspect-square shadow-2xl"
                     >
                          <Image
-                            src="https://images.unsplash.com/photo-1526481280693-3bfa7561693f?q=80&w=2070"
+                            src="https://i.pinimg.com/1200x/32/0e/87/320e87726907f7ddcc925da8ad088e8c.jpg"
                             alt="Nepal Travel Insight"
                             fill
                             className="object-cover"
@@ -124,7 +124,7 @@ export default function PlacesToGoContent() {
                         <div className="absolute inset-0 bg-black/20" />
                     </motion.div>
 
-                    <div>
+                    <div  >
                         <SectionHeader title="Expert Travel Insights" subtitle="Insider Tips" />
                         <p className="text-stone-600 mb-8 leading-relaxed">
                             Nepal is a land of contrasts, from the sweltering plains of the Terai to the freezing heights of the Himalayas. 

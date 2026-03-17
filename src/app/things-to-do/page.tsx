@@ -4,6 +4,8 @@ import Navigation from '@/header-component/Navigation'
 import FooterSection from '@/footer-components/FooterSection'
 import ThingsToDoHero from './ThingsToDoHero'
 import ThingsToDoContent from './ThingsToDoContent'
+import FAQ from '@/homepage-components/FAQ'
+import ReachUs from '@/homepage-components/ReachUs'
 
 const ThingsToDoPage = () => {
   return (
@@ -13,6 +15,10 @@ const ThingsToDoPage = () => {
         <ThingsToDoHero />
         <ThingsToDoContent />
       </main>
+      <div className="relative">
+      <FAQ />
+      <ReachUs /> 
+      </div>
       <FooterSection />
     </div>
   )

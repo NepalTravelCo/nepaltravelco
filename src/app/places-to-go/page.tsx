@@ -4,6 +4,8 @@ import Navigation from '@/header-component/Navigation'
 import FooterSection from '@/footer-components/FooterSection'
 import PlacesToGoHero from './PlacesToGoHero'
 import PlacesToGoContent from './PlacesToGoContent'
+import FAQ from '@/homepage-components/FAQ'
+import ReachUs from '@/homepage-components/ReachUs'
 
 const PlacesToGoPage = () => {
   return (
@@ -13,6 +15,10 @@ const PlacesToGoPage = () => {
         <PlacesToGoHero />
         <PlacesToGoContent />
       </main>
+      <div className="relative">
+      <FAQ />
+      <ReachUs /> 
+      </div>
       <FooterSection />
     </div>
   )

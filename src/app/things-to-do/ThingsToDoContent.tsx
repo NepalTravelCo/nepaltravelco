@@ -91,7 +91,7 @@ import { activities } from "./data";
 
 export default function ThingsToDoContent() {
     return (
-        <div className="bg-stone-50 text-stone-900 font-[var(--text-font)] pb-32">
+        <div className="bg-stone-50 text-stone-900 font-[var(--text-font)]">
             <section className="relative py-24 px-6 md:px-12 container-max">
                 <SectionHeader title="Infinite Experiences" subtitle="What to Do" />
 
@@ -112,7 +112,7 @@ export default function ThingsToDoContent() {
             </section>
 
             {/* Featured Experience Banner */}
-            <section className="py-24 px-6 md:px-12 bg-primary">
+            <section className="py-24 px-6 md:px-12 bg-stone-50">
                 <div className="container-max relative rounded-[3rem] overflow-hidden bg-stone-900 text-white p-12 md:p-24 shadow-2xl">
                     <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070')] bg-cover bg-center" />
                     
@@ -122,10 +122,10 @@ export default function ThingsToDoContent() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             className="bg-secondary/20 backdrop-blur-md px-6 py-2 rounded-full w-fit mb-8 border border-secondary/30"
                         >
-                            <span className="text-secondary text-xs font-bold uppercase tracking-[0.3em]">Season Spotlight</span>
+                            <span className="text-stone-50 text-xs font-bold uppercase tracking-[0.3em]">Season Spotlight</span>
                         </motion.div>
                         
-                        <h2 className="text-4xl md:text-6xl font-bold mb-8 font-[var(--heading-font)] italic">Himalayan <span className="text-secondary">Expeditions</span></h2>
+                        <h2 className="text-stone-50 text-4xl md:text-6xl font-bold mb-8 font-[var(--heading-font)] italic">Himalayan <span className="text-secondary">Expeditions</span></h2>
                         <p className="text-lg text-white/70 mb-12 leading-relaxed font-light">
                             The peak climbing season is approaching. Whether you are aiming for Island Peak or the mighty Everest, 
                             our expert guides ensure safety and an unforgettable journey to the roof of the world.

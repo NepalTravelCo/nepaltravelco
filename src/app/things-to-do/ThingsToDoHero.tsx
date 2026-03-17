@@ -33,7 +33,7 @@ export default function ThingsToDoHero() {
                 <motion.div
                     className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: "url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070')",
+                        backgroundImage: "url('https://i.pinimg.com/1200x/b1/9e/92/b19e928433b0bf0ea3b3266662cc5329.jpg')",
                         scale: imageScale,
                         y: imageY
                     }}

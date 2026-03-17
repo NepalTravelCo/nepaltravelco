@@ -4,7 +4,7 @@ export const destinations = [
         title: "Kathmandu Valley",
         location: "Central Nepal",
         description: "The beating heart of Nepal's culture. Explore ancient Durbar Squares, sacred temples like Pashupatinath, and the iconic Swayambhunath stupa. Kathmandu Valley consists of three ancient cities: Kathmandu, Patan, and Bhaktapur, each with its own distinct character and history.",
-        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070",
+        image: "https://i.pinimg.com/1200x/35/23/84/352384a7a5937c38bdf830722eeb1bc0.jpg",
         highlights: [
             "Ancient Durbar Squares (Kathmandu, Patan, Bhaktapur)",
             "Pashupatinath Temple - A sacred Hindu site",
@@ -20,7 +20,7 @@ export const destinations = [
         title: "Pokhara City",
         location: "Western Nepal",
         description: "A paradise for nature lovers. Relax by the serene Fewa Lake, witness the reflection of Machhapuchhre, or start your Annapurna adventure here. Pokhara is known as the gateway to the Annapurna Circuit and is famous for its breathtaking natural beauty and adventure sports.",
-        image: "https://images.unsplash.com/photo-1571501700685-61845184208a?q=80&w=2070",
+        image: "https://i.pinimg.com/736x/02/85/9d/02859dc872fd9e21d513afcacb120db2.jpg",
         highlights: [
             "Boating on Fewa Lake",
             "World Peace Pagoda with panoramic views",
@@ -36,7 +36,7 @@ export const destinations = [
         title: "Everest Region",
         location: "Himalayas",
         description: "Follow the footsteps of legends. Journey through Khumbu Valley, visit ancient monasteries, and stand in the shadow of the world's highest peaks. This legendary region offers some of the most spectacular trekking experiences on the planet.",
-        image: "https://images.unsplash.com/photo-1585016495481-91613a3ab1bc?q=80&w=2070",
+        image: "https://i.pinimg.com/736x/51/2e/96/512e96d100ebe3269365e7720a316361.jpg",
         highlights: [
             "Everest Base Camp Trek",
             "Namche Bazaar - The Sherpa capital",
@@ -52,7 +52,7 @@ export const destinations = [
         title: "Chitwan National Park",
         location: "Terai Plains",
         description: "Experience the wild side of Nepal. Home to the rare one-horned rhino and Bengal tigers. Enjoy jungle safaris and vibrant Tharu culture. Chitwan National Park is one of the best-preserved national parks in Asia and a UNESCO World Heritage site.",
-        image: "https://images.unsplash.com/photo-1582268305739-c29026410292?q=80&w=2070",
+        image: "https://i.pinimg.com/736x/51/20/1d/51201d610c4991a5096d300a908c8601.jpg",
         highlights: [
             "Jeep or Canoe Safari",
             "Elephant breeding center",
@@ -68,7 +68,7 @@ export const destinations = [
         title: "Upper Mustang",
         location: "Trans-Himalaya",
         description: "The Hidden Kingdom. A desert landscape of red cliffs, ancient caves, and the fortified city of Lo Manthang. A journey into the past. Once a restricted kingdom, Upper Mustang retains its ancient Tibetan culture and traditions.",
-        image: "https://images.unsplash.com/photo-1628178652427-046608930925?q=80&w=2070",
+        image: "https://i.pinimg.com/736x/3b/41/08/3b410875ceeabc321b01fc576e160aa7.jpg",
         highlights: [
             "Lo Manthang - The walled city",
             "Ancient sky caves of Mustang",
