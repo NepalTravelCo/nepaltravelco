@@ -113,10 +113,10 @@ const BrandInfo = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
 
                   {/* Badges */}
-                  <div className="absolute top-6 left-6 flex flex-col gap-2">
-                    <div className="glass px-3 py-1.5 rounded-full flex items-center gap-2 border border-white/20">
-                      <Compass size={12} className="text-secondary" />
-                      <span className="text-white text-[10px] font-bold uppercase tracking-wider">{trek.location}</span>
+                  <div className="absolute top-4 left-4 flex flex-col gap-2">
+                    <div className="glass px-2 py-1 rounded-full flex items-center gap-1.5 border border-white/10">
+                      <Compass size={10} className="text-secondary" />
+                      <span className="text-white text-[9px] font-bold uppercase tracking-wider">{trek.location}</span>
                     </div>
                   </div>
 
@@ -129,7 +129,7 @@ const BrandInfo = () => {
                     <h3 className="font-[var(--heading-font)] text-2xl font-bold text-white mb-4">
                       {trek.name}
                     </h3>
-                    <p className="text-stone-300 text-sm line-clamp-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <p className="text-stone-300 text-sm line-clamp-2 opacity-0 h-0 mb-0 group-hover:h-auto group-hover:mb-6 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
                       {trek.description}
                     </p>
                     <Link

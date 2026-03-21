@@ -98,22 +98,31 @@ export default function TravelSeasons() {
               >
                 <Link href={`/seasons/${season.slug}`} className="block relative">
                   <motion.div
-                    className="w-[220px] h-[340px] md:w-[320px] md:h-[480px] rounded-[40px] md:rounded-[60px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.3)] bg-stone-200 border-transparent hover:border-white/20 hover:overflow-hidden transition-all duration-500 group relative transform-gpu"
-                    style={{ isolation: 'isolate' }}
+                    className="w-[220px] h-[340px] md:w-[320px] md:h-[480px] rounded-[40px] md:rounded-[60px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.3)] bg-black/10 group relative"
+                    style={{ 
+                      isolation: 'isolate',
+                      WebkitMaskImage: '-webkit-radial-gradient(white, black)',
+                      maskImage: 'radial-gradient(white, black)',
+                      backfaceVisibility: 'hidden',
+                      transform: 'translateZ(0)'
+                    }}
                     whileHover={{
                       y: isMobile ? -30 : -80,
                       transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
                     }}
                   >
+                    {/* Stable Border Overlay */}
+                    <div className="absolute inset-0 border border-white/10 group-hover:border-white/40 transition-colors duration-500 rounded-[40px] md:rounded-[60px] z-30 pointer-events-none" />
+
                     <Image
                       src={season.image}
                       alt={season.name}
                       fill
-                      className="object-cover rounded-[40px] md:rounded-[60px] transition-transform duration-1000 group-hover:scale-110 rounded-[40px] md:rounded-[60px]"
+                      className="object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
 
-                    {/* Darker Gradient Overlay for better readability - Added rounding here too */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500 rounded-[40px] md:rounded-[60px]" />
+                    {/* Darker Gradient Overlay for better readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
 
                     {/* Seasonal Badge */}
                     <div className="absolute top-6 left-6 md:top-8 md:left-8 z-20">
