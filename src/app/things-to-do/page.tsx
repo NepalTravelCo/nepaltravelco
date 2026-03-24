@@ -6,6 +6,7 @@ import ThingsToDoHero from './ThingsToDoHero'
 import ThingsToDoContent from './ThingsToDoContent'
 import FAQ from '@/homepage-components/FAQ'
 import ReachUs from '@/homepage-components/ReachUs'
+import BrandParallax from '@/homepage-components/BrandParallax'
 
 const ThingsToDoPage = () => {
   return (
@@ -16,7 +17,8 @@ const ThingsToDoPage = () => {
         <ThingsToDoContent />
       </main>
       <div className="relative">
-      <FAQ />
+        <BrandParallax />
+      {/* <FAQ /> */}
       <ReachUs /> 
       </div>
       <FooterSection />

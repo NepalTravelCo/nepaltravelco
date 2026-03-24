@@ -78,5 +78,21 @@ export const destinations = [
         ],
         bestTime: "May to October (Perfect for monsoon trekking)",
         altitude: "3,840m (Lo Manthang)"
+    },
+    {
+        slug: "lumbini-birthplace",
+        title: "Lumbini",
+        location: "Southern Nepal",
+        description: "The birthplace of Lord Buddha. A pilgrimage site of immense spiritual significance, featuring monasteries built by various nations and the sacred Mayadevi Temple. Lumbini is a UNESCO World Heritage site and a center for peace and reflection.",
+        image: "https://i.pinimg.com/736x/cd/4f/05/cd4f0588787d88ff975aea1b78ec6d24.jpg",
+        highlights: [
+            "Mayadevi Temple - The exact birthplace",
+            "Ashoka Pillar",
+            "World Peace Pagoda",
+            "Monastic Zone with global architecture",
+            "Lumbini Museum"
+        ],
+        bestTime: "October to March",
+        altitude: "150m"
     }
 ];
