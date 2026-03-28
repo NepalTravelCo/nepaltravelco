@@ -15,7 +15,7 @@ function page() {
           <ContactHero />
         </div>
 
-        <div className="relative z-20 -mt-10 lg:-mt-20">
+        <div className="relative z-20">
           <ContactForm />
         </div>
 

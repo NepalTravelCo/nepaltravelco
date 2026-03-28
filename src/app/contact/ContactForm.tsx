@@ -137,8 +137,10 @@ function ContactForm() {
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-24">
-      <div className="text-center mb-16">
+    <section className="w-full py-24 md:py-32 overflow-hidden relative">
+      <div className="container-max">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -471,7 +473,9 @@ function ContactForm() {
 
         </form>
       </div>
-    </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
