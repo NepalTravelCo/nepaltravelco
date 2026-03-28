@@ -174,36 +174,42 @@ async function main() {
     {
         slug: "kathmandu-valley",
         name: "Kathmandu Valley",
+        location: "Kathmandu",
         description: "The beating heart of Nepal's culture. Explore ancient Durbar Squares, sacred temples like Pashupatinath, and the iconic Swayambhunath stupa.",
         image: "https://i.pinimg.com/1200x/35/23/84/352384a7a5937c38bdf830722eeb1bc0.jpg",
     },
     {
         slug: "pokhara-city",
         name: "Pokhara City",
+        location: "Pokhara",
         description: "A paradise for nature lovers. Relax by the serene Fewa Lake, witness the reflection of Machhapuchhre, or start your Annapurna adventure here.",
         image: "https://i.pinimg.com/736x/02/85/9d/02859dc872fd9e21d513afcacb120db2.jpg",
     },
     {
         slug: "everest-region",
         name: "Everest Region",
+        location: "Khumbu",
         description: "Follow the footsteps of legends. Journey through Khumbu Valley, visit ancient monasteries, and stand in the shadow of the world's highest peaks.",
         image: "https://i.pinimg.com/736x/51/2e/96/512e96d100ebe3269365e7720a316361.jpg",
     },
     {
         slug: "chitwan-national-park",
         name: "Chitwan National Park",
+        location: "Terai",
         description: "Experience the wild side of Nepal. Home to the rare one-horned rhino and Bengal tigers. Enjoy jungle safaris and vibrant Tharu culture.",
         image: "https://i.pinimg.com/736x/51/20/1d/51201d610c4991a5096d300a908c8601.jpg",
     },
     {
         slug: "upper-mustang",
         name: "Upper Mustang",
+        location: "Mustang",
         description: "The Hidden Kingdom. A desert landscape of red cliffs, ancient caves, and the fortified city of Lo Manthang. A journey into the past.",
         image: "https://i.pinimg.com/736x/3b/41/08/3b410875ceeabc321b01fc576e160aa7.jpg",
     },
     {
         slug: "lumbini-birthplace",
         name: "Lumbini",
+        location: "Lumbini",
         description: "The birthplace of Lord Buddha. A pilgrimage site of immense spiritual significance, featuring monasteries built by various nations and the sacred Mayadevi Temple.",
         image: "https://i.pinimg.com/736x/cd/4f/05/cd4f0588787d88ff975aea1b78ec6d24.jpg",
     }
@@ -286,6 +292,234 @@ async function main() {
   }
   console.log('Experiences seeded');
 
+  // Seed Activities (Things to Do)
+  const activitiesData = [
+    {
+      slug: "trekking-hiking",
+      name: "Trekking & Hiking",
+      tag: "Epic Adventures",
+      description: "From the world-famous Everest Base Camp to hidden gems in the Manaslu region.",
+      icon: "Mountain",
+      color: "secondary",
+      image: "https://i.pinimg.com/736x/78/cc/5e/78cc5e7dcbff23c68229bdda00a999a8.jpg",
+      highlights: ["Everest Base Camp", "Annapurna Circuit", "Langtang Valley", "Manaslu Circuit", "Short hikes"],
+      categoryId: 0 // Trekking
+    },
+    {
+      slug: "cultural-heritage",
+      name: "Cultural Heritage",
+      tag: "Timeless Traditions",
+      description: "Explore the ancient streets of Patan and witness evening prayers at Pashupatinath.",
+      icon: "Map",
+      color: "blue-600",
+      image: "https://i.pinimg.com/736x/a4/06/d7/a406d7f4da651ea5a929deb7e6fac544.jpg",
+      highlights: ["Pashupatinath Temple", "Boudhanath Stupa", "Lumbini", "Durbar Squares", "Festivals"],
+      categoryId: 4 // Culture
+    },
+    {
+      slug: "wildlife-safari",
+      name: "Wildlife Safari",
+      tag: "Untamed Nature",
+      description: "Ride through the jungles of Chitwan or Bardia to spot royal Bengal tigers.",
+      icon: "Compass",
+      color: "green-600",
+      image: "https://i.pinimg.com/736x/c7/87/0b/c7870bde9d364fe1cc5b1d6b703dc817.jpg",
+      highlights: ["Spotting Rhinos in Chitwan", "Tracking Tigers in Bardia", "Canoeing", "Elephant breeding"],
+      categoryId: 1 // Adrenaline/Nature (mapping to most relevant)
+    },
+    {
+      slug: "spiritual-yoga",
+      name: "Spiritual & Yoga",
+      tag: "Inner Peace",
+      description: "Find your zen in Buddhist monasteries or practice yoga by Fewa Lake.",
+      icon: "Wind",
+      color: "purple-600",
+      image: "https://i.pinimg.com/736x/d6/19/d1/d619d179b55df33b59d55dc137f28519.jpg",
+      highlights: ["Monastery retreats", "Himalayan Yoga", "Vipassana", "Spiritual walks", "Sound healing"],
+      categoryId: 2 // Spiritual
+    },
+    {
+      slug: "adventure-sports",
+      name: "Adventure Sports",
+      tag: "High Energy",
+      description: "Paragliding over Pokhara, white water rafting, or a thrilling bungee jump.",
+      icon: "Milestone",
+      color: "red-600",
+      image: "https://i.pinimg.com/736x/3a/e2/8c/3ae28cfe33383a22fe4a3ac0d6f9c7e2.jpg",
+      highlights: ["Paragliding in Pokhara", "Trishuli Rafting", "Bungee Jumping", "Mountain biking", "Zip-lining"],
+      categoryId: 1 // Adrenaline
+    },
+    {
+      slug: "local-gastronomy",
+      name: "Local Gastronomy",
+      tag: "Authentic Flavors",
+      description: "Taste the legendary Dal Bhat, Newari feasts, and Himalayan delicacies.",
+      icon: "Utensils",
+      color: "amber-600",
+      image: "https://i.pinimg.com/1200x/05/47/ee/0547ee0bbe64263e89252b9237ed6942.jpg",
+      highlights: ["Dal Bhat", "Momo", "Newari Samay Baji", "Sel Roti", "Yak cheese & tea"],
+      categoryId: 4 // Culture/Gastronomy
+    }
+  ];
+
+  for (const activity of activitiesData) {
+    await prisma.activity.upsert({
+      where: { slug: activity.slug },
+      update: activity,
+      create: activity,
+    });
+  }
+  console.log('Activities seeded');
+
+  // Seed Packages (Best Selling)
+  const packagesData = [
+    {
+      slug: "everest-base-camp-trek",
+      title: "Everest Base Camp Trek",
+      location: "Namche, Solukhumbu",
+      image: "https://i.pinimg.com/736x/16/37/80/16378017612eb06c5d85821f7062cd4e.jpg",
+      duration: "14 Days",
+      price: 1299,
+      description: "A legendary journey through the Khumbu Valley to the foot of the world's highest peak.",
+      features: ["5,364m Altitude", "Sherpa Culture", "Iconic Views"]
+    },
+    {
+      slug: "bike-ride-to-upper-mustang",
+      title: "Bike Ride To Upper Mustang",
+      location: "Lomanthang, Mustang",
+      image: "https://i.pinimg.com/736x/86/98/b2/8698b252000d0a556352cd68053dcdc7.jpg",
+      duration: "10 Days",
+      price: 2450,
+      description: "One of the most diverse treks in the world, crossing the Thorong La Pass.",
+      features: ["Desert Landscape", "Forbidden Kingdom", "Ancient Caves"]
+    },
+    {
+      slug: "safari-escape-to-chitwan",
+      title: "Safari Escape To Chitwan",
+      location: "Sauraha, Chitwan",
+      image: "https://i.pinimg.com/736x/1d/a2/40/1da2405ab9b54c95932327cde28f4a1c.jpg",
+      duration: "3 Days",
+      price: 450,
+      description: "Experience the wild side of Nepal in the heart of the Terai lowlands.",
+      features: ["Jungle Safari", "Tharu Culture", "Wildlife Spotting"]
+    },
+    {
+      slug: "lumbini-heritage-tour",
+      title: "Lumbini Heritage Tour",
+      location: "Lumbini",
+      image: "https://i.pinimg.com/736x/cd/4f/05/cd4f0588787d88ff975aea1b78ec6d24.jpg",
+      duration: "2 Days",
+      price: 300,
+      description: "A pilgrimage to the birthplace of Lord Buddha, a site of profound peace.",
+      features: ["UNESCO Heritage", "Spiritual Gardens", "Peace Pagoda"]
+    }
+  ];
+
+  for (const pkg of packagesData) {
+    await prisma.package.upsert({
+      where: { slug: pkg.slug },
+      update: pkg,
+      create: pkg,
+    });
+  }
+  console.log('Packages seeded');
+
+  // Seed Seasons
+  const seasonsData = [
+    {
+      slug: "spring",
+      name: "Spring",
+      image: "https://i.pinimg.com/736x/20/4b/7b/204b7b34290c881a13e0d347d23466f1.jpg",
+      description: "Blooming trails and perfect weather for hikes.",
+      bestMonths: ["March", "April", "May"]
+    },
+    {
+      slug: "summer",
+      name: "Summer",
+      image: "https://i.pinimg.com/1200x/a4/8d/38/a48d38b909a472a7cf03dadcdee52a63.jpg",
+      description: "Crystal clear lakes and lush green valleys.",
+      bestMonths: ["June", "July", "August"]
+    },
+    {
+      slug: "autumn",
+      name: "Autumn",
+      image: "https://i.pinimg.com/1200x/04/1a/09/041a09f90fb85d0725a79b967a7c0fdb.jpg",
+      description: "Golden forests and traditional village festivals.",
+      bestMonths: ["September", "October", "November"]
+    },
+    {
+      slug: "winter",
+      name: "Winter",
+      image: "https://i.pinimg.com/736x/b5/29/e9/b529e9830fbd52a1cf8911dc289d9464.jpg",
+      description: "Snowy peaks and peaceful mountain retreats.",
+      bestMonths: ["December", "January", "February"]
+    },
+    {
+      slug: "festivals",
+      name: "Festivals",
+      image: "https://i.pinimg.com/1200x/46/14/e3/4614e3974aa171267fc4096895b67610.jpg",
+      description: "Dashain, Tihar, Holi and more cultural joy.",
+      bestMonths: ["Year Round"]
+    }
+  ];
+
+  for (const season of seasonsData) {
+    await prisma.season.upsert({
+      where: { slug: season.slug },
+      update: season,
+      create: season,
+    });
+  }
+  console.log('Seasons seeded');
+
+  // Seed FAQs
+  const faqsData = [
+    {
+      slug: "best-time-to-visit",
+      question: "What is the best time to visit Nepal?",
+      answer: "The best time to visit Nepal is during autumn (September–November) and spring (March–May). Autumn offers clear mountain views and stable weather, while spring brings blooming rhododendrons and moderate temperatures.",
+      category: "General"
+    },
+    {
+      slug: "visa-requirements",
+      question: "Do I need a visa to visit Nepal?",
+      answer: "Most visitors need a visa to enter Nepal. Tourist visas are available on arrival at Tribhuvan International Airport and major border crossings, or can be obtained in advance from Nepalese embassies.",
+      category: "Travel Info"
+    },
+    {
+      slug: "packing-list",
+      question: "What should I pack for trekking in Nepal?",
+      answer: "Essential trekking gear includes sturdy hiking boots, layered clothing, a warm sleeping bag, rain gear, sun protection, a first aid kit, water purification tablets, and a headlamp.",
+      category: "Trekking"
+    },
+    {
+      slug: "safety-solo-travel",
+      question: "Is it safe to travel solo in Nepal?",
+      answer: "Nepal is generally safe for solo travelers. The Nepalese people are known for their hospitality. However, trekking with a guide or group is recommended on remote trails.",
+      category: "Safety"
+    },
+    {
+      slug: "altitude-sickness",
+      question: "What is altitude sickness and how to prevent it?",
+      answer: "Altitude sickness occurs when ascending too quickly. Prevent it by ascending gradually, acclimatizing properly, staying hydrated, and listening to your body.",
+      category: "Health"
+    },
+    {
+      slug: "trekking-accommodations",
+      question: "What kind of accommodation is available during treks?",
+      answer: "Accommodation ranges from basic teahouses to comfortable lodges depending on the route. Popular routes have well-established teahouses with beds, blankets, and meals.",
+      category: "Accommodation"
+    }
+  ];
+
+  for (const faq of faqsData) {
+    await prisma.faq.upsert({
+      where: { slug: faq.slug },
+      update: faq,
+      create: faq,
+    });
+  }
+  console.log('FAQs seeded');
 }
 
 main()

@@ -2,12 +2,15 @@
 
 import { motion } from "framer-motion";
 import { 
-    ArrowRight, Plane, Globe, Coins, Compass, Mountain, Map, Wind, Milestone, Utensils, ArrowUpRight
+    ArrowRight, Plane, Globe, Coins, Compass, Mountain, Map, Wind, Milestone, Utensils, ArrowUpRight, Search
 } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { activities } from "./data";
+
+const IconMap: Record<string, any> = {
+    Mountain, Map, Compass, Wind, Milestone, Utensils, Globe, Plane, Coins
+};
 
 const getColorHex = (color: string) => {
     const colors: Record<string, string> = {
@@ -51,7 +54,7 @@ const SectionHeader = ({ title, subtitle, light = false }: { title: string; subt
 const ActivityCard = ({
     slug,
     title,
-    icon: Icon,
+    icon: IconName,
     desc,
     tag,
     image,
@@ -62,7 +65,7 @@ const ActivityCard = ({
 }: {
     slug: string;
     title: string;
-    icon: React.ElementType;
+    icon: string;
     desc: string;
     tag: string;
     image: string;
@@ -72,6 +75,7 @@ const ActivityCard = ({
     rowSpan: string;
 }) => {
     const accentColor = getColorHex(color);
+    const Icon = IconMap[IconName] || Compass;
 
     return (
         <motion.div
@@ -93,7 +97,7 @@ const ActivityCard = ({
                     {/* Dynamic Overlays */}
                     <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700 z-10" />
                     
-                    {/* Accent Color Gradient Overlay (Experiences Principle) */}
+                    {/* Accent Color Gradient Overlay */}
                     <div 
                         className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-1000 z-10"
                         style={{ background: `linear-gradient(45deg, ${accentColor} 0%, transparent 100%)` }}
@@ -102,7 +106,6 @@ const ActivityCard = ({
 
                 {/* Content Container */}
                 <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end overflow-hidden">
-                    {/* Floating Badge */}
                     <div className="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 bg-white/10">
                         <ArrowUpRight size={20} className="text-white" />
                     </div>
@@ -135,54 +138,79 @@ const ActivityCard = ({
 };
 
 export default function ThingsToDoContent() {
+    const [activities, setActivities] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchActivities = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/activities`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setActivities(data);
+                }
+            } catch (error) {
+                console.error("Error fetching activities:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchActivities();
+    }, []);
+
     return (
         <div className="bg-stone-50 text-stone-900 font-[var(--text-font)]">
             <section className="relative py-24 bg-stone-50 overflow-hidden">
                 <div className="container-max relative z-10 px-4 md:px-0">
                     <SectionHeader title="Infinite Experiences" subtitle="What to Do" light={false} />
  
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 auto-rows-[400px]">
-                        {activities.map((activity, i) => {
-                            // Asymmetrical grid pattern similar to Experiences
-                            let colSpan = "lg:col-span-4";
-                            let rowSpan = "row-span-1";
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 auto-rows-[400px] min-h-[800px]">
+                        {loading ? (
+                            <div className="col-span-full h-96 flex items-center justify-center">
+                                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
+                            </div>
+                        ) : (
+                            activities.map((activity, i) => {
+                                let colSpan = "lg:col-span-4";
+                                let rowSpan = "row-span-1";
 
-                            if (i === 0) {
-                                colSpan = "lg:col-span-8";
-                                rowSpan = "row-span-2";
-                            } else if (i === 1) {
-                                colSpan = "lg:col-span-4";
-                                rowSpan = "row-span-2";
-                            } else if (i === 2) {
-                                colSpan = "lg:col-span-5";
-                                rowSpan = "row-span-1";
-                            } else if (i === 3) {
-                                colSpan = "lg:col-span-7";
-                                rowSpan = "row-span-1";
-                            } else if (i === 4) {
-                                colSpan = "lg:col-span-7";
-                                rowSpan = "row-span-1";
-                            } else if (i === 5) {
-                                colSpan = "lg:col-span-5";
-                                rowSpan = "row-span-1";
-                            }
+                                if (i === 0) {
+                                    colSpan = "lg:col-span-8";
+                                    rowSpan = "row-span-2";
+                                } else if (i === 1) {
+                                    colSpan = "lg:col-span-4";
+                                    rowSpan = "row-span-2";
+                                } else if (i === 2) {
+                                    colSpan = "lg:col-span-5";
+                                    rowSpan = "row-span-1";
+                                } else if (i === 3) {
+                                    colSpan = "lg:col-span-7";
+                                    rowSpan = "row-span-1";
+                                } else if (i === 4) {
+                                    colSpan = "lg:col-span-7";
+                                    rowSpan = "row-span-1";
+                                } else if (i === 5) {
+                                    colSpan = "lg:col-span-5";
+                                    rowSpan = "row-span-1";
+                                }
 
-                            return (
-                                <ActivityCard 
-                                    key={i} 
-                                    slug={activity.slug}
-                                    title={activity.title}
-                                    icon={activity.icon}
-                                    desc={activity.description}
-                                    tag={activity.tag}
-                                    image={activity.image}
-                                    delay={0.1 * (i + 1)}
-                                    color={activity.color === 'secondary' ? 'secondary' : activity.color}
-                                    colSpan={colSpan}
-                                    rowSpan={rowSpan}
-                                />
-                            );
-                        })}
+                                return (
+                                    <ActivityCard 
+                                        key={i} 
+                                        slug={activity.slug}
+                                        title={activity.name}
+                                        icon={activity.icon}
+                                        desc={activity.description}
+                                        tag={activity.tag}
+                                        image={activity.image}
+                                        delay={0.1 * (i + 1)}
+                                        color={activity.color || 'secondary'}
+                                        colSpan={colSpan}
+                                        rowSpan={rowSpan}
+                                    />
+                                );
+                            })
+                        )}
                     </div>
                 </div>
             </section>

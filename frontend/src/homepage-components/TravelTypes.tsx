@@ -1,8 +1,6 @@
-"use client"
-
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mountain, Plane, Footprints, Landmark, Sparkles, Compass } from "lucide-react"
+import { Mountain, Plane, Footprints, Landmark, Sparkles, Compass, Map, Wind, Milestone, Utensils } from "lucide-react"
 import Image from "next/image"
 
 interface TravelImage {
@@ -20,152 +18,74 @@ interface Category {
   images: TravelImage[]
 }
 
+const IconMap: Record<string, any> = {
+  Mountain: <Mountain size={14} />,
+  Map: <Map size={14} />,
+  Compass: <Compass size={14} />,
+  Wind: <Wind size={14} />,
+  Milestone: <Milestone size={14} />,
+  Utensils: <Utensils size={14} />,
+  Trekking: <Footprints size={14} />,
+  Adrenaline: <Sparkles size={14} />,
+  Spiritual: <Landmark size={14} />,
+  Luxury: <Plane size={14} />,
+  Culture: <Landmark size={14} />
+};
+
 export default function TravelTypes() {
   const [activeCategory, setActiveCategory] = useState(0)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [categories, setCategories] = useState<Category[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const categories: Category[] = [
-    {
-      id: 0,
-      name: "Trekking",
-      icon: <Footprints size={14} />,
-      images: [
-        {
-          src: "https://i.pinimg.com/736x/a7/bf/1e/a7bf1e89e823fa7d73995f86b62826b6.jpg",
-          title: "Everest Base Camp",
-          description: "A legendary journey through the Khumbu Valley to the foot of the world's highest peak.",
-          meta: "5,364m Altitude",
-          coords: "28.00°N / 86.85°E"
-        },
-        {
-          src: "https://i.pinimg.com/1200x/be/a6/d5/bea6d530c1db57a39a053315cd7963c0.jpg",
-          title: "Annapurna Circuit",
-          description: "One of the most diverse treks in the world, crossing the Thorong La Pass.",
-          meta: "High Mountain Pass",
-          coords: "28.59°N / 83.84°E"
-        },
-        {
-          src: "https://i.pinimg.com/1200x/af/be/09/afbe09490d1b0fe08080205eaabf907a.jpg",
-          title: "Langtang Valley",
-          description: "The valley of glaciers, offering authentic Tamang culture and stunning vistas.",
-          meta: "Glacial Valley",
-          coords: "28.21°N / 85.51°E"
+  useEffect(() => {
+    const fetchActivities = async () => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/activities`);
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Group activities by categoryId
+                const grouped: Category[] = [
+                    { id: 0, name: "Trekking", icon: IconMap.Trekking, images: [] },
+                    { id: 1, name: "Adrenaline", icon: IconMap.Adrenaline, images: [] },
+                    { id: 2, name: "Spiritual", icon: IconMap.Spiritual, images: [] },
+                    { id: 3, name: "Luxury", icon: IconMap.Luxury, images: [] },
+                    { id: 4, name: "Culture", icon: IconMap.Culture, images: [] }
+                ];
+
+                data.forEach((activity: any) => {
+                    const catIndex = activity.categoryId ?? 0;
+                    if (grouped[catIndex]) {
+                        grouped[catIndex].images.push({
+                            src: activity.image,
+                            title: activity.name,
+                            description: activity.description,
+                            meta: activity.tag,
+                            coords: activity.highlights[0] || "Nepal"
+                        });
+                    }
+                });
+
+                // Fallback for empty categories if any
+                setCategories(grouped.filter(c => c.images.length > 0));
+            }
+        } catch (error) {
+            console.error("Error fetching homepage activities:", error);
+        } finally {
+            setLoading(false);
         }
-      ],
-    },
-    {
-      id: 1,
-      name: "Adrenaline",
-      icon: <Sparkles size={14} />,
-      images: [
-        {
-          src: "https://i.pinimg.com/736x/21/9f/b1/219fb1ed3977a900b75c831f0132c09b.jpg",
-          title: "The Last Resort Bungee",
-          description: "One of the world's most spectacular jumps over the Bhote Koshi River.",
-          meta: "160m Freefall",
-          coords: "27.87°N / 85.89°E"
-        },
-        {
-          src: "https://i.pinimg.com/736x/a8/35/b2/a835b2a7308707b408b323d465d57a2f.jpg",
-          title: "Pokhara Paragliding",
-          description: "Soar with the eagles while overlooking the Phewa Lake and Annapurna range.",
-          meta: "Aerial Adventure",
-          coords: "28.21°N / 83.96°E"
-        },
-        {
-          src: "https://i.pinimg.com/736x/65/8b/7b/658b7bc03c2602481445af3b4047312b.jpg",
-          title: "Trishuli White Water",
-          description: "Experience the thrill of Grade IV rapids in the heart of the Himalayas.",
-          meta: "River Expedition",
-          coords: "27.82°N / 84.81°E"
-        }
-      ],
-    },
-    {
-      id: 2,
-      name: "Spiritual",
-      icon: <Landmark size={14} />,
-      images: [
-        {
-          src: "https://i.pinimg.com/736x/65/8b/7b/658b7bc03c2602481445af3b4047312b.jpg",
-          title: "Boudhanath Stupa",
-          description: "The center of Tibetan Buddhism in Nepal, surrounded by vibrant monasteries.",
-          meta: "UNESCO Heritage",
-          coords: "27.72°N / 85.36°E"
-        },
-        {
-          src: "https://i.pinimg.com/736x/d7/73/53/d7735375c9f6ca6afe8a3681cfbfbdcb.jpg",
-          title: "Birthplace of Buddha",
-          description: "Follow the footsteps of Siddhartha Gautama in the sacred gardens of Lumbini.",
-          meta: "Sacred Site",
-          coords: "27.48°N / 83.27°E"
-        },
-        {
-          src: "https://i.pinimg.com/736x/8d/e8/0e/8de80efb0939c721f3379f311cd8e5f7.jpg",
-          title: "Pashupatinath Temple",
-          description: "The most sacred Hindu temple in Nepal, a place of profound tradition.",
-          meta: "Cultural Landmark",
-          coords: "27.71°N / 85.34°E"
-        }
-      ],
-    },
-    {
-      id: 3,
-      name: "Luxury",
-      icon: <Plane size={14} />,
-      images: [
-        {
-          src: "https://i.pinimg.com/736x/a5/b3/d6/a5b3d69b34ddab883efe8fae9c545081.jpg",
-          title: "Himalayan Heli Tour",
-          description: "Breakfast at the Everest View Hotel with panoramic views of the giants.",
-          meta: "VIP Experience",
-          coords: "Above Khumbu"
-        },
-        {
-          src: "https://i.pinimg.com/736x/67/58/41/675841252ea3f17c6208950446d0d830.jpg",
-          title: "Dwarika's Heritage",
-          description: "Stay in a living museum that preserves the finest Newari architecture.",
-          meta: "Cultural Stay",
-          coords: "27.70°N / 85.34°E"
-        },
-        {
-          src: "https://i.pinimg.com/736x/76/02/8f/76028f432460c40d50eac15fad6ae448.jpg",
-          title: "Mountain Air Expedition",
-          description: "A private flight covering all eight 8,000m peaks of Nepal in one morning.",
-          meta: "Exclusive Journey",
-          coords: "Panoramic Route"
-        }
-      ],
-    },
-    {
-      id: 4,
-      name: "Culture",
-      icon: <Mountain size={14} />,
-      images: [
-        {
-          src: "https://i.pinimg.com/736x/00/31/2e/00312e7cdff1bfa307d51c0bd5df365c.jpg",
-          title: "Kathmandu Durbar Square",
-          description: "The historic heart of the city, home to the Living Goddess Kumari.",
-          meta: "Royal Heritage",
-          coords: "27.70°N / 85.30°E"
-        },
-        {
-          src: "https://i.pinimg.com/736x/fe/6d/7a/fe6d7aba6565aa703344665ad54855f6.jpg",
-          title: "Bhaktapur Pottery",
-          description: "Witness age-old traditions in the best-preserved medieval city of the valley.",
-          meta: "Ancient Craft",
-          coords: "27.67°N / 85.42°E"
-        },
-        {
-          src: "https://i.pinimg.com/736x/e3/8b/10/e38b10e1f2c1297ba494d0acfae21255.jpg",
-          title: "Patan Art & Metalwork",
-          description: "Explore the City of Fine Arts and its incredible metal crafting heritage.",
-          meta: "Artisan Soul",
-          coords: "27.67°N / 8 Patan"
-        }
-      ],
-    },
-  ]
+    };
+    fetchActivities();
+  }, []);
+
+  if (loading || categories.length === 0) {
+    return (
+        <section className="bg-stone-50 py-32 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
+        </section>
+    );
+  }
 
   const currentCategory = categories[activeCategory]
   const currentImages = currentCategory.images

@@ -119,13 +119,13 @@ export default function PlacesToGoContent() {
         fetchDestinations();
     }, []);
 
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
-            </div>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <div className="min-h-screen bg-stone-50 flex items-center justify-center">
+    //             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className="bg-stone-50 text-stone-900 font-[var(--text-font)]">
@@ -137,8 +137,8 @@ export default function PlacesToGoContent() {
                         <DestinationCard 
                             key={i} 
                             slug={dest.slug}
-                            title={dest.title}
-                            location={dest.location}
+                            title={dest.name}
+                            location={dest.location || "Nepal"}
                             desc={dest.description}
                             image={dest.image}
                             delay={0.1 * (i + 1)}

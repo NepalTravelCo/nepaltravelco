@@ -1,49 +1,34 @@
-"use client"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, HelpCircle } from "lucide-react"
 
 type FAQItem = {
+  id: string
   question: string
   answer: string
 }
 
 function FAQ() {
+  const [faqs, setFaqs] = useState<FAQItem[]>([])
+  const [loading, setLoading] = useState(true)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
-  const faqData: FAQItem[] = [
-    {
-      question: "What is the best time to visit Nepal?",
-      answer:
-        "The best time to visit Nepal is during autumn (September–November) and spring (March–May). Autumn offers clear mountain views and stable weather, while spring brings blooming rhododendrons and moderate temperatures.",
-    },
-    {
-      question: "Do I need a visa to visit Nepal?",
-      answer:
-        "Most visitors need a visa to enter Nepal. Tourist visas are available on arrival at Tribhuvan International Airport and major border crossings, or can be obtained in advance from Nepalese embassies.",
-    },
-    {
-      question: "What should I pack for trekking in Nepal?",
-      answer:
-        "Essential trekking gear includes sturdy hiking boots, layered clothing, a warm sleeping bag, rain gear, sun protection, a first aid kit, water purification tablets, and a headlamp.",
-    },
-    {
-      question: "Is it safe to travel solo in Nepal?",
-      answer:
-        "Nepal is generally safe for solo travelers. The Nepalese people are known for their hospitality. However, trekking with a guide or group is recommended on remote trails.",
-    },
-    {
-      question: "What is altitude sickness and how to prevent it?",
-      answer:
-        "Altitude sickness occurs when ascending too quickly. Prevent it by ascending gradually, acclimatizing properly, staying hydrated, and listening to your body.",
-    },
-    {
-      question: "What kind of accommodation is available during treks?",
-      answer:
-        "Accommodation ranges from basic teahouses to comfortable lodges depending on the route. Popular routes have well-established teahouses with beds, blankets, and meals.",
-    },
-  ]
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/faqs`)
+        if (response.ok) {
+          const data = await response.json()
+          setFaqs(data)
+        }
+      } catch (error) {
+        console.error("Error fetching FAQs:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchFaqs()
+  }, [])
 
   const toggleFAQ = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index)
@@ -56,6 +41,12 @@ function FAQ() {
       <div
         className="container-max w-full"
       >
+        {loading ? (
+           <div className="flex items-center justify-center h-[400px]">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
+            </div>
+        ) : (
+          <>
         {/* Header */}
         <div className="text-center mb-16">
           <motion.span
@@ -89,7 +80,7 @@ function FAQ() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {/* Left Column */}
           <div className="space-y-4">
-            {faqData.filter((_, i) => i % 2 === 0).map((faq, index) => {
+            {faqs.filter((_, i) => i % 2 === 0).map((faq, index) => {
               const actualIndex = index * 2
               return (
                 <div
@@ -149,7 +140,7 @@ function FAQ() {
 
           {/* Right Column */}
           <div className="space-y-4">
-            {faqData.filter((_, i) => i % 2 !== 0).map((faq, index) => {
+            {faqs.filter((_, i) => i % 2 !== 0).map((faq, index) => {
               const actualIndex = index * 2 + 1
               return (
                 <div
@@ -207,6 +198,8 @@ function FAQ() {
             })}
           </div>
         </div>
+        </>
+        )}
       </div>
     </section>
   )

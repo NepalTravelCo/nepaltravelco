@@ -110,7 +110,7 @@ function ContactForm() {
     if (currentStep > 1) setCurrentStep(prev => prev - 1)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (currentStep !== 3) {
       nextStep()
@@ -118,12 +118,35 @@ function ContactForm() {
     }
     
     setIsSubmitting(true)
-    // Simulate API call
-    setTimeout(() => {
+    
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/contacts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setIsSuccess(true)
+        setFormData({
+          name: '', email: '', phone: '', nationality: '',
+          destination: '', duration: '', groupSize: '', 
+          budget: '', accommodation: '', tripType: '', message: ''
+        })
+        setCurrentStep(1)
+        setTimeout(() => setIsSuccess(false), 5000)
+      } else {
+        const errorData = await response.json()
+        alert(errorData.message || 'Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      alert('Could not reach the server. Please check your internet connection.')
+    } finally {
       setIsSubmitting(false)
-      setIsSuccess(true)
-      setTimeout(() => setIsSuccess(false), 5000)
-    }, 1500)
+    }
   }
 
   const updateField = (field: string, value: string) => {

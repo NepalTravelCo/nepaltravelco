@@ -6,7 +6,12 @@ import destinationRoutes from './routes/destinations';
 import experienceRoutes from './routes/experiences';
 import trekRoutes from './routes/treks';
 import regionRoutes from './routes/regions';
-import searchRoutes from './routes/search';
+import searchRouter from "./routes/search";
+import activitiesRouter from "./routes/activities";
+import packagesRouter from "./routes/packages";
+import seasonsRouter from "./routes/seasons";
+import faqsRouter from "./routes/faqs";
+import contactsRouter from "./routes/contacts";
 
 dotenv.config();
 
@@ -22,7 +27,12 @@ app.use('/api/destinations', destinationRoutes);
 app.use('/api/experiences', experienceRoutes);
 app.use('/api/treks', trekRoutes);
 app.use('/api/regions', regionRoutes);
-app.use('/api/search', searchRoutes);
+app.use("/api/search", searchRouter);
+app.use("/api/activities", activitiesRouter);
+app.use("/api/packages", packagesRouter);
+app.use("/api/seasons", seasonsRouter);
+app.use("/api/faqs", faqsRouter);
+app.use("/api/contacts", contactsRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Nepal Travel Co Backend API is running' });

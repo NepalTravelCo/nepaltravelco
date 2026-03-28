@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronDown, Search, ArrowRight, Star } from "lucide-react"
-import { experiences } from "@/app/experiences/data"
+// import { experiences } from "@/app/experiences/data"
 import FullScreenSearch from "./FullScreenSearch"
 
 const Navigation = () => {
@@ -17,8 +17,29 @@ const Navigation = () => {
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
   const [isHovered, setIsHovered] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  
+  const [experiences, setExperiences] = useState<any[]>([])
+  const [trekkingRegions, setTrekkingRegions] = useState<any[]>([])
 
   const pathname = usePathname()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+        const [expRes, regRes] = await Promise.all([
+          fetch(`${backendUrl}/api/experiences`),
+          fetch(`${backendUrl}/api/regions`)
+        ]);
+        
+        if (expRes.ok) setExperiences(await expRes.json());
+        if (regRes.ok) setTrekkingRegions(await regRes.json());
+      } catch (error) {
+        console.error("Error fetching navigation data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,14 +81,10 @@ const Navigation = () => {
     // { name: "Visa Information", href: "/visa-information", icon: "Document" },
   ]
 
-  const trekkingRegions = [
-    { name: "Annapurna Region", count: "12 Trails" },
-    { name: "Everest Region", count: "8 Trails" },
-    { name: "Langtang Region", count: "5 Trails" },
-    { name: "Manaslu Region", count: "4 Trails" },
-    { name: "Mustang Region", count: "6 Trails" },
-    { name: "Dolpo Region", count: "3 Trails" },
-  ]
+  // const trekkingRegions = [
+  //   { name: "Annapurna Region", count: "12 Trails" },
+  //   ...
+  // ]
 
   return (
     <>
@@ -147,7 +164,7 @@ const Navigation = () => {
                                       >
                                         <div>
                                           <p className="text-sm font-bold text-primary group-hover/item:text-secondary transition-colors">{region.name}</p>
-                                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{region.count}</p>
+                                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{region.trailCount || (region.treks?.length)} Trails</p>
                                         </div>
                                         <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
                                       </a>
@@ -160,7 +177,7 @@ const Navigation = () => {
                                         className="group/item flex items-center justify-between py-3 px-4 rounded-xl hover:bg-stone-50 transition-all duration-300"
                                       >
                                         <div>
-                                          <p className="text-sm font-bold text-primary group-hover/item:text-secondary transition-colors">{exp.title}</p>
+                                          <p className="text-sm font-bold text-primary group-hover/item:text-secondary transition-colors">{exp.name}</p>
                                           <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{exp.difficulty} · {exp.duration}</p>
                                         </div>
                                         <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
@@ -229,9 +246,9 @@ const Navigation = () => {
                                   <>
                                     <div className="flex-1">
                                       <span className="text-secondary text-[10px] font-bold uppercase tracking-[0.3em] mb-4 block">Featured Experience</span>
-                                      <h3 className="font-[var(--heading-font)] text-4xl font-bold text-primary mb-6">{experiences[0].title}</h3>
+                                      <h3 className="font-[var(--heading-font)] text-4xl font-bold text-primary mb-6">{experiences[0]?.name}</h3>
                                       <p className="text-stone-500 text-sm leading-relaxed mb-8 max-w-sm">
-                                        {experiences[0].description}
+                                        {experiences[0]?.description}
                                       </p>
                                       <Link
                                         href="/experiences"
@@ -243,8 +260,8 @@ const Navigation = () => {
 
                                     <div className="flex-1 relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                                       <Image
-                                        src={experiences[0].image}
-                                        alt={experiences[0].title}
+                                        src={experiences[0]?.image || "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070"}
+                                        alt={experiences[0]?.name || "Featured Experience"}
                                         fill
                                         className="object-cover transition-transform duration-700 hover:scale-110"
                                       />
@@ -252,8 +269,8 @@ const Navigation = () => {
                                       <div className="absolute bottom-6 left-6 right-6">
                                         <div className="flex justify-between items-end">
                                           <div>
-                                            <p className="text-white text-xl font-bold mb-1">{experiences[0].title}</p>
-                                            <p className="text-white/70 text-xs font-medium uppercase tracking-widest">{experiences[0].subtitle}</p>
+                                            <p className="text-white text-xl font-bold mb-1">{experiences[0]?.name}</p>
+                                            <p className="text-white/70 text-xs font-medium uppercase tracking-widest">{experiences[0]?.subtitle}</p>
                                           </div>
                                           <div className="bg-[var(--accent)] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
                                             Handpicked
@@ -400,11 +417,11 @@ const Navigation = () => {
                       >
                         <div className="flex items-center gap-4 bg-stone-50 p-6 rounded-3xl">
                           <div className="w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center overflow-hidden relative">
-                            <Image src={exp.image} alt={exp.title} fill className="object-cover opacity-50" />
+                            <Image src={exp.image} alt={exp.name} fill className="object-cover opacity-50" />
                             <Star size={20} className="relative z-10" />
                           </div>
                           <div>
-                            <p className="font-bold text-primary">{exp.title}</p>
+                            <p className="font-bold text-primary">{exp.name}</p>
                             <p className="text-xs text-stone-400 mt-0.5">{exp.subtitle}</p>
                           </div>
                         </div>
