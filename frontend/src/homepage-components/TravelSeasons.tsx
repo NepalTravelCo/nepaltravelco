@@ -4,8 +4,16 @@ import { motion, useInView } from "framer-motion"
 import { ArrowRight, Calendar } from "lucide-react"
 import Image from "next/image"
 
+interface Season {
+  slug: string
+  name: string
+  image: string
+  bestMonths: string[]
+  description: string
+}
+
 export default function TravelSeasons() {
-  const [seasons, setSeasons] = useState<any[]>([])
+  const [seasons, setSeasons] = useState<Season[]>([])
   const [loading, setLoading] = useState(true)
   const containerRef = useRef(null)
   const isInView = useInView(containerRef, { once: true, margin: "-100px" })
