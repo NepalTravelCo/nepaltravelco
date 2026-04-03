@@ -74,7 +74,7 @@ function FooterSection() {
                 Information
               </h3>
               <ul className="grid grid-cols-1 gap-4">
-                {["Privacy Policy", "Terms & Conditions", "Travel Disclaimers", "Safety First"].map((link) => (
+                {["Privacy Policy", "Terms and Conditions", "Travel Disclaimers", "Safety First"].map((link) => (
                   <li key={link}>
                     <Link
                       href={`/${link.toLowerCase().replace(/ /g, "-")}`}
