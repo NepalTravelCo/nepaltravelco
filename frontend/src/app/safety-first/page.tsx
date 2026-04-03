@@ -1,6 +1,5 @@
 import Navigation from '@/header-component/Navigation'
 import FooterSection from '@/footer-components/FooterSection'
-import SafetyFirstHero from './SafetyFirstHero'
 import SafetyFirstContent from './SafetyFirstContent'
 import React from 'react'
 
@@ -10,9 +9,7 @@ function page() {
       <Navigation />
 
       <main className="w-full relative">
-        <div className="relative z-10">
-          <SafetyFirstHero />
-        </div>
+       
 
         <div className="relative z-20">
           <SafetyFirstContent />

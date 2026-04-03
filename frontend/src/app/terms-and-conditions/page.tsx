@@ -1,6 +1,5 @@
 import Navigation from '@/header-component/Navigation'
 import FooterSection from '@/footer-components/FooterSection'
-import TermsAndConditionsHero from './TermsAndConditionsHero'
 import TermsAndConditionsContent from './TermsAndConditionsContent'
 import React from 'react'
 
@@ -10,9 +9,7 @@ function page() {
       <Navigation />
 
       <main className="w-full relative">
-        <div className="relative z-10">
-          <TermsAndConditionsHero />
-        </div>
+        
 
         <div className="relative z-20">
           <TermsAndConditionsContent />

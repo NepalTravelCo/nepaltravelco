@@ -1,6 +1,5 @@
 import Navigation from '@/header-component/Navigation'
 import FooterSection from '@/footer-components/FooterSection'
-import PrivacyPolicyHero from './PrivacyPolicyHero'
 import PrivacyPolicyContent from './PrivacyPolicyContent'
 import React from 'react'
 
@@ -10,9 +9,7 @@ function page() {
       <Navigation />
 
       <main className="w-full relative">
-        <div className="relative z-10">
-          <PrivacyPolicyHero />
-        </div>
+        
 
         <div className="relative z-20">
           <PrivacyPolicyContent />
