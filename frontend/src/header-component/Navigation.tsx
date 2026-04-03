@@ -328,7 +328,7 @@ const Navigation = () => {
               ))}
             </ul>
 
-            <div className="flex items-center gap-6 border-l border-current/10 pl-10 ml-2">
+            <div className="flex items-center gap-6  pl-10 ml-2">
               <button
                 onClick={() => setIsSearchOpen(true)}
                 className={`p-2 transition-colors ${(isScrolled || isHovered) ? "text-primary" : "text-white"} hover:text-secondary`}
