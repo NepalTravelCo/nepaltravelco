@@ -1,58 +1,90 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 type RegionKey = "Himalayan" | "Hilly" | "Terai"
 
-const regionData: Record<
-  RegionKey,
-  { description: string; highlights: string[]; image: string; tag: string }
-> = {
-  Himalayan: {
-    tag: "The Roof of the World",
-    description:
-      "The Himalayan region of Nepal is home to towering peaks and legendary trekking destinations like Everest, Annapurna, and Mustang.",
-    highlights: ["Mount Everest", "Annapurna Base Camp", "Upper Mustang", "Manaslu Trek"],
-    image: "/Images/SVG/mountains.svg",
-  },
-  Hilly: {
-    tag: "The Cultural Heartland",
-    description:
-      "The Hilly region boasts the cultural heart of Nepal, including Kathmandu, Pokhara, and historical hill towns rich in heritage.",
-    highlights: ["Kathmandu Valley", "Pokhara", "Bandipur", "Palpa"],
-    image: "/Images/SVG/hills.svg",
-  },
-  Terai: {
-    tag: "The Tropical Lowlands",
-    description:
-      "The Terai region features lush jungles, national parks, and the agricultural plains of southern Nepal.",
-    highlights: ["Chitwan National Park", "Lumbini", "Bardia National Park", "Janakpur"],
-    image: "/Images/SVG/terai.svg",
-  },
-}
+type RegionDataItem = { description: string; highlights: string[]; image: string; tag: string }
 
 type Slide =
   | { type: "overview"; title: string; subtitle: string; description: string }
   | { type: "region"; regionKey: RegionKey; title: string; subtitle: string }
 
-const slides: Slide[] = [
-  {
-    type: "overview",
-    title: "Diverse Landscapes",
-    subtitle: "The Magnificent Three",
-    description:
-      "Planning a trip to Nepal but don't know where to start? Let us introduce you to our three major regions—from towering peaks to lush jungles.",
-  },
-  { type: "region", regionKey: "Himalayan", title: "Himalayan Region", subtitle: "Where mountains touch the sky" },
-  { type: "region", regionKey: "Hilly", title: "Hilly Region", subtitle: "Cultural heart of Nepal" },
-  { type: "region", regionKey: "Terai", title: "Terai Region", subtitle: "Wildlife and ancient heritage" },
-]
-
-export default function TravelRegions() {
+export default function TravelRegions({ onLoaded }: { onLoaded?: () => void }) {
+  const [slides, setSlides] = useState<Slide[]>([])
+  const [regionData, setRegionData] = useState<Record<RegionKey, RegionDataItem>>({} as any)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchRegions = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"}/api/sections?category=travel-regions`)
+        if (response.ok) {
+          const data = await response.json()
+          if (!Array.isArray(data)) {
+            console.error("Travel Regions data is not an array:", data)
+            return
+          }
+
+        // Separate overview and regions
+        const overviewItem = data.find((item: any) => item.tag === "overview")
+        const regionItems = data.filter((item: any) => item.tag === "region")
+
+        const newSlides: Slide[] = []
+        const newRegionData: any = {}
+
+        if (overviewItem) {
+          newSlides.push({
+            type: "overview",
+            title: overviewItem.title,
+            subtitle: overviewItem.subtitle,
+            description: overviewItem.content,
+          })
+        }
+
+        regionItems.forEach((item: any) => {
+          const key = item.metadata?.regionKey as RegionKey
+          if (key) {
+            newSlides.push({
+              type: "region",
+              regionKey: key,
+              title: item.title,
+              subtitle: item.subtitle,
+            })
+            newRegionData[key] = {
+              tag: item.metadata?.tag,
+              description: item.content,
+              highlights: item.metadata?.highlights || [],
+              image: item.mainImage,
+            }
+          }
+        })
+
+        setSlides(newSlides)
+        setRegionData(newRegionData)
+        } else {
+          console.error("Server returned error for regions:", response.status)
+        }
+      } catch (error) {
+        console.error("Error fetching travel regions:", error)
+      } finally {
+        setLoading(false)
+        if (onLoaded) onLoaded()
+      }
+    }
+    fetchRegions()
+  }, []) // Remove onLoaded from dependency to fetch only once
+
+  if (loading) return null;
+  if (slides.length === 0) {
+    console.warn("No travel regions data found - check seeding.");
+    return null;
+  }
+
   const slide = slides[currentSlide]
 
   const goToNext = () => setCurrentSlide((prev) => (prev + 1) % slides.length)
@@ -60,12 +92,6 @@ export default function TravelRegions() {
 
   return (
     <section className="relative z-10 w-full min-h-screen lg:h-[800px] overflow-hidden bg-primary text-white">
-      {/* Background Decorative Elements */}
-      {/* <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent rounded-full blur-[120px]" />
-      </div> */}
-
       <div className="container-max h-full relative z-10 py-20 flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
 
@@ -81,7 +107,7 @@ export default function TravelRegions() {
                 className="max-w-xl"
               >
                 <span className="text-secondary font-semibold tracking-widest uppercase text-xs mb-4 block">
-                  {slide.type === "overview" ? "Nepal at a Glance" : regionData[slide.regionKey].tag}
+                  {slide.type === "overview" ? "Nepal at a Glance" : regionData[slide.regionKey]?.tag}
                 </span>
                 <h1 className="font-[var(--heading-font)] text-5xl md:text-7xl font-bold mb-8 leading-tight text-white">
                   {slide.type === "overview" ? slide.subtitle : slide.title}
@@ -92,9 +118,9 @@ export default function TravelRegions() {
                     slide.description
                   ) : (
                     <>
-                      <p className="mb-8">{regionData[slide.regionKey].description}</p>
+                      <p className="mb-8">{regionData[slide.regionKey]?.description}</p>
                       <div className="grid grid-cols-2 gap-4">
-                        {regionData[slide.regionKey].highlights.map((place, idx) => (
+                        {regionData[slide.regionKey]?.highlights.map((place, idx) => (
                           <div key={idx} className="flex items-center gap-3">
                             <div className="w-1.5 h-1.5 bg-secondary rounded-full" />
                             <span className="text-base text-stone-200">{place}</span>
@@ -106,11 +132,6 @@ export default function TravelRegions() {
                 </div>
 
                 <div className="flex items-center gap-8">
-                  {/* <button className="flex items-center gap-3 group text-white font-semibold">
-                    <span>Learn More</span>
-                    <ArrowRight size={20} className="transition-transform group-hover:translate-x-2 text-secondary" />
-                  </button> */}
-
                   <div className="flex gap-4">
                     <button onClick={goToPrev} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
                       <ChevronLeft size={20} />
@@ -137,8 +158,8 @@ export default function TravelRegions() {
               >
                 <div className="absolute inset-0 bg-secondary/20 rounded-full blur-[100px] -z-10 scale-150" />
                 <Image
-                  src={slide.type === "overview" ? "/Images/SVG/nepal.svg" : regionData[slide.regionKey].image}
-                  alt={slide.title}
+                  src={slide.type === "overview" ? "/Images/SVG/nepal.svg" : regionData[slide.regionKey]?.image || "/placeholder.svg"}
+                  alt={slide.type === "overview" ? "Nepal Map" : slide.title}
                   width={600}
                   height={500}
                   className="w-full max-w-[500px] h-auto object-contain filter drop-shadow-[0_0_50px_rgba(0,0,0,0.5)]"

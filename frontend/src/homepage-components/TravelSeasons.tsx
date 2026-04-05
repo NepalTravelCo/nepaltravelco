@@ -12,7 +12,7 @@ interface Season {
   description: string
 }
 
-export default function TravelSeasons() {
+export default function TravelSeasons({ onLoaded }: { onLoaded?: () => void }) {
   const [seasons, setSeasons] = useState<Season[]>([])
   const [loading, setLoading] = useState(true)
   const containerRef = useRef(null)
@@ -25,24 +25,37 @@ export default function TravelSeasons() {
   useEffect(() => {
     const fetchSeasons = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/seasons`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/seasons`)
         if (response.ok) {
           const data = await response.json()
-          setSeasons(data)
+          if (Array.isArray(data)) {
+            setSeasons(data)
+          }
+        } else {
+          console.error("Server returned error for seasons:", response.status)
         }
       } catch (error) {
         console.error("Error fetching seasons:", error)
       } finally {
         setLoading(false)
+        if (onLoaded) onLoaded()
       }
     }
     fetchSeasons()
+  }, [])
 
+  useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024)
     checkMobile()
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
+
+  if (loading) return null;
+  if (seasons.length === 0) {
+    console.warn("No seasons data found - check seeding.");
+    return null; // Still returning null if empty, but after loading is done
+  }
 
   return (
     <section className="bg-stone-50 py-24 md:py-32 overflow-hidden min-h-[750px] md:min-h-[1000px] flex flex-col items-center justify-center relative">
@@ -78,12 +91,7 @@ export default function TravelSeasons() {
         ref={containerRef}
         className="relative w-full max-w-7xl h-[450px] md:h-[600px] flex items-center justify-center pt-24"
       >
-        {loading ? (
-             <div className="flex items-center justify-center -translate-y-20">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
-            </div>
-        ) : (
-            <div className="relative w-full h-full flex items-center justify-center translate-y-[-20px] md:translate-y-[-50px]">
+        <div className="relative w-full h-full flex items-center justify-center translate-y-[-20px] md:translate-y-[-50px]">
                 {seasons.map((season, idx) => {
                     const total = seasons.length
                     const center = (total - 1) / 2
@@ -184,7 +192,6 @@ export default function TravelSeasons() {
                     )
                 })}
             </div>
-        )}
       </div>
 
       {/* Background decoration to add depth */}

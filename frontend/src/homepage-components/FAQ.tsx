@@ -10,7 +10,7 @@ type FAQItem = {
   answer: string
 }
 
-function FAQ() {
+function FAQ({ onLoaded }: { onLoaded?: () => void }) {
   const [faqs, setFaqs] = useState<FAQItem[]>([])
   const [loading, setLoading] = useState(true)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
@@ -18,15 +18,18 @@ function FAQ() {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/faqs`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/faqs`)
         if (response.ok) {
           const data = await response.json()
           setFaqs(data)
+        } else {
+          console.error("Server returned error for FAQs:", response.status)
         }
       } catch (error) {
         console.error("Error fetching FAQs:", error)
       } finally {
         setLoading(false)
+        if (onLoaded) onLoaded()
       }
     }
     fetchFaqs()
@@ -36,6 +39,8 @@ function FAQ() {
     setActiveIndex(activeIndex === index ? null : index)
   }
 
+  if (loading || faqs.length === 0) return null;
+
   return (
     <section
       className="sticky top-0 z-0 min-h-screen flex items-center bg-stone-50 overflow-hidden py-24"
@@ -43,12 +48,7 @@ function FAQ() {
       <div
         className="container-max w-full"
       >
-        {loading ? (
-           <div className="flex items-center justify-center h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
-            </div>
-        ) : (
-          <>
+        <>
         {/* Header */}
         <div className="text-center mb-16">
           <motion.span
@@ -201,7 +201,6 @@ function FAQ() {
           </div>
         </div>
         </>
-        )}
       </div>
     </section>
   )

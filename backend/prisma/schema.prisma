@@ -15,10 +15,10 @@ model User {
   emailVerified DateTime?
   image         String?
   role          String    @default("ADMIN")
-  accounts      Account[]
-  sessions      Session[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
 }
 
 model Account {
@@ -33,30 +33,27 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@id([provider, providerAccountId])
 }
- 
+
 model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
 
@@ -74,13 +71,13 @@ model Trek {
   highlights      String[]
   tips            String[]
   gallery         String[]
-  itinerary       Json     // Array of objects
-  estimatedCost   Json     // Object
+  itinerary       Json
+  estimatedCost   Json
   permits         String[]
-  regionId        String?
-  region          Region?  @relation(fields: [regionId], references: [id])
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  regionId        String?
+  region          Region?  @relation(fields: [regionId], references: [id])
 }
 
 model Region {
@@ -89,42 +86,42 @@ model Region {
   slug        String   @unique
   image       String
   trailCount  Int
-  altitude    Int      @default(3500) // Basecamp altitude in meters
   description String
-  treks       Trek[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  altitude    Int      @default(3500)
+  treks       Trek[]
 }
 
 model Experience {
   id              String   @id @default(cuid())
   slug            String   @unique
   name            String
-  subtitle        String?
   image           String
   description     String
   longDescription String[]
-  accent          String?
-  duration        String?
-  difficulty      String?
-  maxAltitude     String?
   bestMonths      String[]
   highlights      String[]
   tips            String[]
   gallery         String[]
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  accent          String?
+  difficulty      String?
+  duration        String?
+  maxAltitude     String?
+  subtitle        String?
 }
 
 model Destination {
   id          String   @id @default(cuid())
   slug        String   @unique
   name        String
-  location    String?   // Added for badges
   image       String
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  location    String?
 }
 
 model Activity {
@@ -133,27 +130,27 @@ model Activity {
   name        String
   tag         String
   description String
-  icon        String   // Lucide icon name
+  icon        String
   color       String?
   image       String
   highlights  String[]
-  categoryId  Int?     // For grouping in homepage TravelTypes
+  categoryId  Int?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model Package {
   id          String   @id @default(cuid())
-  slug        String?  @unique
   title       String
-  location    String?
-  image       String?
-  duration    String
-  price       Float
   description String
+  price       Float
+  duration    String
   features    String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  image       String?
+  location    String?
+  slug        String?  @unique
 }
 
 model Season {
@@ -181,19 +178,19 @@ model ContactInquiry {
   id            String   @id @default(cuid())
   name          String
   email         String
-  phone         String?
-  nationality   String?
+  subject       String?
+  message       String
+  status        String   @default("UNREAD")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  accommodation String?
+  budget        String?
   destination   String?
   duration      String?
   groupSize     String?
-  budget        String?
-  accommodation String?
+  nationality   String?
+  phone         String?
   tripType      String?
-  subject       String?
-  message       String
-  status        String   @default("UNREAD") // UNREAD, READ, REPLIED
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
 }
 
 model Booking {
@@ -201,12 +198,32 @@ model Booking {
   customerName  String
   customerEmail String
   phone         String?
-  serviceType   String   // Trek, Experience, or Package
-  serviceName   String   // Specific name e.g. "Everest Base Camp"
+  serviceType   String
+  serviceName   String
   date          DateTime
   guests        Int
-  status        String   @default("PENDING") // PENDING, CONFIRMED, CANCELLED
+  status        String   @default("PENDING")
   message       String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+}
+
+model InfoSection {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  category    String   // e.g., "explore-valley", "legal", "safety", "brand"
+  tag         String?  // e.g., "durbar-square", "festival"
+  title       String
+  subtitle    String?
+  mainImage   String?
+  gallery     String[]
+  shortText   String?
+  content     String   @db.Text
+  metadata    Json?    // For custom fields like "Established: 12th Century"
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([tag])
 }

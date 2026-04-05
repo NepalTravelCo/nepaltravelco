@@ -7,7 +7,7 @@ import Link from "next/link"
 import Image from "next/image"
 // import { treksData } from "@/data/Treks"
 
-const BrandInfo = () => {
+const BrandInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   const [startIndex, setStartIndex] = useState(0)
   const [treks, setTreks] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -15,16 +15,18 @@ const BrandInfo = () => {
   useEffect(() => {
     const fetchTreks = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/treks`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/treks`)
         if (response.ok) {
           const data = await response.json()
           setTreks(data)
+        } else {
+          console.error("Server returned error for treks:", response.status)
         }
       } catch (error) {
         console.error("Error fetching treks for BrandInfo:", error)
       } finally {
-        setLoading(true) // Wait, should be false, but I need to handle empty state
         setLoading(false)
+        if (onLoaded) onLoaded()
       }
     }
     fetchTreks()
@@ -54,9 +56,11 @@ const BrandInfo = () => {
   }, [handleNext])
 
   const getVisibleItems = () => {
+    if (trekkinginfo.length === 0) return []
     const items = []
     for (let i = 0; i < 3; i++) {
-      items.push(trekkinginfo[(startIndex + i) % trekkinginfo.length])
+        const item = trekkinginfo[(startIndex + i) % trekkinginfo.length]
+        if (item) items.push(item)
     }
     return items
   }

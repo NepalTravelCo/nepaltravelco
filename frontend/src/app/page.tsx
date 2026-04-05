@@ -1,33 +1,26 @@
 "use client"
 
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Homepage from '@/homepage-components/Homepage';
-import LoadingScreen from './LoadingScreen';
-import { useState, useEffect } from 'react';
 import Navigation from '@/header-component/Navigation';
 import FooterSection from '@/footer-components/FooterSection';
+import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 export default function Home() {
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading delay (e.g. assets, fonts, or APIs)
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000); // Adjust this time or use real loading logic
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return <LoadingScreen />;
-  }
+  const [isAllLoaded, setIsAllLoaded] = useState(false);
 
   return (
-    <div>
-      <Navigation />
-      <Homepage />
-      <FooterSection />
-    </div>
+    <main>
+      <AnimatePresence>
+        {!isAllLoaded && <LoadingOverlay key="global-loader" />}
+      </AnimatePresence>
+
+      <div className={isAllLoaded ? "opacity-100 transition-opacity duration-1000" : "opacity-0 h-screen overflow-hidden"}>
+        <Navigation />
+        <Homepage onAllLoaded={() => setIsAllLoaded(true)} />
+        <FooterSection />
+      </div>
+    </main>
   );
 }

@@ -12,6 +12,7 @@ import packagesRouter from "./routes/packages";
 import seasonsRouter from "./routes/seasons";
 import faqsRouter from "./routes/faqs";
 import contactsRouter from "./routes/contacts";
+import sectionsRouter from "./routes/sections";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use("/api/packages", packagesRouter);
 app.use("/api/seasons", seasonsRouter);
 app.use("/api/faqs", faqsRouter);
 app.use("/api/contacts", contactsRouter);
+app.use("/api/sections", sectionsRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Nepal Travel Co Backend API is running' });

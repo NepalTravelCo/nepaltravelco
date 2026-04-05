@@ -520,6 +520,228 @@ async function main() {
     });
   }
   console.log('FAQs seeded');
+
+  // Seed InfoSections (Universal Content Framework)
+  const infoSectionsData = [
+    // Explore Valley - Durbar Squares (Tag: durbar-square)
+    {
+      slug: "kathmandu-durbar-square",
+      category: "explore-valley",
+      tag: "durbar-square",
+      title: "Kathmandu Durbar Square",
+      subtitle: "Royal Palace of the Malla Kings",
+      mainImage: "https://i.pinimg.com/1200x/3a/e6/11/3ae61135291ed9e10306ae0c56e8333d.jpg",
+      gallery: [
+        "https://i.pinimg.com/1200x/3a/e6/11/3ae61135291ed9e10306ae0c56e8333d.jpg",
+        "https://images.unsplash.com/photo-1605640840605-14ac1855827b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1609942072337-c3370e820005?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      ],
+      shortText: "Located at the heart of the old city, Kathmandu Durbar Square is a vibrant testament to the architectural brilliance of the Malla dynasty.",
+      content: `Kathmandu Durbar Square stands as the beating heart of Nepal's ancient capital, where centuries of royal history unfold through magnificent palaces, courtyards, and temples. This UNESCO World Heritage Site served as the royal residence of the Malla kings and later the Shah dynasty, making it the political and cultural epicenter of the Kathmandu Valley.\n\nThe square is dominated by the Hanuman Dhoka Palace complex, named after the monkey deity Hanuman whose statue guards the main entrance. The palace's intricate wooden architecture showcases the pinnacle of Newari craftsmanship, with elaborately carved windows, doors, and struts that have withstood the test of time.\n\nOne of the most fascinating aspects of Kathmandu Durbar Square is the Kumari Ghar, the residence of the Living Goddess Kumari. This young girl, believed to be the incarnation of the goddess Taleju, occasionally appears at her window to bless devotees and visitors. The tradition of the Living Goddess is unique to Nepal and represents the deep spiritual beliefs that permeate daily life.`,
+      metadata: { location: "Kathmandu", established: "12th Century", significance: "UNESCO World Heritage Site" },
+      isFeatured: true
+    },
+    {
+      slug: "patan-durbar-square",
+      category: "explore-valley",
+      tag: "durbar-square",
+      title: "Patan Durbar Square",
+      subtitle: "City of Fine Arts",
+      mainImage: "https://i.pinimg.com/736x/f8/8f/dd/f88fdda5ff8241bb3967c942169fa6d1.jpg",
+      gallery: [
+        "https://i.pinimg.com/736x/f8/8f/dd/f88fdda5ff8241bb3967c942169fa6d1.jpg",
+        "https://images.unsplash.com/photo-1609942072337-c3370e820005?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      ],
+      shortText: "Patan Durbar Square, also known as Lalitpur, represents the pinnacle of Newari architecture and artistic achievement in the Kathmandu Valley.",
+      content: `Patan Durbar Square, located in the ancient city of Lalitpur, stands as perhaps the most artistically refined of the three royal squares in the Kathmandu Valley. Known as the "City of Fine Arts," Patan has been a center of Buddhist learning and artistic excellence for over a millennium.\n\nThe square is renowned for its extraordinary collection of temples, palaces, and courtyards that showcase the finest examples of Newari architecture. The red-brick structures, adorned with intricate wood and stone carvings, create a harmonious ensemble that has inspired artists and architects for generations.\n\nThe Patan Museum, housed in a beautifully restored section of the old royal palace, contains one of the finest collections of religious art in Asia.`,
+      metadata: { location: "Lalitpur", established: "3rd Century BC", significance: "UNESCO World Heritage Site" },
+      isFeatured: false
+    },
+    {
+      slug: "bhaktapur-durbar-square",
+      category: "explore-valley",
+      tag: "durbar-square",
+      title: "Bhaktapur Durbar Square",
+      subtitle: "The Living Medieval City",
+      mainImage: "https://i.pinimg.com/736x/55/13/68/551368b3616f86d61d8348f83be1b6c9.jpg",
+      gallery: [
+        "https://i.pinimg.com/736x/55/13/68/551368b3616f86d61d8348f83be1b6c9.jpg",
+        "https://images.unsplash.com/photo-1605640840605-14ac1855827b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      ],
+      shortText: "Bhaktapur Durbar Square offers visitors a journey back in time, where medieval life continues unchanged in one of Nepal's best-preserved ancient cities.",
+      content: `Bhaktapur Durbar Square represents the most authentic medieval experience in the Kathmandu Valley, where time seems to have stood still for centuries. This remarkably well-preserved city offers visitors an unparalleled glimpse into traditional Nepalese life, where ancient customs and crafts continue to flourish in their original setting.\n\nThe centerpiece of the square is the magnificent 55-Window Palace, built during the reign of King Bhupatindra Malla in the 17th century. This architectural masterpiece showcases the pinnacle of Newari woodcarving, with each of its 55 intricately carved windows telling a story of royal grandeur and artistic excellence.`,
+      metadata: { location: "Bhaktapur", established: "9th Century", significance: "UNESCO World Heritage Site" },
+      isFeatured: false
+    },
+
+    // Explore Valley - Festivals (Tag: festival)
+    {
+      slug: "indra-jatra",
+      category: "explore-valley",
+      tag: "festival",
+      title: "Indra Jatra",
+      subtitle: "Festival of the Rain God",
+      mainImage: "https://i.pinimg.com/1200x/e2/48/4a/e2484a6ffff165497573d186887f3fba.jpg",
+      gallery: [
+        "https://i.pinimg.com/1200x/e2/48/4a/e2484a6ffff165497573d186887f3fba.jpg",
+        "https://images.unsplash.com/photo-1605640840605-14ac1855827b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      ],
+      shortText: "Celebrated in Kathmandu, Indra Jatra is an eight-day festival that honors Indra, the god of rain and heaven, featuring the spectacular chariot procession of the Living Goddess Kumari.",
+      content: `Indra Jatra stands as one of Nepal's most magnificent and spiritually significant festivals, celebrated annually in Kathmandu during the month of September. This eight-day extravaganza honors Indra, the revered god of rain and heaven, whose blessings are essential for the agricultural prosperity of the valley.\n\nThe festival's most captivating highlight is the grand chariot procession of the Living Goddess Kumari, a young girl believed to be the incarnation of the goddess Taleju. Dressed in elaborate traditional attire and adorned with intricate jewelry, the Kumari is paraded through the ancient streets of Kathmandu in a beautifully decorated wooden chariot.`,
+      metadata: { location: "Kathmandu", duration: "8 Days", significance: "UNESCO Intangible Heritage" },
+      isFeatured: true
+    },
+
+    // Explore Valley - Hikes (Tag: hike)
+    {
+      slug: "nagarjun-hill-hike",
+      category: "explore-valley",
+      tag: "hike",
+      title: "Nagarjun Hill",
+      subtitle: "Jamacho Forest Sanctuary",
+      mainImage: "https://i.pinimg.com/1200x/51/f8/81/51f881d9c2ac251438e975a3c4861ee5.jpg",
+      gallery: [
+        "https://i.pinimg.com/1200x/51/f8/81/51f881d9c2ac251438e975a3c4861ee5.jpg",
+        "https://images.unsplash.com/photo-1609942072337-c3370e820005?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      ],
+      shortText: "Just a short drive from central Kathmandu, Nagarjun Hill offers a peaceful forest hike through the Shivapuri-Nagarjun National Park with panoramic valley views.",
+      content: `Nagarjun Hill, also known as Jamacho, stands as one of the most accessible and rewarding day hikes from Kathmandu, offering urban dwellers and travelers alike a perfect escape into pristine nature without venturing far from the city center.\n\nLocated within the protected boundaries of Shivapuri-Nagarjun National Park, this moderate 3-4 hour uphill trek winds through dense, undisturbed forest that serves as a green lung for the Kathmandu Valley. The trail begins at the park entrance, where visitors are immediately immersed in a world of towering rhododendron trees, ancient oaks, and diverse flora.`,
+      metadata: { location: "Shivapuri-Nagarjun National Park", duration: "3-4 Hours", difficulty: "Moderate" },
+      isFeatured: false
+    },
+
+    // Explore Valley - Sacred Temples (Tag: temple)
+    {
+      slug: "swayambhunath-stupa",
+      category: "explore-valley",
+      tag: "temple",
+      title: "Swayambhunath",
+      subtitle: "The Monkey Temple",
+      mainImage: "https://i.pinimg.com/1200x/fd/f0/9d/fdf09d787c84b6d7783b711dc63c56c9.jpg",
+      gallery: [
+        "https://i.pinimg.com/1200x/fd/f0/9d/fdf09d787c84b6d7783b711dc63c56c9.jpg",
+        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      ],
+      shortText: "Perched atop a hill overlooking the Kathmandu Valley, Swayambhunath stands as one of Nepal's most ancient and revered religious sites.",
+      content: `Swayambhunath, affectionately known as the Monkey Temple, is a magnificent ancient religious complex that crowns a hill in the Kathmandu Valley. Dating back over 2,000 years, this sacred site represents the harmonious coexistence of Hindu and Buddhist traditions in Nepal.\n\nThe iconic white dome and golden spire, adorned with the all-seeing eyes of Buddha, watch over the valley below, offering protection and wisdom to all who seek it.`,
+      metadata: { location: "Kathmandu Valley", established: "5th Century AD", significance: "UNESCO World Heritage Site" },
+      isFeatured: true
+    },
+
+    // Legal Content
+    {
+      slug: "privacy-policy",
+      category: "legal",
+      tag: "privacy",
+      title: "Privacy Policy",
+      content: "At Nepal Travel Co, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information when you use our website and services.",
+      isFeatured: false
+    },
+    {
+      slug: "terms-and-conditions",
+      category: "legal",
+      tag: "terms",
+      title: "Terms and Conditions",
+      content: "By booking a trip with Nepal Travel Co, you agree to the following terms and conditions. These include payment schedules, cancellation policies, and liability disclaimers.",
+      isFeatured: false
+    },
+    // Travel Regions (category: travel-regions)
+    {
+      slug: "regions-overview",
+      category: "travel-regions",
+      tag: "overview",
+      title: "Diverse Landscapes",
+      subtitle: "The Magnificent Three",
+      content: "Planning a trip to Nepal but don't know where to start? Let us introduce you to our three major regions—from towering peaks to lush jungles.",
+      metadata: { type: "overview" },
+      isFeatured: true
+    },
+    {
+      slug: "himalayan-region",
+      category: "travel-regions",
+      tag: "region",
+      title: "Himalayan Region",
+      subtitle: "Where mountains touch the sky",
+      mainImage: "/Images/SVG/mountains.svg",
+      content: "The Himalayan region of Nepal is home to towering peaks and legendary trekking destinations like Everest, Annapurna, and Mustang.",
+      metadata: { 
+        type: "region", 
+        regionKey: "Himalayan",
+        tag: "The Roof of the World",
+        highlights: ["Mount Everest", "Annapurna Base Camp", "Upper Mustang", "Manaslu Trek"]
+      },
+      isFeatured: false
+    },
+    {
+      slug: "hilly-region",
+      category: "travel-regions",
+      tag: "region",
+      title: "Hilly Region",
+      subtitle: "Cultural heart of Nepal",
+      mainImage: "/Images/SVG/hills.svg",
+      content: "The Hilly region boasts the cultural heart of Nepal, including Kathmandu, Pokhara, and historical hill towns rich in heritage.",
+      metadata: { 
+        type: "region", 
+        regionKey: "Hilly",
+        tag: "The Cultural Heartland",
+        highlights: ["Kathmandu Valley", "Pokhara", "Bandipur", "Palpa"]
+      },
+      isFeatured: false
+    },
+    {
+      slug: "terai-region",
+      category: "travel-regions",
+      tag: "region",
+      title: "Terai Region",
+      subtitle: "Wildlife and ancient heritage",
+      mainImage: "/Images/SVG/terai.svg",
+      content: "The Terai region features lush jungles, national parks, and the agricultural plains of southern Nepal.",
+      metadata: { 
+        type: "region", 
+        regionKey: "Terai",
+        tag: "The Tropical Lowlands",
+        highlights: ["Chitwan National Park", "Lumbini", "Bardia National Park", "Janakpur"]
+      },
+      isFeatured: false
+    },
+    // Brand & Filler Content (category: brand, filler)
+    {
+      slug: "brand-parallax",
+      category: "brand",
+      tag: "parallax",
+      title: "Discover Your Next Adventure",
+      subtitle: "Your Journey Starts Here",
+      content: "Embark on unforgettable journeys to breathtaking destinations. Curated experiences crafted for explorers like you.",
+      isFeatured: false
+    },
+    {
+      slug: "filler-valley",
+      category: "filler",
+      tag: "valley",
+      title: "Kathmandu Valley",
+      subtitle: "The Cultural Heart",
+      content: "Step into a world where ancient traditions blend with modern life. Experience the spiritual energy of the Valley.",
+      mainImage: "https://images.pexels.com/photos/2104882/pexels-photo-2104882.jpeg", // Using as Image 1
+      metadata: { 
+        image2: "https://images.pexels.com/photos/5801064/pexels-photo-5801064.jpeg",
+        ctaText: "Start Exploring",
+        ctaLink: "/explore-valley"
+      },
+      isFeatured: false
+    }
+  ];
+
+
+
+  for (const section of infoSectionsData) {
+    await prisma.infoSection.upsert({
+      where: { slug: section.slug },
+      update: section,
+      create: section,
+    });
+  }
+  console.log('InfoSections seeded');
+
 }
 
 main()

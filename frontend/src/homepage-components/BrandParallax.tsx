@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef } from "react"
+import React, { useRef, useEffect, useState } from "react"
 import {
   motion,
   useScroll,
@@ -22,8 +22,10 @@ const PlaneIcon = ({ rotation = 0 }: { rotation?: number }) => (
   </svg>
 )
 
-const BrandParallax = () => {
+const BrandParallax = ({ onLoaded }: { onLoaded?: () => void }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const [content, setContent] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
   // Mouse tracking
   const mouseX = useMotionValue(0.5)
@@ -66,6 +68,26 @@ const BrandParallax = () => {
   // Content Parallax
   const contentY = useTransform(smoothProgress, [0, 1], ["-10%", "10%"])
   const opacity = useTransform(smoothProgress, [0, 0.5, 0.9], [0.8, 1, 0])
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"}/api/sections/brand-parallax`);
+        if (response.ok) {
+          const data = await response.json();
+          setContent(data);
+        }
+      } catch (error) {
+        console.error("Error fetching brand parallax content:", error);
+      } finally {
+        setLoading(false);
+        if (onLoaded) onLoaded();
+      }
+    };
+    fetchContent();
+  }, []);
+
+  if (loading || !content) return null;
 
   return (
     <section
@@ -137,17 +159,16 @@ const BrandParallax = () => {
         className="relative z-10 max-w-4xl px-6 text-center"
       >
         <span className="inline-block text-secondary font-semibold tracking-[0.35em] uppercase text-xs mb-6">
-          Your Journey Starts Here
+          {content.subtitle}
         </span>
 
         <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight text-primary">
-          Discover Your Next <br />
-          <span className="italic font-normal">Adventure</span>
+          {content.title.split(' ').slice(0, 3).join(' ')} <br />
+          <span className="italic font-normal">{content.title.split(' ').slice(3).join(' ')}</span>
         </h2>
 
         <p className="text-base md:text-xl text-muted mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-          Embark on unforgettable journeys to breathtaking destinations.
-          Curated experiences crafted for explorers like you.
+          {content.content}
         </p>
       </motion.div>
     </section>
@@ -155,4 +176,3 @@ const BrandParallax = () => {
 }
 
 export default BrandParallax
-

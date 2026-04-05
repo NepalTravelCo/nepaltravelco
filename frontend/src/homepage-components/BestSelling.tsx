@@ -2,24 +2,27 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 
-function BestSelling() {
+function BestSelling({ onLoaded }: { onLoaded?: () => void }) {
   const [packages, setPackages] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/packages`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/packages`)
         if (response.ok) {
           const data = await response.json()
           setPackages(data)
+        } else {
+          console.error("Server returned error for packages:", response.status)
         }
       } catch (error) {
         console.error("Error fetching packages:", error)
       } finally {
         setLoading(false)
+        if (onLoaded) onLoaded()
       }
-    }
+    };
     fetchPackages()
   }, [])
 
@@ -41,6 +44,8 @@ function BestSelling() {
       transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
     },
   }
+
+  if (loading || packages.length === 0) return null;
 
   return (
     <section className="bg-stone-50 py-24">
@@ -70,11 +75,6 @@ function BestSelling() {
 
         {/* Cards Grid */}
         <div className="min-h-[500px]">
-          {loading ? (
-            <div className="flex items-center justify-center h-[500px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
-            </div>
-          ) : (
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -129,10 +129,10 @@ function BestSelling() {
                 </motion.div>
               ))}
             </motion.div>
-          )}
         </div>
       </div>
     </section>
+
   )
 }
 

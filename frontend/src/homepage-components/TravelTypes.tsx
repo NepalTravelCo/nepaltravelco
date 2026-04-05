@@ -32,7 +32,7 @@ const IconMap: Record<string, any> = {
   Culture: <Landmark size={14} />
 };
 
-export default function TravelTypes() {
+export default function TravelTypes({ onLoaded }: { onLoaded?: () => void }) {
   const [activeCategory, setActiveCategory] = useState(0)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [categories, setCategories] = useState<Category[]>([])
@@ -41,9 +41,14 @@ export default function TravelTypes() {
   useEffect(() => {
     const fetchActivities = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/activities`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/activities`);
             if (response.ok) {
                 const data = await response.json();
+                
+                if (!Array.isArray(data)) {
+                    console.error("Activities data is not an array:", data);
+                    return;
+                }
                 
                 // Group activities by categoryId
                 const grouped: Category[] = [
@@ -74,18 +79,13 @@ export default function TravelTypes() {
             console.error("Error fetching homepage activities:", error);
         } finally {
             setLoading(false);
+            if (onLoaded) onLoaded();
         }
     };
     fetchActivities();
   }, []);
 
-  if (loading || categories.length === 0) {
-    return (
-        <section className="bg-stone-50 py-32 flex items-center justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
-        </section>
-    );
-  }
+  if (loading || categories.length === 0) return null;
 
   const currentCategory = categories[activeCategory]
   const currentImages = currentCategory.images
