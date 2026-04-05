@@ -13,6 +13,8 @@ interface FullScreenSearchProps {
   onClose: () => void;
 }
 
+const popularSearches = ["Everest Base Camp", "Annapurna Circuit", "Kathmandu", "Heli Tour", "Wildlife"];
+
 const FullScreenSearch = ({ isOpen, onClose }: FullScreenSearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState("");

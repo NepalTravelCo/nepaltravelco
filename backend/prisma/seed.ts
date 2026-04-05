@@ -5,8 +5,8 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Seed Admin User
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
-  const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+  const adminEmail = process.env.ADMIN_EMAIL || 'info.nepaltravelco@gmail.com';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'password123@';
   const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
   const admin = await prisma.user.upsert({
