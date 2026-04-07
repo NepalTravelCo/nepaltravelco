@@ -7,17 +7,52 @@ import Link from "next/link";
 // import { experiences } from "./data";
 import { ArrowUpRight } from "lucide-react";
 
+type ExperienceItem = {
+    slug: string;
+    name?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+    accent?: string;
+    duration?: string;
+    maxAltitude?: string;
+};
+
 const ExperienceGrid = () => {
-    const [experiences, setExperiences] = useState<any[]>([]);
+    const [experiences, setExperiences] = useState<ExperienceItem[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchExperiences = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/experiences`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setExperiences(data);
+                const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+                const [experienceResponse, seasonResponse] = await Promise.all([
+                    fetch(`${baseUrl}/api/experiences`),
+                    fetch(`${baseUrl}/api/seasons`),
+                ]);
+
+                if (experienceResponse.ok) {
+                    const experienceData = await experienceResponse.json();
+                    const seasonData = seasonResponse.ok ? await seasonResponse.json() : [];
+
+                    const seasonSlugs = new Set(
+                        (seasonData as Array<{ slug?: string }>)
+                            .map((item) => item.slug?.toLowerCase())
+                            .filter(Boolean)
+                    );
+                    const seasonNames = new Set(
+                        (seasonData as Array<{ name?: string }>)
+                            .map((item) => item.name?.trim().toLowerCase())
+                            .filter(Boolean)
+                    );
+
+                    const filteredExperiences = (experienceData as ExperienceItem[]).filter((item) => {
+                        const slug = item.slug?.toLowerCase();
+                        const name = (item.name || item.title || "").trim().toLowerCase();
+                        return !seasonSlugs.has(slug) && !seasonNames.has(name);
+                    });
+
+                    setExperiences(filteredExperiences);
                 }
             } catch (error) {
                 console.error("Error fetching experiences:", error);
@@ -116,8 +151,8 @@ const ExperienceGrid = () => {
                                     {/* Background Image */}
                                     <div className="absolute inset-0 z-0">
                                         <Image
-                                            src={exp.image}
-                                            alt={exp.name}
+                                            src={exp.image || "/placeholder.svg"}
+                                            alt={exp.name || exp.title || "Experience image"}
                                             fill
                                             className="object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
                                         />
@@ -142,7 +177,7 @@ const ExperienceGrid = () => {
                                             </span>
 
                                             <h3 className="font-[var(--heading-font)] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-0 group-hover:mb-4 leading-none transform translate-y-4 group-hover:translate-y-0 transition-all duration-700 ease-[0.22, 1, 0.36, 1]">
-                                                {exp.name}
+                                                {exp.name || exp.title || "Untitled Experience"}
                                             </h3>
 
                                             <p className="text-white/80 line-clamp-2 text-sm md:text-base font-light h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 mb-0 group-hover:mb-6 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700 delay-100">

@@ -157,9 +157,9 @@ const Navigation = () => {
                                 <div className="grid grid-cols-1 gap-2">
                                   {link.name === "Treks" ? (
                                     trekkingRegions.map((region) => (
-                                      <a
+                                      <Link
                                         key={region.name}
-                                        href={`/treks#${region.name.toLowerCase().replace(' ', '-')}`}
+                                        href={`/treks/region/${region.slug}`}
                                         className="group/item flex items-center justify-between py-3 px-4 rounded-xl hover:bg-stone-50 transition-all duration-300"
                                       >
                                         <div>
@@ -167,7 +167,7 @@ const Navigation = () => {
                                           <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">{region.trailCount || (region.treks?.length)} Trails</p>
                                         </div>
                                         <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-secondary" />
-                                      </a>
+                                      </Link>
                                     ))
                                   ) : link.name === "Experiences" ? (
                                     experiences.map((exp) => (

@@ -8,7 +8,14 @@ import TrekInteraction from "./TrekInteraction"
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-export default async function TreksPage() {
+type TreksPageProps = {
+  searchParams?: Promise<{ region?: string }>
+}
+
+export default async function TreksPage({ searchParams }: TreksPageProps) {
+  const resolvedSearchParams = (await searchParams) || {}
+  const selectedRegion = resolvedSearchParams.region?.toLowerCase().trim() || ""
+
   const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000'
   
   const [treksResponse, regionsResponse] = await Promise.all([
@@ -29,7 +36,7 @@ export default async function TreksPage() {
 
       <main className="h-screen w-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth">
         <TreksHero />
-        <TrekInteraction treks={treks} regions={regions} />
+        <TrekInteraction treks={treks} regions={regions} selectedRegion={selectedRegion} />
         <div className="snap-start">
           <FooterSection />
         </div>

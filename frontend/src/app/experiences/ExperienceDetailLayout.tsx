@@ -2,182 +2,283 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Clock, Mountain, Trophy } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock3, Mountain, Sparkles, Trophy } from "lucide-react";
 import Link from "next/link";
 import Navigation from "@/header-component/Navigation";
 import FooterSection from "@/footer-components/FooterSection";
 
 interface Experience {
     slug: string;
-    title: string;
-    subtitle: string;
-    description: string;
-    image: string;
-    accent: string;
-    duration: string;
-    difficulty: string;
-    maxAltitude: string;
+    id?: string;
+    title?: string;
+    name?: string;
+    subtitle?: string;
+    description?: string;
+    longDescription?: string[];
+    highlights?: string[];
+    tips?: string[];
+    gallery?: string[];
+    image?: string;
+    accent?: string;
+    duration?: string;
+    difficulty?: string;
+    maxAltitude?: string;
+}
+
+function sectionEntryAnimation(index = 0) {
+    return {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: { duration: 0.55, delay: index * 0.08 },
+        viewport: { once: true },
+    };
+}
+
+function ensureItems(values: string[] | undefined, fallback: string[]): string[] {
+    if (values && values.length > 0) return values;
+    return fallback;
 }
 
 const ExperienceDetailLayout = ({ experience }: { experience: Experience }) => {
+    const title = experience.title || experience.name || "Untitled Experience";
+    const subtitle = experience.subtitle || experience.description || "Explore curated travel experiences across Nepal.";
+    const description = experience.description || "This experience combines scenic routes, local stories, and flexible planning.";
+    const heroImage = experience.image || "/placeholder.svg";
+    const overviewParagraphs =
+        experience.longDescription && experience.longDescription.length > 0
+            ? experience.longDescription
+            : [description];
+
+    const highlights = ensureItems(experience.highlights, [
+        "Scenic routes with immersive viewpoints",
+        "Flexible itinerary designed for comfort",
+        "Cultural touchpoints led by local experts",
+    ]);
+
+    const tips = ensureItems(experience.tips, [
+        "Start early for the best visibility and weather windows.",
+        "Keep a light layer for changing altitude temperatures.",
+        "Carry essentials and keep your itinerary adaptive.",
+    ]);
+
+    const detailSections = [
+        {
+            title: "Experience Highlights",
+            items: highlights,
+        },
+        {
+            title: "Travel Tips",
+            items: tips,
+        },
+    ];
+
+    const galleryImages =
+        experience.gallery && experience.gallery.length > 0
+            ? experience.gallery.slice(0, 3)
+            : [heroImage, heroImage, heroImage];
+
     return (
-        <div className="bg-[#050505] text-white font-[var(--text-font)] min-h-screen">
+        <div className="bg-stone-50 text-primary font-[var(--text-font)] min-h-screen">
             <Navigation />
 
             <main>
-                {/* Cinematic Hero */}
-                <section className="relative h-screen w-full overflow-hidden">
-                    <motion.div
-                        initial={{ scale: 1.1 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 2, ease: "easeOut" }}
-                        className="absolute inset-0"
-                    >
+                <section className="relative min-h-[72vh] overflow-hidden">
+                    <div className="absolute inset-0">
                         <Image
-                            src={experience.image}
-                            alt={experience.title}
+                            src={heroImage}
+                            alt={title}
                             fill
                             className="object-cover"
                             priority
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
-                    </motion.div>
+                        <div className="absolute inset-0 bg-black/45" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-stone-50 via-black/20 to-black/40" />
+                    </div>
 
-                    {/* Hero Content */}
-                    <div className="absolute inset-0 flex flex-col justify-end pb-24 px-6 md:px-12 lg:px-24">
-                        <div className="max-w-4xl">
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.5 }}
-                                className="flex items-center gap-4 mb-6"
+                    <div className="relative container-max px-6 md:px-12 py-28 md:py-36 flex min-h-[72vh] flex-col justify-end">
+                        <motion.div
+                            {...sectionEntryAnimation(0)}
+                            className="mb-7 flex flex-wrap items-center gap-3 text-white/90"
+                        >
+                            <Link
+                                href="/experiences"
+                                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.25em] transition-colors hover:bg-white/20"
                             >
-                                <Link
-                                    href="/experiences"
-                                    className="group flex items-center gap-2 text-white/60 hover:text-white transition-colors"
-                                >
-                                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                                    <span className="text-xs uppercase tracking-widest font-bold">Back to Experiences</span>
-                                </Link>
-                                <span className="h-px w-12 bg-white/20" />
-                            </motion.div>
+                                <ArrowLeft size={14} />
+                                Back to Experiences
+                            </Link>
+                            <span className="text-[10px] uppercase tracking-[0.35em] text-white/70">Experience Detail</span>
+                        </motion.div>
 
-                            <motion.h1
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.7, duration: 1 }}
-                                className="font-[var(--heading-font)] text-6xl md:text-8xl font-bold leading-[0.9] tracking-tighter mb-6"
-                            >
-                                {experience.title.split(' ').map((word, i) => (
-                                    <span key={i} className={i % 2 !== 0 ? "text-[var(--secondary)] italic font-light block" : "block"}>
-                                        {word}
-                                    </span>
-                                ))}
-                            </motion.h1>
+                        <motion.h1
+                            {...sectionEntryAnimation(1)}
+                            className="font-[var(--heading-font)] text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.95] tracking-tighter"
+                        >
+                            {title}
+                        </motion.h1>
 
-                            <motion.p
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1, duration: 1 }}
-                                className="text-xl md:text-2xl text-white/70 font-light max-w-2xl"
+                        <motion.p
+                            {...sectionEntryAnimation(2)}
+                            className="mt-5 max-w-3xl text-base md:text-xl text-stone-200 leading-relaxed"
+                        >
+                            {subtitle}
+                        </motion.p>
+                    </div>
+                </section>
+
+                <section className="py-20 md:py-24 px-6 md:px-12">
+                    <div className="container-max">
+                        <motion.div {...sectionEntryAnimation(0)} className="mb-10">
+                            <span className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block">
+                                Experience Overview
+                            </span>
+                            <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight">
+                                Discover <span className="italic font-normal">{title}</span>
+                            </h2>
+                        </motion.div>
+
+                        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10">
+                            <motion.article
+                                {...sectionEntryAnimation(1)}
+                                className="lg:col-span-8 rounded-[2.5rem] border border-stone-200 bg-white p-7 md:p-10 shadow-sm"
                             >
-                                {experience.subtitle}
-                            </motion.p>
+                                <p className="text-stone-700 text-base md:text-lg leading-relaxed">{overviewParagraphs[0]}</p>
+                                {overviewParagraphs[1] && (
+                                    <p className="mt-5 text-stone-600 text-sm md:text-base leading-relaxed">
+                                        {overviewParagraphs[1]}
+                                    </p>
+                                )}
+                            </motion.article>
+
+                            <motion.aside
+                                {...sectionEntryAnimation(2)}
+                                className="lg:col-span-4 rounded-[2.5rem] border border-stone-200 bg-white p-7 md:p-8 shadow-sm"
+                            >
+                                <h3 className="text-[10px] uppercase tracking-[0.3em] font-black text-secondary/70 mb-6">
+                                    Key Characteristics
+                                </h3>
+                                <div className="space-y-5">
+                                    <div className="flex items-start gap-3">
+                                        <Clock3 size={18} className="text-secondary mt-1" />
+                                        <div>
+                                            <p className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Duration</p>
+                                            <p className="mt-1 text-lg font-semibold text-primary">{experience.duration || "N/A"}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start gap-3">
+                                        <Trophy size={18} className="text-secondary mt-1" />
+                                        <div>
+                                            <p className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Difficulty</p>
+                                            <p className="mt-1 text-lg font-semibold text-primary">{experience.difficulty || "N/A"}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start gap-3">
+                                        <Mountain size={18} className="text-secondary mt-1" />
+                                        <div>
+                                            <p className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Max Altitude</p>
+                                            <p className="mt-1 text-lg font-semibold text-primary">{experience.maxAltitude || "N/A"}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.aside>
                         </div>
                     </div>
                 </section>
 
-                {/* Content Section */}
-                <section className="py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-                        {/* Main Content */}
-                        <div className="lg:col-span-7">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                className="space-y-8"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <span className="h-1 w-12 bg-[var(--accent)]" />
-                                    <h2 className="text-sm uppercase tracking-[0.5em] font-bold text-[var(--accent)]">Overview</h2>
-                                </div>
-                                <p className="text-xl md:text-2xl font-light leading-relaxed text-white/90">
-                                    {experience.description}
-                                </p>
+                <section className="py-20 md:py-24 px-6 md:px-12 bg-stone-100/60">
+                    <div className="container-max">
+                        <motion.div {...sectionEntryAnimation(0)} className="mb-10">
+                            <span className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block">
+                                Highlights
+                            </span>
+                            <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold text-primary leading-tight">
+                                Why Travelers Choose <span className="italic font-normal">This Experience</span>
+                            </h2>
+                        </motion.div>
 
-                                <div className="grid grid-cols-2 gap-8 pt-12">
-                                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
-                                        <h3 className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">Highlights</h3>
-                                        <ul className="space-y-4">
-                                            {["Breathtaking Views", "Exclusive Journey", "Local Cultural Insights"].map((item, i) => (
-                                                <li key={i} className="flex items-center gap-3 text-sm">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                                                    {item}
-                                                </li>
-                                            ))}
-                                        </ul>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {detailSections.map((section, index) => (
+                                <motion.article
+                                    key={section.title}
+                                    {...sectionEntryAnimation(index)}
+                                    className="rounded-[2rem] border border-stone-200 bg-white p-6 md:p-8 shadow-sm"
+                                >
+                                    <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
+                                        <Sparkles size={22} />
                                     </div>
-                                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
-                                        <h3 className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">What&apos;s Included</h3>
-                                        <ul className="space-y-4">
-                                            {["Professional Guide", "High-End Transport", "Refreshments"].map((item, i) => (
-                                                <li key={i} className="flex items-center gap-3 text-sm">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                                                    {item}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </motion.div>
+                                    <h3 className="font-[var(--heading-font)] text-2xl font-bold text-primary">
+                                        {section.title}
+                                    </h3>
+                                    <ul className="mt-4 space-y-2.5 text-sm text-stone-600">
+                                        {section.items.map((item) => (
+                                            <li key={item} className="flex items-start gap-3 leading-relaxed">
+                                                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-secondary" />
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </motion.article>
+                            ))}
                         </div>
+                    </div>
+                </section>
 
-                        {/* Sidebar Stats */}
-                        <div className="lg:col-span-5">
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                className="sticky top-32 p-10 rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent border border-white/10 backdrop-blur-xl shadow-2xl"
-                            >
-                                <div className="space-y-10">
-                                    <div className="flex items-center gap-6">
-                                        <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 text-[var(--accent)]">
-                                            <Clock size={24} />
-                                        </div>
-                                        <div>
-                                            <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Duration</span>
-                                            <p className="text-xl font-bold">{experience.duration}</p>
-                                        </div>
-                                    </div>
+                <section className="py-20 md:py-24 px-6 md:px-12">
+                    <div className="container-max">
+                        <motion.div {...sectionEntryAnimation(0)} className="mb-10">
+                            <span className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block">
+                                Visual Story
+                            </span>
+                            <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold text-primary leading-tight">
+                                {title} <span className="italic font-normal">Gallery</span>
+                            </h2>
+                        </motion.div>
 
-                                    <div className="flex items-center gap-6">
-                                        <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 text-[var(--accent)]">
-                                            <Trophy size={24} />
-                                        </div>
-                                        <div>
-                                            <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Difficulty</span>
-                                            <p className="text-xl font-bold">{experience.difficulty}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-6">
-                                        <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 text-[var(--accent)]">
-                                            <Mountain size={24} />
-                                        </div>
-                                        <div>
-                                            <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Max Altitude</span>
-                                            <p className="text-xl font-bold">{experience.maxAltitude}</p>
-                                        </div>
-                                    </div>
-
-                                    <button className="w-full py-5 bg-white text-black font-black uppercase tracking-widest rounded-2xl hover:bg-[var(--accent)] hover:text-white transition-all duration-500 transform hover:scale-[1.02]">
-                                        Book this Experience
-                                    </button>
-                                </div>
-                            </motion.div>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {galleryImages.map((image, index) => (
+                                <motion.figure
+                                    key={`${image}-${index}`}
+                                    {...sectionEntryAnimation(index)}
+                                    className="relative overflow-hidden rounded-[2.5rem] border border-stone-200 bg-white shadow-sm h-64 md:h-72"
+                                >
+                                    <Image
+                                        src={image}
+                                        alt={`${title} visual ${index + 1}`}
+                                        fill
+                                        className="object-cover transition-transform duration-700 hover:scale-105"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+                                </motion.figure>
+                            ))}
                         </div>
+                    </div>
+                </section>
+
+                <section className="py-20 md:py-24 px-6 md:px-12">
+                    <div className="container-max">
+                        <motion.div
+                            {...sectionEntryAnimation(0)}
+                            className="rounded-[2.5rem] border border-stone-200 bg-white p-8 md:p-12 shadow-sm"
+                        >
+                            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                                <div>
+                                    <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold text-primary leading-tight">
+                                        Continue Exploring
+                                    </h2>
+                                    <p className="mt-4 text-stone-600 max-w-2xl leading-relaxed">
+                                        Discover more curated experiences and build your ideal Nepal journey.
+                                    </p>
+                                </div>
+
+                                <Link
+                                    href="/experiences"
+                                    className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:bg-secondary"
+                                >
+                                    All Experiences
+                                    <ArrowRight size={15} />
+                                </Link>
+                            </div>
+                        </motion.div>
                     </div>
                 </section>
             </main>

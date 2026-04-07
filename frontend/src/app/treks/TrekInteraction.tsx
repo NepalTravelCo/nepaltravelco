@@ -12,6 +12,7 @@ import {
     useMotionValueEvent
 } from "framer-motion"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 interface Region {
     id: string
@@ -53,6 +54,7 @@ interface TrekInteractionProps {
      */
     treks: Trek[]
     regions: Region[]
+    selectedRegion?: string
 }
 
 // Altimeter with scroll-linked smooth number animation
@@ -93,19 +95,34 @@ function Altimeter({ altitude }: { altitude: MotionValue<number> }) {
     )
 }
 
-export default function TrekInteraction({ treks, regions }: TrekInteractionProps) {
+export default function TrekInteraction({ treks, regions, selectedRegion = "" }: TrekInteractionProps) {
     const [showAltimeter, setShowAltimeter] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
+    const router = useRouter()
+
+    const normalizedSelectedRegion = selectedRegion.toLowerCase()
+
+    const activeRegion = useMemo(() => {
+        if (!normalizedSelectedRegion) return null
+        return regions.find((r) => r.slug.toLowerCase() === normalizedSelectedRegion) || null
+    }, [regions, normalizedSelectedRegion])
+
+    const filteredTreks = useMemo(() => {
+        if (!normalizedSelectedRegion) return treks
+        return treks.filter((t) => t.region?.slug?.toLowerCase() === normalizedSelectedRegion)
+    }, [treks, normalizedSelectedRegion])
 
     // Use altitude from database
     const allSections = useMemo(() => [
-        ...regions.map(r => ({ 
-            ...r, 
-            type: 'region' as const, 
-            altitude: r.altitude || 3500
-        })),
-        ...treks.map(t => ({ ...t, type: 'trek' as const }))
-    ], [regions, treks])
+        ...(activeRegion
+            ? [{ ...activeRegion, type: 'region' as const, altitude: activeRegion.altitude || 3500 }]
+            : regions.map(r => ({
+                ...r,
+                type: 'region' as const,
+                altitude: r.altitude || 3500
+            }))),
+        ...filteredTreks.map(t => ({ ...t, type: 'trek' as const }))
+    ], [regions, filteredTreks, activeRegion])
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -175,6 +192,24 @@ export default function TrekInteraction({ treks, regions }: TrekInteractionProps
 
     return (
         <>
+            {activeRegion && (
+                <div className="sticky top-24 z-40 px-6 md:px-12">
+                    <div className="container-max">
+                        <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-black/70 px-5 py-2.5 backdrop-blur-md">
+                            <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 font-bold">Filtered Region</span>
+                            <span className="text-white font-bold text-sm">{activeRegion.name}</span>
+                            <button
+                                type="button"
+                                onClick={() => router.push("/treks")}
+                                className="text-xs uppercase tracking-widest font-black text-[var(--admin-accent)] hover:text-white transition-colors"
+                            >
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Fixed Altimeter outside the scroll flow */}
             <AnimatePresence>
                 {showAltimeter && <Altimeter altitude={smoothAltitude} />}
@@ -310,9 +345,9 @@ function SectionCard({
                             </div>
                         </div>
 
-                        <Link href={item.type === 'region' ? `/treks?region=${item.slug}` : `/treks/${item.slug}`}>
+                        <Link href={item.type === 'region' ? `/treks/region/${item.slug}` : `/treks/${item.slug}`}>
                             <button className="w-full bg-white text-black px-8 py-5 rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center justify-between hover:bg-[var(--admin-accent)] hover:text-white transition-all duration-300 shadow-xl">
-                                <span>{item.type === 'region' ? 'Explore Region' : 'View Itinerary'}</span>
+                                <span>{item.type === 'region' ? 'Explore Region' : 'View Trek Details'}</span>
                                 <ArrowRight className="w-4 h-4" />
                             </button>
                         </Link>
