@@ -31,116 +31,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This app is the `frontend/` workspace package inside a monorepo, so deploy that folder as the Vercel project root.
+
+1. Create a new Vercel project from this repository.
+2. Set the `Root Directory` to `frontend`.
+3. Keep the build command as `npm run build`.
+4. Add these environment variables in Vercel:
+	- `DATABASE_URL`
+	- `AUTH_SECRET`
+	- `BACKEND_URL`
+	- `NEXT_PUBLIC_BACKEND_URL`
+5. Point `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` at your deployed Render backend service. The frontend will not function without that API.
+6. Deploy and verify the admin and content pages that fetch from the backend.
+
+The build now generates Prisma from `../backend/prisma/schema.prisma`, so Vercel can build the frontend without copying the schema into `frontend/`.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 
-```
-nepaltravelco
-├─ eslint.config.mjs
-├─ next.config.ts
-├─ package-lock.json
-├─ package.json
-├─ postcss.config.mjs
-├─ public
-│  ├─ file.svg
-│  ├─ globe.svg
-│  ├─ Images
-│  │  ├─ Footer
-│  │  │  └─ footer.jpg
-│  │  ├─ HomepageImages
-│  │  │  └─ bungee.jpg
-│  │  └─ SVG
-│  │     ├─ abstract-pattern.svg
-│  │     ├─ backpack.png
-│  │     ├─ hills.svg
-│  │     ├─ mountains.svg
-│  │     ├─ nepal.svg
-│  │     ├─ terai.svg
-│  │     ├─ tortoise-shell.svg
-│  │     └─ zig-zag.svg
-│  ├─ next.svg
-│  ├─ vercel.svg
-│  ├─ Videos
-│  │  └─ hero-section.mp4
-│  └─ window.svg
-├─ README.md
-├─ src
-│  ├─ app
-│  │  ├─ BootstrapClientLoader.tsx
-│  │  ├─ contact
-│  │  │  └─ page.tsx
-│  │  ├─ experiences
-│  │  │  └─ page.tsx
-│  │  ├─ explore-valley
-│  │  │  ├─ page.tsx
-│  │  │  └─ styles
-│  │  │     └─ ExploreValley.css
-│  │  ├─ favicon.ico
-│  │  ├─ globals.css
-│  │  ├─ layout.tsx
-│  │  ├─ LoadingScreen.css
-│  │  ├─ LoadingScreen.tsx
-│  │  ├─ page.tsx
-│  │  ├─ seasons
-│  │  │  └─ [slug]
-│  │  │     └─ page.tsx
-│  │  ├─ travel-guide
-│  │  │  ├─ page.tsx
-│  │  │  ├─ styles
-│  │  │  │  └─ VisaInfo.css
-│  │  │  └─ VisaInfo.tsx
-│  │  ├─ treks
-│  │  │  └─ page.tsx
-│  │  └─ visa-information
-│  │     └─ page.tsx
-│  ├─ footer-components
-│  │  ├─ BackToTopButton.tsx
-│  │  ├─ CopyrightSection.tsx
-│  │  ├─ FooterSection.tsx
-│  │  ├─ ScrollToTop.tsx
-│  │  └─ styles
-│  │     ├─ btt.css
-│  │     └─ FooterSection.css
-│  ├─ header-component
-│  │  ├─ Navigation.css
-│  │  └─ Navigation.tsx
-│  ├─ homepage-components
-│  │  ├─ BestSelling.tsx
-│  │  ├─ BrandInfo.tsx
-│  │  ├─ BrandParallax.tsx
-│  │  ├─ FAQ.tsx
-│  │  ├─ FillerInfo.tsx
-│  │  ├─ HeroSection.tsx
-│  │  ├─ Homepage.tsx
-│  │  ├─ ReachUs.tsx
-│  │  ├─ styles
-│  │  │  ├─ BestSelling.css
-│  │  │  ├─ BrandInfo.css
-│  │  │  ├─ BrandParallax.css
-│  │  │  ├─ FAQ.css
-│  │  │  ├─ FillerInfo.css
-│  │  │  ├─ HeroSection.css
-│  │  │  ├─ ReachUs.css
-│  │  │  ├─ TravelRegions.css
-│  │  │  ├─ TravelSeasons.css
-│  │  │  └─ TravelTypes.css
-│  │  ├─ TravelRegions.tsx
-│  │  ├─ TravelSeasons.tsx
-│  │  └─ TravelTypes.tsx
-│  ├─ inner-components
-│  │  ├─ DurbarSquares.tsx
-│  │  ├─ Festivals.tsx
-│  │  ├─ Hikes.tsx
-│  │  ├─ SacredTemples.tsx
-│  │  └─ styles
-│  │     ├─ ExploreDurbars.css
-│  │     ├─ Festivals.css
-│  │     ├─ Hikes.css
-│  │     └─ SacredTemples.css
-│  └─ types
-│     └─ bootstrap.d.ts
-└─ tsconfig.json
-
-```

@@ -10,6 +10,7 @@
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:studio": "npx prisma studio",
+    "postinstall": "npm run prisma:generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "prisma": {

@@ -18,8 +18,22 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const allowedOrigins = (process.env.FRONTEND_URL || process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
-app.use(cors());
+const corsOptions = allowedOrigins.length > 0
+  ? {
+      origin: allowedOrigins,
+      credentials: true,
+    }
+  : {
+      origin: true,
+      credentials: true,
+    };
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes

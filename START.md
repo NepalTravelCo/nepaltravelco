@@ -40,3 +40,30 @@ If you just cloned the repository, run:
 npm run install:all
 ```
 This will install dependencies for both the `frontend` and `backend` automatically.
+
+## Vercel Deployment
+Deploy the Next.js app from the `frontend/` folder, not the repository root.
+
+1. Create a Vercel project from the repo.
+2. Set the Root Directory to `frontend`.
+3. Use `npm run build` as the build command.
+4. Add `DATABASE_URL`, `AUTH_SECRET`, `BACKEND_URL`, and `NEXT_PUBLIC_BACKEND_URL` in Vercel.
+5. Deploy the backend on Render and point both backend URL env vars to the Render service URL.
+
+The frontend build script now runs Prisma against `backend/prisma/schema.prisma`, which is the shared schema source used by both apps.
+
+## Render Backend Deployment
+Use the `backend/` folder as a separate Render Web Service.
+
+1. Create a new Web Service from the backend folder.
+2. Set the build command to `npm run build`.
+3. Set the start command to `npm start`.
+4. Add these environment variables on Render:
+	- `DATABASE_URL`
+	- `JWT_SECRET`
+	- `ADMIN_EMAIL`
+	- `ADMIN_PASSWORD`
+	- `FRONTEND_URL` with your Vercel site URL
+5. Use the Render service URL as `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` in Vercel.
+
+The backend now allows CORS from `FRONTEND_URL` or `CORS_ORIGIN`, which makes the Vercel frontend work against the Render API.
