@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowRight, Clock3, Mountain, Sparkles, Trophy } from "lucide-react"
 import Navigation from "@/header-component/Navigation"
 import FooterSection from "@/footer-components/FooterSection"
+import { getBackendBaseUrl } from "@/lib/backend-url"
 
 type RegionTrek = {
   id: string
@@ -38,7 +39,7 @@ export const dynamic = "force-dynamic"
 export const revalidate = 0
 
 async function fetchRegion(slug: string): Promise<RegionDetail | null> {
-  const backendUrl = process.env.BACKEND_URL || "http://localhost:5000"
+  const backendUrl = getBackendBaseUrl()
   const response = await fetch(`${backendUrl}/api/regions/${slug}`, { cache: "no-store" })
   if (!response.ok) return null
   return response.json()

@@ -5,6 +5,7 @@ import FooterSection from "@/footer-components/FooterSection";
 import ReachUs from "@/homepage-components/ReachUs";
 import FAQ from "@/homepage-components/FAQ";
 import SeasonDetailContent from "../SeasonDetailContent";
+import { normalizeBackendBaseUrl } from "@/lib/backend-url";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -35,10 +36,11 @@ type SeasonApiModel = {
   regionalVariations?: string[];
 };
 
-const BACKEND_BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL ||
+const BACKEND_BASE_URL = normalizeBackendBaseUrl(
   process.env.BACKEND_URL ||
-  "http://127.0.0.1:5000";
+    process.env.NEXT_PUBLIC_BACKEND_URL ||
+    "http://127.0.0.1:5000"
+);
 
 async function fetchSeasonBySlug(slug: string): Promise<SeasonApiModel | null> {
   try {

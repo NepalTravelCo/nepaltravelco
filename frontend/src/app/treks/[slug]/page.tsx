@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import TrekClientPage, { Trek } from "./TrekClientPage"
 import { notFound } from "next/navigation"
+import { getBackendBaseUrl } from "@/lib/backend-url"
 // import { prisma } from "@/lib/prisma"
 
 type TrekPageProps = {
@@ -8,7 +9,7 @@ type TrekPageProps = {
 }
 
 export async function generateStaticParams() {
-  const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000'
+  const backendUrl = getBackendBaseUrl()
   try {
     const response = await fetch(`${backendUrl}/api/treks`)
     const treks = await response.json()
@@ -21,7 +22,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: TrekPageProps): Promise<Metadata> {
   const { slug } = await params
-  const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000'
+  const backendUrl = getBackendBaseUrl()
   
   try {
     const response = await fetch(`${backendUrl}/api/treks/${slug}`)
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: TrekPageProps): Promise<Metad
 
 export default async function TrekPage({ params }: TrekPageProps) {
   const { slug } = await params
-  const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000'
+  const backendUrl = getBackendBaseUrl()
 
   try {
     const response = await fetch(`${backendUrl}/api/treks/${slug}`, { cache: 'no-store' })

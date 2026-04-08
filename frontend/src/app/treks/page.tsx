@@ -2,6 +2,7 @@ import Navigation from "@/header-component/Navigation"
 import FooterSection from "@/footer-components/FooterSection"
 import TreksHero from "./TreksHero"
 import TrekInteraction from "./TrekInteraction"
+import { getBackendBaseUrl } from "@/lib/backend-url"
 // import { prisma as prismaClient } from "@/lib/prisma"
 // const prisma = prismaClient
 
@@ -16,7 +17,7 @@ export default async function TreksPage({ searchParams }: TreksPageProps) {
   const resolvedSearchParams = (await searchParams) || {}
   const selectedRegion = resolvedSearchParams.region?.toLowerCase().trim() || ""
 
-  const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000'
+  const backendUrl = getBackendBaseUrl()
   
   const [treksResponse, regionsResponse] = await Promise.all([
     fetch(`${backendUrl}/api/treks`, { cache: 'no-store' }),
