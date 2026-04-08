@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Mountain, Plane, Footprints, Landmark, Sparkles, Compass, Map, Wind, Milestone, Utensils } from "lucide-react"
 import Image from "next/image"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 interface TravelImage {
   src: string
@@ -41,7 +42,7 @@ export default function TravelTypes({ onLoaded }: { onLoaded?: () => void }) {
   useEffect(() => {
     const fetchActivities = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/activities`);
+            const response = await fetch(`${getPublicBackendBaseUrl()}/api/activities`);
             if (response.ok) {
                 const data = await response.json();
                 

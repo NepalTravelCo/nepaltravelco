@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 // Database logic has been moved to the backend.
 // Frontend now acts as a client to the backend API.
@@ -23,7 +24,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 }
 
                 try {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
+                    const response = await fetch(`${getPublicBackendBaseUrl()}/api/auth/login`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

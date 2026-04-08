@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { MapPin, ArrowRight, Plane, Globe, Coins } from "lucide-react";
 import React from "react";
 import Image from "next/image";
+import { getPublicBackendBaseUrl } from "@/lib/backend-url";
 
 const SectionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => (
     <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16 px-4">
@@ -104,7 +105,7 @@ export default function PlacesToGoContent() {
     useEffect(() => {
         const fetchDestinations = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/destinations`);
+                const response = await fetch(`${getPublicBackendBaseUrl()}/api/destinations`);
                 if (response.ok) {
                     const data = await response.json();
                     setDestinations(data);

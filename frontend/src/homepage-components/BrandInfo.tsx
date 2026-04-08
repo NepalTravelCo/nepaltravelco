@@ -6,6 +6,7 @@ import { ArrowRight, ArrowLeft, Compass, Mountain, ChevronRight } from "lucide-r
 import Link from "next/link"
 import Image from "next/image"
 // import { treksData } from "@/data/Treks"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 const BrandInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   const [startIndex, setStartIndex] = useState(0)
@@ -15,7 +16,7 @@ const BrandInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   useEffect(() => {
     const fetchTreks = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/treks`)
+        const response = await fetch(`${getPublicBackendBaseUrl()}/api/treks`)
         if (response.ok) {
           const data = await response.json()
           setTreks(data)

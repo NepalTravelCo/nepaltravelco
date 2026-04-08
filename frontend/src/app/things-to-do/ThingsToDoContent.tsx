@@ -7,6 +7,7 @@ import {
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { getPublicBackendBaseUrl } from "@/lib/backend-url";
 
 const IconMap: Record<string, any> = {
     Mountain, Map, Compass, Wind, Milestone, Utensils, Globe, Plane, Coins
@@ -144,7 +145,7 @@ export default function ThingsToDoContent() {
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/activities`);
+                const response = await fetch(`${getPublicBackendBaseUrl()}/api/activities`);
                 if (response.ok) {
                     const data = await response.json();
                     setActivities(data);

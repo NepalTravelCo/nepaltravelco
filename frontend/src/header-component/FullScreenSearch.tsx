@@ -7,6 +7,7 @@ import {
 } from "framer-motion";
 import { X, Search, MapPin, Compass, Mountain, ArrowRight, Star, History } from "lucide-react";
 import Link from "next/link";
+import { getPublicBackendBaseUrl } from "@/lib/backend-url";
 
 interface FullScreenSearchProps {
   isOpen: boolean;
@@ -30,7 +31,7 @@ const FullScreenSearch = ({ isOpen, onClose }: FullScreenSearchProps) => {
     const timer = setTimeout(async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/search?q=${encodeURIComponent(searchQuery)}`);
+        const response = await fetch(`${getPublicBackendBaseUrl()}/api/search?q=${encodeURIComponent(searchQuery)}`);
         if (response.ok) {
           const data = await response.json();
           setFilteredResults(data);

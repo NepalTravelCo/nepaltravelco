@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 type RegionKey = "Himalayan" | "Hilly" | "Terai"
 
@@ -22,7 +23,7 @@ export default function TravelRegions({ onLoaded }: { onLoaded?: () => void }) {
   useEffect(() => {
     const fetchRegions = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"}/api/sections?category=travel-regions`)
+        const response = await fetch(`${getPublicBackendBaseUrl()}/api/sections?category=travel-regions`)
         if (response.ok) {
           const data = await response.json()
           if (!Array.isArray(data)) {

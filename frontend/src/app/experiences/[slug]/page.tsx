@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import ExperienceDetailLayout from "../ExperienceDetailLayout";
+import { getPublicBackendBaseUrl } from "@/lib/backend-url";
 
 export default function ExperiencePage() {
     const params = useParams();
@@ -14,7 +15,7 @@ export default function ExperiencePage() {
         if (!slug) return;
         const fetchExperience = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/experiences/${slug}`);
+                const response = await fetch(`${getPublicBackendBaseUrl()}/api/experiences/${slug}`);
                 if (response.ok) {
                     const data = await response.json();
                     setExperience(data);

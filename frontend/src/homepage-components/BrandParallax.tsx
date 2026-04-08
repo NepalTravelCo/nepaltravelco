@@ -8,6 +8,7 @@ import {
   useSpring,
   useMotionValue,
 } from "framer-motion"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 const PlaneIcon = ({ rotation = 0 }: { rotation?: number }) => (
   <svg
@@ -72,7 +73,7 @@ const BrandParallax = ({ onLoaded }: { onLoaded?: () => void }) => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"}/api/sections/brand-parallax`);
+        const response = await fetch(`${getPublicBackendBaseUrl()}/api/sections/brand-parallax`);
         if (response.ok) {
           const data = await response.json();
           setContent(data);

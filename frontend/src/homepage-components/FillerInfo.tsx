@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { getPublicBackendBaseUrl } from "@/lib/backend-url";
 
 const FillerInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   const containerRef = useRef<HTMLElement>(null);
@@ -23,7 +24,7 @@ const FillerInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"}/api/sections/filler-valley`);
+        const response = await fetch(`${getPublicBackendBaseUrl()}/api/sections/filler-valley`);
         if (response.ok) {
           const data = await response.json();
           setContent(data);

@@ -7,6 +7,7 @@ import {
   Wallet, Home, Map, MessageSquare, ChevronDown, 
   Globe, Plane, CheckCircle2 
 } from 'lucide-react'
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 const nationalities = [
   "United States", "United Kingdom", "Australia", "Canada", "Germany", 
@@ -120,7 +121,7 @@ function ContactForm() {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/contacts`, {
+      const response = await fetch(`${getPublicBackendBaseUrl()}/api/contacts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

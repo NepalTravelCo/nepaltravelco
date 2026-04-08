@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronDown, Search, ArrowRight, Star } from "lucide-react"
 // import { experiences } from "@/app/experiences/data"
 import FullScreenSearch from "./FullScreenSearch"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -26,7 +27,7 @@ const Navigation = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+        const backendUrl = getPublicBackendBaseUrl();
         const [expRes, regRes] = await Promise.all([
           fetch(`${backendUrl}/api/experiences`),
           fetch(`${backendUrl}/api/regions`)

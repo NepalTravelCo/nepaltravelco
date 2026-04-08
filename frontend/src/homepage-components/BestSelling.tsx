@@ -1,18 +1,43 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
+
+type PackageItem = {
+  id: string
+  title: string
+  image: string
+  duration: string
+  location: string
+  price: number
+}
 
 function BestSelling({ onLoaded }: { onLoaded?: () => void }) {
-  const [packages, setPackages] = useState<any[]>([])
+  const [packages, setPackages] = useState<PackageItem[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/packages`)
+        const response = await fetch(`${getPublicBackendBaseUrl()}/api/packages`)
         if (response.ok) {
-          const data = await response.json()
-          setPackages(data)
+          const data: unknown = await response.json()
+          if (Array.isArray(data)) {
+            const normalizedPackages = data.map((item, index) => {
+              const record = item as Record<string, unknown>
+              return {
+                id: String(record.id ?? index),
+                title: String(record.title ?? "Untitled Package"),
+                image: String(record.image ?? "/placeholder.svg"),
+                duration: String(record.duration ?? "Duration TBA"),
+                location: String(record.location ?? "Nepal"),
+                price: Number(record.price ?? 0),
+              }
+            })
+            setPackages(normalizedPackages)
+          } else {
+            setPackages([])
+          }
         } else {
           console.error("Server returned error for packages:", response.status)
         }

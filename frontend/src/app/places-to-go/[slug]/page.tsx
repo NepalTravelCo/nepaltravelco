@@ -3,6 +3,7 @@
 import { useParams, notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 import GuideDetailLayout from "@/app/travel-guide/GuideDetailLayout";
+import { getPublicBackendBaseUrl } from "@/lib/backend-url";
 
 export default function PlaceDetailPage() {
     const params = useParams();
@@ -13,7 +14,7 @@ export default function PlaceDetailPage() {
     useEffect(() => {
         const fetchDestination = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/destinations/${slug}`);
+                const response = await fetch(`${getPublicBackendBaseUrl()}/api/destinations/${slug}`);
                 if (response.ok) {
                     const data = await response.json();
                     setDestination(data);

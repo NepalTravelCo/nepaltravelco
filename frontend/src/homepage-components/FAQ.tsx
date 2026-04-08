@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, HelpCircle } from "lucide-react"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 type FAQItem = {
   id: string
@@ -18,7 +19,7 @@ function FAQ({ onLoaded }: { onLoaded?: () => void }) {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:5000'}/api/faqs`)
+        const response = await fetch(`${getPublicBackendBaseUrl()}/api/faqs`)
         if (response.ok) {
           const data = await response.json()
           setFaqs(data)

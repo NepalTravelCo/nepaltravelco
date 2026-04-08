@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 // import { experiences } from "./data";
 import { ArrowUpRight } from "lucide-react";
+import { getPublicBackendBaseUrl } from "@/lib/backend-url";
 
 type ExperienceItem = {
     slug: string;
@@ -25,7 +26,7 @@ const ExperienceGrid = () => {
     useEffect(() => {
         const fetchExperiences = async () => {
             try {
-                const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+                const baseUrl = getPublicBackendBaseUrl();
                 const [experienceResponse, seasonResponse] = await Promise.all([
                     fetch(`${baseUrl}/api/experiences`),
                     fetch(`${baseUrl}/api/seasons`),

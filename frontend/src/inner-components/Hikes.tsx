@@ -2,6 +2,7 @@
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react"
 import "./styles/Hikes.css"
 import Image from "next/image"
+import { getPublicBackendBaseUrl } from "@/lib/backend-url"
 
 function Hikes() {
   const [sections, setSections] = useState<any[]>([])
@@ -18,7 +19,7 @@ function Hikes() {
   useEffect(() => {
     const fetchSections = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000"}/api/sections?category=explore-valley&tag=hike`)
+        const response = await fetch(`${getPublicBackendBaseUrl()}/api/sections?category=explore-valley&tag=hike`)
         const data = await response.json()
         
         const mappedData = data.map((item: any) => ({
