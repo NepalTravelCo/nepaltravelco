@@ -41,7 +41,7 @@ This app is the `frontend/` workspace package inside a monorepo, so deploy that 
 	- `AUTH_SECRET`
 	- `BACKEND_URL`
 	- `NEXT_PUBLIC_BACKEND_URL`
-5. Point `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` at your deployed Render backend service. The frontend will not function without that API.
+5. Point `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` at your deployed Vercel backend service. The frontend will not function without that API.
 6. Deploy and verify the admin and content pages that fetch from the backend.
 
 The build now generates Prisma from `../backend/prisma/schema.prisma`, so Vercel can build the frontend without copying the schema into `frontend/`.

@@ -48,29 +48,30 @@ Deploy the Next.js app from the `frontend/` folder, not the repository root.
 2. Set the Root Directory to `frontend`.
 3. Use `npm run build` as the build command.
 4. Add `DATABASE_URL`, `AUTH_SECRET`, `BACKEND_URL`, and `NEXT_PUBLIC_BACKEND_URL` in Vercel.
-5. Deploy the backend on Render and point both backend URL env vars to the Render service URL.
+5. Deploy the backend on Vercel as a separate project and point both backend URL env vars to the backend Vercel URL.
 
 The frontend build script now runs Prisma against `backend/prisma/schema.prisma`, which is the shared schema source used by both apps.
 
-## Render Backend Deployment
-Use the `backend/` folder as a separate Render Web Service.
+## Vercel Backend Deployment
+Use the `backend/` folder as a separate Vercel project.
 
-1. Create a new Web Service from the backend folder.
+1. Create a new Vercel project from the same repository.
 2. Set the Root Directory to `backend`.
-3. Set the build command to `npm ci --include=dev && npm run build`.
-4. Set the start command to `npm start`.
-5. Add these environment variables on Render:
+3. Use these project settings:
+	- Framework Preset: `Other`
+	- Install Command: `npm install`
+	- Build Command: `npm run prisma:generate`
+	- Output Directory: leave empty
+4. Add these environment variables in the backend Vercel project:
 	- `DATABASE_URL`
 	- `JWT_SECRET`
 	- `ADMIN_EMAIL`
 	- `ADMIN_PASSWORD`
-	- `FRONTEND_URL` with your Vercel site URL
-6. Use the Render service URL as `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` in Vercel.
+	- `FRONTEND_URL` with your frontend Vercel URL
+	- `CORS_ORIGIN` (optional, comma-separated extra origins)
+	- `ALLOW_VERCEL_PREVIEWS=true`
+	- `NODE_ENV=production`
+5. Deploy backend and copy the backend Vercel URL.
+6. In the frontend Vercel project, set `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` to that backend Vercel URL.
 
-If Root Directory is not set to `backend`, use these commands instead:
-- Build: `npm ci --include=dev --prefix backend && npm run build --prefix backend`
-- Start: `npm run start --prefix backend`
-
-You can also deploy with the repository `render.yaml` blueprint to avoid manual misconfiguration.
-
-The backend now allows CORS from `FRONTEND_URL` or `CORS_ORIGIN`, which makes the Vercel frontend work against the Render API.
+The backend Vercel project uses `backend/vercel.json` and `backend/api/index.ts` to run the Express app as a serverless function. The backend allows CORS from `FRONTEND_URL` or `CORS_ORIGIN`, and can allow Vercel preview domains when `ALLOW_VERCEL_PREVIEWS=true`.
