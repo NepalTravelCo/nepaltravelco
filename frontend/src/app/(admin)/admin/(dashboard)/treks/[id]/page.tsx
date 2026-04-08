@@ -3,6 +3,8 @@ import { TrekForm, ItineraryItem, EstimatedCost } from "@/components/admin/trek-
 import { prisma } from "@/lib/prisma"
 import { notFound } from "next/navigation"
 
+export const dynamic = "force-dynamic"
+
 type EditTrekPageProps = {
     params: Promise<{ id: string }>
 }

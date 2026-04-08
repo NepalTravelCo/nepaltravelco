@@ -5,6 +5,8 @@ import { deleteRegion } from "@/actions/region-actions"
 import { Plus, Pencil, Trash2, Layers } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+export const dynamic = "force-dynamic"
+
 // Inline Table components
 function Table({ children }: { children: React.ReactNode }) {
     return <div className="w-full overflow-hidden rounded-xl border border-admin-card-border bg-admin-card shadow-sm"><table className="w-full text-sm text-left">{children}</table></div>

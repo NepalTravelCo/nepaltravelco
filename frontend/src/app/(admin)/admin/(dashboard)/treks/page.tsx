@@ -5,6 +5,8 @@ import { deleteTrek } from "@/actions/trek-actions"
 import { Plus, Pencil, Trash2, Calendar, MapPin, DollarSign, Clock } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+export const dynamic = "force-dynamic"
+
 // Inline Table components for high-level UI control
 function Table({ children }: { children: React.ReactNode }) {
     return <div className="w-full overflow-hidden rounded-xl border border-admin-card-border bg-admin-card shadow-sm"><table className="w-full text-sm text-left">{children}</table></div>

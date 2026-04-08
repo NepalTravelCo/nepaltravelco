@@ -3,6 +3,8 @@ import { RegionForm } from "@/components/admin/region-form"
 import { prisma } from "@/lib/prisma"
 import { notFound } from "next/navigation"
 
+export const dynamic = "force-dynamic"
+
 type EditRegionPageProps = {
     params: Promise<{ id: string }>
 }

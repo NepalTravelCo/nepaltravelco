@@ -56,14 +56,21 @@ The frontend build script now runs Prisma against `backend/prisma/schema.prisma`
 Use the `backend/` folder as a separate Render Web Service.
 
 1. Create a new Web Service from the backend folder.
-2. Set the build command to `npm run build`.
-3. Set the start command to `npm start`.
-4. Add these environment variables on Render:
+2. Set the Root Directory to `backend`.
+3. Set the build command to `npm ci --include=dev && npm run build`.
+4. Set the start command to `npm start`.
+5. Add these environment variables on Render:
 	- `DATABASE_URL`
 	- `JWT_SECRET`
 	- `ADMIN_EMAIL`
 	- `ADMIN_PASSWORD`
 	- `FRONTEND_URL` with your Vercel site URL
-5. Use the Render service URL as `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` in Vercel.
+6. Use the Render service URL as `BACKEND_URL` and `NEXT_PUBLIC_BACKEND_URL` in Vercel.
+
+If Root Directory is not set to `backend`, use these commands instead:
+- Build: `npm ci --include=dev --prefix backend && npm run build --prefix backend`
+- Start: `npm run start --prefix backend`
+
+You can also deploy with the repository `render.yaml` blueprint to avoid manual misconfiguration.
 
 The backend now allows CORS from `FRONTEND_URL` or `CORS_ORIGIN`, which makes the Vercel frontend work against the Render API.
