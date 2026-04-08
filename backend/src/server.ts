@@ -18,22 +18,49 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const allowedOrigins = (process.env.FRONTEND_URL || process.env.CORS_ORIGIN || "")
-  .split(",")
-  .map((origin) => origin.trim())
+const normalizeOrigin = (value: string) => value.trim().replace(/\/$/, "");
+
+const allowedOrigins = [
+  ...(process.env.FRONTEND_URL || "").split(","),
+  ...(process.env.CORS_ORIGIN || "").split(","),
+]
+  .map((origin) => normalizeOrigin(origin))
   .filter(Boolean);
 
-const corsOptions = allowedOrigins.length > 0
-  ? {
-      origin: allowedOrigins,
-      credentials: true,
+const allowVercelPreviews = (process.env.ALLOW_VERCEL_PREVIEWS || "false").toLowerCase() === "true";
+
+const corsOptions: cors.CorsOptions = {
+  origin: (origin, callback) => {
+    // Allow server-to-server requests and health checks without an Origin header.
+    if (!origin) {
+      callback(null, true);
+      return;
     }
-  : {
-      origin: true,
-      credentials: true,
-    };
+
+    const normalizedOrigin = normalizeOrigin(origin);
+    const isExplicitlyAllowed = allowedOrigins.includes(normalizedOrigin);
+    let isVercelPreview = false;
+
+    if (allowVercelPreviews) {
+      try {
+        isVercelPreview = /\.vercel\.app$/i.test(new URL(normalizedOrigin).hostname);
+      } catch {
+        isVercelPreview = false;
+      }
+    }
+
+    if (isExplicitlyAllowed || isVercelPreview) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
+  credentials: true,
+};
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 // Routes
