@@ -54,7 +54,7 @@ function FooterSection() {
                 Quick Explorer
               </h3>
               <ul className="grid grid-cols-1 gap-4">
-                {["Home", "Places to Go", "Things to Do", "Festivals & Seasons", "About Us", "Contact"].map((link) => (
+                {["Places to Go", "Things to Do","Treks","Experiences", "Seasons", "Contact"].map((link) => (
                   <li key={link}>
                     <Link
                       href={`/${link.toLowerCase().replace(/ /g, "-")}`}
@@ -74,7 +74,7 @@ function FooterSection() {
                 Information
               </h3>
               <ul className="grid grid-cols-1 gap-4">
-                {["Privacy Policy", "Terms and Conditions", "Travel Disclaimers", "Safety First"].map((link) => (
+                {["Travel Guide", "Privacy Policy", "Terms and Conditions", "Travel Disclaimers", "Safety First"].map((link) => (
                   <li key={link}>
                     <Link
                       href={`/${link.toLowerCase().replace(/ /g, "-")}`}

@@ -49,7 +49,7 @@ function BestSelling({ onLoaded }: { onLoaded?: () => void }) {
       }
     };
     fetchPackages()
-  }, [])
+  }, [onLoaded])
 
   const containerVariants = {
     hidden: { opacity: 0 },
