@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, HelpCircle } from "lucide-react"
-import { getPublicBackendBaseUrl } from "@/lib/backend-url"
+import { apiClient } from "@/lib/api-client"
 
 type FAQItem = {
   id: string
@@ -19,13 +19,8 @@ function FAQ({ onLoaded }: { onLoaded?: () => void }) {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const response = await fetch(`${getPublicBackendBaseUrl()}/api/faqs`)
-        if (response.ok) {
-          const data = await response.json()
-          setFaqs(data)
-        } else {
-          console.error("Server returned error for FAQs:", response.status)
-        }
+        const data = await apiClient<FAQItem[]>("/api/faqs")
+        setFaqs(data)
       } catch (error) {
         console.error("Error fetching FAQs:", error)
       } finally {

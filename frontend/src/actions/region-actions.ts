@@ -1,19 +1,19 @@
-
 'use server'
 
-import { prisma as prismaClient } from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
-
-const prisma = prismaClient
 
 const regionSchema = z.object({
     name: z.string().min(1),
     slug: z.string().min(1),
-    image: z.string().url(),
-    trailCount: z.number().int(),
-    altitude: z.number().int().min(0),
+    image: z.string().url().or(z.string().length(0)),
     description: z.string().min(1),
+    altitude: z.number().int().min(0),
+    trailCount: z.number().int().min(0),
+    bestMonths: z.array(z.string()).default([]),
+    difficulty: z.string().min(1),
+    whyChoose: z.array(z.string()).default([]),
 })
 
 export async function createRegion(data: z.infer<typeof regionSchema>) {
@@ -27,7 +27,10 @@ export async function createRegion(data: z.infer<typeof regionSchema>) {
         return { success: true, region }
     } catch (error) {
         console.error("Failed to create region:", error)
-        return { success: false, message: "Failed to create region" }
+        if (error instanceof z.ZodError) {
+            return { success: false, message: "Validation failed: " + error.errors.map(e => e.message).join(", ") }
+        }
+        return { success: false, message: error instanceof Error ? error.message : "Failed to create region" }
     }
 }
 
@@ -40,10 +43,14 @@ export async function updateRegion(id: string, data: z.infer<typeof regionSchema
         })
         revalidatePath("/admin/regions")
         revalidatePath("/treks")
+        revalidatePath(`/treks/region/${region.slug}`)
         return { success: true, region }
     } catch (error) {
         console.error("Failed to update region:", error)
-        return { success: false, message: "Failed to update region" }
+        if (error instanceof z.ZodError) {
+            return { success: false, message: "Validation failed: " + error.errors.map(e => e.message).join(", ") }
+        }
+        return { success: false, message: error instanceof Error ? error.message : "Failed to update region" }
     }
 }
 

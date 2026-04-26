@@ -1,23 +1,23 @@
-
-import { TrekForm, ItineraryItem, EstimatedCost } from "@/components/admin/trek-form"
 import { prisma } from "@/lib/prisma"
+import { TrekForm } from "@/components/admin/trek-form"
 import { notFound } from "next/navigation"
 
-export const dynamic = "force-dynamic"
-
-type EditTrekPageProps = {
+interface EditTrekPageProps {
     params: Promise<{ id: string }>
 }
 
+export const dynamic = "force-dynamic"
+
 export default async function EditTrekPage({ params }: EditTrekPageProps) {
     const { id } = await params
-    
+
     const [trek, regions] = await Promise.all([
         prisma.trek.findUnique({
             where: { id }
         }),
         prisma.region.findMany({
-            orderBy: { name: 'asc' }
+            select: { id: true, name: true },
+            orderBy: { name: "asc" }
         })
     ])
 
@@ -26,15 +26,8 @@ export default async function EditTrekPage({ params }: EditTrekPageProps) {
     }
 
     return (
-        <div className="max-w-7xl mx-auto">
-            <TrekForm 
-                initialData={{
-                    ...trek,
-                    itinerary: trek.itinerary as unknown as ItineraryItem[],
-                    estimatedCost: trek.estimatedCost as unknown as EstimatedCost
-                }} 
-                regions={regions} 
-            />
+        <div className="container mx-auto px-4">
+            <TrekForm initialData={trek} regions={regions} />
         </div>
     )
 }

@@ -78,6 +78,7 @@ model Trek {
   updatedAt       DateTime @updatedAt
   regionId        String?
   region          Region?  @relation(fields: [regionId], references: [id])
+  bookings        Booking[]
 }
 
 model Region {
@@ -90,6 +91,9 @@ model Region {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   altitude    Int      @default(3500)
+  difficulty  String   @default("Varied")
+  bestMonths  String[]
+  whyChoose   String[] @default([])
   treks       Trek[]
 }
 
@@ -150,18 +154,35 @@ model Package {
   updatedAt   DateTime @updatedAt
   image       String?
   location    String?
-  slug        String?  @unique
+  slug        String?   @unique
+  bookings    Booking[]
 }
 
 model Season {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  image       String
-  description String
-  bestMonths  String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            String
+  image           String
+  description     String   @db.Text
+  tagline         String?  @db.Text
+  temperature     String?
+  duration        String?
+  climateType     String?
+  bestMonths      String[]
+  longDescription String[] @default([])
+  highlights      String[] @default([])
+  tips            String[] @default([])
+  gallery         String[] @default([])
+  weatherPatterns String[] @default([])
+  natureChanges   String[] @default([])
+  culturalAspects String[] @default([])
+  activities      String[] @default([])
+  climateDetails  String[] @default([])
+  bestActivities  String[] @default([])
+  whatToWear      String[] @default([])
+  regionalVariations String[] @default([])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Faq {
@@ -194,7 +215,7 @@ model ContactInquiry {
 }
 
 model Booking {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   customerName  String
   customerEmail String
   phone         String?
@@ -202,10 +223,14 @@ model Booking {
   serviceName   String
   date          DateTime
   guests        Int
-  status        String   @default("PENDING")
+  status        String    @default("PENDING")
   message       String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  trekId        String?
+  trek          Trek?     @relation(fields: [trekId], references: [id])
+  packageId     String?
+  package       Package?  @relation(fields: [packageId], references: [id])
 }
 
 model InfoSection {

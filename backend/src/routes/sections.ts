@@ -20,8 +20,8 @@ router.get('/', async (req: Request, res: Response) => {
 
     res.json(sections);
   } catch (error) {
-    console.error('Error fetching sections:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Error fetching sections details:', error);
+    res.status(500).json({ error: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
   }
 });
 
@@ -41,8 +41,8 @@ router.get('/:slug', async (req: Request, res: Response) => {
 
     res.json(section);
   } catch (error) {
-    console.error('Error fetching section by slug:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Error fetching section by slug details:', error);
+    res.status(500).json({ error: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
   }
 });
 

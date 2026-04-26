@@ -36,8 +36,11 @@ const corsOptions: cors.CorsOptions = {
 
     const normalizedOrigin = normalizeOrigin(origin);
     const isExplicitlyAllowed = allowedOrigins.includes(normalizedOrigin);
+    
+    // Check if it's a localhost origin (any port)
+    const isLocalhost = /^https?:\/\/localhost(:\d+)?$/i.test(normalizedOrigin);
+    
     let isVercelPreview = false;
-
     if (allowVercelPreviews) {
       try {
         isVercelPreview = /\.vercel\.app$/i.test(new URL(normalizedOrigin).hostname);
@@ -46,7 +49,7 @@ const corsOptions: cors.CorsOptions = {
       }
     }
 
-    if (isExplicitlyAllowed || isVercelPreview) {
+    if (isExplicitlyAllowed || isVercelPreview || isLocalhost) {
       callback(null, true);
       return;
     }

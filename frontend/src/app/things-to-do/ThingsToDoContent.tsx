@@ -2,15 +2,15 @@
 
 import { motion } from "framer-motion";
 import { 
-    ArrowRight, Plane, Globe, Coins, Compass, Mountain, Map, Wind, Milestone, Utensils, ArrowUpRight, Search
+    ArrowRight, Plane, Globe, Coins, Compass, Mountain, Map as MapIcon, Wind, Milestone, Utensils, ArrowUpRight, Search
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getPublicBackendBaseUrl } from "@/lib/backend-url";
+import { apiClient } from "@/lib/api-client";
 
 const IconMap: Record<string, any> = {
-    Mountain, Map, Compass, Wind, Milestone, Utensils, Globe, Plane, Coins
+    Mountain, Map: MapIcon, Compass, Wind, Milestone, Utensils, Globe, Plane, Coins
 };
 
 const getColorHex = (color: string) => {
@@ -145,11 +145,8 @@ export default function ThingsToDoContent() {
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const response = await fetch(`${getPublicBackendBaseUrl()}/api/activities`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setActivities(data);
-                }
+                const data = await apiClient<any[]>("/api/activities");
+                setActivities(data);
             } catch (error) {
                 console.error("Error fetching activities:", error);
             } finally {

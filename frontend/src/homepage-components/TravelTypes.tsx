@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Mountain, Plane, Footprints, Landmark, Sparkles, Compass, Map, Wind, Milestone, Utensils } from "lucide-react"
 import Image from "next/image"
-import { getPublicBackendBaseUrl } from "@/lib/backend-url"
+import { apiClient } from "@/lib/api-client"
 
 interface TravelImage {
   src: string
@@ -42,40 +42,37 @@ export default function TravelTypes({ onLoaded }: { onLoaded?: () => void }) {
   useEffect(() => {
     const fetchActivities = async () => {
         try {
-            const response = await fetch(`${getPublicBackendBaseUrl()}/api/activities`);
-            if (response.ok) {
-                const data = await response.json();
-                
-                if (!Array.isArray(data)) {
-                    console.error("Activities data is not an array:", data);
-                    return;
-                }
-                
-                // Group activities by categoryId
-                const grouped: Category[] = [
-                    { id: 0, name: "Trekking", icon: IconMap.Trekking, images: [] },
-                    { id: 1, name: "Adrenaline", icon: IconMap.Adrenaline, images: [] },
-                    { id: 2, name: "Spiritual", icon: IconMap.Spiritual, images: [] },
-                    { id: 3, name: "Luxury", icon: IconMap.Luxury, images: [] },
-                    { id: 4, name: "Culture", icon: IconMap.Culture, images: [] }
-                ];
-
-                data.forEach((activity: any) => {
-                    const catIndex = activity.categoryId ?? 0;
-                    if (grouped[catIndex]) {
-                        grouped[catIndex].images.push({
-                            src: activity.image,
-                            title: activity.name,
-                            description: activity.description,
-                            meta: activity.tag,
-                            coords: activity.highlights[0] || "Nepal"
-                        });
-                    }
-                });
-
-                // Fallback for empty categories if any
-                setCategories(grouped.filter(c => c.images.length > 0));
+            const data = await apiClient<any[]>("/api/activities");
+            
+            if (!Array.isArray(data)) {
+                console.error("Activities data is not an array:", data);
+                return;
             }
+                
+            // Group activities by categoryId
+            const grouped: Category[] = [
+                { id: 0, name: "Trekking", icon: IconMap.Trekking, images: [] },
+                { id: 1, name: "Adrenaline", icon: IconMap.Adrenaline, images: [] },
+                { id: 2, name: "Spiritual", icon: IconMap.Spiritual, images: [] },
+                { id: 3, name: "Luxury", icon: IconMap.Luxury, images: [] },
+                { id: 4, name: "Culture", icon: IconMap.Culture, images: [] }
+            ];
+
+            data.forEach((activity: any) => {
+                const catIndex = activity.categoryId ?? 0;
+                if (grouped[catIndex]) {
+                    grouped[catIndex].images.push({
+                        src: activity.image,
+                        title: activity.name,
+                        description: activity.description,
+                        meta: activity.tag,
+                        coords: activity.highlights[0] || "Nepal"
+                    });
+                }
+            });
+
+            // Fallback for empty categories if any
+            setCategories(grouped.filter(c => c.images.length > 0));
         } catch (error) {
             console.error("Error fetching homepage activities:", error);
         } finally {

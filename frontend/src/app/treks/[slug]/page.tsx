@@ -3,6 +3,8 @@ import TrekClientPage, { Trek } from "./TrekClientPage"
 import { notFound } from "next/navigation"
 import { getBackendBaseUrl } from "@/lib/backend-url"
 // import { prisma } from "@/lib/prisma"
+export const dynamic = "force-dynamic"
+export const revalidate = 0
 
 type TrekPageProps = {
   params: Promise<{ slug: string }>

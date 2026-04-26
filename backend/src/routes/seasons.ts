@@ -11,17 +11,22 @@ router.get('/', async (req: Request, res: Response) => {
     });
     res.json(seasons);
   } catch (error) {
-    console.error('Error fetching seasons:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error fetching seasons details:', error);
+    res.status(500).json({ message: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
   }
 });
 
-// GET SINGLE SEASON BY SLUG
-router.get('/:slug', async (req: Request, res: Response) => {
-  const slug = req.params['slug'] as string;
+// GET SINGLE SEASON BY SLUG OR ID
+router.get('/:idOrSlug', async (req: Request, res: Response) => {
+  const idOrSlug = req.params['idOrSlug'] as string;
   try {
-    const season = await prisma.season.findUnique({
-      where: { slug },
+    const season = await prisma.season.findFirst({
+      where: {
+        OR: [
+          { id: idOrSlug },
+          { slug: idOrSlug }
+        ]
+      },
     });
     if (!season) {
       res.status(404).json({ message: 'Season not found' });
@@ -29,8 +34,50 @@ router.get('/:slug', async (req: Request, res: Response) => {
     }
     res.json(season);
   } catch (error) {
-    console.error('Error fetching season:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error fetching season details:', error);
+    res.status(500).json({ message: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
+  }
+});
+
+// CREATE SEASON
+router.post('/', async (req: Request, res: Response) => {
+  try {
+    const season = await prisma.season.create({
+      data: req.body,
+    });
+    res.status(201).json(season);
+  } catch (error) {
+    console.error('Error creating season details:', error);
+    res.status(500).json({ message: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
+  }
+});
+
+// UPDATE SEASON
+router.put('/:id', async (req: Request, res: Response) => {
+  const id = req.params['id'] as string;
+  try {
+    const season = await prisma.season.update({
+      where: { id },
+      data: req.body,
+    });
+    res.json(season);
+  } catch (error) {
+    console.error('Error updating season details:', error);
+    res.status(500).json({ message: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
+  }
+});
+
+// DELETE SEASON
+router.delete('/:id', async (req: Request, res: Response) => {
+  const id = req.params['id'] as string;
+  try {
+    await prisma.season.delete({
+      where: { id },
+    });
+    res.status(204).send();
+  } catch (error) {
+    console.error('Error deleting season details:', error);
+    res.status(500).json({ message: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
   }
 });
 

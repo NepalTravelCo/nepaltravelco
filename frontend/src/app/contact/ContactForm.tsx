@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   User, Mail, Phone, MapPin, Calendar, Users, 
-  Wallet, Home, Map, MessageSquare, ChevronDown, 
+  Wallet, Home, Map as MapIcon, MessageSquare, ChevronDown, 
   Globe, Plane, CheckCircle2 
 } from 'lucide-react'
 import { getPublicBackendBaseUrl } from "@/lib/backend-url"
@@ -360,7 +360,7 @@ function ContactForm() {
                   />
                   
                   <CustomSelect 
-                    icon={Map}
+                    icon={MapIcon}
                     label="Trip Type"
                     options={tripTypes}
                     value={formData.tripType}

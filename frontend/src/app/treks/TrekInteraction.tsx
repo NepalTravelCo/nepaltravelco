@@ -332,7 +332,7 @@ function SectionCard({
                                    <Signal size={10} className="text-[var(--admin-accent)]" /> Difficulty
                                 </div>
                                 <div className="text-xl lg:text-2xl font-black text-white">
-                                    {item.type === 'region' ? 'Varied' : item.difficulty}
+                                    {item.type === 'region' ? (item.difficulty || 'Varied') : item.difficulty}
                                 </div>
                             </div>
                             <div>
@@ -340,7 +340,9 @@ function SectionCard({
                                    <Calendar size={10} className="text-[var(--admin-accent)]" /> Best Season
                                 </div>
                                 <div className="text-xl lg:text-2xl font-black text-white truncate">
-                                    {item.type === 'region' ? 'Spring/Autumn' : (item.bestMonths?.slice(0, 2).join(', ') || 'Spring')}
+                                    {item.type === 'region' 
+                                        ? (Array.isArray(item.bestMonths) && item.bestMonths.length > 0 ? item.bestMonths.slice(0, 2).join(', ') : 'Spring/Autumn') 
+                                        : (item.bestMonths?.slice(0, 2).join(', ') || 'Spring')}
                                 </div>
                             </div>
                         </div>

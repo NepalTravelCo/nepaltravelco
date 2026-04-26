@@ -1,4 +1,4 @@
-const LOCAL_BACKEND_URL = "http://localhost:5000";
+const LOCAL_BACKEND_URL = "http://localhost:5005";
 
 export function normalizeBackendBaseUrl(value?: string | null): string {
   const raw = (value || "").trim();

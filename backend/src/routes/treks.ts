@@ -13,7 +13,7 @@ router.get('/', async (req: Request, res: Response) => {
     res.json(treks);
   } catch (error) {
     console.error('Error fetching treks:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
   }
 });
 
@@ -32,7 +32,7 @@ router.get('/:slug', async (req: Request, res: Response) => {
     res.json(trek);
   } catch (error) {
     console.error('Error fetching trek:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', details: error instanceof Error ? error.message : String(error) });
   }
 });
 

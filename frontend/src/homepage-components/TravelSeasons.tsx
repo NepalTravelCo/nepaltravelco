@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, Calendar } from "lucide-react"
-import { getPublicBackendBaseUrl } from "@/lib/backend-url"
+import { apiClient } from "@/lib/api-client"
 
 interface Season {
   slug: string
@@ -25,10 +25,7 @@ export default function TravelSeasons({ onLoaded }: { onLoaded?: () => void }) {
   useEffect(() => {
     const fetchSeasons = async () => {
       try {
-        const response = await fetch(`${getPublicBackendBaseUrl()}/api/seasons`)
-
-        const data = await response.json()
-        console.log("Seasons API:", data)
+        const data = await apiClient<any>("/api/seasons")
 
         if (Array.isArray(data)) {
           setSeasons(data)

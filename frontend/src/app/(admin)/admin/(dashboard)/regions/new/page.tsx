@@ -1,9 +1,8 @@
-
 import { RegionForm } from "@/components/admin/region-form"
 
-export default async function NewRegionPage() {
+export default function NewRegionPage() {
     return (
-        <div className="max-w-7xl mx-auto">
+        <div className="container mx-auto px-4">
             <RegionForm />
         </div>
     )

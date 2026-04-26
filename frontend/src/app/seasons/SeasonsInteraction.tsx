@@ -10,9 +10,17 @@ import {
     MotionValue,
 } from "framer-motion"
 import Link from "next/link"
-import { seasonsData, Season } from "../../data/Seasons"
+export interface Season {
+    id?: string
+    slug: string
+    name: string
+    image: string
+    description: string
+    highlights: string[]
+    bestMonths: string[]
+}
 
-export default function SeasonsInteraction() {
+export default function SeasonsInteraction({ seasons }: { seasons: Season[] }) {
     const containerRef = useRef<HTMLDivElement>(null)
 
     const { scrollYProgress } = useScroll({
@@ -23,13 +31,13 @@ export default function SeasonsInteraction() {
 
     return (
         <div ref={containerRef} className="relative bg-black">
-            {seasonsData.map((season, index) => (
+            {seasons.map((season, index) => (
                 <SeasonSection
                     key={season.slug}
                     season={season}
                     index={index}
                     progress={scrollYProgress}
-                    totalCards={seasonsData.length}
+                    totalCards={seasons.length}
                 />
             ))}
         </div>

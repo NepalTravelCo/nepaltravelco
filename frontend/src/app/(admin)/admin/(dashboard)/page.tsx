@@ -1,46 +1,70 @@
-import { Mountain, Users, Calendar, AlertCircle } from "lucide-react"
+import { Mountain, Users, Calendar, AlertCircle, TrendingUp, ArrowUpRight, ArrowDownRight, Activity } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { prisma } from "@/lib/prisma"
+
+export const dynamic = "force-dynamic"
 
 export default async function AdminDashboard() {
-    // Mock data for now to ensure UI renders even if DB is down
+    const [trekCount, packageCount, bookingCount, recentBookings] = await Promise.all([
+        prisma.trek.count(),
+        prisma.package.count(),
+        prisma.booking.count(),
+        prisma.booking.findMany({
+            take: 5,
+            orderBy: { createdAt: 'desc' },
+            include: { package: true, trek: true }
+        })
+    ])
+
     const stats = [
-        { label: "Total Treks", value: "12", icon: Mountain, change: "+2 this month", color: "text-blue-600" },
-        { label: "Active Bookings", value: "24", icon: Calendar, change: "+5 this week", color: "text-green-600" },
-        { label: "Total Experiences", value: "5", icon: Users, change: "No change", color: "text-purple-600" },
-        { label: "Pending Reviews", value: "3", icon: AlertCircle, change: "-1 today", color: "text-orange-600" },
+        { label: "Total Expeditions", value: trekCount, icon: Mountain, change: "+2", trend: "up", color: "text-blue-500", bg: "bg-blue-500/10" },
+        { label: "Active Packages", value: packageCount, icon: Activity, change: "+1", trend: "up", color: "text-purple-500", bg: "bg-purple-500/10" },
+        { label: "Total Bookings", value: bookingCount, icon: Calendar, change: "+12%", trend: "up", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+        { label: "Site Visitors", value: "1.2k", icon: Users, change: "-3%", trend: "down", color: "text-amber-500", bg: "bg-amber-500/10" },
     ]
 
     return (
-        <div className="max-w-7xl mx-auto space-y-10">
-            <div className="flex items-end justify-between border-b pb-6 border-admin-card-border">
+        <div className="max-w-7xl mx-auto space-y-10 pb-10">
+            {/* Header */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-8 border-admin-card-border/50">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-admin-text-primary">Admin Dashboard</h1>
-                    <p className="text-admin-text-secondary mt-1 font-medium">Overview of your trekking operations and performance.</p>
+                    <h1 className="text-4xl font-black tracking-tight text-admin-text-primary flex items-center gap-3">
+                        Dashboard <span className="text-xs font-bold px-2 py-1 bg-admin-accent/20 text-admin-accent rounded uppercase tracking-widest">v2.0</span>
+                    </h1>
+                    <p className="text-admin-text-secondary mt-2 font-medium">Global operations and conversion metrics at a glance.</p>
                 </div>
-                <div className="hidden sm:block">
-                    <span className="inline-flex items-center rounded-md bg-stone-100 dark:bg-slate-800 px-3 py-1 text-xs font-bold text-admin-text-secondary ring-1 ring-inset ring-admin-border">
-                        System Online
-                    </span>
+                <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-admin-card border border-admin-card-border rounded-xl">
+                        <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-xs font-black uppercase tracking-widest text-admin-text-secondary">Live Traffic</span>
+                    </div>
                 </div>
             </div>
 
+            {/* Stats Grid */}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {stats.map((stat) => {
                     const Icon = stat.icon
                     return (
-                        <div key={stat.label} className="admin-card p-6 stat-card-accent">
-                            <div className="flex items-center justify-between mb-3">
-                                <span className="stat-label">{stat.label}</span>
-                                <div className="p-2 bg-admin-accent/5 rounded-md">
-                                    <Icon className={cn("h-4 w-4", stat.color.replace('text-', 'text-'))} />
+                        <div key={stat.label} className="group relative admin-card p-6 overflow-hidden hover:border-admin-accent/30 transition-all duration-300">
+                            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                                <Icon size={80} />
+                            </div>
+                            
+                            <div className="flex items-start justify-between relative z-10">
+                                <div className={cn("p-3 rounded-2xl", stat.bg)}>
+                                    <Icon className={cn("h-6 w-6", stat.color)} />
+                                </div>
+                                <div className={cn("flex items-center gap-1 text-xs font-black uppercase tracking-widest", 
+                                    stat.trend === "up" ? "text-emerald-500" : "text-rose-500")}>
+                                    {stat.change}
+                                    {stat.trend === "up" ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
                                 </div>
                             </div>
-                            <div>
-                                <div className="stat-value">{stat.value}</div>
-                                <div className="mt-2 flex items-center text-xs font-bold">
-                                    <span className="text-green-600 mr-2">{stat.change.split(' ')[0]}</span>
-                                    <span className="text-admin-text-secondary">{stat.change.split(' ').slice(1).join(' ')}</span>
-                                </div>
+                            
+                            <div className="mt-6 relative z-10">
+                                <h3 className="text-sm font-bold text-admin-text-secondary uppercase tracking-widest">{stat.label}</h3>
+                                <div className="text-4xl font-black text-admin-text-primary mt-1">{stat.value}</div>
                             </div>
                         </div>
                     )
@@ -48,61 +72,97 @@ export default async function AdminDashboard() {
             </div>
 
             <div className="grid gap-8 lg:grid-cols-12">
-                <div className="lg:col-span-8 admin-card overflow-hidden">
-                    <div className="p-6 border-b border-admin-card-border flex items-center justify-between">
-                        <h3 className="text-lg font-bold text-admin-text-primary">Recent Bookings</h3>
-                        <button className="text-xs font-bold text-admin-accent hover:underline">View all</button>
-                    </div>
-                    <div className="divide-y divide-admin-card-border">
-                        {[1, 2, 3].map((i) => (
-                            <div key={i} className="flex items-center justify-between p-6 hover:bg-admin-bg/50 transition-colors">
-                                <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-full bg-admin-bg border border-admin-border flex items-center justify-center font-bold text-admin-text-secondary">
-                                        {String.fromCharCode(64 + i)}
+                {/* Recent Activity */}
+                <div className="lg:col-span-8 space-y-6">
+                    <div className="admin-card overflow-hidden">
+                        <div className="p-6 border-b border-admin-card-border/50 flex items-center justify-between bg-white/[0.02]">
+                            <h3 className="text-lg font-black text-admin-text-primary uppercase tracking-widest flex items-center gap-2">
+                                <TrendingUp className="h-4 w-4 text-admin-accent" /> Recent Bookings
+                            </h3>
+                            <button className="text-[10px] font-black text-admin-accent uppercase tracking-[0.2em] hover:underline">Full Report</button>
+                        </div>
+                        <div className="divide-y divide-admin-card-border/30">
+                            {recentBookings.length > 0 ? recentBookings.map((booking) => (
+                                <div key={booking.id} className="group flex items-center justify-between p-6 hover:bg-white/[0.02] transition-colors">
+                                    <div className="flex items-center gap-5">
+                                        <div className="h-12 w-12 rounded-2xl bg-admin-bg border border-admin-card-border flex items-center justify-center font-black text-admin-accent text-lg shadow-inner group-hover:border-admin-accent/50 transition-colors">
+                                            {booking.customerName.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <p className="text-md font-bold text-admin-text-primary leading-none">{booking.customerName}</p>
+                                            <p className="text-xs text-admin-text-secondary mt-1.5 flex items-center gap-2 font-medium">
+                                                {booking.package?.title || booking.trek?.name || "Custom Trek"} 
+                                                <span className="h-1 w-1 rounded-full bg-admin-card-border" />
+                                                {booking.numberOfGuests} Guests
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-sm font-bold text-admin-text-primary leading-none">Customer {i}</p>
-                                        <p className="text-xs text-admin-text-secondary mt-1">Everest Base Camp • 2 guests</p>
+                                    <div className="text-right">
+                                        <p className="text-md font-black text-admin-text-primary">${booking.totalPrice?.toLocaleString() || "0"}</p>
+                                        <span className={cn("text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded border mt-2 inline-block", 
+                                            booking.status === "CONFIRMED" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" : "bg-amber-500/10 text-amber-500 border-amber-500/20")}>
+                                            {booking.status}
+                                        </span>
                                     </div>
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-sm font-bold text-admin-text-primary">+$1,450</p>
-                                    <span className="text-[10px] font-bold text-green-600 uppercase tracking-wider">Confirmed</span>
+                            )) : (
+                                <div className="p-12 text-center">
+                                    <AlertCircle className="h-10 w-10 text-admin-text-secondary mx-auto mb-4 opacity-20" />
+                                    <p className="text-admin-text-secondary font-medium">No recent bookings found.</p>
                                 </div>
-                            </div>
-                        ))}
+                            )}
+                        </div>
                     </div>
                 </div>
 
-                <div className="lg:col-span-4 admin-card p-6 flex flex-col">
-                    <div className="flex items-center justify-between mb-6">
-                        <h3 className="text-lg font-bold text-admin-text-primary">Performance</h3>
-                        <div className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-                    </div>
-                    
-                    <div className="space-y-6 flex-1">
-                        <div className="p-4 rounded-xl bg-admin-accent/5 border border-admin-accent/10">
-                            <span className="text-[10px] font-bold text-admin-accent uppercase tracking-widest mb-1 block">Trending</span>
-                            <h4 className="text-md font-bold text-admin-text-primary">Annapurna Circuit</h4>
-                            <p className="text-xs text-admin-text-secondary mt-1">14% increase in conversion.</p>
+                {/* Performance & Shortcuts */}
+                <div className="lg:col-span-4 space-y-8">
+                    <div className="admin-card p-8 relative overflow-hidden bg-gradient-to-br from-admin-card to-admin-bg">
+                        <div className="absolute top-0 right-0 p-4">
+                            <Activity className="text-admin-accent opacity-20" size={40} />
+                        </div>
+                        <h3 className="text-lg font-black text-admin-text-primary uppercase tracking-widest mb-8 border-b border-admin-card-border/50 pb-4">Performance</h3>
+                        
+                        <div className="space-y-8">
+                            <div className="space-y-3">
+                                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-admin-text-secondary">
+                                    <span>Trek Inquiries</span>
+                                    <span className="text-admin-text-primary">82%</span>
+                                </div>
+                                <div className="h-1.5 w-full bg-admin-bg rounded-full overflow-hidden border border-admin-card-border">
+                                    <div className="h-full bg-admin-accent w-[82%] shadow-[0_0_10px_rgba(234,88,12,0.4)]" />
+                                </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-admin-text-secondary">
+                                    <span>Booking Completion</span>
+                                    <span className="text-admin-text-primary">64%</span>
+                                </div>
+                                <div className="h-1.5 w-full bg-admin-bg rounded-full overflow-hidden border border-admin-card-border">
+                                    <div className="h-full bg-blue-500 w-[64%] shadow-[0_0_10px_rgba(59,130,246,0.4)]" />
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="p-4 rounded-xl bg-admin-bg border border-admin-border">
-                                <span className="stat-label">Views</span>
-                                <div className="text-lg font-bold text-admin-text-primary mt-1">24.5k</div>
-                            </div>
-                            <div className="p-4 rounded-xl bg-admin-bg border border-admin-border">
-                                <span className="stat-label">Avg CTR</span>
-                                <div className="text-lg font-bold text-admin-text-primary mt-1">12.2%</div>
-                            </div>
+                        <div className="mt-12 p-5 rounded-2xl bg-white/[0.03] border border-white/10">
+                            <p className="text-[10px] text-admin-text-secondary leading-relaxed font-bold italic">
+                                "The Annapurna region is currently driving 40% of all inquiries this week."
+                            </p>
                         </div>
                     </div>
-                    
-                    <div className="mt-8 pt-6 border-t border-admin-card-border">
-                        <p className="text-xs text-admin-text-secondary leading-relaxed">
-                            Data is synchronized across all instances and updated in real-time.
-                        </p>
+
+                    <div className="admin-card p-6 bg-admin-accent/5 border-admin-accent/20">
+                        <h4 className="text-xs font-black text-admin-accent uppercase tracking-[0.2em] mb-4">Quick Insights</h4>
+                        <div className="flex items-center gap-4 text-admin-text-primary">
+                            <div className="h-10 w-10 rounded-xl bg-admin-accent text-white flex items-center justify-center shadow-lg shadow-admin-accent/20">
+                                <TrendingUp size={20} />
+                            </div>
+                            <div>
+                                <p className="text-sm font-bold">Revenue Target</p>
+                                <p className="text-[10px] text-admin-text-secondary font-black uppercase tracking-widest">92% of Monthly Goal</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

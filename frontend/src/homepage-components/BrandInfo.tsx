@@ -6,7 +6,7 @@ import { ArrowRight, ArrowLeft, Compass, Mountain, ChevronRight } from "lucide-r
 import Link from "next/link"
 import Image from "next/image"
 // import { treksData } from "@/data/Treks"
-import { getPublicBackendBaseUrl } from "@/lib/backend-url"
+import { apiClient } from "@/lib/api-client"
 
 const BrandInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   const [startIndex, setStartIndex] = useState(0)
@@ -16,13 +16,8 @@ const BrandInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   useEffect(() => {
     const fetchTreks = async () => {
       try {
-        const response = await fetch(`${getPublicBackendBaseUrl()}/api/treks`)
-        if (response.ok) {
-          const data = await response.json()
-          setTreks(data)
-        } else {
-          console.error("Server returned error for treks:", response.status)
-        }
+        const data = await apiClient<any[]>("/api/treks")
+        setTreks(data)
       } catch (error) {
         console.error("Error fetching treks for BrandInfo:", error)
       } finally {

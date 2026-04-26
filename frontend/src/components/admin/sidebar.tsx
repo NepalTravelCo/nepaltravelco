@@ -4,15 +4,17 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, Mountain, Compass, Calendar, Settings, LogOut } from "lucide-react"
+import { LayoutDashboard, Mountain, Compass, Calendar, Settings, LogOut, LayoutGrid } from "lucide-react"
 
 import { signOutAction } from "@/lib/actions"
 
 const sidebarItems = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/regions", label: "Regions", icon: Compass },
-    { href: "/admin/treks", label: "Treks", icon: Mountain },
+    { href: "/admin/packages", label: "Best Sellers", icon: Compass },
+    { href: "/admin/treks", label: "Regions", icon: Compass },
+    { href: "/admin/collections", label: "Collections", icon: LayoutGrid },
     { href: "/admin/experiences", label: "Experiences", icon: Compass },
+    { href: "/admin/seasons", label: "Seasons", icon: Compass },
     { href: "/admin/bookings", label: "Bookings", icon: Calendar },
     { href: "/admin/settings", label: "Settings", icon: Settings },
 ]

@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronDown, Search, ArrowRight, Star } from "lucide-react"
 // import { experiences } from "@/app/experiences/data"
 import FullScreenSearch from "./FullScreenSearch"
-import { getPublicBackendBaseUrl } from "@/lib/backend-url"
+import { apiClient } from "@/lib/api-client"
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -27,14 +27,13 @@ const Navigation = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const backendUrl = getPublicBackendBaseUrl();
-        const [expRes, regRes] = await Promise.all([
-          fetch(`${backendUrl}/api/experiences`),
-          fetch(`${backendUrl}/api/regions`)
+        const [expData, regData] = await Promise.all([
+          apiClient<any[]>("/api/experiences"),
+          apiClient<any[]>("/api/regions")
         ]);
         
-        if (expRes.ok) setExperiences(await expRes.json());
-        if (regRes.ok) setTrekkingRegions(await regRes.json());
+        setExperiences(expData);
+        setTrekkingRegions(regData);
       } catch (error) {
         console.error("Error fetching navigation data:", error);
       }

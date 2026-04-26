@@ -1,4 +1,3 @@
-
 'use server'
 
 import { prisma } from "@/lib/prisma"
@@ -8,26 +7,19 @@ import { z } from "zod"
 const trekSchema = z.object({
     name: z.string().min(1),
     slug: z.string().min(1),
-    image: z.string().url(),
+    image: z.string().url().or(z.string().length(0)),
     description: z.string().min(1),
-    longDescription: z.array(z.string()),
-    altitude: z.number().int(),
+    longDescription: z.array(z.string()).default([]),
+    altitude: z.number().int().min(0),
     duration: z.string().min(1),
     difficulty: z.string().min(1),
-    bestMonths: z.array(z.string()),
-    highlights: z.array(z.string()),
-    tips: z.array(z.string()),
-    gallery: z.array(z.string()),
-    itinerary: z.array(z.object({
-        day: z.number(),
-        title: z.string(),
-        description: z.string(),
-    })),
-    estimatedCost: z.object({
-        budget: z.string(),
-        includes: z.array(z.string()),
-    }),
-    permits: z.array(z.string()),
+    bestMonths: z.array(z.string()).default([]),
+    highlights: z.array(z.string()).default([]),
+    tips: z.array(z.string()).default([]),
+    gallery: z.array(z.string()).default([]),
+    itinerary: z.any(), // JSON
+    estimatedCost: z.any(), // JSON
+    permits: z.array(z.string()).default([]),
     regionId: z.string().optional().nullable(),
 })
 
@@ -39,10 +31,14 @@ export async function createTrek(data: z.infer<typeof trekSchema>) {
         })
         revalidatePath("/admin/treks")
         revalidatePath("/treks")
+        revalidatePath(`/treks/${trek.slug}`)
         return { success: true, trek }
     } catch (error) {
         console.error("Failed to create trek:", error)
-        return { success: false, message: "Failed to create trek" }
+        if (error instanceof z.ZodError) {
+            return { success: false, message: "Validation failed: " + error.errors.map(e => e.message).join(", ") }
+        }
+        return { success: false, message: error instanceof Error ? error.message : "Failed to create trek" }
     }
 }
 
@@ -54,23 +50,27 @@ export async function updateTrek(id: string, data: z.infer<typeof trekSchema>) {
             data: validated
         })
         revalidatePath("/admin/treks")
-        revalidatePath(`/treks/${trek.slug}`)
         revalidatePath("/treks")
+        revalidatePath(`/treks/${trek.slug}`)
         return { success: true, trek }
     } catch (error) {
         console.error("Failed to update trek:", error)
-        return { success: false, message: "Failed to update trek" }
+        if (error instanceof z.ZodError) {
+            return { success: false, message: "Validation failed: " + error.errors.map(e => e.message).join(", ") }
+        }
+        return { success: false, message: error instanceof Error ? error.message : "Failed to update trek" }
     }
 }
 
 export async function deleteTrek(id: string) {
     try {
-        await prisma.trek.delete({
+        const trek = await prisma.trek.delete({
             where: { id },
         })
 
         revalidatePath("/admin/treks")
         revalidatePath("/treks")
+        revalidatePath(`/treks/${trek.slug}`)
         return { success: true, message: "Trek deleted successfully" }
     } catch (error) {
         console.error("Failed to delete trek:", error)

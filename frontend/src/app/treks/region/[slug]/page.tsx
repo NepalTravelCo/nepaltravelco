@@ -28,6 +28,7 @@ type RegionDetail = {
   trailCount: number
   altitude?: number
   description: string
+  whyChoose?: string[]
   treks: RegionTrek[]
 }
 
@@ -61,6 +62,7 @@ export async function generateMetadata({ params }: RegionPageProps): Promise<Met
   }
 }
 
+
 export default async function RegionDetailPage({ params }: RegionPageProps) {
   const { slug } = await params
   const region = await fetchRegion(slug)
@@ -70,13 +72,11 @@ export default async function RegionDetailPage({ params }: RegionPageProps) {
   }
 
   const regionAltitude = region.altitude || 3500
-  const topTreks = (region.treks || []).slice(0, 6)
+  const topTreks = (region.treks || [])
   const bestMonths = Array.from(new Set(topTreks.flatMap((trek) => trek.bestMonths || []))).slice(0, 4)
-  const highlightedPoints = Array.from(
-    new Set(topTreks.flatMap((trek) => (trek.highlights || []).slice(0, 2)))
-  ).slice(0, 6)
-  const galleryImages = [region.image, ...topTreks.map((trek) => trek.image)].filter(Boolean).slice(0, 3)
-  const signatureTreks = topTreks.map((trek) => trek.name).slice(0, 6)
+  const highlightedPoints = region.whyChoose || []
+  const galleryImages = [region.image, ...topTreks.map((trek) => trek.image)].filter(Boolean).slice(0, 6)
+  const signatureTreks = topTreks.map((trek) => trek.name).slice(0, 8)
 
   return (
     <div className="bg-stone-50 text-primary font-[var(--text-font)] min-h-screen">
@@ -133,7 +133,7 @@ export default async function RegionDetailPage({ params }: RegionPageProps) {
               <article className="lg:col-span-8 rounded-[2.5rem] border border-stone-200 bg-white p-7 md:p-10 shadow-sm">
                 <p className="text-stone-700 text-base md:text-lg leading-relaxed">{region.description}</p>
                 <p className="mt-5 text-stone-600 text-sm md:text-base leading-relaxed">
-                  Explore varied terrains, iconic Himalayan viewpoints, and culturally rich trails across this region.
+                  Experience the unique landscapes and heritage of the {region.name} region through our curated expeditions.
                 </p>
               </article>
 
@@ -159,8 +159,8 @@ export default async function RegionDetailPage({ params }: RegionPageProps) {
                   <div className="flex items-start gap-3">
                     <Clock3 size={18} className="text-secondary mt-1" />
                     <div>
-                      <p className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Best Months</p>
-                      <p className="mt-1 text-lg font-semibold text-primary">{bestMonths.length ? bestMonths.join(", ") : "Spring, Autumn"}</p>
+                      <p className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Best Seasons</p>
+                      <p className="mt-1 text-lg font-semibold text-primary">{bestMonths.length ? bestMonths.join(", ") : "Spring & Autumn"}</p>
                     </div>
                   </div>
                 </div>
@@ -169,80 +169,85 @@ export default async function RegionDetailPage({ params }: RegionPageProps) {
           </div>
         </section>
 
-        <section className="py-20 md:py-24 px-6 md:px-12 bg-stone-100/60 text-primary">
-          <div className="container-max">
-            <div className="mb-10">
-              <span className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block">Highlights</span>
-              <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold text-primary leading-tight">
-                Why Travelers Choose <span className="italic font-normal">This Region</span>
-              </h2>
-            </div>
+        {(signatureTreks.length > 0 || highlightedPoints.length > 0) && (
+          <section className="py-20 md:py-24 px-6 md:px-12 bg-stone-100/60 text-primary">
+            <div className="container-max">
+              <div className="mb-10">
+                <span className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block">Highlights</span>
+                <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold text-primary leading-tight">
+                  Why Travelers Choose <span className="italic font-normal">This Region</span>
+                </h2>
+              </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <article className="rounded-[2rem] border border-stone-200 bg-white p-6 md:p-8 shadow-sm">
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
-                  <Sparkles size={22} />
-                </div>
-                <h3 className="font-[var(--heading-font)] text-2xl font-bold text-primary">Signature Treks</h3>
-                <ul className="mt-4 space-y-2.5 text-sm text-stone-600">
-                  {signatureTreks.length > 0 ? signatureTreks.map((name) => (
-                    <li key={name} className="flex items-start gap-3 leading-relaxed">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-secondary" />
-                      {name}
-                    </li>
-                  )) : (
-                    <li className="text-stone-500">Trek details will be published soon.</li>
-                  )}
-                </ul>
-              </article>
+              <div className="grid md:grid-cols-2 gap-6">
+                {signatureTreks.length > 0 && (
+                  <article className="rounded-[2rem] border border-stone-200 bg-white p-6 md:p-8 shadow-sm">
+                    <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
+                      <Sparkles size={22} />
+                    </div>
+                    <h3 className="font-[var(--heading-font)] text-2xl font-bold text-primary">Signature Treks</h3>
+                    <ul className="mt-4 space-y-2.5 text-sm text-stone-600">
+                      {signatureTreks.map((name) => (
+                        <li key={name} className="flex items-start gap-3 leading-relaxed">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-secondary" />
+                          {name}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                )}
 
-              <article className="rounded-[2rem] border border-stone-200 bg-white p-6 md:p-8 shadow-sm">
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
-                  <Sparkles size={22} />
-                </div>
-                <h3 className="font-[var(--heading-font)] text-2xl font-bold text-primary">Travel Insights</h3>
-                <ul className="mt-4 space-y-2.5 text-sm text-stone-600">
-                  {highlightedPoints.length > 0 ? highlightedPoints.map((point) => (
-                    <li key={point} className="flex items-start gap-3 leading-relaxed">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-secondary" />
-                      {point}
-                    </li>
-                  )) : (
-                    <li className="text-stone-500">Regional tips and highlights will be updated shortly.</li>
-                  )}
-                </ul>
-              </article>
+                {highlightedPoints.length > 0 && (
+                  <article className="rounded-[2rem] border border-stone-200 bg-white p-6 md:p-8 shadow-sm">
+                    <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
+                      <Sparkles size={22} />
+                    </div>
+                    <h3 className="font-[var(--heading-font)] text-2xl font-bold text-primary">Why Choose This Region?</h3>
+                    <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mt-1">Unique selling points & attractions</p>
+                    <ul className="mt-4 space-y-2.5 text-sm text-stone-600">
+                      {highlightedPoints.map((point) => (
+                        <li key={point} className="flex items-start gap-3 leading-relaxed">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-secondary" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                )}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        <section className="py-20 md:py-24 px-6 md:px-12">
-          <div className="container-max">
-            <div className="mb-10">
-              <span className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block">Visual Story</span>
-              <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold text-primary leading-tight">
-                {region.name} <span className="italic font-normal">Gallery</span>
-              </h2>
-            </div>
+        {galleryImages.length > 0 && (
+          <section className="py-20 md:py-24 px-6 md:px-12">
+            <div className="container-max">
+              <div className="mb-10">
+                <span className="text-secondary font-semibold tracking-[0.3em] uppercase text-xs mb-4 block">Visual Story</span>
+                <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold text-primary leading-tight">
+                  {region.name} <span className="italic font-normal">Gallery</span>
+                </h2>
+              </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {galleryImages.map((image, index) => (
-                <figure
-                  key={`${image}-${index}`}
-                  className="relative overflow-hidden rounded-[2.5rem] border border-stone-200 bg-white shadow-sm h-64 md:h-72"
-                >
-                  <Image
-                    src={image || "/placeholder.svg"}
-                    alt={`${region.name} visual ${index + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
-                </figure>
-              ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {galleryImages.map((image, index) => (
+                  <figure
+                    key={index}
+                    className="relative overflow-hidden rounded-[2.5rem] border border-stone-200 bg-white shadow-sm h-64 md:h-72"
+                  >
+                    <Image
+                      src={image || "/placeholder.svg"}
+                      alt={`${region.name} visual ${index + 1}`}
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+                  </figure>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <section className="py-20 md:py-24 px-6 md:px-12 bg-stone-100/60 text-primary">
           <div className="container-max">
@@ -300,7 +305,7 @@ export default async function RegionDetailPage({ params }: RegionPageProps) {
               </div>
             ) : (
               <article className="rounded-[2rem] border border-stone-200 bg-white p-8 shadow-sm">
-                <p className="text-stone-600">No treks are published for this region yet.</p>
+                <p className="text-stone-600 italic">Expeditions for this region are being updated. Check back soon.</p>
               </article>
             )}
           </div>
@@ -312,18 +317,18 @@ export default async function RegionDetailPage({ params }: RegionPageProps) {
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                 <div>
                   <h2 className="font-[var(--heading-font)] text-4xl md:text-5xl font-bold text-primary leading-tight">
-                    Continue Exploring
+                    Explore More of Nepal
                   </h2>
                   <p className="mt-4 text-stone-600 max-w-2xl leading-relaxed">
-                    Compare more Himalayan regions and choose the route that matches your travel style.
+                    Compare this with other legendary Himalayan regions and choose your next adventure.
                   </p>
                 </div>
 
                 <Link
                   href="/treks"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:bg-secondary"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:bg-secondary shadow-lg shadow-primary/20"
                 >
-                  All Treks
+                  View All Regions
                   <ArrowRight size={15} />
                 </Link>
               </div>

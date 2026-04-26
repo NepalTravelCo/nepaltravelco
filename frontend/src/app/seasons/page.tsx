@@ -1,26 +1,25 @@
 
-
 import type { Metadata } from "next"
-
 import Navigation from "@/header-component/Navigation"
 import FooterSection from "@/footer-components/FooterSection"
 import SeasonsHero from "./SeasonsHero"
 import SeasonsInteraction from "./SeasonsInteraction"
-import { seasonsData } from "../../data/Seasons"
+import { prisma } from "@/lib/prisma"
 
-// Page-level SEO metadata for the seasons index route. App Router supports generateMetadata per route.
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Seasons in Nepal | Complete Seasonal Guide",
   description:
     "Explore all seasons in Nepal with highlights, best months, and travel tips. Click any season to view detailed guides.",
   alternates: {
-    canonical: "https://www.example.com/seasons", // Replace with your domain at deploy
+    canonical: "https://www.example.com/seasons", 
   },
   openGraph: {
     title: "Seasons in Nepal | Complete Seasonal Guide",
     description:
       "Explore all seasons in Nepal with highlights, best months, and travel tips.",
-    url: "https://www.example.com/seasons", // Replace with your domain
+    url: "https://www.example.com/seasons", 
     type: "website",
   },
   twitter: {
@@ -31,11 +30,15 @@ export const metadata: Metadata = {
   },
 }
 
-export default function SeasonsIndexPage() {
+export default async function SeasonsIndexPage() {
+  const seasons = await prisma.season.findMany({
+    orderBy: { createdAt: 'asc' }
+  })
+
   const itemListStructuredData = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: seasonsData.map((s, idx) => ({
+    itemListElement: seasons.map((s, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
       url: `/seasons/${s.slug}`,
@@ -51,7 +54,7 @@ export default function SeasonsIndexPage() {
 
       <main className="h-screen w-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth">
         <SeasonsHero />
-        <SeasonsInteraction />
+        <SeasonsInteraction seasons={seasons as any} />
         <div className="snap-start">
           <FooterSection />
         </div>

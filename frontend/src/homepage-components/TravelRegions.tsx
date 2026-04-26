@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { getPublicBackendBaseUrl } from "@/lib/backend-url"
+import { apiClient } from "@/lib/api-client"
 
 type RegionKey = "Himalayan" | "Hilly" | "Terai"
 
@@ -23,13 +23,12 @@ export default function TravelRegions({ onLoaded }: { onLoaded?: () => void }) {
   useEffect(() => {
     const fetchRegions = async () => {
       try {
-        const response = await fetch(`${getPublicBackendBaseUrl()}/api/sections?category=travel-regions`)
-        if (response.ok) {
-          const data = await response.json()
-          if (!Array.isArray(data)) {
-            console.error("Travel Regions data is not an array:", data)
-            return
-          }
+        const data = await apiClient<any[]>("/api/sections?category=travel-regions")
+        
+        if (!Array.isArray(data)) {
+          console.error("Travel Regions data is not an array:", data)
+          return
+        }
 
         // Separate overview and regions
         const overviewItem = data.find((item: any) => item.tag === "overview")
@@ -67,9 +66,6 @@ export default function TravelRegions({ onLoaded }: { onLoaded?: () => void }) {
 
         setSlides(newSlides)
         setRegionData(newRegionData)
-        } else {
-          console.error("Server returned error for regions:", response.status)
-        }
       } catch (error) {
         console.error("Error fetching travel regions:", error)
       } finally {

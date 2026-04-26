@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { getPublicBackendBaseUrl } from "@/lib/backend-url"
+import { apiClient } from "@/lib/api-client"
 
 type PackageItem = {
   id: string
@@ -19,27 +19,23 @@ function BestSelling({ onLoaded }: { onLoaded?: () => void }) {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await fetch(`${getPublicBackendBaseUrl()}/api/packages`)
-        if (response.ok) {
-          const data: unknown = await response.json()
-          if (Array.isArray(data)) {
-            const normalizedPackages = data.map((item, index) => {
-              const record = item as Record<string, unknown>
-              return {
-                id: String(record.id ?? index),
-                title: String(record.title ?? "Untitled Package"),
-                image: String(record.image ?? "/placeholder.svg"),
-                duration: String(record.duration ?? "Duration TBA"),
-                location: String(record.location ?? "Nepal"),
-                price: Number(record.price ?? 0),
-              }
-            })
-            setPackages(normalizedPackages)
-          } else {
-            setPackages([])
-          }
+        const data = await apiClient<any[]>("/api/packages")
+        
+        if (Array.isArray(data)) {
+          const normalizedPackages = data.map((item, index) => {
+            const record = item as Record<string, unknown>
+            return {
+              id: String(record.id ?? index),
+              title: String(record.title ?? "Untitled Package"),
+              image: String(record.image ?? "/placeholder.svg"),
+              duration: String(record.duration ?? "Duration TBA"),
+              location: String(record.location ?? "Nepal"),
+              price: Number(record.price ?? 0),
+            }
+          })
+          setPackages(normalizedPackages)
         } else {
-          console.error("Server returned error for packages:", response.status)
+          setPackages([])
         }
       } catch (error) {
         console.error("Error fetching packages:", error)

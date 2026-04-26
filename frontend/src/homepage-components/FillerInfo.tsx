@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { getPublicBackendBaseUrl } from "@/lib/backend-url";
+import { apiClient } from "@/lib/api-client";
 
 const FillerInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   const containerRef = useRef<HTMLElement>(null);
@@ -24,13 +24,8 @@ const FillerInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch(`${getPublicBackendBaseUrl()}/api/sections/filler-valley`);
-        if (response.ok) {
-          const data = await response.json();
-          setContent(data);
-        } else {
-          console.error("Server returned error for filler content:", response.status);
-        }
+        const data = await apiClient<any>("/api/sections/filler-valley");
+        setContent(data);
       } catch (error) {
         console.error("Error fetching filler content:", error);
       } finally {
