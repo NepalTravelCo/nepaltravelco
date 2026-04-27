@@ -22,6 +22,8 @@ interface Region {
     trailCount: number
     altitude?: number
     description: string
+    difficulty?: string
+    bestMonths?: string[]
     type?: 'region'
 }
 

@@ -79,6 +79,18 @@ model Trek {
   regionId        String?
   region          Region?  @relation(fields: [regionId], references: [id])
   bookings        Booking[]
+  collections     TrekCollection[]
+}
+
+model TrekCollection {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  treks       Trek[]
 }
 
 model Region {

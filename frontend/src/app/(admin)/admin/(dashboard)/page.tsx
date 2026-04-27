@@ -11,8 +11,7 @@ export default async function AdminDashboard() {
         prisma.booking.count(),
         prisma.booking.findMany({
             take: 5,
-            orderBy: { createdAt: 'desc' },
-            include: { package: true, trek: true }
+            orderBy: { createdAt: 'desc' }
         })
     ])
 
@@ -91,14 +90,14 @@ export default async function AdminDashboard() {
                                         <div>
                                             <p className="text-md font-bold text-admin-text-primary leading-none">{booking.customerName}</p>
                                             <p className="text-xs text-admin-text-secondary mt-1.5 flex items-center gap-2 font-medium">
-                                                {booking.package?.title || booking.trek?.name || "Custom Trek"} 
+                                                {booking.serviceName || "Custom Trek"}
                                                 <span className="h-1 w-1 rounded-full bg-admin-card-border" />
-                                                {booking.numberOfGuests} Guests
+                                                {booking.guests} Guests
                                             </p>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-md font-black text-admin-text-primary">${booking.totalPrice?.toLocaleString() || "0"}</p>
+                                        <p className="text-xs font-bold uppercase tracking-widest text-admin-text-secondary">{booking.serviceType}</p>
                                         <span className={cn("text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded border mt-2 inline-block", 
                                             booking.status === "CONFIRMED" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" : "bg-amber-500/10 text-amber-500 border-amber-500/20")}>
                                             {booking.status}
@@ -147,7 +146,7 @@ export default async function AdminDashboard() {
 
                         <div className="mt-12 p-5 rounded-2xl bg-white/[0.03] border border-white/10">
                             <p className="text-[10px] text-admin-text-secondary leading-relaxed font-bold italic">
-                                "The Annapurna region is currently driving 40% of all inquiries this week."
+                                &quot;The Annapurna region is currently driving 40% of all inquiries this week.&quot;
                             </p>
                         </div>
                     </div>

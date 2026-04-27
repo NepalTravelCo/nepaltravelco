@@ -26,8 +26,29 @@ const trekSchema = z.object({
 export async function createTrek(data: z.infer<typeof trekSchema>) {
     try {
         const validated = trekSchema.parse(data)
+        const { regionId } = validated
+        const baseData = {
+            name: validated.name,
+            slug: validated.slug,
+            image: validated.image,
+            description: validated.description,
+            longDescription: validated.longDescription,
+            altitude: validated.altitude,
+            duration: validated.duration,
+            difficulty: validated.difficulty,
+            bestMonths: validated.bestMonths,
+            highlights: validated.highlights,
+            tips: validated.tips,
+            gallery: validated.gallery,
+            itinerary: validated.itinerary,
+            estimatedCost: validated.estimatedCost,
+            permits: validated.permits,
+        }
         const trek = await prisma.trek.create({
-            data: validated
+            data: {
+                ...baseData,
+                ...(regionId ? { region: { connect: { id: regionId } } } : {}),
+            }
         })
         revalidatePath("/admin/treks")
         revalidatePath("/treks")
@@ -45,9 +66,32 @@ export async function createTrek(data: z.infer<typeof trekSchema>) {
 export async function updateTrek(id: string, data: z.infer<typeof trekSchema>) {
     try {
         const validated = trekSchema.parse(data)
+        const { regionId } = validated
+        const baseData = {
+            name: validated.name,
+            slug: validated.slug,
+            image: validated.image,
+            description: validated.description,
+            longDescription: validated.longDescription,
+            altitude: validated.altitude,
+            duration: validated.duration,
+            difficulty: validated.difficulty,
+            bestMonths: validated.bestMonths,
+            highlights: validated.highlights,
+            tips: validated.tips,
+            gallery: validated.gallery,
+            itinerary: validated.itinerary,
+            estimatedCost: validated.estimatedCost,
+            permits: validated.permits,
+        }
         const trek = await prisma.trek.update({
             where: { id },
-            data: validated
+            data: {
+                ...baseData,
+                region: regionId
+                    ? { connect: { id: regionId } }
+                    : { disconnect: true },
+            }
         })
         revalidatePath("/admin/treks")
         revalidatePath("/treks")
