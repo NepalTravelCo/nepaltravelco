@@ -1,16 +1,45 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { getPublicBackendBaseUrl } from "@/lib/backend-url";
 
 const ExperiencesHero = () => {
+    const [heroData, setHeroData] = useState<{
+        title?: string;
+        subtitle?: string;
+        content?: string;
+        mainImage?: string;
+    } | null>(null);
+
+    useEffect(() => {
+        const fetchHero = async () => {
+            try {
+                const res = await fetch(`${getPublicBackendBaseUrl()}/api/sections/experiences-hero`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setHeroData(data);
+                }
+            } catch (error) {
+                console.error("Error fetching hero section:", error);
+            }
+        };
+        fetchHero();
+    }, []);
+
+    const title = heroData?.title || "Unforgettable Experiences";
+    const titleWords = title.split(" ");
+    const lastWord = titleWords.length > 1 ? titleWords.pop() : "";
+    const remainingTitle = titleWords.join(" ");
+
     return (
         <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="https://i.pinimg.com/736x/80/bb/ac/80bbac0f2981e85796dffaf11b100e15.jpg"
-                    alt="Experiences in Nepal"
+                    src={heroData?.mainImage || "https://i.pinimg.com/736x/80/bb/ac/80bbac0f2981e85796dffaf11b100e15.jpg"}
+                    alt={title}
                     fill
                     priority
                     className="object-cover"
@@ -30,7 +59,7 @@ const ExperiencesHero = () => {
                 >
                     <span className="h-px w-8 bg-[var(--accent)]" />
                     <span className="text-[var(--accent)] text-xs md:text-sm uppercase tracking-[0.4em] font-bold">
-                        Beyond the Peaks
+                        {heroData?.subtitle || "Beyond the Peaks"}
                     </span>
                     <span className="h-px w-8 bg-[var(--accent)]" />
                 </motion.div>
@@ -41,7 +70,8 @@ const ExperiencesHero = () => {
                     transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     className="font-[var(--heading-font)] text-[clamp(2.5rem,8vw,5.5rem)] font-extrabold text-white leading-tight tracking-tighter"
                 >
-                    Unforgettable <span className="text-[var(--secondary)] italic font-light">Experiences</span>
+                    {remainingTitle} {lastWord && <span className="text-[var(--secondary)] italic font-light">{lastWord}</span>}
+                    {!lastWord && <span className="text-[var(--secondary)] italic font-light">{remainingTitle}</span>}
                 </motion.h1>
 
                 <motion.p
@@ -50,7 +80,7 @@ const ExperiencesHero = () => {
                     transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
                     className="mt-6 max-w-2xl mx-auto text-white/90 text-lg md:text-xl font-light leading-relaxed"
                 >
-                    From the deepest gorges to the highest skies, discover Nepal&apos;s most thrilling and exclusive journeys.
+                    {heroData?.content || "From the deepest gorges to the highest skies, discover Nepal's most thrilling and exclusive journeys."}
                 </motion.p>
             </div>
 
