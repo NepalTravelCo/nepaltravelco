@@ -4,18 +4,23 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, Mountain, Compass, Calendar, Settings, LogOut, LayoutGrid } from "lucide-react"
+import { LayoutDashboard, Mountain, Compass, Calendar, Settings, LogOut, LayoutGrid, HelpCircle, MapPin, Activity, FileText, Mail } from "lucide-react"
 
 import { signOutAction } from "@/lib/actions"
 
 const sidebarItems = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
     { href: "/admin/packages", label: "Best Sellers", icon: Compass },
-    { href: "/admin/treks", label: "Regions", icon: Compass },
+    { href: "/admin/treks", label: "Regions", icon: Mountain },
     { href: "/admin/collections", label: "Collections", icon: LayoutGrid },
     { href: "/admin/experiences", label: "Experiences", icon: Compass },
-    { href: "/admin/seasons", label: "Seasons", icon: Compass },
+    { href: "/admin/seasons", label: "Seasons", icon: Calendar },
+    { href: "/admin/destinations", label: "Destinations", icon: MapPin },
+    { href: "/admin/activities", label: "Activities", icon: Activity },
+    { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
+    { href: "/admin/sections", label: "Page Sections", icon: FileText },
     { href: "/admin/bookings", label: "Bookings", icon: Calendar },
+    { href: "/admin/inquiries", label: "Inquiries", icon: Mail },
     { href: "/admin/settings", label: "Settings", icon: Settings },
 ]
 

@@ -18,6 +18,7 @@ interface PackageFormProps {
         duration: string
         features: string[]
         location: string | null
+        isBestSeller: boolean
     } | null
 }
 
@@ -33,6 +34,7 @@ export function PackageForm({ initialData }: PackageFormProps) {
         duration: initialData?.duration || "",
         features: initialData?.features || [""],
         location: initialData?.location || "Nepal",
+        isBestSeller: initialData?.isBestSeller || false,
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -260,6 +262,19 @@ export function PackageForm({ initialData }: PackageFormProps) {
                                         required
                                     />
                                 </div>
+                            </div>
+                            <div className="flex items-center justify-between p-4 bg-admin-bg border border-admin-card-border rounded-xl mt-4">
+                                <div className="flex flex-col">
+                                    <span className="text-sm font-bold text-admin-text-primary">Best Seller</span>
+                                    <span className="text-[10px] text-admin-text-secondary">Feature this package as traveler's favorite</span>
+                                </div>
+                                <input 
+                                    type="checkbox"
+                                    name="isBestSeller" 
+                                    checked={formData.isBestSeller} 
+                                    onChange={(e) => setFormData(prev => ({ ...prev, isBestSeller: e.target.checked }))}
+                                    className="h-5 w-5 rounded border-admin-card-border text-admin-accent focus:ring-admin-accent/20 cursor-pointer"
+                                />
                             </div>
                         </div>
                     </section>

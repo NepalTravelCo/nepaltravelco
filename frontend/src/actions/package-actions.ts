@@ -14,6 +14,7 @@ const packageSchema = z.object({
     image: z.string().url().optional().nullable().or(z.string().length(0)),
     location: z.string().optional().nullable(),
     slug: z.string().optional().nullable(),
+    isBestSeller: z.boolean().optional(),
 })
 
 export async function createPackage(data: z.infer<typeof packageSchema>) {
@@ -69,5 +70,20 @@ export async function deletePackage(id: string) {
     } catch (error) {
         console.error("Failed to delete package:", error)
         return { success: false, message: "Failed to delete package" }
+    }
+}
+
+export async function toggleBestSeller(id: string, isBestSeller: boolean) {
+    try {
+        await prisma.package.update({
+            where: { id },
+            data: { isBestSeller }
+        })
+        revalidatePath("/admin/packages")
+        revalidatePath("/")
+        return { success: true }
+    } catch (error) {
+        console.error("Failed to toggle best seller status:", error)
+        return { success: false, message: "Failed to update status" }
     }
 }

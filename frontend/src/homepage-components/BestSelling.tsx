@@ -22,17 +22,22 @@ function BestSelling({ onLoaded }: { onLoaded?: () => void }) {
         const data = await apiClient<any[]>("/api/packages")
         
         if (Array.isArray(data)) {
-          const normalizedPackages = data.map((item, index) => {
-            const record = item as Record<string, unknown>
-            return {
-              id: String(record.id ?? index),
-              title: String(record.title ?? "Untitled Package"),
-              image: String(record.image ?? "/placeholder.svg"),
-              duration: String(record.duration ?? "Duration TBA"),
-              location: String(record.location ?? "Nepal"),
-              price: Number(record.price ?? 0),
-            }
-          })
+          const normalizedPackages = data
+            .filter((item) => {
+              const record = item as Record<string, unknown>
+              return record.isBestSeller === true
+            })
+            .map((item, index) => {
+              const record = item as Record<string, unknown>
+              return {
+                id: String(record.id ?? index),
+                title: String(record.title ?? "Untitled Package"),
+                image: String(record.image ?? "/placeholder.svg"),
+                duration: String(record.duration ?? "Duration TBA"),
+                location: String(record.location ?? "Nepal"),
+                price: Number(record.price ?? 0),
+              }
+            })
           setPackages(normalizedPackages)
         } else {
           setPackages([])

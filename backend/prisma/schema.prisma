@@ -168,6 +168,7 @@ model Package {
   location    String?
   slug        String?   @unique
   bookings    Booking[]
+  isBestSeller Boolean   @default(false)
 }
 
 model Season {
