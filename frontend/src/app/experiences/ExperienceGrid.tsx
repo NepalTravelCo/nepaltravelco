@@ -75,7 +75,7 @@ const ExperienceGrid = () => {
     return (
         <section className="relative z-20 py-32 px-6 bg-primary overflow-hidden ">
             {/* Decorative Elements from BrandInfo */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-texture-pattern" />
             <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] -translate-y-1/2" />
             <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] translate-y-1/2" />
 

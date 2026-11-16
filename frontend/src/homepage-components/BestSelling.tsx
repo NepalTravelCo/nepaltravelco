@@ -74,7 +74,7 @@ function BestSelling({ onLoaded }: { onLoaded?: () => void }) {
   if (loading || packages.length === 0) return null;
 
   return (
-    <section className="bg-stone-50 py-24">
+    <section className="content-auto bg-stone-50 py-24">
       <div className="container-max">
         {/* Header */}
         <div className="mb-8">
@@ -122,6 +122,7 @@ function BestSelling({ onLoaded }: { onLoaded?: () => void }) {
                     src={pkg.image}
                     alt={pkg.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
 

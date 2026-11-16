@@ -89,7 +89,7 @@ export default function TravelTypes({ onLoaded }: { onLoaded?: () => void }) {
   const currentImages = currentCategory.images
 
   return (
-    <section className="bg-stone-50 py-24 md:py-32 overflow-hidden">
+    <section className="content-auto bg-stone-50 py-24 md:py-32 overflow-hidden">
       <div className="container-max">
         
         {/* Minimalist Header & Navigation */}
@@ -152,6 +152,7 @@ export default function TravelTypes({ onLoaded }: { onLoaded?: () => void }) {
                       src={currentImages[currentImageIndex].src}
                       alt={currentImages[currentImageIndex].title}
                       fill
+                      sizes="(max-width: 768px) 100vw, 66vw"
                       className="object-cover transition-transform duration-1000 group-hover/main:scale-110"
                       priority
                     />
@@ -209,6 +210,7 @@ export default function TravelTypes({ onLoaded }: { onLoaded?: () => void }) {
                         src={img.src}
                         alt={img.title}
                         fill
+                        sizes="(max-width: 768px) 75vw, 30vw"
                         className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100"
                       />
                       <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-500" />

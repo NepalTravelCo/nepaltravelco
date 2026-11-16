@@ -12,7 +12,7 @@ export default function LoadingOverlay() {
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#FDFBF7]"
     >
       {/* Decorative Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-texture-pattern" />
       
       {/* Central Animation */}
       <div className="relative">

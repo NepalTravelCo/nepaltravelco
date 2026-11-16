@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
@@ -13,7 +13,7 @@ import { apiClient } from "@/lib/api-client"
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showNavbar, setShowNavbar] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const lastScrollY = useRef(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
   const [isHovered, setIsHovered] = useState(false)
@@ -42,23 +42,32 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          const prevScrollY = lastScrollY.current
 
-      // Show/Hide behavior
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setShowNavbar(false)
-      } else {
-        setShowNavbar(true)
+          // Show/Hide behavior
+          if (currentScrollY > prevScrollY && currentScrollY > 100) {
+            setShowNavbar(false)
+          } else {
+            setShowNavbar(true)
+          }
+
+          setIsScrolled(currentScrollY > 60)
+          lastScrollY.current = currentScrollY
+          ticking = false
+        })
+        ticking = true
       }
-
-      setIsScrolled(currentScrollY > 60)
-      setLastScrollY(currentScrollY)
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY])
+  }, [])
 
   // Close menus on route change
   useEffect(() => {
@@ -203,7 +212,7 @@ const Navigation = () => {
 
                               {/* Menu Right (Conditional Content) */}
                               <div className="col-span-8 p-12 flex items-center gap-12 relative overflow-hidden">
-                                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+                                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-texture-pattern" />
 
                                 {link.name === "Treks" ? (
                                   <>

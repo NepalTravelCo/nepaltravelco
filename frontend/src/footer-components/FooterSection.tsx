@@ -8,9 +8,9 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube, ArrowRight 
 function FooterSection() {
   return (
     <>
-      <footer className="relative bg-primary overflow-hidden pt-24">
+      <footer className="content-auto relative bg-primary overflow-hidden pt-24">
         {/* Decorative Texture and Blurs */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-texture-pattern" />
         <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px] -translate-y-1/2" />
         <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px] translate-y-1/2" />
 

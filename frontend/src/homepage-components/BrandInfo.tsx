@@ -64,9 +64,9 @@ const BrandInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   if (loading || trekkinginfo.length === 0) return null;
 
   return (
-    <section className="relative z-10 py-24 bg-primary overflow-hidden">
+    <section className="content-auto relative z-10 py-24 bg-primary overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-texture-pattern" />
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] -translate-y-1/2" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] translate-y-1/2" />
 
@@ -128,6 +128,7 @@ const BrandInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
                     src={trek.imageUrl}
                     alt={trek.name}
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
 

@@ -242,7 +242,7 @@ const VisaCTA = () => (
   <section className="py-24 bg-stone-50">
     <div className="container-max">
       <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative overflow-hidden rounded-[3rem] bg-stone-900 border border-stone-800 p-12 md:p-20 text-center text-white shadow-2xl">
-        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-texture-pattern" />
         <div className="relative z-10 max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold mb-8 font-[var(--heading-font)] text-stone-50">Ready for your <span className="text-[#ea580c] italic font-light">Adventure?</span></h2>
           <p className="text-stone-400 text-lg mb-12 font-light">Visa regulations can evolve. For the most current protocols, visit the official portal.</p>

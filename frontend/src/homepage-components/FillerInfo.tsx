@@ -41,7 +41,7 @@ const FillerInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
   return (
     <section
       ref={containerRef}
-      className="relative z-10 min-h-[120vh] overflow-hidden bg-[#FDFBF7] flex items-center justify-center py-24"
+      className="content-auto relative z-10 min-h-[120vh] overflow-hidden bg-[#FDFBF7] flex items-center justify-center py-24"
     >
       {/* Massive Background Text */}
       <motion.div
@@ -69,6 +69,7 @@ const FillerInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
             src={content.mainImage || "/placeholder.svg"}
             alt={content.title}
             fill
+            sizes="(max-width: 768px) 35vw, 22vw"
             className="object-cover hover:scale-110 transition-transform duration-700"
           />
         </motion.div>
@@ -82,6 +83,7 @@ const FillerInfo = ({ onLoaded }: { onLoaded?: () => void }) => {
             src={content.metadata?.image2 || "/placeholder.svg"}
             alt="Nepali Culture"
             fill
+            sizes="(max-width: 768px) 40vw, 28vw"
             className="object-cover hover:scale-110 transition-transform duration-700"
           />
         </motion.div>

@@ -31,13 +31,22 @@ const BrandParallax = ({ onLoaded }: { onLoaded?: () => void }) => {
   // Mouse tracking
   const mouseX = useMotionValue(0.5)
   const mouseY = useMotionValue(0.5)
+  const rectRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null)
+
+  const updateRect = () => {
+    if (containerRef.current) {
+      rectRef.current = containerRef.current.getBoundingClientRect()
+    }
+  }
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return
-    const { clientX, clientY } = e
-    const { left, top, width, height } = containerRef.current.getBoundingClientRect()
-    mouseX.set((clientX - left) / width)
-    mouseY.set((clientY - top) / height)
+    if (!rectRef.current) {
+      updateRect()
+    }
+    const rect = rectRef.current
+    if (!rect || rect.width === 0 || rect.height === 0) return
+    mouseX.set((e.clientX - rect.left) / rect.width)
+    mouseY.set((e.clientY - rect.top) / rect.height)
   }
 
   // Scroll tracking
@@ -90,6 +99,7 @@ const BrandParallax = ({ onLoaded }: { onLoaded?: () => void }) => {
   return (
     <section
       ref={containerRef}
+      onMouseEnter={updateRect}
       onMouseMove={handleMouseMove}
       className="sticky top-0 z-0 h-[80vh] flex items-center justify-center overflow-hidden bg-[#faf9f6]"
     >

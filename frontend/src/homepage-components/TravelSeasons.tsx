@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowRight, Calendar } from "lucide-react"
 import { apiClient } from "@/lib/api-client"
@@ -72,7 +73,7 @@ export default function TravelSeasons({ onLoaded }: { onLoaded?: () => void }) {
   }
 
   return (
-    <section className="bg-stone-50 py-24 md:py-32 overflow-hidden flex flex-col items-center justify-center relative">
+    <section className="content-auto bg-stone-50 py-24 md:py-32 overflow-hidden flex flex-col items-center justify-center relative">
 
       {/* HEADER */}
       <div className="w-full mb-16 md:mb-24 px-4 text-center">
@@ -135,11 +136,13 @@ export default function TravelSeasons({ onLoaded }: { onLoaded?: () => void }) {
                     {/* BORDER */}
                     <div className="absolute inset-0 border border-white/20 rounded-[40px] md:rounded-[60px] z-30 pointer-events-none" />
 
-                    {/* ✅ IMAGE FIX (use <img> to avoid Next issues) */}
-                    <img
+                    {/* Optimized responsive image */}
+                    <Image
                       src={season.image}
                       alt={season.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                      fill
+                      sizes="(max-width: 768px) 220px, 320px"
+                      className="object-cover group-hover:scale-110 transition duration-700"
                     />
 
                     {/* OVERLAY */}

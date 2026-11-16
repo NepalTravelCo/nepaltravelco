@@ -207,6 +207,19 @@ button {
 }
 
 /* ================================
+   Performance Utilities
+================================ */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 750px;
+}
+
+.bg-texture-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* ================================
    Scrollbar (Optional)
 ================================ */
 ::-webkit-scrollbar {

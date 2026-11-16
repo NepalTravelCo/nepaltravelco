@@ -88,7 +88,7 @@ export default function TravelRegions({ onLoaded }: { onLoaded?: () => void }) {
   const goToPrev = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
 
   return (
-    <section className="relative z-10 w-full min-h-screen lg:h-[800px] overflow-hidden bg-primary text-white">
+    <section className="content-auto relative z-10 w-full min-h-screen lg:h-[800px] overflow-hidden bg-primary text-white">
       <div className="container-max h-full relative z-10 py-20 flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
 
@@ -159,6 +159,7 @@ export default function TravelRegions({ onLoaded }: { onLoaded?: () => void }) {
                   alt={slide.type === "overview" ? "Nepal Map" : slide.title}
                   width={600}
                   height={500}
+                  sizes="(max-width: 1024px) 100vw, 500px"
                   className="w-full max-w-[500px] h-auto object-contain filter drop-shadow-[0_0_50px_rgba(0,0,0,0.5)]"
                 />
               </motion.div>
